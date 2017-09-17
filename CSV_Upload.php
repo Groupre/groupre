@@ -6,21 +6,16 @@
 $upload_dir = "rosters/";
 $upload_file = $upload_dir . basename($_FILES['userfile'] ['name']);
 
-$uploadsuccess = 1;
+$uploadsuccess = 0;
 
 
 /** Check to ensure that the file is a CSV
  */
-//if(isset($_POST["submit"])) {
-//    if (pathinfo($upload_file,PATHINFO_EXTENSION) != "csv"){
-//        echo "File is not a CSV";
-//        $uploadsuccess = 0;
-//    }
-//}
-
-
-if (file_exists($upload_file)){
-//rename the file here?
+if(isset($_POST["submit"])) {
+    if (pathinfo($upload_file,PATHINFO_EXTENSION) != "csv"){
+        echo "File is not a CSV";
+        $uploadsuccess = 0;
+    }
 }
 
 /** Check error codes and print relevant info.
