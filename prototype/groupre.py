@@ -6,6 +6,13 @@ import csv
 import sys
 import random
 
+STUDENT_REQUIRED_FIELDS = ['PID', 'StudentName', 'Score']
+CHAIR_REQUIRED_FIELDS = ['CID', 'TeamID']
+
+TRUE_VALUES = ['1', 'true', 'True', 'TRUE']
+FALSE_VALUES = ['FALSE', 'false', 'False', '0']
+NULL_VALUES = ['N/A', 'n/a', '', 'FALSE', 'false', 'False', '0']
+
 
 class GenericEntry:
     '''An object to store data pertaining to input in the context of input.csv.'''
@@ -30,15 +37,12 @@ class GenericEntry:
         data = {}
         i = 0
         while i != len(fieldList):
-            true_values = ['1', 'true', 'True', 'TRUE']
-            false_values = ['FALSE', 'false', 'False', '0']
-
             if (fieldList[i] == 'TeamID' or fieldList[i] == 'PID'
                     or fieldList[i] == 'CID' or fieldList[i] == 'Score'):
                 data[fieldList[i]] = dataList[i]
-            elif dataList[i] in true_values:
+            elif dataList[i] in TRUE_VALUES:
                 data[fieldList[i]] = True
-            elif dataList[i] in false_values:
+            elif dataList[i] in FALSE_VALUES:
                 data[fieldList[i]] = False
             else:
                 data[fieldList[i]] = dataList[i]
@@ -70,9 +74,7 @@ class Student(GenericEntry):
 
         for key in self.entry_data:
             if key not in requiredFieldsList:
-                null_values = ['N/A', 'n/a', '',
-                               'FALSE', 'false', 'False', '0']
-                if self.entry_data[key] not in null_values:
+                if self.entry_data[key] not in NULL_VALUES:
                     self.specificness += 1
 
         # print(self.specificness)
@@ -111,15 +113,14 @@ class TeamStructure():
         self.team_members.append(student.entry_data)
 
 
-def create_teams(students, chairs, team_structures,
-                 students_required_fields, chairs_required_fields, priority_fields):
+def create_teams(students, chairs, team_structures, priority_fields):
     '''Fills out an array of teams to be returned and formatted as a csv.'''
 
     # Format our header for the categories the input specified.
     team_fields = []
-    for field in students_required_fields:
+    for field in STUDENT_REQUIRED_FIELDS:
         team_fields.append(field)
-    for field in chairs_required_fields:
+    for field in CHAIR_REQUIRED_FIELDS:
         team_fields.append(field)
     for field in priority_fields:
         team_fields.append(field)
@@ -260,8 +261,6 @@ def main(args):
     else:
         print('Argument List:', str(args))
 
-    students_required_fields = ['PID', 'StudentName', 'Score']
-    chairs_required_fields = ['CID', 'TeamID']
     priority_fields = []
 
     chairs = []
@@ -270,14 +269,14 @@ def main(args):
         fields = next(reader)
 
         # Error checking on chair input for minimum required fields.
-        for required_field in chairs_required_fields:
+        for required_field in CHAIR_REQUIRED_FIELDS:
             if required_field not in fields:
                 raise ValueError(
                     'chairs csv file is lacking a', required_field, 'field!')
 
         # Pull our priority_fields by process of elimination.
         for field in fields:
-            if field not in chairs_required_fields:
+            if field not in CHAIR_REQUIRED_FIELDS:
                 priority_fields.append(field)
 
         for row in reader:
@@ -296,8 +295,7 @@ def main(args):
         fields = next(reader)
 
         # Error checking on student input for minimum required fields.
-        students_required_fields = ['PID', 'StudentName', 'Score']
-        for required_field in students_required_fields:
+        for required_field in STUDENT_REQUIRED_FIELDS:
             if required_field not in fields:
                 raise ValueError(
                     'students csv file is lacking a', required_field, 'field!')
@@ -305,13 +303,13 @@ def main(args):
         # Since students is filled out after chairs, use the already obtained priority_fields
         # to verify that our csvs match.
         for field in fields:
-            if field not in students_required_fields:
+            if field not in STUDENT_REQUIRED_FIELDS:
                 if field not in priority_fields:
                     raise ValueError(
                         'priority_fields between students csv and chairs csv do not match!')
 
         for row in reader:
-            students.append(Student(fields, row, students_required_fields))
+            students.append(Student(fields, row, STUDENT_REQUIRED_FIELDS))
 
     # print('---BEGIN STUDENTS---')
 
@@ -323,8 +321,7 @@ def main(args):
     # Run our algorithm to match students to chairs within teams, keeping in mind their
     # scores and preferences.
     team_structures = build_team_structures(chairs)
-    teams = create_teams(students, chairs, team_structures,
-                         students_required_fields, chairs_required_fields, priority_fields)
+    teams = create_teams(students, chairs, team_structures, priority_fields)
 
     # print('---BEGIN TEAMS---')
 
