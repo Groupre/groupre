@@ -5,6 +5,7 @@
 import csv
 import sys
 import random
+import time
 
 STUDENT_REQUIRED_FIELDS = ['PID', 'StudentName', 'Score']
 CHAIR_REQUIRED_FIELDS = ['CID', 'TeamID']
@@ -249,7 +250,7 @@ def build_team_structures(chairs):
 
 def main(args):
     '''Executes the goal of the module.'''
-
+    timer = time.clock()
     chairs_csv = ''
     students_csv = ''
 
@@ -259,7 +260,9 @@ def main(args):
         chairs_csv = 'chairsTest.csv'
         students_csv = 'studentsTest.csv'
     else:
-        print('Argument List:', str(args))
+        print('Argument List:', str(args[1:2]))
+        chairs_csv = args[1]
+        students_csv = args[2]
 
     priority_fields = []
 
@@ -310,7 +313,7 @@ def main(args):
 
         for row in reader:
             students.append(Student(fields, row, STUDENT_REQUIRED_FIELDS))
-
+    print("Processing", len(students), "students...")
     # print('---BEGIN STUDENTS---')
 
     # for student in students:
@@ -335,6 +338,8 @@ def main(args):
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for team in teams:
             writer.writerow(team)
-
+    print("Seats assigned. Writing to csv.")
+    print(time.clock() - timer, "seconds elapsed.")
+    
 
 main(sys.argv)
