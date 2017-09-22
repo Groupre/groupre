@@ -9,10 +9,21 @@ import time
 
 STUDENT_REQUIRED_FIELDS = ['PID', 'StudentName', 'Score']
 CHAIR_REQUIRED_FIELDS = ['CID', 'TeamID']
+DEBUG_FIELDS = ['PriorityScore']
 
 TRUE_VALUES = ['1', 'true', 'True', 'TRUE']
 FALSE_VALUES = ['FALSE', 'false', 'False', '0']
 NULL_VALUES = ['N/A', 'n/a', '', 'FALSE', 'false', 'False', '0']
+
+
+global STUDENT_FULL_PRIORITY
+STUDENT_FULL_PRIORITY = 0
+
+global STUDENT_PRIORITY_VALUE
+STUDENT_PRIORITY_VALUE = 0
+
+global STUDENT_PRIORITY_TOTAL
+STUDENT_PRIORITY_TOTAL = 0
 
 
 class GenericEntry:
@@ -21,10 +32,6 @@ class GenericEntry:
     entry_data = {}
 
     def __init__(self, fieldList=None, dataList=None):
-        # print('---GenericEntry---')
-        # print('fieldList:', fieldList)
-        # print('dataList:', dataList)
-
         # Argument error processing.
         if fieldList is None:
             raise ValueError('fieldList was null')
@@ -56,29 +63,15 @@ class GenericEntry:
 class Student(GenericEntry):
     '''A GenericEntry with an extra specificness value for student-to-chair matching purposes.'''
 
-    hasPriority = False
     specificness = 0
 
-    def __init__(self, fieldList=None, dataList=None, requiredFieldsList=None):
-        # print('---Student---')
-        # print('fieldList:', fieldList)
-        # print('dataList:', dataList)
-        # print('requiredFields:', requiredFieldsList)
-
-        # Argument error processing.
-        if requiredFieldsList is None:
-            raise ValueError('requiredFieldsList was null')
-
+    def __init__(self, fieldList=None, dataList=None):
         GenericEntry.__init__(self, fieldList, dataList)
 
-        # print(self.entry_data)
-
-        for key in self.entry_data:
-            if key not in requiredFieldsList:
-                if self.entry_data[key] not in NULL_VALUES:
+        for field in self.entry_data:
+            if field not in STUDENT_REQUIRED_FIELDS:
+                if str(self.entry_data[field]) not in NULL_VALUES:
                     self.specificness += 1
-
-        # print(self.specificness)
 
 
 class Team(GenericEntry):
@@ -88,14 +81,11 @@ class Team(GenericEntry):
 
     def __init__(self, fieldList=None, dataList=None):
         GenericEntry.__init__(self, fieldList, dataList)
-
         self.team_id = int(self.entry_data['TeamID'])
-
-        # print(self.team_id)
 
 
 class TeamStructure():
-    '''Data structure to store team score.'''
+    '''Data structure to store team attributes.'''
 
     team_chairs = []
     team_members = []
@@ -125,141 +115,172 @@ def create_teams(students, chairs, team_structures, priority_fields):
         team_fields.append(field)
     for field in priority_fields:
         team_fields.append(field)
+
+    # For debugging purposes, rates how well the PriorityMatch went.
     team_fields.append('PriorityScore')
 
     # Randomize our student order.
     random.shuffle(students)
 
     # Order them by specificness.
-    sorted_students = sorted(students, key=lambda x: x.specificness)
+    sorted_students = sorted(
+        students, key=lambda x: x.specificness, reverse=True)
 
     teams = []
     for student in sorted_students:
-        teams.append(find_match(student, chairs, priority_fields,
-                                team_fields, team_structures))
+        match = priority_match(student, chairs, priority_fields,
+                               team_fields, team_structures)
+
+        # See if we got a match.
+        if match:
+            teams.append(match)
+
+            # Remove the student from students.
+            students.remove(student)
 
     # Sort by TeamID
-    # for team in teams:
-    #    print(team.team_id)
     sorted_teams = sorted(teams, key=lambda x: x.team_id)
-    # for team in sorted_teams:
-    #    print(team.team_id)
 
     ret_teams = []
     ret_teams.append(team_fields)
     for team in sorted_teams:
         ret_teams.append(team.entry_data.values())
 
-    # VALIDATION
-    i = 0
-    while i < len(teams):
-        item = teams[i]
-        teams.remove(item)
-        for other_item in teams:
-            # print('item:', item.entry_data['CID'],
-            #      'otherItem:', other_item.entry_data['CID'])
-            if item.entry_data['CID'] == other_item.entry_data['CID']:
-                raise ValueError("CID SEEN TWICE IN OUTPUT!")
-        i += 1
-
-    # for teamstruct in team_structures:
-    #    print(teamstruct.team_id, teamstruct.score_total)
+    # DEBUG: VALIDATION (Relies on CID being unique!)
+    # i = 0
+    # while i < len(teams):
+    #    item = teams[i]
+    #    teams.remove(item)
+    #    for other_item in teams:
+        # print('item:', item.entry_data['CID'],
+        #      'otherItem:', other_item.entry_data['CID'])
+    #        if item.entry_data['CID'] == other_item.entry_data['CID']:
+    #            raise ValueError("CID SEEN TWICE IN OUTPUT!")
+    #    i += 1
+    # DEBUG: VALIDATION (Relies on CID being unique!)
 
     return ret_teams
 
 
-def find_match(student, chairs, priority_fields, team_fields, team_structures):
+def priority_match(student, chairs, priority_fields, team_fields, team_structures):
     '''This functionw will find a chair that is suitable for the student based
     on their preferences.'''
 
-    # TODO: Team matching with adherance to Score isn't being done yet.
-
     # Find the chairs that we might fill with this student.
-    i = 0
-    while i < len(priority_fields):
-        priority_field = priority_fields[i]
-        # print(priority_field)
+    #i = 0
+    # while i < len(priority_fields):
+    #    priority_field = priority_fields[i]
+    #    possible_chairs = [chair for chair in chairs if chair.entry_data[priority_field]
+    #                       == student.entry_data[priority_field]]
+    #    i += 1
 
-        # for chair in chairs:
-        #    print('chair:', chair.entry_data[priority_field])
+    # Find the possible_chairs that best match this student's priorities.
+    scored_chairs = {}
+    for chair in chairs:
+        score = 0
+        i = 0
+        while i < len(priority_fields):
+            priority_field = priority_fields[i]
+            if chair.entry_data[priority_field] == student.entry_data[priority_field]:
+                score += 1
+            i += 1
+        scored_chairs[chair] = score
 
-        # print('student:', student.entry_data[priority_field])
+    max_score = max(scored_chairs.values())
+    to_remove = []
+    num_found = 0
+    for chair in scored_chairs:
+        if scored_chairs[chair] != max_score:
+            to_remove.append(chair)
+        else:
+            num_found += 1
 
-        possible_chairs = [chair for chair in chairs if chair.entry_data[priority_field]
-                           == student.entry_data[priority_field]]
-        # for chair in possible_chairs:
-        #    print('possibleChair:', chair.entry_data)
+    for chair in to_remove:
+        scored_chairs.pop(chair)
 
-        i += 1
+    best_chairs = []
+    for chair in scored_chairs:
+        best_chairs.append(chair)
 
     # Randomize and choose a chair.
-    chair = random.choice(possible_chairs)
+    chair = random.choice(best_chairs)
     chairs.remove(chair)
 
     # Fill out data fields for the pair we have matched.
     data_fields = []
     for field in team_fields:
-        if field != 'PriorityScore':
+        if field not in DEBUG_FIELDS:
             if field in student.entry_data.keys():
                 data_fields.append(student.entry_data[field])
             else:
                 data_fields.append(chair.entry_data[field])
 
-    score_val = 0
+    # For debugging purposes, rates how well the PriorityMatch went.
+    priority_score_val = 0
     for field in priority_fields:
-        if student.entry_data[field] == chair.entry_data[field]:
-            score_val += 1
-    score = '{} of {}'.format(score_val, student.specificness)
-    data_fields.append(score)
+        if str(student.entry_data[field]) not in NULL_VALUES:
+            if student.entry_data[field] == chair.entry_data[field]:
+                priority_score_val += 1
 
-    # print('team_fields', team_fields)
-    # print('data_fields:', data_fields)
+    priority_score = '{} of {}'.format(
+        priority_score_val, student.specificness)
+
+    # Debug value to see how well priority matching satisfied student priorities.
+    global STUDENT_PRIORITY_VALUE
+    STUDENT_PRIORITY_VALUE += priority_score_val
+
+    global STUDENT_PRIORITY_TOTAL
+    STUDENT_PRIORITY_TOTAL += student.specificness
+
+    global STUDENT_FULL_PRIORITY
+    if priority_score_val == student.specificness:
+        STUDENT_FULL_PRIORITY += 1
+
+    data_fields.append(priority_score)
 
     ret = Team(team_fields, data_fields)
-    # print(ret.entry_data)
 
+    # Add member to team_structure.
+    # Used initially as back-bone for score-matching, may be unused in the future.
     this_team_id = ret.entry_data['TeamID']
     for team_structure in team_structures:
-        #print (this_team_id,'==',team_structure.team_id,'?')
         if int(this_team_id) == team_structure.team_id:
-            # print('Adding',student.entry_data,'to',team_structure)
             team_structure.add_member(student)
 
     return ret
 
 
 def build_team_structures(chairs):
-    '''Builds list of lists of chairs based on shared team values.'''
+    '''Builds a team_structure for every team provided. Provides unfinished
+    backbone for matching criteria among members that belong to a given team.'''
 
-    # Build available teams.
+    # Build and return structures for all available teams.
     num_teams = max(int(chair.entry_data['TeamID']) for chair in chairs)
-
     team_structures = []
     i = 1
     while i <= num_teams:
         team_structures.append(TeamStructure(chairs, i))
         i += 1
-
-    # for team in all_teams:
-    #    for chair in team.team_chairs:
-    #        print(chair.entry_data)
-    #    print(team.scoreTotal)
-
     return team_structures
 
 
 def main(args):
     '''Executes the goal of the module.'''
-    timer = time.clock()
-    chairs_csv = ''
-    students_csv = ''
 
+    # Initialization of csv files.
+    chairs_csv = None
+    students_csv = None
+
+    # Handling of arguments for csv file selection.
     print('Number of extra arguments:', len(args) - 1)
     if len(args) == 1:
+        # Debug default case, use internal test files.
+        # TODO Replace with an automated test that invokes groupe.py for all tests.
         print('No arguments, using default files.')
         chairs_csv = 'chairsTest.csv'
         students_csv = 'studentsTest.csv'
     else:
+        # Actual use case: chairs argument must come before students argument.
         print('Argument List:', str(args[1:2]))
         chairs_csv = args[1]
         students_csv = args[2]
@@ -285,13 +306,6 @@ def main(args):
         for row in reader:
             chairs.append(GenericEntry(fields, row))
 
-    # print('---BEGIN CHAIRS---')
-
-    # for chair in chairs:
-    #    print(chair.entry_data)
-
-    # print('---END CHAIRS---')
-
     students = []
     with open(students_csv, 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
@@ -312,34 +326,35 @@ def main(args):
                         'priority_fields between students csv and chairs csv do not match!')
 
         for row in reader:
-            students.append(Student(fields, row, STUDENT_REQUIRED_FIELDS))
-    print("Processing", len(students), "students...")
-    # print('---BEGIN STUDENTS---')
+            students.append(Student(fields, row))
 
-    # for student in students:
-    #    print(student.entry_data, student.specificness)
-
-    # print('---END STUDENTS---')
+    # Benchmarking statement.
+    total_students = len(students)
+    print('Processing', total_students, 'students...')
 
     # Run our algorithm to match students to chairs within teams, keeping in mind their
     # scores and preferences.
     team_structures = build_team_structures(chairs)
     teams = create_teams(students, chairs, team_structures, priority_fields)
 
-    # print('---BEGIN TEAMS---')
-
-    # for team in teams:
-    #    print(team)
-
-    # print('---END TEAMS---')
-
-    with open('output.csv', 'w') as csvfile:
+    # Write our output to a csv.
+    # NOTE "newline=''" required when writing on an OS that ends lines in CRLF rather than just LF.
+    print('Seats assigned. Writing to csv.')
+    with open('output.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for team in teams:
             writer.writerow(team)
-    print("Seats assigned. Writing to csv.")
-    print(time.clock() - timer, "seconds elapsed.")
-    
 
+    print('----------')
+    print('Student Priority Rating:',
+          round(STUDENT_PRIORITY_VALUE / STUDENT_PRIORITY_TOTAL * 100, 2), '%')
+    print('Student Full Priority Rating:',
+          STUDENT_FULL_PRIORITY / total_students * 100, '%')
+    print('----------')
+
+
+# Benchmark timer start.
+t0 = time.clock()
 main(sys.argv)
+print(time.clock(), 'seconds elapsed.')
