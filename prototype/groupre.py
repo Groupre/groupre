@@ -45,8 +45,7 @@ class GenericEntry:
         data = {}
         i = 0
         while i != len(fieldList):
-            if (fieldList[i] == 'TeamID' or fieldList[i] == 'PID'
-                    or fieldList[i] == 'CID' or fieldList[i] == 'Score'):
+            if fieldList[i] in STUDENT_REQUIRED_FIELDS or fieldList[i] in CHAIR_REQUIRED_FIELDS:
                 data[fieldList[i]] = dataList[i]
             elif dataList[i] in TRUE_VALUES:
                 data[fieldList[i]] = True
@@ -272,7 +271,6 @@ def main(args):
     students_csv = None
 
     # Handling of arguments for csv file selection.
-    print('Number of extra arguments:', len(args) - 1)
     if len(args) == 1:
         # Debug default case, use internal test files.
         # TODO Replace with an automated test that invokes groupe.py for all tests.
@@ -339,6 +337,7 @@ def main(args):
 
     # Write our output to a csv.
     # NOTE "newline=''" required when writing on an OS that ends lines in CRLF rather than just LF.
+    print('----------')
     print('Seats assigned. Writing to csv.')
     with open('output.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',',
@@ -355,6 +354,11 @@ def main(args):
 
 
 # Benchmark timer start.
-t0 = time.clock()
+time.clock()
+print('----------')
+
 main(sys.argv)
+
+# Benchmark timer end.
 print(time.clock(), 'seconds elapsed.')
+print('----------')
