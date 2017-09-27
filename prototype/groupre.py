@@ -73,7 +73,7 @@ class Student(GenericEntry):
                     self.specificness += 1
 
 
-class Team(GenericEntry):
+class TeamMember(GenericEntry):
     '''A GenericEntry with an extra TeamID value for team sorting purposes.'''
 
     team_id = 0
@@ -237,7 +237,7 @@ def priority_match(student, chairs, priority_fields, team_fields, team_structure
 
     data_fields.append(priority_score)
 
-    ret = Team(team_fields, data_fields)
+    ret = TeamMember(team_fields, data_fields)
 
     # Add member to team_structure.
     # Used initially as back-bone for score-matching, may be unused in the future.
