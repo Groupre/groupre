@@ -151,8 +151,8 @@ def create_teams(students, chairs, team_structures, priority_fields):
     #    item = teams[i]
     #    teams.remove(item)
     #    for other_item in teams:
-        # print('item:', item.entry_data['CID'],
-        #      'otherItem:', other_item.entry_data['CID'])
+    #     print('item:', item.entry_data['CID'],
+    #          'otherItem:', other_item.entry_data['CID'])
     #        if item.entry_data['CID'] == other_item.entry_data['CID']:
     #            raise ValueError("CID SEEN TWICE IN OUTPUT!")
     #    i += 1
