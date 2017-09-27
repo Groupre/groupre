@@ -1,3 +1,3 @@
 <?php
-echo "<h1> PICKLE RICK </h1>";
+echo "<h1> Test Page </h1>";
 echo "<img src='/src/interface/'Groupre Icon.jpg' alt= 'Groupre'>";
