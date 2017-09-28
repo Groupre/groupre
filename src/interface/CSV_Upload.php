@@ -3,7 +3,7 @@
  *
  */
 
-$upload_dir = "src/interface/uploads/";
+$upload_dir = "/opt/app-root/src/src/interface/uploads/";
 $upload_file = $upload_dir . basename($_FILES['userfile'] ['name']);
 
 $uploadsuccess = 1;
