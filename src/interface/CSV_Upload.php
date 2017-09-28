@@ -3,27 +3,32 @@
  *
  */
 
-$upload_dir = "/opt/app-root/src/src/interface/uploads/";
+$upload_dir = $OPENSHIFT_DATA_DIR;
 $upload_file = $upload_dir . basename($_FILES['userfile'] ['name']);
+echo "<br>";
+echo $upload_file;
+echo "<br>";
 
 $uploadsuccess = 1;
 
 
 /** Check to ensure that the file is a CSV
  */
-if(isset($_POST["submit"])) {
-    if (pathinfo($upload_file,PATHINFO_EXTENSION) != "csv"){
-        echo "File is not a CSV";
-        $uploadsuccess = 0;
-    }
-}
-
+//if(isset($_POST["submit"])) {
+//    if (pathinfo($upload_file,PATHINFO_EXTENSION) != "text/csv"){
+//        echo "File is not a CSV";
+//        $uploadsuccess = 0;
+//    }
+//}
+echo "<br>";
+echo "Upload success: ".$uploadsuccess;
+echo "<br>";
 /** Check error codes and print relevant info.
  */
 
 switch ($_FILES['userfile']['error']){
     case 0:
-        echo "Upload OK.";
+        echo "No error in file.";
         $uploadsuccess = 1;
         break;
     case 1:
@@ -55,6 +60,8 @@ switch ($_FILES['userfile']['error']){
 /**Attempt upload if no errors are detected.
  **/
 
+
+
 if ($uploadsuccess == 0){
     echo "Failed to upload.";
 } else {
@@ -63,10 +70,9 @@ if ($uploadsuccess == 0){
     if (move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_file)){
         echo "CSV successfully uploaded.";
     } else {
-        echo "Failed to upload. Printing info.\n";
+        echo "Failed to upload. Printing info:\n";
     }
 
-    echo "Info:";
     print_r($_FILES);
 
     print "</pre>";
@@ -76,7 +82,7 @@ if ($uploadsuccess == 0){
 //    $file = fopen("/home/jose/Documents/rosters/students.csv", 'x+');
 //    fputcsv($file, $students_csv);
 
-    /** Allows user to download assigned_seats.csv
+    /** Allows user to download output.csv
      */
 
     //header("Content-Disposition: attachment; filename=\"" . basename($assigned_seats) . "\"");
