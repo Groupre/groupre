@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Groupre</title>
+    <link rel="stylesheet" href="test.css" type="text/css">
+    <title>groupre</title>
 </head>
 <body>
-    <a>CSV Upload</a>
+<h1>Groupre</h1>
+<br>
+<br>
+<form enctype="multipart/form-data" action="CSV_Upload.php" method="POST">
+    <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+    Select a CSV to upload: <input name="userfile" type="file" accept=".csv" />
+    <input type="submit" value="Upload CSV" />
+</form>
 </body>
 </html>

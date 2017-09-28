@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1>Groupre</h1>
-<img class="fish" alt="groupythegrouper" src='src/interface/groupre.jpg' alt= 'Groupre'>
+<a href="src/interface/index.html" <img class="fish" alt="groupythegrouper" src='src/interface/groupre.jpg' alt= 'Groupre'>
 <br>
 <a href="https://github.com/jeyerena/ClassTeamBuilder"><img alt="Github page" src="src/interface/GitHub-Mark/PNG/GitHub-Mark-64px.png"></a>
 </body>
