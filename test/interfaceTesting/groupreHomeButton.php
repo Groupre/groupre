@@ -54,7 +54,7 @@ location.href = val;
 </body>
 </html> -->
 
-<!-- <BUTTON ONCLICK="javascript:goToURL('https://github.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/pywrap.php')" style="height:300px;width:1600px">BUTTON!!!!!</BUTTON> -->
+<BUTTON ONCLICK="javascript:goToURL('https://github.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/pywrap.php')" style="height:300px;width:1600px">BUTTON!!!!!</BUTTON>
 
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript">
