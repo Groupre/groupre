@@ -27,12 +27,12 @@ location.href = val;
 //-->
 </script>
 
-<!-- <html>
+<html>
 <head>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script language="javascript">
         function groupre() {
-            // function below will run clear.php?h=michael
+            // function below will run clear.php?
             $.ajax({
                 type: "GET",
                 url: "https://rawgit.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/pywrap.php" ,
@@ -52,16 +52,16 @@ location.href = val;
 <body>
     <a id="goForthAndDO" href="#" onclick="groupre()">BUTTON!!!!!!!!!!!!!!!!</a>
 </body>
-</html> -->
+</html>
 
-<BUTTON ONCLICK="javascript:goToURL('https://github.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/pywrap.php')" style="height:300px;width:1600px">BUTTON!!!!!</BUTTON>
+<!-- <BUTTON ONCLICK="javascript:goToURL('https://github.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/pywrap.php')" style="height:300px;width:1600px">BUTTON!!!!!</BUTTON>
 
 <script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript">
 function groupre() {
     $.get("https://cdn.rawgit.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/pywrap.php");
     return false;
-}
+} -->
 </script>
 
 
