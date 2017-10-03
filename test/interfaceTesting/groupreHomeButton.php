@@ -66,9 +66,9 @@ function myAjax () {
 $.ajax( { type : 'POST',
           data : { },
           url  : 'pywrap.php',              
-          success: function ( data ) {
-            alert( data );              
-		  echo $output;
+          success: function ( output ) {
+            alert( output );              
+		  //echo $output;
           },
           error: function ( xhr ) {
             alert( "error" );
