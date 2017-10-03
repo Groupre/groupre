@@ -32,20 +32,13 @@ location.href = val;
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script language="javascript">
         function groupre() {
-            // function below will run clear.php?
+          
             $.ajax({
                 type: "GET",
                 url: "https://rawgit.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/pywrap.php" ,
                 data: { h: "Cody" },
-                success : function() { 
-
-                    // here is the code that will run on client side after running clear.php on server
-
-                    // function below reloads current page
-                    location.reload();
-
-                }
-            });
+                success : function()
+	    });
         }
     </script>
 </head>
