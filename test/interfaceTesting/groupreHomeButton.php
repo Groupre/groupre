@@ -20,15 +20,15 @@
  <p> <img src="Groupre Icon.jpg" alt="Fish" style="width:20%"></p> 
 
  <script type="text/javascript">
-//<!--
+
 function goToURL(val){
 location.href = val;
 }
-//-->
+
 </script>
 
 <html>
-<!-- <head>
+<head>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script language="javascript">
         function groupre() {
@@ -45,20 +45,19 @@ location.href = val;
  <body>
      <a id="goForthAndDO" href="#" onclick="groupre()">BUTTON!!!!!!!!!!!!!!!!</a>
  </body>
- </html> -->
+ </html>
+ 
+<BUTTON ONCLICK="javascript:goToURL('https://github.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/pywrap.php')" style="height:300px;width:1600px">BUTTON!!!!!</BUTTON>
 
-// <!-- <BUTTON ONCLICK="javascript:goToURL('https://github.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/pywrap.php')" style="height:300px;width:1600px">BUTTON!!!!!</BUTTON>
-
-// <script type="text/javascript" src="jquery.min.js"></script>
-// <script type="text/javascript">
-// function groupre() {
-//     $.get("https://cdn.rawgit.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/pywrap.php");
-//     return false;
-// } -->
-// </script>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript">
+ function groupre() {
+     $.get("pywrap.php");
+     return false;
+}
+</script>
 
 	
-	<html>
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type = "text/javascript">
@@ -79,8 +78,6 @@ $.ajax( { type : 'POST',
   </head>
   <body>
     <button onclick="myAjax()" style="height:300px;width:1600px">BUTTON!!!!!!!!!!!!!!!!!!!!!!!!!!</button>
-  </body>
-</html>
 <?php
 
 // $command = escapeshellcmd('https://rawgit.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/groupre.py');
@@ -91,7 +88,7 @@ $.ajax( { type : 'POST',
 // ?>
 
 
-<!-- <a href="#" onclick="groupre();">Button!!!!!!!!</a> -->
+<a href="#" onclick="groupre();">Button!!!!!!!!</a>
 
 <!--  <div class="container ">	        
 			<header class="row">
