@@ -28,7 +28,7 @@ location.href = val;
 </script>
 
 <html>
-<head>
+<!-- <head>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script language="javascript">
         function groupre() {
@@ -39,24 +39,55 @@ location.href = val;
                 data: { h: "Cody" },
                 success : function()
 	    });
-        }
-    </script>
+        } -->
+<!-- </script>
 </head>
-<body>
-    <a id="goForthAndDO" href="#" onclick="groupre()">BUTTON!!!!!!!!!!!!!!!!</a>
-</body>
+ <body>
+     <a id="goForthAndDO" href="#" onclick="groupre()">BUTTON!!!!!!!!!!!!!!!!</a>
+ </body>
+ </html> -->
+
+// <!-- <BUTTON ONCLICK="javascript:goToURL('https://github.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/pywrap.php')" style="height:300px;width:1600px">BUTTON!!!!!</BUTTON>
+
+// <script type="text/javascript" src="jquery.min.js"></script>
+// <script type="text/javascript">
+// function groupre() {
+//     $.get("https://cdn.rawgit.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/pywrap.php");
+//     return false;
+// } -->
+// </script>
+
+	
+	<html>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type = "text/javascript">
+function myAjax () {
+$.ajax( { type : 'POST',
+          data : { },
+          url  : 'pywrap.php',              // <=== CALL THE PHP FUNCTION HERE.
+          success: function ( data ) {
+            alert( data );               // <=== VALUE RETURNED FROM FUNCTION.
+          },
+          error: function ( xhr ) {
+            alert( "error" );
+          }
+        });
+}
+    </script>
+  </head>
+  <body>
+    <button onclick="myAjax()">Click here</button> <!-- BUTTON CALL PHP FUNCTION -->
+  </body>
 </html>
+<?php
 
-<!-- <BUTTON ONCLICK="javascript:goToURL('https://github.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/pywrap.php')" style="height:300px;width:1600px">BUTTON!!!!!</BUTTON>
-
-<script type="text/javascript" src="jquery.min.js"></script>
-<script type="text/javascript">
-function groupre() {
-    $.get("https://cdn.rawgit.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/pywrap.php");
-    return false;
-} -->
-</script>
-
+// $command = escapeshellcmd('https://rawgit.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/groupre.py');
+// $output = shell_exec($command);
+// echo $output;
+// echo 'Thank you for using Groupre! <br />';
+// //https://cdn.rawgit.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/
+// ?>
 
 
 <!-- <a href="#" onclick="groupre();">Button!!!!!!!!</a> -->
