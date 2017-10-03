@@ -63,7 +63,7 @@ location.href = val;
     <script type = "text/javascript">
 function myAjax () {
 $.ajax( { type : 'POST',
-          data : { chairs.csv },
+          data : { },
           url  : 'pywrap.php',              
           success: function ( data ) {
             alert( data );              
