@@ -65,9 +65,10 @@ location.href = val;
 function myAjax () {
 $.ajax( { type : 'POST',
           data : { },
-          url  : 'pywrap.php',              // <=== CALL THE PHP FUNCTION HERE.
+          url  : 'pywrap.php',              
           success: function ( data ) {
-            alert( data );               // <=== VALUE RETURNED FROM FUNCTION.
+            alert( data );              
+		  echo $output;
           },
           error: function ( xhr ) {
             alert( "error" );
@@ -77,7 +78,7 @@ $.ajax( { type : 'POST',
     </script>
   </head>
   <body>
-    <button onclick="myAjax()">Click here</button> <!-- BUTTON CALL PHP FUNCTION -->
+    <button onclick="myAjax()" style="height:300px;width:1600px">BUTTON!!!!!!!!!!!!!!!!!!!!!!!!!!</button>
   </body>
 </html>
 <?php
