@@ -28,7 +28,7 @@ location.href = val;
 </script>
 
 <html>
-<head>
+<!-- <head>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script language="javascript">
         function groupre() {
@@ -55,7 +55,7 @@ location.href = val;
      $.get("pywrap.php");
      return false;
 }
-</script>
+</script> -->
 
 	
   <head>
@@ -63,10 +63,10 @@ location.href = val;
     <script type = "text/javascript">
 function myAjax () {
 $.ajax( { type : 'POST',
-          data : { },
+          data : { chairs.csv },
           url  : 'pywrap.php',              
-          success: function ( output ) {
-            alert( output );              
+          success: function ( data ) {
+            alert( data );              
 		  //echo $output;
           },
           error: function ( xhr ) {
@@ -79,6 +79,8 @@ $.ajax( { type : 'POST',
   <body>
     <button onclick="myAjax()" style="height:300px;width:1600px">BUTTON!!!!!!!!!!!!!!!!!!!!!!!!!!</button>
 <?php
+	  
+// <a href="#" onclick="groupre();">Button!!!!!!!!</a>
 
 // $command = escapeshellcmd('https://rawgit.com/jeyerena/ClassTeamBuilder/tree/master/test/interfaceTesting/groupre.py');
 // $output = shell_exec($command);
@@ -88,7 +90,7 @@ $.ajax( { type : 'POST',
 // ?>
 
 
-<a href="#" onclick="groupre();">Button!!!!!!!!</a>
+
 
 <!--  <div class="container ">	        
 			<header class="row">
