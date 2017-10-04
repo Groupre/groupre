@@ -3,7 +3,7 @@
  *
  */
 
-$upload_dir = $OPENSHIFT_DATA_DIR;
+$upload_dir = 'src/interface/'; #$OPENSHIFT_DATA_DIR;
 $upload_file = $upload_dir . basename($_FILES['userfile'] ['name']);
 echo "<br>";
 echo $upload_file;
@@ -78,6 +78,26 @@ if ($uploadsuccess == 0){
     print "</pre>";
 
     $students_csv = $_FILES['userfile'];
+
+    $dir = "src/python";
+    $cmd = "python " . $dir . 'groupre.py ';
+
+    shell_exec($cmd);
+
+    $cmd = "htfx.sh";
+    $output = shell_exec($cmd);
+    echo $output;
+
+// We'll be outputting a PDF
+    header('Content-Type: application/csv');
+
+// It will be called downloaded.pdf
+    header('Content-Disposition: attachment; filename="output.csv"');
+
+// The PDF source is in original.pdf
+    readfile("output.csv");
+
+//    header($output);
     //include("Match.php");
 //    $file = fopen("/home/jose/Documents/rosters/students.csv", 'x+');
 //    fputcsv($file, $students_csv);
