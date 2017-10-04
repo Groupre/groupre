@@ -3,7 +3,7 @@
  *
  */
 
-$upload_dir = 'src/interface/'; #$OPENSHIFT_DATA_DIR;
+$upload_dir = $OPENSHIFT_DATA_DIR;
 $upload_file = $upload_dir . basename($_FILES['userfile'] ['name']);
 echo "<br>";
 echo $upload_file;
@@ -79,13 +79,15 @@ if ($uploadsuccess == 0){
 
     $students_csv = $_FILES['userfile'];
 
-    $dir = "src/python";
-    $cmd = "python " . $dir . 'groupre.py ';
+//    $dir = "src/python";
+    $cmd = "python groupre.py chairsTest.csv studentsTest.csv";
+
+    echo $cmd;
 
     shell_exec($cmd);
 
-    $cmd = "htfx.sh";
-    $output = shell_exec($cmd);
+    #$cmd = "./htfx.sh";
+  #  $output = shell_exec($cmd);
     echo $output;
 
 // We'll be outputting a PDF
@@ -96,17 +98,6 @@ if ($uploadsuccess == 0){
 
 // The PDF source is in original.pdf
     readfile("output.csv");
-
-//    header($output);
-    //include("Match.php");
-//    $file = fopen("/home/jose/Documents/rosters/students.csv", 'x+');
-//    fputcsv($file, $students_csv);
-
-    /** Allows user to download output.csv
-     */
-
-    //header("Content-Disposition: attachment; filename=\"" . basename($assigned_seats) . "\"");
-
 }
 
 
