@@ -3,7 +3,7 @@
  *
  */
 
-$upload_dir = $OPENSHIFT_DATA_DIR;
+$upload_dir = __DIR__. 'uploads/';# $OPENSHIFT_DATA_DIR;
 $upload_file = $upload_dir . basename($_FILES['userfile'] ['name']);
 echo "<br>";
 echo $upload_file;
