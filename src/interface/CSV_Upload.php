@@ -75,14 +75,10 @@ if ($uploadsuccess == 0){
 
     print "</pre>";
 
-    $students_csv = $_FILES['userfile'];
+    $students_csv = $upload_file;
 
     $cmd = "python groupre.py chairsTest.csv " . $students_csv;
     shell_exec($cmd);
-
-//    header('Content-Type: application/csv');
-//    header('Content-Disposition: attachment; filename='.$students_csv);
-//    readfile("students.csv");
 
     header('Content-Type: application/csv');
     header('Content-Disposition: attachment; filename="output.csv"');

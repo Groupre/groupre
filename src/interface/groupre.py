@@ -305,33 +305,26 @@ def main(args):
             chairs.append(GenericEntry(fields, row))
 
     students = []
-    try:
-        with open(students_csv, 'r') as csvfile:
-            reader = csv.reader(csvfile, delimiter=',')
-            fields = next(reader)
+    with open(students_csv, 'r') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',')
+        fields = next(reader)
 
-            # Error checking on student input for minimum required fields.
-            for required_field in STUDENT_REQUIRED_FIELDS:
-                if required_field not in fields:
+        # Error checking on student input for minimum required fields.
+        for required_field in STUDENT_REQUIRED_FIELDS:
+            if required_field not in fields:
+                raise ValueError(
+                    'students csv file is lacking a', required_field, 'field!')
+
+        # Since students is filled out after chairs, use the already obtained priority_fields
+        # to verify that our csvs match.
+        for field in fields:
+            if field not in STUDENT_REQUIRED_FIELDS:
+                if field not in priority_fields:
                     raise ValueError(
-                        'students csv file is lacking a', required_field, 'field!')
+                        'priority_fields between students csv and chairs csv do not match!')
 
-            # Since students is filled out after chairs, use the already obtained priority_fields
-            # to verify that our csvs match.
-            for field in fields:
-                if field not in STUDENT_REQUIRED_FIELDS:
-                    if field not in priority_fields:
-                        raise ValueError(
-                            'priority_fields between students csv and chairs csv do not match!')
-
-            for row in reader:
-                students.append(Student(fields, row))
-
-    except:
-        with open('err.csv', 'w', newline='') as csvfile:
-            writer = csv.writer(csvfile, delimiter=',',
-                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
-            writer.writerow('err')
+        for row in reader:
+            students.append(Student(fields, row))
 
     # Benchmarking statement.
     total_students = len(students)
