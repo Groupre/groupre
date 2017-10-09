@@ -3,7 +3,7 @@
  *
  */
 
-$upload_dir = __DIR__. '/uploads/';# $OPENSHIFT_DATA_DIR;
+$upload_dir = __DIR__.'/uploads/';
 $upload_file = $upload_dir . basename($_FILES['userfile'] ['name']);
 echo "<br>";
 echo $upload_file;
@@ -78,7 +78,7 @@ if ($uploadsuccess == 0){
     $students_csv = $upload_file;
 
     $cmd = "python groupre.py chairsTest.csv " . $students_csv;
-    shell_exec($cmd);
+    $output = shell_exec($cmd);
 
     header('Content-Type: application/csv');
     header('Content-Disposition: attachment; filename="output.csv"');
