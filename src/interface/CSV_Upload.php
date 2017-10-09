@@ -79,6 +79,7 @@ if ($uploadsuccess == 0){
 
     $cmd = "python groupre.py chairsTest.csv " . $students_csv;
     $output = shell_exec($cmd);
+    print $output;
 
     header('Content-Type: application/csv');
     header('Content-Disposition: attachment; filename="output.csv"');
