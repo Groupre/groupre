@@ -20,6 +20,7 @@ $uploadsuccess = 1;
 //        $uploadsuccess = 0;
 //    }
 //}
+
 echo "<br>";
 echo "Upload success: ".$uploadsuccess;
 echo "<br>";
@@ -59,9 +60,6 @@ switch ($_FILES['userfile']['error']){
 
 /**Attempt upload if no errors are detected.
  **/
-
-
-
 if ($uploadsuccess == 0){
     echo "Failed to upload.";
 } else {
@@ -79,23 +77,17 @@ if ($uploadsuccess == 0){
 
     $students_csv = $_FILES['userfile'];
 
-//    $dir = "src/python";
     $cmd = "python groupre.py chairsTest.csv " . $students_csv;
-
-    print $students_csv;
-
     shell_exec($cmd);
 
-  #$cmd = "./htfx.sh";
-  #  $output = shell_exec($cmd);
+    $cmd = ""
 
-// We'll be outputting a PDF
     header('Content-Type: application/csv');
+    header('Content-Disposition: attachment; filename='.$students_csv);
+    readfile("students.csv");
 
-// It will be called downloaded.pdf
+    header('Content-Type: application/csv');
     header('Content-Disposition: attachment; filename="output.csv"');
-
-// The PDF source is in original.pdf
     readfile("output.csv");
 }
 
