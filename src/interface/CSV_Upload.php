@@ -5,6 +5,7 @@
 
 $upload_dir = __DIR__.'/uploads/';
 $upload_file = $upload_dir . basename($_FILES['userfile'] ['name']);
+$students_csv = $upload_file;
 echo "<br>";
 echo $upload_file;
 echo "<br>";
@@ -63,9 +64,6 @@ switch ($_FILES['userfile']['error']){
 if ($uploadsuccess == 0){
     echo "Failed to upload.";
 } else {
-    $students_csv = '';
-    copy($upload_file, $students_csv);
-
     echo '<pre>';
 
     if (move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_file)){
