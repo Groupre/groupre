@@ -63,6 +63,9 @@ switch ($_FILES['userfile']['error']){
 if ($uploadsuccess == 0){
     echo "Failed to upload.";
 } else {
+    $students_csv = '';
+    copy($upload_file, $students_csv);
+
     echo '<pre>';
 
     if (move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_file)){
@@ -75,7 +78,6 @@ if ($uploadsuccess == 0){
 
     print "</pre>";
 
-    $students_csv = $upload_file;
 
     $cmd = "python groupre.py chairsTest.csv " . $students_csv;
     $output = shell_exec($cmd);
