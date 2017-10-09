@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import csv
 
 with open('test.csv', 'w', newline='') as csvfile:
