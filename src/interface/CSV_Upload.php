@@ -80,15 +80,14 @@ if ($uploadsuccess == 0){
     $students_csv = $_FILES['userfile'];
 
 //    $dir = "src/python";
-    $cmd = "python groupre.py chairsTest.csv studentsTest.csv";
+    $cmd = "python groupre.py chairsTest.csv " . $students_csv;
 
-    echo $cmd;
+    print $students_csv;
 
     shell_exec($cmd);
 
-    #$cmd = "./htfx.sh";
+  #$cmd = "./htfx.sh";
   #  $output = shell_exec($cmd);
-    echo $output;
 
 // We'll be outputting a PDF
     header('Content-Type: application/csv');
