@@ -6,9 +6,9 @@
 $upload_dir = __DIR__.'/uploads/';
 $upload_file = $upload_dir . basename($_FILES['userfile'] ['name']);
 $students_csv = $upload_file;
-echo "<br>";
-echo $upload_file;
-echo "<br>";
+//echo "<br>";
+//echo $upload_file;
+//echo "<br>";
 
 $uploadsuccess = 1;
 
@@ -62,25 +62,25 @@ switch ($_FILES['userfile']['error']){
 /**Attempt upload if no errors are detected.
  **/
 if ($uploadsuccess == 0){
-    echo "Failed to upload.";
+//    echo "Failed to upload.";
 } else {
     echo '<pre>';
 
     if (move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_file)){
-        echo "CSV successfully uploaded.";
+//        echo "CSV successfully uploaded.";
     } else {
-        echo "Failed to upload. Printing info:\n";
+//        echo "Failed to upload. Printing info:\n";
     }
 
-    print_r($_FILES);
+//    print_r($_FILES);
 
-    print "</pre>";
+//    print "</pre>";
 
     #TODO hotfix here; get r
     $chairs_csv = __DIR__.'/../../test/chairsTest.csv';
     $cmd = "python stoutgroupre.py chairsTest.csv " . $students_csv . '> output.csv';
     $output = shell_exec($cmd);
-    print $output;
+//    print $output;
 
     header('Content-Type: application/csv');
     header('Content-Disposition: attachment; filename="output.csv"');
