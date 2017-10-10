@@ -3,11 +3,9 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-//$cmd = "python pythontesting.py";
-//$output = shell_exec($cmd);
-//echo '<pre>';
-//echo ($output);
-//echo '</pre>';
+$cmd = "python groupre.py";
+$output = shell_exec($cmd);
+print ($output);
 
 $cmd = "python --version";
 $output = shell_exec($cmd);

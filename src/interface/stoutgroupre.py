@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 '''This module will be used to take input from a chairs.csv and a students.csv
  and return a csv of sorted teams.'''
 
@@ -274,12 +274,12 @@ def main(args):
     if len(args) == 1:
         # Debug default case, use internal test files.
         # TODO Replace with an automated test that invokes groupe.py for all tests.
-        print('No arguments, using default files.')
+       # print('No arguments, using default files.')
         chairs_csv = 'chairsTest.csv'
         students_csv = 'studentsTest.csv'
     else:
         # Actual use case: chairs argument must come before students argument.
-        print('Argument List:', str(args[1:2]))
+       # print('Argument List:', str(args[1:2]))
         chairs_csv = args[1]
         students_csv = args[2]
 
@@ -328,7 +328,7 @@ def main(args):
 
     # Benchmarking statement.
     total_students = len(students)
-    print('Processing', total_students, 'students...')
+   # print('Processing', total_students, 'students...')
 
     # Run our algorithm to match students to chairs within teams, keeping in mind their
     # scores and preferences.
@@ -337,28 +337,33 @@ def main(args):
 
     # Write our output to a csv.
     # NOTE "newline=''" required when writing on an OS that ends lines in CRLF rather than just LF.
-    print('----------')
-    print('Seats assigned. Writing to csv.')
+  #  print('----------')
     with open('output.csv', 'w', newline='') as csvfile:
+     #   print('Seats assigned. Writing to csv.')
         writer = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for team in teams:
             writer.writerow(team)
-
-    print('----------')
-    print('Student Priority Rating:',
-          round(STUDENT_PRIORITY_VALUE / STUDENT_PRIORITY_TOTAL * 100, 2), '%')
-    print('Student Full Priority Rating:',
-          STUDENT_FULL_PRIORITY / total_students * 100, '%')
-    print('----------')
+    for team in teams:
+        if not isinstance(team, list):
+            team = list(team)
+        team[:] = [str(x) for x in team]
+        team = ",".join(team)
+        print(team)
+    # print('----------')
+    # print('Student Priority Rating:',
+    #       round(STUDENT_PRIORITY_VALUE / STUDENT_PRIORITY_TOTAL * 100, 2), '%')
+    # print('Student Full Priority Rating:',
+    #       STUDENT_FULL_PRIORITY / total_students * 100, '%')
+    # print('----------')
 
 
 # Benchmark timer start.
 time.clock()
-print('----------')
+# print('----------')
 
 main(sys.argv)
 
 # Benchmark timer end.
-print(time.clock(), 'seconds elapsed.')
-print('----------')
+# print(time.clock(), 'seconds elapsed.')
+# print('----------')
