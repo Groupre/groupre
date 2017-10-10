@@ -77,7 +77,7 @@ if ($uploadsuccess == 0){
 //    print "</pre>";
 
     #TODO hotfix here; get r
-    $chairs_csv = __DIR__.'/../../test/chairsTest.csv';
+    $chairs_csv = __DIR__.'/../../test/testFiles/chairsTest.csv';
     $cmd = "python stoutgroupre.py chairsTest.csv " . $students_csv . ' > output.csv';
     $output = shell_exec($cmd);
     print $output;
