@@ -7,6 +7,11 @@ import sys
 import random
 import time
 
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("https://github.com/jeyerena/ClassTeamBuilder/blob/master/test/interfaceTesting/groupreHomeButton.php")
+
 STUDENT_REQUIRED_FIELDS = ['PID', 'StudentName', 'Score']
 CHAIR_REQUIRED_FIELDS = ['CID', 'TeamID']
 DEBUG_FIELDS = ['PriorityScore']
