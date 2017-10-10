@@ -1,9 +1,8 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
-import csv
+import platform
 
-print("Testing")
-print("Testing2")
+print(platform.python_version())
 
 # with open('test.csv', 'w', newline='') as csvfile:
 #     writer = csv.writer(csvfile, delimiter=',',

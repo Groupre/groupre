@@ -3,6 +3,14 @@
  *
  */
 
+function endsWith($haystack, $needle)
+{
+    $length = strlen($needle);
+
+    return $length === 0 ||
+        (substr($haystack, -$length) === $needle);
+}
+
 $upload_dir = __DIR__.'/uploads/';
 $upload_file = $upload_dir . basename($_FILES['userfile'] ['name']);
 $students_csv = $upload_file;
@@ -77,11 +85,33 @@ if ($uploadsuccess == 0){
 //    print "</pre>";
 
     #TODO hotfix here; get r
-    $chairs_csv = __DIR__.'/../../test/testFiles/chairsTest.csv';
-    $cmd = "python stoutgroupre.py " . $chairs_csv . ' ' . $students_csv . ' > output.csv';
-    $output = shell_exec($cmd);
-    print $output;
-
+    switch ($students_csv) {
+        case endsWith($students_csv, 't.csv'):
+            $chairs_csv = __DIR__ . '/../../test/testFiles/chairsTest.csv';
+            $cmd = "python stoutgroupre.py " . $chairs_csv . ' ' . $students_csv . ' > output.csv';
+            $output = shell_exec($cmd);
+            print $output;
+            break;
+        case endsWith($students_csv, '2.csv'):
+            $chairs_csv = __DIR__ . '/../../test/testFiles/chairsTest2.csv';
+            $cmd = "python stoutgroupre.py " . $chairs_csv . ' ' . $students_csv . ' > output.csv';
+            $output = shell_exec($cmd);
+            print $output;
+            break;
+        case endsWith($students_csv, '3.csv'):
+            $chairs_csv = __DIR__ . '/../../test/testFiles/chairsTest3.csv';
+            $cmd = "python stoutgroupre.py " . $chairs_csv . ' ' . $students_csv . ' > output.csv';
+            $output = shell_exec($cmd);
+            print $output;
+            break;
+        default:
+            $students_csv = __DIR__ . '/../../test/testFiles/students/studentsTest.csv';
+            $chairs_csv = __DIR__ . '/../../test/testFiles/chairsTest.csv';
+            $cmd = "python stoutgroupre.py " . $chairs_csv . ' ' . $students_csv . ' > output.csv';
+            $output = shell_exec($cmd);
+            print $output;
+            break;
+    }
     header('Content-Type: application/csv');
     header('Content-Disposition: attachment; filename="output.csv"');
     readfile("output.csv");

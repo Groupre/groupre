@@ -11,7 +11,12 @@
 <br>
 <form enctype="multipart/form-data" action="CSV_Upload.php" method="POST">
     <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-    Select a CSV to upload: <input name="userfile" type="file" accept=".csv" />
+    Upload a Student Preferences CSV: <input name="userfile" type="file" accept=".csv" />
+    <input type="submit" value="Upload CSV" />
+</form>
+<form enctype="multipart/form-data" action="CSV_Upload.php" method="POST">
+    <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+    Upload a room CSV: <input name="userfile" type="file" accept=".csv" />
     <input type="submit" value="Upload CSV" />
 </form>
 </body>
