@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 '''This module will be used to take input from a chairs.csv and a students.csv
  and return a csv of sorted teams.'''
 
@@ -338,18 +338,20 @@ def main(args):
     # Write our output to a csv.
     # NOTE "newline=''" required when writing on an OS that ends lines in CRLF rather than just LF.
   #  print('----------')
-    with open('output.csv', 'w', newline='') as csvfile:
-     #   print('Seats assigned. Writing to csv.')
-        writer = csv.writer(csvfile, delimiter=',',
-                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    try:
+        with open('output.csv', 'w', newline='') as csvfile:
+         #   print('Seats assigned. Writing to csv.')
+            writer = csv.writer(csvfile, delimiter=',',
+                                quotechar='|', quoting=csv.QUOTE_MINIMAL)
+            for team in teams:
+                writer.writerow(team)
+    except TypeError:
         for team in teams:
-            writer.writerow(team)
-    for team in teams:
-        if not isinstance(team, list):
-            team = list(team)
-        team[:] = [str(x) for x in team]
-        team = ",".join(team)
-        print(team)
+            if not isinstance(team, list):
+                team = list(team)
+            team[:] = [str(x) for x in team]
+            team = ",".join(team)
+            print(team)
     # print('----------')
     # print('Student Priority Rating:',
     #       round(STUDENT_PRIORITY_VALUE / STUDENT_PRIORITY_TOTAL * 100, 2), '%')
