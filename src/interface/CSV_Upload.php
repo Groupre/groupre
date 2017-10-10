@@ -22,15 +22,15 @@ $uploadsuccess = 1;
 //    }
 //}
 
-echo "<br>";
-echo "Upload success: ".$uploadsuccess;
-echo "<br>";
+//echo "<br>";
+//echo "Upload success: ".$uploadsuccess;
+//echo "<br>";
 /** Check error codes and print relevant info.
  */
 
 switch ($_FILES['userfile']['error']){
     case 0:
-        echo "No error in file.";
+//        echo "No error in file.";
         $uploadsuccess = 1;
         break;
     case 1:
@@ -64,7 +64,7 @@ switch ($_FILES['userfile']['error']){
 if ($uploadsuccess == 0){
 //    echo "Failed to upload.";
 } else {
-    echo '<pre>';
+//    echo '<pre>';
 
     if (move_uploaded_file($_FILES['userfile']['tmp_name'], $upload_file)){
 //        echo "CSV successfully uploaded.";
@@ -78,9 +78,9 @@ if ($uploadsuccess == 0){
 
     #TODO hotfix here; get r
     $chairs_csv = __DIR__.'/../../test/chairsTest.csv';
-    $cmd = "python stoutgroupre.py chairsTest.csv " . $students_csv . '> output.csv';
+    $cmd = "python stoutgroupre.py chairsTest.csv " . $students_csv . ' > output.csv';
     $output = shell_exec($cmd);
-//    print $output;
+    print $output;
 
     header('Content-Type: application/csv');
     header('Content-Disposition: attachment; filename="output.csv"');
