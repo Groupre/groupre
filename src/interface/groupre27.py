@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 '''This module will be used to take input from a chairs.csv and a students.csv
  and return a csv of sorted teams.'''
 
@@ -118,17 +118,37 @@ def create_teams(students, chairs, team_structures, priority_fields):
     # For debugging purposes, rates how well the PriorityMatch went.
     team_fields.append('PriorityScore')
 
-    # Randomize our student order.
-    random.shuffle(students)
+    # Split our students into those who have priorities and those who don't.
+    no_priority_students = []
+    priority_students = []
+    for student in students:
+        if student.specificness == 0:
+            no_priority_students.append(student)
+        elif student.specificness > 0:
+            priority_students.append(student)
 
-    # Order them by specificness.
-    sorted_students = sorted(
-        students, key=lambda x: x.specificness, reverse=True)
+    # Randomize our student list orders.
+    random.shuffle(no_priority_students)
+    random.shuffle(priority_students)
+
+    # Order our priority students  by specificness.
+    sorted_priority_students = sorted(
+        priority_students, key=lambda x: x.specificness, reverse=True)
 
     teams = []
-    for student in sorted_students:
+    for student in sorted_priority_students:
         match = priority_match(student, chairs, priority_fields,
                                team_fields, team_structures)
+
+        # See if we got a match.
+        if match:
+            teams.append(match)
+
+            # Remove the student from students.
+            students.remove(student)
+
+    for student in no_priority_students:
+        match = random_match(student, chairs, team_fields, team_structures)
 
         # See if we got a match.
         if match:
@@ -161,17 +181,40 @@ def create_teams(students, chairs, team_structures, priority_fields):
     return ret_teams
 
 
+def random_match(student, chairs, team_fields, team_structures):
+    '''This functionw will find a chair for the student at random.'''
+
+    # Randomly choose a chair.
+    chair = random.choice(chairs)
+    chairs.remove(chair)
+
+    # Fill out data fields for the pair we have matched.
+    data_fields = []
+    for field in team_fields:
+        if field not in DEBUG_FIELDS:
+            if field in student.entry_data.keys():
+                data_fields.append(student.entry_data[field])
+            else:
+                data_fields.append(chair.entry_data[field])
+
+    # Fill priority_score field with NULL.
+    data_fields.append("NULL")
+
+    ret = TeamMember(team_fields, data_fields)
+
+    # Add member to team_structure.
+    # Used initially as back-bone for score-matching, may be unused in the future.
+    this_team_id = ret.entry_data['TeamID']
+    for team_structure in team_structures:
+        if int(this_team_id) == team_structure.team_id:
+            team_structure.add_member(student)
+
+    return ret
+
+
 def priority_match(student, chairs, priority_fields, team_fields, team_structures):
     '''This functionw will find a chair that is suitable for the student based
     on their preferences.'''
-
-    # Find the chairs that we might fill with this student.
-    #i = 0
-    # while i < len(priority_fields):
-    #    priority_field = priority_fields[i]
-    #    possible_chairs = [chair for chair in chairs if chair.entry_data[priority_field]
-    #                       == student.entry_data[priority_field]]
-    #    i += 1
 
     # Find the possible_chairs that best match this student's priorities.
     scored_chairs = {}
@@ -272,16 +315,20 @@ def main(args):
 
     # Handling of arguments for csv file selection.
     if len(args) == 1:
-        # Debug default case, use internal test files.
-        # TODO Replace with an automated test that invokes groupe.py for all tests.
-        print('No arguments, using default files.')
-        chairs_csv = 'chairsTest.csv'
-        students_csv = 'studentsTest.csv'
-    else:
-        # Actual use case: chairs argument must come before students argument.
-        print('Argument List:', str(args[1:2]))
-        chairs_csv = args[1]
-        students_csv = args[2]
+        print('''Not enough input arguments provided.
+        Please provide groupre27.py with a chairs csv and students csv (in that order).''')
+        return
+    # Debug default case, use internal test files.
+    # TODO Replace with an automated test that invokes groupre27.py for all tests.
+    # print('No arguments, using default files.')
+    # chairs_csv = 'chairsTest.csv'
+    # students_csv = 'studentsTest.csv'
+    # else:
+
+    # Actual use case: chairs argument must come before students argument.
+    print('Argument List:', str(args[1:2]))
+    chairs_csv = args[1]
+    students_csv = args[2]
 
     priority_fields = []
 
@@ -339,7 +386,7 @@ def main(args):
     # NOTE "newline=''" required when writing on an OS that ends lines in CRLF rather than just LF.
     print('----------')
     print('Seats assigned. Writing to csv.')
-    with open('output.csv', 'w', newline='') as csvfile:
+    with open('output.csv', 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for team in teams:

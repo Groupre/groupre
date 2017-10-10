@@ -88,26 +88,26 @@ if ($uploadsuccess == 0){
     switch ($students_csv) {
         case endsWith($students_csv, 't.csv'):
             $chairs_csv = __DIR__ . '/../../test/testFiles/chairsTest.csv';
-            $cmd = "python stoutgroupre.py " . $chairs_csv . ' ' . $students_csv . ' > output.csv';
+            $cmd = "python groupre27.py " . $chairs_csv . ' ' . $students_csv . ' > output.csv';
             $output = shell_exec($cmd);
             print $output;
             break;
         case endsWith($students_csv, '2.csv'):
             $chairs_csv = __DIR__ . '/../../test/testFiles/chairsTest2.csv';
-            $cmd = "python stoutgroupre.py " . $chairs_csv . ' ' . $students_csv . ' > output.csv';
+            $cmd = "python groupre27.py " . $chairs_csv . ' ' . $students_csv . ' > output.csv';
             $output = shell_exec($cmd);
             print $output;
             break;
         case endsWith($students_csv, '3.csv'):
             $chairs_csv = __DIR__ . '/../../test/testFiles/chairsTest3.csv';
-            $cmd = "python stoutgroupre.py " . $chairs_csv . ' ' . $students_csv . ' > output.csv';
+            $cmd = "python groupre27.py " . $chairs_csv . ' ' . $students_csv . ' > output.csv';
             $output = shell_exec($cmd);
             print $output;
             break;
         default:
             $students_csv = __DIR__ . '/../../test/testFiles/students/studentsTest.csv';
             $chairs_csv = __DIR__ . '/../../test/testFiles/chairsTest.csv';
-            $cmd = "python stoutgroupre.py " . $chairs_csv . ' ' . $students_csv . ' > output.csv';
+            $cmd = "python groupre27.py " . $chairs_csv . ' ' . $students_csv . ' > output.csv';
             $output = shell_exec($cmd);
             print $output;
             break;

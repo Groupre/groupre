@@ -316,10 +316,10 @@ def main(args):
     # Handling of arguments for csv file selection.
     if len(args) == 1:
         print('''Not enough input arguments provided.
-        Please provide groupre.py with a chairs csv and students csv (in that order).''')
+        Please provide groupre27.py with a chairs csv and students csv (in that order).''')
         return
     # Debug default case, use internal test files.
-    # TODO Replace with an automated test that invokes groupre.py for all tests.
+    # TODO Replace with an automated test that invokes groupre27.py for all tests.
     # print('No arguments, using default files.')
     # chairs_csv = 'chairsTest.csv'
     # students_csv = 'studentsTest.csv'
