@@ -8,6 +8,5 @@ TRUE_VALUES = ['1', 'true', 'True', 'TRUE']
 FALSE_VALUES = ['FALSE', 'false', 'False', '0']
 NULL_VALUES = ['N/A', 'n/a', '', 'FALSE', 'false', 'False', '0']
 
-STUDENT_FULL_PRIORITY = 0
 STUDENT_PRIORITY_VALUE = 0
 STUDENT_PRIORITY_TOTAL = 0

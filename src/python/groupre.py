@@ -101,8 +101,6 @@ def main(args):
     print('Student Priority Rating:',
           round(groupre_globals.STUDENT_PRIORITY_VALUE /
                 groupre_globals.STUDENT_PRIORITY_TOTAL * 100, 2), '%')
-    # print('Student Full Priority Rating:',
-    #       groupre_globals.STUDENT_FULL_PRIORITY / total_students * 100, '%')
     print('----------')
 
 
