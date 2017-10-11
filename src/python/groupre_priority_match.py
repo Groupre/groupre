@@ -62,15 +62,8 @@ def priority_match(student, chairs, priority_fields, team_fields, team_structure
         priority_score_val, student.specificness)
 
     # Debug value to see how well priority matching satisfied student priorities.
-    # global STUDENT_PRIORITY_VALUE
     groupre_globals.STUDENT_PRIORITY_VALUE += priority_score_val
-
-    # global STUDENT_PRIORITY_TOTAL
     groupre_globals.STUDENT_PRIORITY_TOTAL += student.specificness
-
-    # global STUDENT_FULL_PRIORITY
-    if priority_score_val == student.specificness:
-        groupre_globals.STUDENT_FULL_PRIORITY += 1
 
     data_fields.append(priority_score)
 
