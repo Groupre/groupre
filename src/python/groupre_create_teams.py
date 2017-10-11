@@ -16,8 +16,6 @@ def create_teams(students, chairs, team_structures, priority_fields):
         team_fields.append(field)
     for field in groupre_globals.CHAIR_REQUIRED_FIELDS:
         team_fields.append(field)
-    for field in priority_fields:
-        team_fields.append(field)
 
     # For debugging purposes, rates how well the PriorityMatch went.
     team_fields.append('PriorityScore')
@@ -41,8 +39,8 @@ def create_teams(students, chairs, team_structures, priority_fields):
 
     teams = []
     for student in sorted_priority_students:
-        match = groupre_priority_match.priority_match(student, chairs, priority_fields,
-                                                      team_fields, team_structures)
+        match = groupre_priority_match.priority_match(
+            student, chairs, priority_fields, team_fields, team_structures)
 
         # See if we got a match.
         if match:

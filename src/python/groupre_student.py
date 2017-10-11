@@ -1,18 +1,27 @@
 '''This module contains the Student class used by groupre.'''
 
-import groupre_genericentry
 import groupre_globals
 
 
-class Student(groupre_genericentry.GenericEntry):
-    '''A GenericEntry with an extra specificness value for student-to-chair matching purposes.'''
+class Student:
+    '''A class dedicated to storing the preferences and specificness level of a given Student.'''
 
-    specificness = 0
+    student_id = None
+    student_name = None
+    score = None
 
-    def __init__(self, fieldList=None, dataList=None):
-        groupre_genericentry.GenericEntry.__init__(self, fieldList, dataList)
+    preferences = None
+    specificness = None
 
-        for field in self.entry_data:
-            if field not in groupre_globals.STUDENT_REQUIRED_FIELDS:
-                if str(self.entry_data[field]) not in groupre_globals.NULL_VALUES:
-                    self.specificness += 1
+    def __init__(self, required=None, preferences=None):
+        self.student_id = required[0]
+        self.student_name = required[1]
+        self.score = required[2]
+        self.preferences = []
+        self.specificness = 0
+
+        for preference in preferences:
+            if preference not in groupre_globals.NULL_VALUES:
+                self.preferences.append(preference)
+
+        self.specificness = len(self.preferences)

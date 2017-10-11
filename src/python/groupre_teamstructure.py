@@ -12,10 +12,10 @@ class TeamStructure():
     def __init__(self, chairs, team_id):
         self.team_id = team_id
         self.team_chairs = [
-            chair for chair in chairs if int(chair.entry_data['TeamID']) == team_id]
+            chair for chair in chairs if int(chair.chair_id) == team_id]
 
     def add_member(self, student):
         '''Used to add a member to this team. Increases the score_total and
         adds the member to the team_members list.'''
-        self.score_total += int(student.entry_data['Score'])
-        self.team_members.append(student.entry_data)
+        self.score_total += int(student.score)
+        self.team_members.append(student)
