@@ -1,10 +1,9 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 '''This module will be used to take input from a chairs.csv and a students.csv
  and return a csv of sorted teams.'''
 
 import argparse
 import csv
-import sys
 import time
 
 import groupre_build_team_structures
