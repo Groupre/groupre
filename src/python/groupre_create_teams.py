@@ -70,17 +70,4 @@ def create_teams(students, chairs, team_structures, priority_fields):
     for team in sorted_teams:
         ret_teams.append(team.entry_data.values())
 
-    # DEBUG: VALIDATION (Relies on CID being unique!)
-    # i = 0
-    # while i < len(teams):
-    #    item = teams[i]
-    #    teams.remove(item)
-    #    for other_item in teams:
-    #     print('item:', item.entry_data['CID'],
-    #          'otherItem:', other_item.entry_data['CID'])
-    #        if item.entry_data['CID'] == other_item.entry_data['CID']:
-    #            raise ValueError("CID SEEN TWICE IN OUTPUT!")
-    #    i += 1
-    # DEBUG: VALIDATION (Relies on CID being unique!)
-
     return ret_teams
