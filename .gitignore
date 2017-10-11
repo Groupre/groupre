@@ -1,3 +1,4 @@
 .vscode
 output.csv
 confidential
+__pycache__
