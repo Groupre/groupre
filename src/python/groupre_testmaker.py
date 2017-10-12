@@ -1,11 +1,9 @@
 '''This module is used to produce test input files to be used by groupre.'''
 
 import random
-import uuid
 import csv
 import math
 import argparse
-import string
 
 
 def make_test_pair(test_identifier, student_count, chair_count,
