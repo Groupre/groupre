@@ -2,7 +2,6 @@
 
 import random
 
-import groupre_globals
 import groupre_teammember
 
 
@@ -13,17 +12,24 @@ def random_match(student, chairs, team_fields, team_structures):
     chair = random.choice(chairs)
     chairs.remove(chair)
 
-    # Fill out data fields for the pair we have matched.
+   # Fill out data fields for the pair we have matched.
     data_fields = []
-    for field in team_fields:
-        if field not in groupre_globals.DEBUG_FIELDS:
-            if field in student.entry_data.keys():
-                data_fields.append(student.entry_data[field])
-            else:
-                data_fields.append(chair.entry_data[field])
+
+    data_fields.append(student.student_id)
+    data_fields.append(student.student_name)
+    data_fields.append(student.score)
+
+    data_fields.append(chair.chair_id)
+    data_fields.append(chair.team_id)
 
     # Fill priority_score field with NULL.
-    data_fields.append("NULL")
+    data_fields.append('NULL')
+
+    unmatched_preferences = ''
+    for preference in student.preferences:
+        if preference not in chair.attributes:
+            unmatched_preferences += '[' + preference + ']'
+    data_fields.append(unmatched_preferences)
 
     ret = groupre_teammember.TeamMember(team_fields, data_fields)
 

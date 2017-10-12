@@ -7,7 +7,7 @@ import groupre_random_match
 import groupre_priority_match
 
 
-def create_teams(students, chairs, team_structures, priority_fields):
+def create_teams(students, chairs, team_structures):
     '''Fills out an array of teams to be returned and formatted as a csv.'''
 
     # Format our header for the categories the input specified.
@@ -16,11 +16,10 @@ def create_teams(students, chairs, team_structures, priority_fields):
         team_fields.append(field)
     for field in groupre_globals.CHAIR_REQUIRED_FIELDS:
         team_fields.append(field)
-    for field in priority_fields:
-        team_fields.append(field)
 
-    # For debugging purposes, rates how well the PriorityMatch went.
-    team_fields.append('PriorityScore')
+    # For debugging purposes:
+    team_fields.append('Priority Score')
+    team_fields.append('Unsatisfied Preferences')
 
     # Split our students into those who have priorities and those who don't.
     no_priority_students = []
@@ -41,8 +40,8 @@ def create_teams(students, chairs, team_structures, priority_fields):
 
     teams = []
     for student in sorted_priority_students:
-        match = groupre_priority_match.priority_match(student, chairs, priority_fields,
-                                                      team_fields, team_structures)
+        match = groupre_priority_match.priority_match(
+            student, chairs, team_fields, team_structures)
 
         # See if we got a match.
         if match:

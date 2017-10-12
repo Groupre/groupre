@@ -6,7 +6,7 @@ import groupre_globals
 import groupre_teammember
 
 
-def priority_match(student, chairs, priority_fields, team_fields, team_structures):
+def priority_match(student, chairs, team_fields, team_structures):
     '''This functionw will find a chair that is suitable for the student based
     on their preferences.'''
 
@@ -14,12 +14,9 @@ def priority_match(student, chairs, priority_fields, team_fields, team_structure
     scored_chairs = {}
     for chair in chairs:
         score = 0
-        i = 0
-        while i < len(priority_fields):
-            priority_field = priority_fields[i]
-            if chair.entry_data[priority_field] == student.entry_data[priority_field]:
+        for preference in student.preferences:
+            if preference in chair.attributes:
                 score += 1
-            i += 1
         scored_chairs[chair] = score
 
     max_score = max(scored_chairs.values())
@@ -44,19 +41,19 @@ def priority_match(student, chairs, priority_fields, team_fields, team_structure
 
     # Fill out data fields for the pair we have matched.
     data_fields = []
-    for field in team_fields:
-        if field not in groupre_globals.DEBUG_FIELDS:
-            if field in student.entry_data.keys():
-                data_fields.append(student.entry_data[field])
-            else:
-                data_fields.append(chair.entry_data[field])
+
+    data_fields.append(student.student_id)
+    data_fields.append(student.student_name)
+    data_fields.append(student.score)
+
+    data_fields.append(chair.chair_id)
+    data_fields.append(chair.team_id)
 
     # For debugging purposes, rates how well the PriorityMatch went.
     priority_score_val = 0
-    for field in priority_fields:
-        if str(student.entry_data[field]) not in groupre_globals.NULL_VALUES:
-            if student.entry_data[field] == chair.entry_data[field]:
-                priority_score_val += 1
+    for preference in student.preferences:
+        if preference in chair.attributes:
+            priority_score_val += 1
 
     priority_score = '{} of {}'.format(
         priority_score_val, student.specificness)
@@ -66,6 +63,12 @@ def priority_match(student, chairs, priority_fields, team_fields, team_structure
     groupre_globals.STUDENT_PRIORITY_TOTAL += student.specificness
 
     data_fields.append(priority_score)
+
+    unmatched_preferences = ''
+    for preference in student.preferences:
+        if preference not in chair.attributes:
+            unmatched_preferences += '[' + preference + ']'
+    data_fields.append(unmatched_preferences)
 
     ret = groupre_teammember.TeamMember(team_fields, data_fields)
 
