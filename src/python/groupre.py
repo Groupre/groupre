@@ -25,15 +25,15 @@ def main():
 
     # groupre.py -c CHAIRS -s STUDENTS -f FALLBACK -o OUTPUT
     argparser.add_argument(
-        "-c", "--chairs", help="Chairs input file", dest=chairs_csv)
+        '-c', '--chairs', help='Chairs input file', dest=chairs_csv)
     argparser.add_argument(
-        "-s", "--students", help="Students input file", dest=students_csv)
+        '-s', '--students', help='Students input file', dest=students_csv)
     argparser.add_argument(
-        "-f", "--fallback", help="Enable fallback functionality",
+        '-f', '--fallback', help='Enable fallback functionality',
         dest=fallback, action='store_true')
     argparser.add_argument(
-        "-o", "--output", help="Output file", dest=output_csv)
-    argparser.set_defaults(fallback=False, output_csv="output.csv")
+        '-o', '--output', help='Output file', dest=output_csv)
+    argparser.set_defaults(fallback=False, output_csv='output.csv')
 
     parsed_args = argparser.parse_args()
 
@@ -42,21 +42,21 @@ def main():
     fallback = parsed_args.fallback
     output_csv = parsed_args.output
 
-    print("Arguments: Chairs {}, Students {}, Fallback {}, Output {}".format(
+    print('Arguments: Chairs {}, Students {}, Fallback {}, Output {}'.format(
         parsed_args.chairs, parsed_args.students, parsed_args.fallback, parsed_args.output))
 
     if chairs_csv is None:
-        print("Missing chairs input file.")
+        print('Missing chairs input file.')
         return
-    if ".csv" not in chairs_csv:
-        print("Chairs input is of wrong format. Try uploading a .csv instead.")
+    if '.csv' not in chairs_csv:
+        print('Chairs input is of wrong format. Try uploading a .csv instead.')
         return
 
     if students_csv is None:
-        print("Missing students input file.")
+        print('Missing students input file.')
         return
-    if ".csv" not in students_csv:
-        print("Students input is of wrong format. Try uploading a .csv instead.")
+    if '.csv' not in students_csv:
+        print('Students input is of wrong format. Try uploading a .csv instead.')
         return
 
     if output_csv is None:
@@ -131,7 +131,7 @@ def main():
         students, chairs, team_structures, priority_fields)
 
     # Write our output to a csv.
-    # NOTE "newline=''" required when writing on an OS that ends lines in CRLF rather than just LF.
+    # NOTE 'newline=''' required when writing on an OS that ends lines in CRLF rather than just LF.
     print('----------')
     print('Seats assigned. Writing to csv.')
     with open(output_csv, 'w', newline='') as csvfile:

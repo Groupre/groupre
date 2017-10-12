@@ -23,12 +23,12 @@ def random_match(student, chairs, team_fields, team_structures):
     data_fields.append(chair.team_id)
 
     # Fill priority_score field with NULL.
-    data_fields.append("NULL")
+    data_fields.append('NULL')
 
-    unmatched_preferences = ""
+    unmatched_preferences = ''
     for preference in student.preferences:
         if preference not in chair.attributes:
-            unmatched_preferences += "[" + preference + "]"
+            unmatched_preferences += '[' + preference + ']'
     data_fields.append(unmatched_preferences)
 
     ret = groupre_teammember.TeamMember(team_fields, data_fields)
