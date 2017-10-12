@@ -25,14 +25,13 @@ def main():
 
     # groupre.py -c CHAIRS -s STUDENTS -f FALLBACK -o OUTPUT
     argparser.add_argument(
-        '-c', '--chairs', help='Chairs input file', dest=chairs_csv)
+        '-c', '--chairs', help='Chairs input file')
     argparser.add_argument(
-        '-s', '--students', help='Students input file', dest=students_csv)
+        '-s', '--students', help='Students input file')
     argparser.add_argument(
-        '-f', '--fallback', help='Enable fallback functionality',
-        dest=fallback, action='store_true')
+        '-f', '--fallback', help='Enable fallback functionality', action='store_true')
     argparser.add_argument(
-        '-o', '--output', help='Output file', dest=output_csv)
+        '-o', '--output', help='Output file')
     argparser.set_defaults(fallback=False, output_csv='output.csv')
 
     parsed_args = argparser.parse_args()
@@ -100,14 +99,6 @@ def main():
             if required_field not in fields:
                 raise ValueError(
                     'students csv file is lacking a', required_field, 'field!')
-
-        # Since students is filled out after chairs, use the already obtained priority_fields
-        # to verify that our csvs match.
-        for field in fields:
-            if field not in groupre_globals.STUDENT_REQUIRED_FIELDS:
-                if field not in priority_fields:
-                    raise ValueError(
-                        'priority_fields between students csv and chairs csv do not match!')
 
         for row in reader:
             students.append(groupre_student.Student(
