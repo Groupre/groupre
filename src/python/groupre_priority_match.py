@@ -64,6 +64,12 @@ def priority_match(student, chairs, priority_fields, team_fields, team_structure
 
     data_fields.append(priority_score)
 
+    unmatched_preferences = ""
+    for preference in student.preferences:
+        if preference not in chair.attributes:
+            unmatched_preferences += "[" + preference + "]"
+    data_fields.append(unmatched_preferences)
+
     ret = groupre_teammember.TeamMember(team_fields, data_fields)
 
     # Add member to team_structure.

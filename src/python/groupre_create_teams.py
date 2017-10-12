@@ -17,8 +17,9 @@ def create_teams(students, chairs, team_structures, priority_fields):
     for field in groupre_globals.CHAIR_REQUIRED_FIELDS:
         team_fields.append(field)
 
-    # For debugging purposes, rates how well the PriorityMatch went.
-    team_fields.append('PriorityScore')
+    # For debugging purposes:
+    team_fields.append('Priority Score')
+    team_fields.append('Unsatisfied Preferences')
 
     # Split our students into those who have priorities and those who don't.
     no_priority_students = []

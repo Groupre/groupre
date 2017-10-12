@@ -48,8 +48,20 @@ def main():
     if chairs_csv is None:
         print("Missing chairs input file.")
         return
+    if ".csv" not in chairs_csv:
+        print("Chairs input is of wrong format. Try uploading a .csv instead.")
+        return
+
     if students_csv is None:
         print("Missing students input file.")
+        return
+    if ".csv" not in students_csv:
+        print("Students input is of wrong format. Try uploading a .csv instead.")
+        return
+
+    if output_csv is None:
+        print('''Output file not specified, and the default was somehow
+            replaced. Please try specifying a proper output file.''')
         return
 
     priority_fields = []
