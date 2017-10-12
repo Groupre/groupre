@@ -6,7 +6,7 @@ import groupre_globals
 import groupre_teammember
 
 
-def priority_match(student, chairs, priority_fields, team_fields, team_structures):
+def priority_match(student, chairs, team_fields, team_structures):
     '''This functionw will find a chair that is suitable for the student based
     on their preferences.'''
 

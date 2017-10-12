@@ -41,7 +41,7 @@ def create_teams(students, chairs, team_structures, priority_fields):
     teams = []
     for student in sorted_priority_students:
         match = groupre_priority_match.priority_match(
-            student, chairs, priority_fields, team_fields, team_structures)
+            student, chairs, team_fields, team_structures)
 
         # See if we got a match.
         if match:
