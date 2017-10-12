@@ -7,7 +7,7 @@ import groupre_random_match
 import groupre_priority_match
 
 
-def create_teams(students, chairs, team_structures, priority_fields):
+def create_teams(students, chairs, team_structures):
     '''Fills out an array of teams to be returned and formatted as a csv.'''
 
     # Format our header for the categories the input specified.

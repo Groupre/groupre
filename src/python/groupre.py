@@ -128,7 +128,7 @@ def main():
     team_structures = groupre_build_team_structures.build_team_structures(
         chairs)
     teams = groupre_create_teams.create_teams(
-        students, chairs, team_structures, priority_fields)
+        students, chairs, team_structures)
 
     # Write our output to a csv.
     # NOTE 'newline=''' required when writing on an OS that ends lines in CRLF rather than just LF.
