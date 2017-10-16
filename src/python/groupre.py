@@ -138,12 +138,13 @@ def main():
     print('----------')
 
 
-# Benchmark timer start.
-time.clock()
-print('----------')
+if __name__ == '__main__':
+    # Benchmark timer start.
+    time.clock()
+    print('----------')
 
-main()
+    main()
 
-# Benchmark timer end.
-print(time.clock(), 'seconds elapsed.')
-print('----------')
+    # Benchmark timer end.
+    print(time.clock(), 'seconds elapsed.')
+    print('----------')

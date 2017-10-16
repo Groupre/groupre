@@ -168,4 +168,5 @@ def main():
                    possible_chair_attributes, possible_student_preferences, team_count)
 
 
-main()
+if __name__ == '__main__':
+    main()
