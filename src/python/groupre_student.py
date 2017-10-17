@@ -8,6 +8,7 @@ class Student:
 
     student_id = None
     student_name = None
+    vip = False
     score = None
 
     preferences = None
@@ -16,7 +17,9 @@ class Student:
     def __init__(self, required=None, preferences=None):
         self.student_id = required[0]
         self.student_name = required[1]
-        self.score = required[2]
+        self.vip = required[2]
+        self.score = required[3]
+
         self.preferences = []
         self.specificness = 0
 

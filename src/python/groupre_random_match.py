@@ -17,6 +17,7 @@ def random_match(student, chairs, team_fields, team_structures):
 
     data_fields.append(student.student_id)
     data_fields.append(student.student_name)
+    data_fields.append(student.vip)
     data_fields.append(student.score)
 
     data_fields.append(chair.chair_id)

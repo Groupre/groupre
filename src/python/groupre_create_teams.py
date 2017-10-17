@@ -36,7 +36,10 @@ def create_teams(students, chairs, team_structures):
 
     # Order our priority students  by specificness.
     sorted_priority_students = sorted(
-        priority_students, key=lambda x: x.specificness, reverse=True)
+        priority_students, key=lambda x: (x.vip, x.specificness), reverse=True)
+
+    # for student in sorted_priority_students:
+    #     print(student.vip, student.specificness)
 
     teams = []
     for student in sorted_priority_students:

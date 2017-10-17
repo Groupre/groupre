@@ -41,10 +41,17 @@ def make_students(test_identifier, student_count, student_minimum_specificness,
 
         # student_name = str(uuid.uuid4())
         student_name = i
+        # 1 in 10 are given VIP treatment
+        vip = random.choice([0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
+        if vip == 1:
+            student_vip = True
+        else:
+            student_vip = False
         student_score = random.randint(1, 4)
 
         student.append(student_id)
         student.append(student_name)
+        student.append(student_vip)
         student.append(student_score)
 
         student_attribute_count = random.randint(
@@ -61,7 +68,7 @@ def make_students(test_identifier, student_count, student_minimum_specificness,
               + test_identifier + '.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        writer.writerow(["PID", "StudentName", "Score", "Preferences"])
+        writer.writerow(["PID", "StudentName", "VIP", "Score", "Preferences"])
         for student in students:
             writer.writerow(student)
 

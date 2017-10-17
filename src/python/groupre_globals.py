@@ -1,6 +1,6 @@
 '''This module contains the program-wide variables and constants used by groupre.'''
 
-STUDENT_REQUIRED_FIELDS = ['PID', 'StudentName', 'Score']
+STUDENT_REQUIRED_FIELDS = ['PID', 'StudentName', 'VIP', 'Score']
 CHAIR_REQUIRED_FIELDS = ['CID', 'TeamID']
 DEBUG_FIELDS = ['PriorityScore']
 
