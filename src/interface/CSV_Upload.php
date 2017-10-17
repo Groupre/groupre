@@ -85,8 +85,8 @@ if ($uploadsuccess == 0){
 //    print "</pre>";
 
     #TODO hotfix here; get rid of later
-    $test_dir = __DIR__.'/../../test/testFiles/';
-    $groupre = 'python ' . __DIR__'/../python/groupre27.py'
+    $test_dir = __DIR__ . '/../../test/testFiles/';
+    $groupre = 'python ' . __DIR__ . '/../python/groupre27.py';
     switch ($students_csv) {
         case endsWith($students_csv, 't.csv'):
             $chairs_csv = $test_dir.'chairs/chairsTest.csv';
