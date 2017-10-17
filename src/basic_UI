@@ -1,0 +1,19 @@
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="gridstyle.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+  <span>Select a cell</span>
+
+  <div id="tableContainer">
+      <script src= "generateGrid.js"></script>
+
+      <form>
+        <input type="submit" value="Left-handed" name="leftHanded"  id="leftHanded">
+      </form>
+  </div>
+
+</body>
+</html>
