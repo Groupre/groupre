@@ -110,12 +110,13 @@ if ($uploadsuccess == 0){
             $output = shell_exec($cmd);
             break;
     }
-    
-    echo "<pre>" . $output . "</pre>";
-
+   
     header('Content-Type: application/csv');
     header('Content-Disposition: attachment; filename="output.csv"');
     readfile("output.csv");
+    
+    echo "<pre>" . $output . "</pre>";
+
 }
 
 
