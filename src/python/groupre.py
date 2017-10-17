@@ -5,6 +5,7 @@
 import argparse
 import csv
 import time
+import sys
 
 import groupre_build_team_structures
 import groupre_chair
@@ -13,7 +14,7 @@ import groupre_globals
 import groupre_student
 
 
-def main():
+def main(argv):
     '''Takes the input arguments and executes the groupre matching algorithm.'''
 
     argparser = argparse.ArgumentParser()
@@ -143,7 +144,10 @@ if __name__ == '__main__':
     time.clock()
     print('----------')
 
-    main()
+    # When importing groupre, you can provide arguments by calling it as such:
+    #   groupre.main('groupre.py, ARGS)
+
+    main(sys.argv)
 
     # Benchmark timer end.
     print(time.clock(), 'seconds elapsed.')

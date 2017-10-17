@@ -1,9 +1,11 @@
+#!/usr/bin/env python
 '''This module is used to produce test input files to be used by groupre.'''
 
 import random
 import csv
 import math
 import argparse
+import sys
 
 
 def make_test_pair(test_identifier, student_count, chair_count,
@@ -113,7 +115,7 @@ def make_chairs(test_identifier, chair_count, possible_chair_attributes,
             writer.writerow(chair)
 
 
-def main():
+def main(argv):
     '''Used to create test files from test shell scripts.'''
 
     argparser = argparse.ArgumentParser()
@@ -169,4 +171,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv)
