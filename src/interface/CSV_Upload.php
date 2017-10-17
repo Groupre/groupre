@@ -111,7 +111,7 @@ if ($uploadsuccess == 0){
             break;
     }
     
-    echo "<pre>" . $output . "</pre>"
+    echo "<pre>" . $output . "</pre>";
 
     header('Content-Type: application/csv');
     header('Content-Disposition: attachment; filename="output.csv"');
