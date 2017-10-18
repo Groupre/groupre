@@ -102,7 +102,7 @@ if ($uploadsuccess == 0){
             break;
     }
 
-    $cmd = $groupre. ' -c ' . $chairs_csv. ' -s ' . $students_csv . ' -o ' . 'output.csv';
+    $cmd = $groupre. ' -c ' . $chairs_csv. ' -s ' . $students_csv . ' -o ' . __DIR__ . 'output.csv';
 
     $output = shell_exec($cmd);
 
