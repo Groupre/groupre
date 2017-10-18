@@ -84,38 +84,31 @@ if ($uploadsuccess == 0){
 
 //    print "</pre>";
 
-    #TODO hotfix here; get rid of later
     $test_dir = __DIR__ . '/../../test/testFiles/';
-    $groupre = 'python ' . __DIR__ . '/../python/groupre27.py';
+    $groupre = 'python ' . __DIR__ . '/../python/groupre2.py';
     switch ($students_csv) {
         case endsWith($students_csv, 't.csv'):
             $chairs_csv = $test_dir.'chairs/chairsTest.csv';
-            $cmd = $groupre.' '. $chairs_csv.' '.$students_csv;
-            $output = shell_exec($cmd);
             break;
         case endsWith($students_csv, '2.csv'):
             $chairs_csv = $test_dir.'chairs/chairsTest2.csv';
-            $cmd = $groupre.' '. $chairs_csv .' '.$students_csv;
-            $output = shell_exec($cmd);
             break;
         case endsWith($students_csv, '3.csv'):
             $chairs_csv = $test_dir.'chairs/chairsTest3.csv';
-            $cmd = $groupre.' '. $chairs_csv.' '.$students_csv;
-            $output = shell_exec($cmd);
             break;
         default:
             $students_csv = $test_dir.'students/studentsTest.csv';
             $chairs_csv = $test_dir.'chairs/chairsTest.csv';
-            $cmd = $groupre.' '. $chairs_csv.' '.$students_csv;
-            $output = shell_exec($cmd);
             break;
     }
-   
+
+    $cmd = $groupre. ' -c ' . $chairs_csv. ' -s ' . $students_csv . ' -o ' . 'output.csv';
+
+    $output = shell_exec($cmd);
+
     header('Content-Type: application/csv');
     header('Content-Disposition: attachment; filename="output.csv"');
     readfile("output.csv");
-    
-    echo "<pre>" . $output . "</pre>";
 
 }
 
