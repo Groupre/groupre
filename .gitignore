@@ -4,4 +4,4 @@ confidential
 __pycache__
 *Output.csv
 *output.csv
-test_*_*.csv
+test_output*
