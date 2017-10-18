@@ -84,21 +84,24 @@ if ($uploadsuccess == 0){
 
 //    print "</pre>";
 
-    $test_dir = __DIR__ . '/../../test/testFiles/';
+    $test_dir = __DIR__ . '/../../test/randomizedTests/';
     $groupre = 'python ' . __DIR__ . '/../python/groupre2.py';
     switch ($students_csv) {
-        case endsWith($students_csv, 't.csv'):
-            $chairs_csv = $test_dir.'chairs/chairsTest.csv';
+        case endsWith($students_csv, '_1.csv'):
+            $chairs_csv = $test_dir.'chairs/test_chairs_1.csv';
             break;
-        case endsWith($students_csv, '2.csv'):
-            $chairs_csv = $test_dir.'chairs/chairsTest2.csv';
+        case endsWith($students_csv, '_100.csv'):
+            $chairs_csv = $test_dir.'chairs/test_chairs_demo_100.csv';
             break;
-        case endsWith($students_csv, '3.csv'):
-            $chairs_csv = $test_dir.'chairs/chairsTest3.csv';
+        case endsWith($students_csv, '_400.csv'):
+            $chairs_csv = $test_dir.'chairs/test_chairs_demo_400.csv';
+            break;
+        case endsWith($students_csv, '_1000.csv'):
+            $chairs_csv = $test_dir.'chairs/test_chairs_demo_100.csv';
             break;
         default:
-            $students_csv = $test_dir.'students/studentsTest.csv';
-            $chairs_csv = $test_dir.'chairs/chairsTest.csv';
+            $students_csv = $test_dir.'students/test_chairs_1.csv';
+            $chairs_csv = $test_dir.'chairs/test_students_1.csv';
             break;
     }
 
