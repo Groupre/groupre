@@ -14,12 +14,62 @@ def priority_match(student, chairs, team_fields, team_structures):
     scored_chairs = {}
     for chair in chairs:
         score = 0
+
         for preference in student.preferences:
             if preference in chair.attributes:
                 score += 1
+
         scored_chairs[chair] = score
 
     max_score = max(scored_chairs.values())
+
+    if groupre_globals.FALLBACK_ENABLED:
+        if max_score == 0:
+            # We likely need to see if fallback chairs can provide
+            # a better maximum score for this student.
+
+            # Re-score the chairs, but also look for fallback options this time.
+            scored_chairs = {}
+            for chair in chairs:
+                score = 0
+                for preference in student.preferences:
+                    if preference in chair.attributes:
+                        score += 1
+                    else:
+                        # We need to get the fallbacks for the preference
+                        # that the student wasn't able to find a match for.
+
+                        preference_found = False
+
+                        # We start at fallback_kevel 1 since we know that
+                        # level 0 (the original) was not found.
+                        fallback_level = 1
+
+                        if preference == 'front':
+                            while (not preference_found
+                                   and fallback_level <= groupre_globals.FALLBACK_LIMIT_FRONT):
+                                if groupre_globals.FALLBACK_CHAIRS_FRONT in chair.attributes:
+                                    score += 1
+                                    preference_found = True
+
+                        elif preference == 'back':
+                            while (not preference_found
+                                   and fallback_level <= groupre_globals.FALLBACK_LIMIT_BACK):
+                                if groupre_globals.FALLBACK_CHAIRS_BACK in chair.attributes:
+                                    score += 1
+                                    preference_found = True
+
+                        elif preference == 'aisle':
+                            while (not preference_found
+                                   and fallback_level <= groupre_globals.FALLBACK_LIMIT_AISLE):
+                                if groupre_globals.FALLBACK_CHAIRS_AISLE in chair.attributes:
+                                    score += 1
+                                    preference_found = True
+
+                scored_chairs[chair] = score
+
+            max_score = max(scored_chairs.values())
+
     to_remove = []
     num_found = 0
     for chair in scored_chairs:
