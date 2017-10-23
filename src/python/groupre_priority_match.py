@@ -39,6 +39,7 @@ def priority_match(student, chairs, team_fields, team_structures):
                         # We need to get the fallbacks for the preference
                         # that the student wasn't able to find a match for.
 
+                        has_attribute = False
                         preference_found = False
 
                         # We start at fallback_kevel 1 since we know that
