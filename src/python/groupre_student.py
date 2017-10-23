@@ -25,6 +25,13 @@ class Student:
 
         for preference in preferences:
             if preference not in groupre_globals.NULL_VALUES:
-                self.preferences.append(preference)
+                if preference == 'front':
+                    self.preferences.append('front-0')
+                elif preference == 'back':
+                    self.preferences.append('back-0')
+                elif preference == 'aisle':
+                    self.preferences.append('aisle-0')
+                else:
+                    self.preferences.append(preference)
 
         self.specificness = len(self.preferences)
