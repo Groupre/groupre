@@ -45,26 +45,41 @@ def priority_match(student, chairs, team_fields, team_structures):
                         # level 0 (the original) was not found.
                         fallback_level = 1
 
-                        if preference == 'front':
-                            while (not preference_found
-                                   and fallback_level <= groupre_globals.FALLBACK_LIMIT_FRONT):
-                                if groupre_globals.FALLBACK_CHAIRS_FRONT in chair.attributes:
-                                    score += 1
-                                    preference_found = True
+                        if 'front' in preference:
+                            for attribute in chair.attributes:
+                                if 'front-' in attribute:
+                                    has_attribute = True
 
-                        elif preference == 'back':
-                            while (not preference_found
-                                   and fallback_level <= groupre_globals.FALLBACK_LIMIT_BACK):
-                                if groupre_globals.FALLBACK_CHAIRS_BACK in chair.attributes:
-                                    score += 1
-                                    preference_found = True
+                            if has_attribute:
+                                while (not preference_found
+                                       and fallback_level <= groupre_globals.FALLBACK_LIMIT_FRONT):
+                                    if groupre_globals.FALLBACK_CHAIRS_FRONT in chair.attributes:
+                                        score += 1
+                                        preference_found = True
 
-                        elif preference == 'aisle':
-                            while (not preference_found
-                                   and fallback_level <= groupre_globals.FALLBACK_LIMIT_AISLE):
-                                if groupre_globals.FALLBACK_CHAIRS_AISLE in chair.attributes:
-                                    score += 1
-                                    preference_found = True
+                        elif 'back' in preference:
+                            for attribute in chair.attributes:
+                                if 'back-' in attribute:
+                                    has_attribute = True
+
+                            if has_attribute:
+                                while (not preference_found
+                                       and fallback_level <= groupre_globals.FALLBACK_LIMIT_BACK):
+                                    if groupre_globals.FALLBACK_CHAIRS_BACK in chair.attributes:
+                                        score += 1
+                                        preference_found = True
+
+                        elif 'aisle' in preference:
+                            for attribute in chair.attributes:
+                                if 'aisle-' in attribute:
+                                    has_attribute = True
+
+                            if has_attribute:
+                                while (not preference_found
+                                       and fallback_level <= groupre_globals.FALLBACK_LIMIT_AISLE):
+                                    if groupre_globals.FALLBACK_CHAIRS_AISLE in chair.attributes:
+                                        score += 1
+                                        preference_found = True
 
                 scored_chairs[chair] = score
 
