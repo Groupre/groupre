@@ -171,7 +171,7 @@ if __name__ == '__main__':
     print('----------')
 
     # When importing groupre, you can provide arguments by calling it as such:
-    #   groupre.main('groupre.py, ARGS)
+    #   groupre.main('groupre.py', ARGS)
 
     main(sys.argv)
 
