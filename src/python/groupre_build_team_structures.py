@@ -8,7 +8,7 @@ def build_team_structures(chairs):
     backbone for matching criteria among members that belong to a given team.'''
 
     # Build and return structures for all available teams.
-    num_teams = max(int(chair.chair_id) for chair in chairs)
+    num_teams = max(int(chair.team_id) for chair in chairs)
     team_structures = []
     i = 1
     while i <= num_teams:
