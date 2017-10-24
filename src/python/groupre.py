@@ -6,6 +6,7 @@ import argparse
 import csv
 import time
 import sys
+import re
 
 import groupre_build_team_structures
 import groupre_chair
@@ -64,6 +65,9 @@ def main(argv):
             replaced. Please try specifying a proper output file.''')
         return
 
+    # Update our global fallback toggle with our given argument.
+    groupre_globals.FALLBACK_ENABLED = fallback
+
     priority_fields = []
 
     chairs = []
@@ -89,6 +93,28 @@ def main(argv):
 
         # for chair in chairs:
         #     print('Chair:', chair.chair_id, chair.team_id, chair.attributes)
+
+    if groupre_globals.FALLBACK_ENABLED:
+        # Process chairs to find all fallback options.
+        for chair in chairs:
+            for attribute in chair.attributes:
+                if 'front' in attribute:
+                    if attribute not in groupre_globals.FALLBACK_CHAIRS_FRONT:
+                        groupre_globals.FALLBACK_CHAIRS_FRONT.append(attribute)
+                elif 'back' in attribute:
+                    if attribute not in groupre_globals.FALLBACK_CHAIRS_BACK:
+                        groupre_globals.FALLBACK_CHAIRS_BACK.append(attribute)
+                elif 'aisle' in attribute:
+                    if attribute not in groupre_globals.FALLBACK_CHAIRS_AISLE:
+                        groupre_globals.FALLBACK_CHAIRS_AISLE.append(attribute)
+
+        # Sort our fallback options.
+        groupre_globals.FALLBACK_CHAIRS_FRONT.sort(
+            key=lambda x: (('' + x).split('-', 1)[1]), reverse=True)
+        groupre_globals.FALLBACK_CHAIRS_BACK.sort(
+            key=lambda x: (('' + x).split('-', 1)[1]), reverse=True)
+        groupre_globals.FALLBACK_CHAIRS_AISLE.sort(
+            key=lambda x: (('' + x).split('-', 1)[1]), reverse=True)
 
     students = []
     with open(students_csv, 'r') as csvfile:
@@ -145,7 +171,7 @@ if __name__ == '__main__':
     print('----------')
 
     # When importing groupre, you can provide arguments by calling it as such:
-    #   groupre.main('groupre.py, ARGS)
+    #   groupre.main('groupre.py', ARGS)
 
     main(sys.argv)
 
