@@ -1,7 +1,5 @@
 '''This module contains the Preference class used by groupre.'''
 
-import groupre_globals
-
 
 class Preference:
     '''A class dedicated to storing the preferences and specificness level of a given Student.'''

@@ -6,7 +6,6 @@ import argparse
 import csv
 import time
 import sys
-import re
 
 import groupre_build_team_structures
 import groupre_chair
