@@ -12,7 +12,7 @@ class TeamStructure():
     def __init__(self, chairs, team_id):
         self.team_id = team_id
         self.team_chairs = [
-            chair for chair in chairs if int(chair.chair_id) == team_id]
+            chair for chair in chairs if int(chair.team_id) == team_id]
 
     def add_member(self, student):
         '''Used to add a member to this team. Increases the score_total and

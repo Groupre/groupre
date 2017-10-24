@@ -1,6 +1,7 @@
 '''This module contains the Student class used by groupre.'''
 
 import groupre_globals
+import groupre_preference
 
 
 class Student:
@@ -13,6 +14,7 @@ class Student:
 
     preferences = None
     specificness = None
+    total_preference_value = None
 
     def __init__(self, required=None, preferences=None):
         self.student_id = required[0]
@@ -22,16 +24,24 @@ class Student:
 
         self.preferences = []
         self.specificness = 0
+        self.total_preference_value = 0
 
         for preference in preferences:
             if preference not in groupre_globals.NULL_VALUES:
                 if preference == 'front':
-                    self.preferences.append('front-0')
+                    self.preferences.append(
+                        groupre_preference.Preference('front-0'))
                 elif preference == 'back':
-                    self.preferences.append('back-0')
+                    self.preferences.append(
+                        groupre_preference.Preference('back-0'))
                 elif preference == 'aisle':
-                    self.preferences.append('aisle-0')
+                    self.preferences.append(
+                        groupre_preference.Preference('aisle-0'))
                 else:
-                    self.preferences.append(preference)
+                    self.preferences.append(
+                        groupre_preference.Preference(preference))
 
         self.specificness = len(self.preferences)
+
+        for preference in self.preferences:
+            self.total_preference_value += preference.value
