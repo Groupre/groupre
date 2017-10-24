@@ -16,6 +16,23 @@ def priority_match(student, chairs, team_fields, team_structures):
         score = 0
 
         for preference in student.preferences:
+            # Handling of front-BEGIN:END range preference.
+            if 'front-' in preference:
+                range_values = ('' + preference).split('-', 1)[1].split(':', 1)
+
+                applicable_attributes = []
+                current_value = range_values[0]
+                while current_value <= range_values[1]:
+                    applicable_attributes.append('front-' + current_value)
+
+                for attribute in applicable_attributes:
+                    if attribute in chair.attributes:
+                        # Score is adjusted by closeness to "origin".
+                        # Should assign seats closer to the front with higher value.
+                        found_value = int(('' + attribute).split('-', 1)[1])
+                        score += (1 * ((range_values[1] - found_value +
+                                        1) / (range_values[1] + 1)))
+
             if preference in chair.attributes:
                 score += 1
 
@@ -57,7 +74,7 @@ def priority_match(student, chairs, team_fields, team_structures):
                                     if groupre_globals.FALLBACK_CHAIRS_FRONT in chair.attributes:
                                         score += (1 * ((groupre_globals.FALLBACK_LIMIT_BACK
                                                         - fallback_level + 1) /
-                                                       groupre_globals.FALLBACK_LIMIT_BACK + 1))
+                                                       (groupre_globals.FALLBACK_LIMIT_BACK + 1)))
                                         preference_found = True
 
                         elif 'back' in preference:
