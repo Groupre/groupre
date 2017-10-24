@@ -39,11 +39,11 @@ def create_teams(students, chairs, team_structures):
         priority_students, key=lambda x: (
             x.vip, x.specificness, x.total_preference_value), reverse=True)
 
-    for student in sorted_priority_students:
-        print(student, student.vip, student.specificness,
-              student.total_preference_value)
-        for preference in student.preferences:
-            print(preference.name)
+    # for student in sorted_priority_students:
+    #     print(student, student.vip, student.specificness,
+    #           student.total_preference_value)
+    #     for preference in student.preferences:
+    #         print(preference.name)
 
     # for student in sorted_priority_students:
     #     print(student.vip, student.specificness)

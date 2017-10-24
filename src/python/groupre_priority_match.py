@@ -10,9 +10,9 @@ def priority_match(student, chairs, team_fields, team_structures):
     '''This functionw will find a chair that is suitable for the student based
     on their preferences.'''
 
-    print('\n-----\nmatching student:', student)
-    for preference in student.preferences:
-        print(preference.name, preference.value)
+    # print('\n-----\nmatching student:', student)
+    # for preference in student.preferences:
+    #     print(preference.name, preference.value)
 
     # Find the possible_chairs that best match this student's priorities.
     scored_chairs = {}
@@ -21,8 +21,8 @@ def priority_match(student, chairs, team_fields, team_structures):
 
         for preference in student.preferences:
 
-            if preference.name == 'front-0':
-                print(chair.attributes)
+            # if preference.name == 'front-0':
+            #     print(chair.attributes)
 
             # print(student.preferences)
 
@@ -65,7 +65,7 @@ def priority_match(student, chairs, team_fields, team_structures):
 
     max_score = max(scored_chairs.values())
 
-    print('initial max_score:', max_score)
+    # print('initial max_score:', max_score)
 
     if groupre_globals.FALLBACK_ENABLED:
         if max_score == 0:
@@ -141,7 +141,7 @@ def priority_match(student, chairs, team_fields, team_structures):
                 scored_chairs[chair] = score
 
             max_score = max(scored_chairs.values())
-            print('fallback max_score:', max_score)
+            # print('fallback max_score:', max_score)
 
     to_remove = []
     num_found = 0
@@ -162,8 +162,8 @@ def priority_match(student, chairs, team_fields, team_structures):
     chair = random.choice(best_chairs)
     chairs.remove(chair)
 
-    print('chosen chair:', chair)
-    print(chair.attributes, '\n')
+    # print('chosen chair:', chair)
+    # print(chair.attributes, '\n')
 
     # Fill out data fields for the pair we have matched.
     data_fields = []
