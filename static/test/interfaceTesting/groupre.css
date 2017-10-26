@@ -1,0 +1,31 @@
+body {
+padding-left: 10em;
+padding-right: 10em;
+  font-family: Verdana, Geneva, sans-serif;
+  color: #0000FF;
+
+/*  background-image: url("Groupre Icon.jpg");*/}
+
+  p.one {
+	border-style: solid;
+    border-color: blue;
+    border-width: 5px;
+    text-align: center;}
+
+
+.errorIntro {
+  visibility: visible;
+	color: red;
+}
+
+.errorIntro.hidden {
+	visibility: hidden;	
+}
+
+.outPut li {
+	font-weight: bold;
+}
+
+.container {
+	background-color: #e1ebf6;
+}
