@@ -35,7 +35,10 @@ def main(argv):
         '-o', '--output', help='Output file')
     argparser.set_defaults(fallback=False, output_csv='output.csv')
 
-    parsed_args = argparser.parse_args()
+    if 'groupre.py' in argv[0]:
+        parsed_args = argparser.parse_args()
+    else:
+        parsed_args = argparser.parse_args(argv)
 
     chairs_csv = parsed_args.chairs
     students_csv = parsed_args.students
