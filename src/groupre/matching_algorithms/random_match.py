@@ -2,7 +2,7 @@
 
 import random
 
-import groupre_teammember
+from data_structures import TeamMember
 
 
 def random_match(student, chairs, team_fields, team_structures):
@@ -32,7 +32,7 @@ def random_match(student, chairs, team_fields, team_structures):
             unmatched_preferences += '[' + preference + ']'
     data_fields.append(unmatched_preferences)
 
-    ret = groupre_teammember.TeamMember(team_fields, data_fields)
+    ret = TeamMember(team_fields, data_fields)
 
     # Add member to team_structure.
     # Used initially as back-bone for score-matching, may be unused in the future.
