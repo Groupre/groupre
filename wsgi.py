@@ -78,7 +78,7 @@ def hello():
 
 @application.route("/docs/")
 def docs():
-    path = os.path.dirname(os.path.realpath(__file__)) + '/static/docs/'
+    path = os.path.dirname(os.path.realpath(__file__)) + '/static/docs/archive'
     return render_template('dirtree.html', tree=make_tree(path))
 
 
