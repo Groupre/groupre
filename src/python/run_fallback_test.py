@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 '''This module is used to test groupre.'''
 
+import sys
+sys.path.insert(0, sys.path[0].replace('python', 'groupre'))
+print(sys.path)
+
 import groupre
 
 if __name__ == '__main__':
