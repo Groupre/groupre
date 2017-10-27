@@ -1,6 +1,6 @@
 '''This module contains the build_team_structures method used by groupre.'''
 
-from data_structures.team_structure import TeamStructure
+from data_structures import TeamStructure
 
 
 def build_team_structures(chairs):

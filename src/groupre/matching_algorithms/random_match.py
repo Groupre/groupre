@@ -2,7 +2,7 @@
 
 import random
 
-from data_structures.team_member import TeamMember
+from data_structures import TeamMember
 
 
 def random_match(student, chairs, team_fields, team_structures):

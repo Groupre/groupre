@@ -3,8 +3,7 @@
 import random
 
 import groupre_globals
-from matching_algorithms.priority_match import priority_match
-from matching_algorithms.random_match import random_match
+from matching_algorithms import priority_match, random_match
 
 
 def create_teams(students, chairs, team_structures):

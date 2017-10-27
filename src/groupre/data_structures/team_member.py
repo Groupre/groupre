@@ -1,6 +1,6 @@
 '''This module contains the TeamMember class used by groupre.'''
 
-from data_structures.generic_entry import GenericEntry
+from data_structures import GenericEntry
 
 
 class TeamMember(GenericEntry):

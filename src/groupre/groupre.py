@@ -8,10 +8,8 @@ import sys
 import time
 
 import groupre_globals
-from data_structures.chair import Chair
-from data_structures.student import Student
-from helpers.build_team_structures import build_team_structures
-from helpers.create_teams import create_teams
+from data_structures import Chair, Student
+from helpers import build_team_structures, create_teams
 
 
 def main(argv):

@@ -3,7 +3,7 @@
 import random
 
 import groupre_globals
-from data_structures.team_member import TeamMember
+from data_structures import TeamMember
 
 
 def priority_match(student, chairs, team_fields, team_structures):

@@ -1,7 +1,7 @@
 '''This module contains the Student class used by groupre.'''
 
-from data_structures.preference import Preference
 import groupre_globals
+from data_structures import Preference
 
 
 class Student:
