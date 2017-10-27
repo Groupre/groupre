@@ -1,6 +1,6 @@
 '''This module contains the build_team_structures method used by groupre.'''
 
-import groupre_teamstructure
+from data_structures.team_structure import TeamStructure
 
 
 def build_team_structures(chairs):
@@ -12,6 +12,6 @@ def build_team_structures(chairs):
     team_structures = []
     i = 1
     while i <= num_teams:
-        team_structures.append(groupre_teamstructure.TeamStructure(chairs, i))
+        team_structures.append(TeamStructure(chairs, i))
         i += 1
     return team_structures

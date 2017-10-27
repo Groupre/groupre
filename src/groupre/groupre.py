@@ -4,14 +4,14 @@
 
 import argparse
 import csv
-import time
 import sys
+import time
 
-import groupre_build_team_structures
-import groupre_chair
-import groupre_create_teams
 import groupre_globals
-import groupre_student
+from data_structures.chair import Chair
+from data_structures.student import Student
+from helpers.build_team_structures import build_team_structures
+from helpers.create_teams import create_teams
 
 
 def main(argv):
@@ -89,7 +89,7 @@ def main(argv):
                 priority_fields.append(field)
 
         for row in reader:
-            chairs.append(groupre_chair.Chair(
+            chairs.append(Chair(
                 row[:len(groupre_globals.CHAIR_REQUIRED_FIELDS)],
                 row[len(groupre_globals.CHAIR_REQUIRED_FIELDS):]))
 
@@ -130,7 +130,7 @@ def main(argv):
                     'students csv file is lacking a', required_field, 'field!')
 
         for row in reader:
-            students.append(groupre_student.Student(
+            students.append(Student(
                 row[:len(groupre_globals.STUDENT_REQUIRED_FIELDS)],
                 row[len(groupre_globals.STUDENT_REQUIRED_FIELDS):]))
 
@@ -145,9 +145,9 @@ def main(argv):
 
     # Run our algorithm to match students to chairs within teams, keeping in mind their
     # scores and preferences.
-    team_structures = groupre_build_team_structures.build_team_structures(
+    team_structures = build_team_structures(
         chairs)
-    teams = groupre_create_teams.create_teams(
+    teams = create_teams(
         students, chairs, team_structures)
 
     # Write our output to a csv.
@@ -161,9 +161,10 @@ def main(argv):
             writer.writerow(team)
 
     print('----------')
-    print('Student Priority Rating:',
-          round(groupre_globals.STUDENT_PRIORITY_VALUE /
-                groupre_globals.STUDENT_PRIORITY_TOTAL * 100, 2), '%')
+    if groupre_globals.STUDENT_PRIORITY_TOTAL != 0:
+        print('Student Priority Rating:',
+              round(groupre_globals.STUDENT_PRIORITY_VALUE /
+                    groupre_globals.STUDENT_PRIORITY_TOTAL * 100, 2), '%')
     print('----------')
 
 

@@ -1,7 +1,7 @@
 '''This module contains the Student class used by groupre.'''
 
+from data_structures.preference import Preference
 import groupre_globals
-import groupre_preference
 
 
 class Student:
@@ -30,16 +30,16 @@ class Student:
             if preference not in groupre_globals.NULL_VALUES:
                 if preference == 'front':
                     self.preferences.append(
-                        groupre_preference.Preference('front-0'))
+                        Preference('front-0'))
                 elif preference == 'back':
                     self.preferences.append(
-                        groupre_preference.Preference('back-0'))
+                        Preference('back-0'))
                 elif preference == 'aisle':
                     self.preferences.append(
-                        groupre_preference.Preference('aisle-0'))
+                        Preference('aisle-0'))
                 else:
                     self.preferences.append(
-                        groupre_preference.Preference(preference))
+                        Preference(preference))
 
         self.specificness = len(self.preferences)
 

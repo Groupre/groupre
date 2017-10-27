@@ -3,8 +3,8 @@
 import random
 
 import groupre_globals
-import groupre_random_match
-import groupre_priority_match
+from matching_algorithms.priority_match import priority_match
+from matching_algorithms.random_match import random_match
 
 
 def create_teams(students, chairs, team_structures):
@@ -50,7 +50,7 @@ def create_teams(students, chairs, team_structures):
 
     teams = []
     for student in sorted_priority_students:
-        match = groupre_priority_match.priority_match(
+        match = priority_match(
             student, chairs, team_fields, team_structures)
 
         # See if we got a match.
@@ -61,7 +61,7 @@ def create_teams(students, chairs, team_structures):
             students.remove(student)
 
     for student in no_priority_students:
-        match = groupre_random_match.random_match(
+        match = random_match(
             student, chairs, team_fields, team_structures)
 
         # See if we got a match.
