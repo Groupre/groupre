@@ -104,7 +104,13 @@ def upload_file():
                 row_count = sum(1 for row in reader)
             output_name = run_groupre(newlocation, row_count)
             with open(output_name, 'r') as f:
-                output = f.read()
+                reader = csv.reader(f, delimiter=',')
+                output = ''
+                for row in reader:
+                    for field in row:
+                        output += str(field) + ','
+                    output += '\n'
+                # output = f.read()
             output_name = output_name.split('/')[-1] + '.csv'
             return Response(output,
                             mimetype="text/csv",
@@ -127,15 +133,27 @@ def downloadcsv(output_name):
     # if not allowed_file(output_name):
     #     return "404"
     if 'test' in output_name or 'fallback' in output_name:
-        with open(os.getcwd() + "/uploads/testCases/" + output_name) as file:
-            csvfile = file.read()
+        with open(os.getcwd() + "/uploads/testCases/" + output_name, 'r') as file:
+            reader = csv.reader(file, delimiter=',')
+            csvfile = []
+            for row in reader:
+                for field in row:
+                    csvfile += str(field) + ','
+                csvfile += '\n'
+            # csvfile = file.read()
         return Response(
             csvfile,
             mimetype="text/csv",
             headers={"Content-disposition":
                      "attachment; filename=" + output_name})
-    with open(os.getcwd() + "/uploads/output" + output_name) as file:
-        csvfile = file.read()
+    with open(os.getcwd() + "/uploads/output" + output_name, 'r') as file:
+        reader = csv.reader(file, delimiter=',')
+        csvfile = []
+        for row in reader:
+            for field in row:
+                csvfile += str(field) + ','
+            csvfile += '\n'
+        # csvfile = file.read()
     return Response(
         csvfile,
         mimetype="text/csv",
