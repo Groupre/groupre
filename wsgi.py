@@ -106,7 +106,9 @@ def upload_file():
             with open(output_name, 'r') as f:
                 reader = csv.reader(f, delimiter=',')
                 output = ''
+                print("Rows:")
                 for row in reader:
+                    print(row)
                     for field in row:
                         output += str(field) + ','
                     output += '\n'
@@ -136,7 +138,9 @@ def downloadcsv(output_name):
         with open(os.getcwd() + "/uploads/testCases/" + output_name, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             csvfile = []
+            print("Rows:")
             for row in reader:
+                print(row)
                 for field in row:
                     csvfile += str(field) + ','
                 csvfile += '\n'
@@ -149,7 +153,9 @@ def downloadcsv(output_name):
     with open(os.getcwd() + "/uploads/output" + output_name, 'r') as file:
         reader = csv.reader(file, delimiter=',')
         csvfile = []
+        print("Rows:")
         for row in reader:
+            print(row)
             for field in row:
                 csvfile += str(field) + ','
             csvfile += '\n'
