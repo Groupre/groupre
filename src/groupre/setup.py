@@ -1,5 +1,7 @@
 '''Setup script for groupre.'''
 
+# https://pythonhosted.org/an_example_pypi_project/setuptools.html
+
 from setuptools import setup
 
 setup(
@@ -13,5 +15,8 @@ setup(
     scripts=[
         'groupre.py',
         'groupre_globals.py'
-    ]
+    ],
+    classifiers=[
+        'Development Status :: 2 - Pre-Alpha'
+    ],
 )
