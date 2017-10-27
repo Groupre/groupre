@@ -211,6 +211,8 @@ def priority_match(student, chairs, team_fields, team_structures):
 
     ret = TeamMember(team_fields, data_fields)
 
+    print(ret.entry_data)
+
     # Add member to team_structure.
     # Used initially as back-bone for score-matching, may be unused in the future.
     this_team_id = ret.entry_data['TeamID']
