@@ -91,8 +91,9 @@ def main(argv):
                 row[:len(groupre_globals.CHAIR_REQUIRED_FIELDS)],
                 row[len(groupre_globals.CHAIR_REQUIRED_FIELDS):]))
 
-        # for chair in chairs:
-        #     print('Chair:', chair.chair_id, chair.team_id, chair.attributes)
+        print("Chairs:")
+        for chair in chairs:
+            print('Chair:', chair.chair_id, chair.team_id, chair.attributes)
 
     if groupre_globals.FALLBACK_ENABLED:
         # Process chairs to find all fallback options.
@@ -132,8 +133,9 @@ def main(argv):
                 row[:len(groupre_globals.STUDENT_REQUIRED_FIELDS)],
                 row[len(groupre_globals.STUDENT_REQUIRED_FIELDS):]))
 
-        # for student in students:
-        #     print('Student:', student.student_id, student.preferences)
+        print("Students:")
+        for student in students:
+            print('Student:', student.student_id, student.preferences)
 
     # Benchmarking statement.
     total_students = len(students)
@@ -145,9 +147,15 @@ def main(argv):
     # scores and preferences.
     team_structures = build_team_structures(
         chairs)
+
+    print("Team Structures:")
+    for team_structure in team_structures:
+        print(team_structure)
+
     teams = create_teams(
         students, chairs, team_structures)
 
+    print("Teams:")
     for team in teams:
         print(team)
 
