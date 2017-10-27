@@ -176,8 +176,6 @@ def priority_match(student, chairs, team_fields, team_structures):
     data_fields.append(chair.chair_id)
     data_fields.append(chair.team_id)
 
-    print(data_fields)
-
     # For debugging purposes, rates how well the PriorityMatch went.
     # priority_score_val = 0
     # for preference in student.preferences:
@@ -208,6 +206,8 @@ def priority_match(student, chairs, team_fields, team_structures):
         elif preference.name not in chair.attributes:
             unmatched_preferences += '[' + preference.name + ']'
     data_fields.append(unmatched_preferences)
+
+    print(data_fields)
 
     ret = TeamMember(team_fields, data_fields)
 
