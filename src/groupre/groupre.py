@@ -148,6 +148,9 @@ def main(argv):
     teams = create_teams(
         students, chairs, team_structures)
 
+    for team in teams:
+        print(team)
+
     # Write our output to a csv.
     # NOTE 'newline=''' required when writing on an OS that ends lines in CRLF rather than just LF.
     print('----------')
