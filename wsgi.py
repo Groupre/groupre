@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 '''Website module.'''
 
 import csv
@@ -11,15 +10,6 @@ from werkzeug.utils import secure_filename
 
 # relies on groupre having been installed to the machine running this script
 import groupre
-=======
-import os
-import csv
-import groupre
-from random import randint
-from flask import Flask, flash, render_template, request, redirect, Response, url_for
-from werkzeug.utils import secure_filename
-
->>>>>>> bd327fa24b59f2c605f38165850c699d0d332e74
 
 UPLOAD_FOLDER = os.getcwd() + '/uploads/'
 ALLOWED_EXTENSIONS = set(['csv'])
@@ -40,7 +30,6 @@ def run_groupre(filename, row_count):
     test_location = os.path.join(main_dir, 'static/test/randomizedTests/')
     chairs = os.path.join(test_location, 'chairs/')
     students = filename
-<<<<<<< HEAD
     output_name = UPLOAD_FOLDER + 'output/' + \
         str(randint(1000000, 9999999)) + '-' + str(randint(1000000, 9999999))
     # output_name = os.path.join(UPLOAD_FOLDER, 'output/output.csv')
@@ -49,13 +38,6 @@ def run_groupre(filename, row_count):
             main_dir, 'static/test/testFiles/fallback/chairs_fallback.csv')
         groupre.main(['--fallback', '--chairs', chairs,
                       '--students', students, '--output', output_name])
-=======
-    output_name = UPLOAD_FOLDER + 'output/' + str(randint(1000000, 9999999)) + '-' + str(randint(1000000, 9999999))
-    # output_name = os.path.join(UPLOAD_FOLDER, 'output/output.csv')
-    if 'fallback' in filename:
-        chairs = os.path.join(main_dir, 'static/test/testFiles/fallback/chairs_fallback.csv')
-        groupre.main(['--fallback', '--chairs', chairs, '--students', students, '--output', output_name])
->>>>>>> bd327fa24b59f2c605f38165850c699d0d332e74
         return output_name
     if row_count <= 101:
         chairs = os.path.join(chairs, 'test_chairs_demo_100.csv')
@@ -67,24 +49,16 @@ def run_groupre(filename, row_count):
         chairs = os.path.join(chairs, 'test_chairs_1.csv')
         students = os.path.join(test_location, 'test_students_1.csv')
         output_name = os.path.join(UPLOAD_FOLDER, 'test_output_1.csv')
-<<<<<<< HEAD
     arguments = ['--chairs', chairs, '--students',
                  students, '--output', output_name]
-=======
-    arguments = ['--chairs', chairs, '--students', students, '--output', output_name]
->>>>>>> bd327fa24b59f2c605f38165850c699d0d332e74
     groupre.main(arguments)
     return output_name
 
 
 def make_tree(path):
     tree = dict(name=path.split('/')[-2], children=[])
-<<<<<<< HEAD
     try:
         lst = os.listdir(path)
-=======
-    try: lst = os.listdir(path)
->>>>>>> bd327fa24b59f2c605f38165850c699d0d332e74
     except OSError:
         pass  # ignore errors
     else:
@@ -132,21 +106,12 @@ def upload_file():
             with open(output_name, 'r') as f:
                 output = f.read()
             output_name = output_name.split('/')[-1] + '.csv'
-            return Response(
-<<<<<<< HEAD
-                output,
-                mimetype="text/csv",
-                headers={"Content-disposition":
-                         "attachment; filename=" + output_name})
+            return Response(output,
+                            mimetype="text/csv",
+                            headers={"Content-disposition":
+                                     "attachment; filename=" + output_name})
     test_files = {'100 Students': 'test_students_demo_100.csv', '400 Students': 'test_students_demo_400.csv',
                   '1000 Students': 'test_students_demo_1000.csv', 'Fallback Test': 'students_fallback.csv'}
-=======
-            output,
-            mimetype="text/csv",
-            headers={"Content-disposition":
-                     "attachment; filename="+output_name})
-    test_files = {'100 Students':'test_students_demo_100.csv', '400 Students':'test_students_demo_400.csv', '1000 Students':'test_students_demo_1000.csv', 'Fallback Test':'students_fallback.csv'}
->>>>>>> bd327fa24b59f2c605f38165850c699d0d332e74
     return render_template('upload.html', test_files=test_files)
 
 
@@ -156,11 +121,7 @@ def metrics():
     return render_template("metrics.html", output_name=output_name)
 
 
-<<<<<<< HEAD
 # TODO feed output into this URL
-=======
-#TODO feed output into this URL
->>>>>>> bd327fa24b59f2c605f38165850c699d0d332e74
 @application.route("/download/<string:output_name>", methods=['POST'])
 def downloadcsv(output_name):
     # if not allowed_file(output_name):
@@ -172,24 +133,15 @@ def downloadcsv(output_name):
             csvfile,
             mimetype="text/csv",
             headers={"Content-disposition":
-<<<<<<< HEAD
                      "attachment; filename=" + output_name})
     with open(os.getcwd() + "/uploads/output" + output_name) as file:
         csvfile = file.read()
-=======
-                         "attachment; filename=" + output_name})
-    with open(os.getcwd() + "/uploads/output" + output_name) as file:
-         csvfile = file.read()
->>>>>>> bd327fa24b59f2c605f38165850c699d0d332e74
     return Response(
         csvfile,
         mimetype="text/csv",
         headers={"Content-disposition":
                  "attachment; filename=" + output_name})
 
-<<<<<<< HEAD
 
-=======
->>>>>>> bd327fa24b59f2c605f38165850c699d0d332e74
 if __name__ == "__main__":
     application.run()

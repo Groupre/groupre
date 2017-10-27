@@ -1,6 +1,3 @@
 gunicorn
 Flask
-<<<<<<< HEAD
 ../src/groupre
-=======
->>>>>>> bd327fa24b59f2c605f38165850c699d0d332e74
