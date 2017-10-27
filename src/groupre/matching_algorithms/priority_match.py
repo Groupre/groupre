@@ -207,11 +207,7 @@ def priority_match(student, chairs, team_fields, team_structures):
             unmatched_preferences += '[' + preference.name + ']'
     data_fields.append(unmatched_preferences)
 
-    print(data_fields)
-
     ret = TeamMember(team_fields, data_fields)
-
-    print(ret.entry_data)
 
     # Add member to team_structure.
     # Used initially as back-bone for score-matching, may be unused in the future.
