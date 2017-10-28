@@ -25,14 +25,15 @@ def allowed_file(filename):
     return '.' in filename and filename.split('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-def run_groupre(filename, row_count):
+def run_groupre(students, row_count):
     main_dir = os.path.dirname(os.path.realpath(__file__))
     test_location = os.path.join(main_dir, 'static/test/randomizedTests/')
     chairs = os.path.join(test_location, 'chairs/')
-    students = filename
+    # random name generation to allow multiple users
     output_name = UPLOAD_FOLDER + 'output/' + \
         str(randint(1000000, 9999999)) + '-' + str(randint(1000000, 9999999))
-    # output_name = os.path.join(UPLOAD_FOLDER, 'output/output.csv')
+    # currently, this function will find a seat based on the amount of rows
+    # later on, the second var will be the proper chair csv
     if 'fallback' in filename:
         chairs = os.path.join(
             main_dir, 'static/test/testFiles/fallback/chairs_fallback.csv')
@@ -46,6 +47,7 @@ def run_groupre(filename, row_count):
     elif row_count <= 1001:
         chairs = os.path.join(chairs, 'test_chairs_demo_1000.csv')
     else:
+        # only for testing response
         chairs = os.path.join(chairs, 'test_chairs_1.csv')
         students = os.path.join(test_location, 'test_students_1.csv')
         output_name = os.path.join(UPLOAD_FOLDER, 'test_output_1.csv')
@@ -110,7 +112,6 @@ def upload_file():
                     for field in row:
                         output += str(field) + ','
                     output += '\n'
-                # output = f.read()
             output_name = output_name.split('/')[-1] + '.csv'
             return Response(output,
                             mimetype="text/csv",
@@ -121,17 +122,15 @@ def upload_file():
     return render_template('upload.html', test_files=test_files)
 
 
-@application.route("/metrics/")
-def metrics():
-    output_name = 'notempty'
+@application.route("/metrics/<string:output_name>")
+def metrics(output_name):
     return render_template("metrics.html", output_name=output_name)
 
 
-# TODO feed output into this URL
 @application.route("/download/<string:output_name>", methods=['POST'])
 def downloadcsv(output_name):
-    # if not allowed_file(output_name):
-    #     return "404"
+    if not allowed_file(output_name):
+        return
     if 'test' in output_name or 'fallback' in output_name:
         with open(os.getcwd() + "/uploads/testCases/" + output_name, 'r') as file:
             reader = csv.reader(file, delimiter=',')
@@ -140,7 +139,6 @@ def downloadcsv(output_name):
                 for field in row:
                     csvfile += str(field) + ','
                 csvfile += '\n'
-            # csvfile = file.read()
         return Response(
             csvfile,
             mimetype="text/csv",
@@ -153,7 +151,6 @@ def downloadcsv(output_name):
             for field in row:
                 csvfile += str(field) + ','
             csvfile += '\n'
-        # csvfile = file.read()
     return Response(
         csvfile,
         mimetype="text/csv",
