@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Download Your CSV</title>
+    <title>Download Seating Chart</title>
 </head>
 <body>
     <h1>Metrics</h1>
     <h2>{{ output_name }}</h2>
     <div class="output"></div>
-    <button><a href="/download/{{ output_name }}">Download Seating Chart</a></button>
+    <form action="" method="post">
+        <button formaction="/download/{{ output_name }}">Download Seating Chart</button>
+    </form>
 </body>
 </html>

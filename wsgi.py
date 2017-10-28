@@ -31,10 +31,10 @@ def run_groupre(students, row_count):
     chairs = os.path.join(test_location, 'chairs/')
     # random name generation to allow multiple users
     output_name = UPLOAD_FOLDER + 'output/' + \
-        str(randint(1000000, 9999999)) + '-' + str(randint(1000000, 9999999))
+        str(randint(1000000, 9999999)) + '' + str(randint(1000000, 9999999)) + '.csv'
     # currently, this function will find a seat based on the amount of rows
     # later on, the second var will be the proper chair csv
-    if 'fallback' in filename:
+    if 'fallback' in students:
         chairs = os.path.join(
             main_dir, 'static/test/testFiles/fallback/chairs_fallback.csv')
         groupre.main(['--fallback', '--chairs', chairs,
@@ -105,18 +105,15 @@ def upload_file():
                 reader = csv.reader(csvfile, delimiter=',')
                 row_count = sum(1 for row in reader)
             output_name = run_groupre(newlocation, row_count)
-            with open(output_name, 'r') as f:
-                reader = csv.reader(f, delimiter=',')
-                output = ''
-                for row in reader:
-                    for field in row:
-                        output += str(field) + ','
-                    output += '\n'
-            output_name = output_name.split('/')[-1] + '.csv'
-            return Response(output,
-                            mimetype="text/csv",
-                            headers={"Content-disposition":
-                                     "attachment; filename=" + output_name})
+            # with open(output_name, 'r') as f:
+            #     reader = csv.reader(f, delimiter=',')
+            #     output = ''
+            #     for row in reader:
+            #         for field in row:
+            #             output += str(field) + ','
+            #         output += '\n'
+            output_name = output_name.split('/')[-1].split('.', 1)[0]
+            return redirect('/metrics/' + output_name)
     test_files = {'100 Students': 'test_students_demo_100.csv', '400 Students': 'test_students_demo_400.csv',
                   '1000 Students': 'test_students_demo_1000.csv', 'Fallback Test': 'students_fallback.csv'}
     return render_template('upload.html', test_files=test_files)
@@ -124,15 +121,14 @@ def upload_file():
 
 @application.route("/metrics/<string:output_name>")
 def metrics(output_name):
+    output_name = output_name + '.csv'
     return render_template("metrics.html", output_name=output_name)
 
 
 @application.route("/download/<string:output_name>", methods=['POST'])
 def downloadcsv(output_name):
-    if not allowed_file(output_name):
-        return
     if 'test' in output_name or 'fallback' in output_name:
-        with open(os.getcwd() + "/uploads/testCases/" + output_name, 'r') as file:
+        with open(UPLOAD_FOLDER + "testCases/" + output_name, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             csvfile = []
             for row in reader:
@@ -144,7 +140,8 @@ def downloadcsv(output_name):
             mimetype="text/csv",
             headers={"Content-disposition":
                      "attachment; filename=" + output_name})
-    with open(os.getcwd() + "/uploads/output" + output_name, 'r') as file:
+    #TODO add CSV validation testing
+    with open(UPLOAD_FOLDER + "output/" + output_name, 'r') as file:
         reader = csv.reader(file, delimiter=',')
         csvfile = []
         for row in reader:
