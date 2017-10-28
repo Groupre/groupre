@@ -121,6 +121,8 @@ def upload_file():
 
 @application.route("/metrics/<string:output_name>")
 def metrics(output_name):
+  #  with open(output_name + '-metrics.txt', 'r') as f:
+  #      metrics = f.readlines()
     output_name = output_name + '.csv'
     return render_template("metrics.html", output_name=output_name)
 
