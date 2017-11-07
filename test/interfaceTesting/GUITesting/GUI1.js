@@ -1,6 +1,15 @@
 function jsFunction(value)
 {
     alert(value);
+
+    switch(value) {
+      case:"drag" {
+        drag();
+        break;
+      }
+    }
+
+
 }
 
 document.getElementById('build').onclick = function() {
@@ -28,10 +37,10 @@ document.getElementById('build').onclick = function() {
     document.getElementById('output').appendChild(table);
 }
 
-$(function drag() {
+function drag() {
   var isMouseDown = false,
     isHighlighted;
-  $("#groupreTable td")
+  $("#output td")
     .mousedown(function () {
       isMouseDown = true;
       $(this).toggleClass("highlighted");
@@ -48,7 +57,7 @@ $(function drag() {
     .mouseup(function () {
       isMouseDown = false;
     });
-});
+}
 
 function highlight_row() {
     var table = document.getElementById('display-table');
@@ -77,4 +86,3 @@ function highlight_row() {
 }
 
 window.onload = highlight_row;
-
