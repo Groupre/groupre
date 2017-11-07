@@ -1,0 +1,45 @@
+body {
+	font-family: Verdana,Geneva,sans-serif;
+	font-size: 14px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 20px;
+	background-image: url("beach.jpg");
+}
+
+/*p.one {
+	border-style: solid;
+    border-color: blue;
+    border-width: 5px;
+    text-align: center;}*/
+
+input::-ms-clear {
+	display: none;
+}			
+td.chair {
+	min-width: 60px;
+	text-align: right;
+}
+table.SC {
+	border: 0;
+	border-spacing: 0;
+	}
+
+table.SC th {
+	color: white;
+	background-color: #add8e6;
+}
+
+/*table.SC tr:nth-child(even) {
+	background: #D0D0D0
+}
+
+table.SC tr:nth-child(odd) {
+	background: #FFFFFF
+}*/
+
+/*table.SC td {
+	border: 1px solid #000000;
+	padding: 2px;
+}*/
