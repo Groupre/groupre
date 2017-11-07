@@ -1,12 +1,23 @@
 function jsFunction(value)
 {
-    alert(value);
+    switch(value){
+      case 'drag':
+        alert(value);
+        drag();
+        break;
+      case 'highlight_rows':
+        alert(value);
+        highlight_row();
+        break;
+    }
+    //alert(value);
 }
 
 document.getElementById('build').onclick = function() {
     var rows = parseInt(document.getElementById('Enter rows here:').value,10);
     var cols = parseInt(document.getElementById('Enter columns here:').value,10);
     var table = document.createElement('table');
+    table.id = 'display-table';
     table.border = "1";
     var prevrow;
     for (var r = 0; r < (rows); r++) {
