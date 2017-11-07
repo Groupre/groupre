@@ -1,15 +1,6 @@
 function jsFunction(value)
 {
     alert(value);
-
-    switch(value) {
-      case:"drag" {
-        drag();
-        break;
-      }
-    }
-
-
 }
 
 document.getElementById('build').onclick = function() {
