@@ -91,6 +91,7 @@ def main(argv):
                 row[:len(groupre_globals.CHAIR_REQUIRED_FIELDS)],
                 row[len(groupre_globals.CHAIR_REQUIRED_FIELDS):]))
 
+        # print("Chairs:")
         # for chair in chairs:
         #     print('Chair:', chair.chair_id, chair.team_id, chair.attributes)
 
@@ -132,6 +133,7 @@ def main(argv):
                 row[:len(groupre_globals.STUDENT_REQUIRED_FIELDS)],
                 row[len(groupre_globals.STUDENT_REQUIRED_FIELDS):]))
 
+        # print("Students:")
         # for student in students:
         #     print('Student:', student.student_id, student.preferences)
 
@@ -145,8 +147,17 @@ def main(argv):
     # scores and preferences.
     team_structures = build_team_structures(
         chairs)
+
+    # print("Team Structures:")
+    # for team_structure in team_structures:
+    #     print(team_structure)
+
     teams = create_teams(
         students, chairs, team_structures)
+
+    # print("Teams:")
+    # for team in teams:
+    #     print(team)
 
     # Write our output to a csv.
     # NOTE 'newline=''' required when writing on an OS that ends lines in CRLF rather than just LF.
@@ -164,6 +175,7 @@ def main(argv):
               round(groupre_globals.STUDENT_PRIORITY_VALUE /
                     groupre_globals.STUDENT_PRIORITY_TOTAL * 100, 2), '%')
     print('----------')
+
 
 
 if __name__ == '__main__':

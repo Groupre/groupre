@@ -76,6 +76,9 @@ def create_teams(students, chairs, team_structures):
     ret_teams = []
     ret_teams.append(team_fields)
     for team in sorted_teams:
-        ret_teams.append(team.entry_data.values())
+        current_ret = []
+        for field in team_fields:
+            current_ret.append(team.entry_data.get(field))
+        ret_teams.append(current_ret)
 
     return ret_teams

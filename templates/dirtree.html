@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/test.css" type="text/css">
+    <title>Path: {{ tree.name }}</title>
+</head>
+
+<body>
+    <h1>{{ tree.name }}</h1>
+    <ul>
+        {%- for item in tree.children recursive %}
+        <li>{{ item.name }}
+            <!--{%- if item.children -%}-->
+            <ul>
+                <a href="/docs/{{ loop(item.name) }}">{{ loop(item.name) }}</a>
+            </ul>
+            <!--{%- endif %}</li>-->
+        </li>
+        {%- endfor %}
+    </ul>
+</body>
