@@ -1,0 +1,76 @@
+body {
+padding-left: 10em;
+padding-right: 10em;
+  font-family: Verdana, Geneva, sans-serif;
+  color: #0000DD;
+
+background-image: url("beach.jpg");}
+
+  p.one {
+	border-style: solid;
+    border-color: blue;
+    border-width: 5px;
+    text-align: center;}
+
+
+.errorIntro {
+  visibility: visible;
+	color: red;
+}
+
+.errorIntro.hidden {
+	visibility: hidden;	
+}
+
+.outPut li {
+	font-weight: bold;
+}
+
+.container {
+	background-color: #e1ebf6;
+}
+
+table td {
+  width:60px;
+  height:60px;
+  text-align:center;
+  vertical-align:middle;
+  background-color:#00ffff;
+  border:3px solid #ff00ff;
+}
+
+table td.highlighted {
+  background-color:#ffff00;
+}
+
+table {
+text-align:center;
+vertical-align:middle;
+background-color:#d3d3d3;
+border:3px solid #a9a9a9;
+}
+
+.table-layout {
+    text-align: center;
+    width:60px;
+    height:60px;
+    text-align:center;
+    vertical-align:middle;
+    background-color:#00ffff;
+    border:3px solid #ff00ff;
+}
+.table-layout td, .table-layout th {
+    border:3px solid #ff00ff;
+    width:60px;
+    height:60px;
+    
+}
+.table-layout td {
+    text-align: center;
+    width:60px;
+    height:60px;
+}
+.selected {
+    color: #000000;
+    background-color:#ffff00;
+}
