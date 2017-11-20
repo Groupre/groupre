@@ -80,8 +80,9 @@ def priority_match(student, chairs, team_fields, team_structures):
                                        and fallback_level <= groupre_globals.FALLBACK_LIMIT_FRONT):
                                     if (groupre_globals.FALLBACK_CHAIRS_FRONT[fallback_level]
                                             in chair.attributes):
-                                        score += (groupre_globals.FALLBACK_LIMIT_BACK - fallback_level + 1) / (
-                                            groupre_globals.FALLBACK_LIMIT_BACK + 1)
+                                        score += ((groupre_globals.FALLBACK_LIMIT_BACK
+                                                   - fallback_level + 1) / (
+                                                       groupre_globals.FALLBACK_LIMIT_BACK + 1))
                                         preference_found = True
                                     else:
                                         fallback_level += 1
@@ -96,8 +97,9 @@ def priority_match(student, chairs, team_fields, team_structures):
                                        and fallback_level <= groupre_globals.FALLBACK_LIMIT_BACK):
                                     if (groupre_globals.FALLBACK_CHAIRS_BACK[fallback_level]
                                             in chair.attributes):
-                                        score += (groupre_globals.FALLBACK_LIMIT_BACK - fallback_level + 1) / (
-                                            groupre_globals.FALLBACK_LIMIT_BACK + 1)
+                                        score += ((groupre_globals.FALLBACK_LIMIT_BACK
+                                                   - fallback_level + 1) / (
+                                                       groupre_globals.FALLBACK_LIMIT_BACK + 1))
                                         preference_found = True
                                     else:
                                         fallback_level += 1
@@ -112,8 +114,9 @@ def priority_match(student, chairs, team_fields, team_structures):
                                        and fallback_level <= groupre_globals.FALLBACK_LIMIT_AISLE):
                                     if (groupre_globals.FALLBACK_CHAIRS_AISLE[fallback_level]
                                             in chair.attributes):
-                                        score += (groupre_globals.FALLBACK_LIMIT_BACK - fallback_level + 1) / (
-                                            groupre_globals.FALLBACK_LIMIT_BACK + 1)
+                                        score += ((groupre_globals.FALLBACK_LIMIT_BACK
+                                                   - fallback_level + 1) / (
+                                                       groupre_globals.FALLBACK_LIMIT_BACK + 1))
                                         preference_found = True
                                     else:
                                         fallback_level += 1
