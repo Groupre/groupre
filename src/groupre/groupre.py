@@ -111,11 +111,11 @@ def main(argv):
 
         # Sort our fallback options.
         groupre_globals.FALLBACK_CHAIRS_FRONT.sort(
-            key=lambda x: (('' + x).split('-', 1)[1]), reverse=True)
+            key=lambda x: (int)(('' + x).split('-', 1)[1]), reverse=False)
         groupre_globals.FALLBACK_CHAIRS_BACK.sort(
-            key=lambda x: (('' + x).split('-', 1)[1]), reverse=True)
+            key=lambda x: (int)(('' + x).split('-', 1)[1]), reverse=False)
         groupre_globals.FALLBACK_CHAIRS_AISLE.sort(
-            key=lambda x: (('' + x).split('-', 1)[1]), reverse=True)
+            key=lambda x: (int)(('' + x).split('-', 1)[1]), reverse=False)
 
     students = []
     with open(students_csv, 'r') as csvfile:

@@ -10,36 +10,22 @@ def priority_match(student, chairs, team_fields, team_structures):
     '''This functionw will find a chair that is suitable for the student based
     on their preferences.'''
 
-    # print('\n-----\nmatching student:', student)
-    # for preference in student.preferences:
-    #     print(preference.name, preference.value)
-
     # Find the possible_chairs that best match this student's priorities.
     scored_chairs = {}
     for chair in chairs:
         score = 0
 
         for preference in student.preferences:
-
-            # if preference.name == 'front-0':
-            #     print(chair.attributes)
-
-            # print(student.preferences)
-
             # Handling of front-BEGIN:END range preference.
             if 'front-' and ':' in preference.name:
                 range_values = ('' + preference.name).split('-',
                                                             1)[1].split(':', 1)
-
-                # print('range_values:', range_values)
 
                 applicable_attributes = []
                 current_value = int(range_values[0])
                 while current_value <= int(range_values[1]):
                     applicable_attributes.append('front-' + str(current_value))
                     current_value += 1
-
-                # print('applicable_attributes:', applicable_attributes)
 
                 for attribute in applicable_attributes:
                     if attribute in chair.attributes:
@@ -52,14 +38,8 @@ def priority_match(student, chairs, team_fields, team_structures):
                         score += (1 * ((int(range_values[1]) - int(found_value) +
                                         1) / (int(range_values[1]) + 1)))
 
-                        # print('found chair with attribute:',
-                        #       attribute, '|', 'score:', score)
-
             elif preference.name in chair.attributes:
                 score += 1
-
-            # if preference == 'front-0':
-            #     exit()
 
         scored_chairs[chair] = score
 
@@ -98,10 +78,10 @@ def priority_match(student, chairs, team_fields, team_structures):
                             if has_attribute:
                                 while (not preference_found
                                        and fallback_level <= groupre_globals.FALLBACK_LIMIT_FRONT):
-                                    if groupre_globals.FALLBACK_CHAIRS_FRONT in chair.attributes:
-                                        score += (1 * ((groupre_globals.FALLBACK_LIMIT_BACK
-                                                        - fallback_level + 1) /
-                                                       (groupre_globals.FALLBACK_LIMIT_BACK + 1)))
+                                    if (groupre_globals.FALLBACK_CHAIRS_FRONT[fallback_level]
+                                            in chair.attributes):
+                                        score += (groupre_globals.FALLBACK_LIMIT_BACK - fallback_level + 1) / (
+                                            groupre_globals.FALLBACK_LIMIT_BACK + 1)
                                         preference_found = True
                                     else:
                                         fallback_level += 1
@@ -114,10 +94,10 @@ def priority_match(student, chairs, team_fields, team_structures):
                             if has_attribute:
                                 while (not preference_found
                                        and fallback_level <= groupre_globals.FALLBACK_LIMIT_BACK):
-                                    if groupre_globals.FALLBACK_CHAIRS_BACK in chair.attributes:
-                                        score += (1 * ((groupre_globals.FALLBACK_LIMIT_BACK
-                                                        - fallback_level + 1) /
-                                                       groupre_globals.FALLBACK_LIMIT_BACK + 1))
+                                    if (groupre_globals.FALLBACK_CHAIRS_BACK[fallback_level]
+                                            in chair.attributes):
+                                        score += (groupre_globals.FALLBACK_LIMIT_BACK - fallback_level + 1) / (
+                                            groupre_globals.FALLBACK_LIMIT_BACK + 1)
                                         preference_found = True
                                     else:
                                         fallback_level += 1
@@ -130,10 +110,10 @@ def priority_match(student, chairs, team_fields, team_structures):
                             if has_attribute:
                                 while (not preference_found
                                        and fallback_level <= groupre_globals.FALLBACK_LIMIT_AISLE):
-                                    if groupre_globals.FALLBACK_CHAIRS_AISLE in chair.attributes:
-                                        score += (1 * ((groupre_globals.FALLBACK_LIMIT_BACK
-                                                        - fallback_level + 1) /
-                                                       groupre_globals.FALLBACK_LIMIT_BACK + 1))
+                                    if (groupre_globals.FALLBACK_CHAIRS_AISLE[fallback_level]
+                                            in chair.attributes):
+                                        score += (groupre_globals.FALLBACK_LIMIT_BACK - fallback_level + 1) / (
+                                            groupre_globals.FALLBACK_LIMIT_BACK + 1)
                                         preference_found = True
                                     else:
                                         fallback_level += 1
@@ -141,7 +121,6 @@ def priority_match(student, chairs, team_fields, team_structures):
                 scored_chairs[chair] = score
 
             max_score = max(scored_chairs.values())
-            # print('fallback max_score:', max_score)
 
     to_remove = []
     num_found = 0
