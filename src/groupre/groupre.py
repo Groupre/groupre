@@ -62,7 +62,7 @@ def main(argv):
 
     if output_csv is None:
         print('''Output file not specified, and the default was somehow
-            replaced. Please try specifying a proper output file.''')
+			replaced. Please try specifying a proper output file.''')
         return
 
     # Update our global fallback toggle with our given argument.
@@ -175,7 +175,6 @@ def main(argv):
               round(groupre_globals.STUDENT_PRIORITY_VALUE /
                     groupre_globals.STUDENT_PRIORITY_TOTAL * 100, 2), '%')
     print('----------')
-
 
 
 if __name__ == '__main__':
