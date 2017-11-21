@@ -8,8 +8,16 @@
     <h1>Metrics</h1>
     <h2>{{ output_name }}</h2>
     <div class="output"></div>
+    
+    <ul>
+        {%- for m in metrics %}
+        <li>{{ m }}</li>
+        {%- endfor %}
+    </ul>
+
     <form action="" method="post">
         <button formaction="/download/{{ output_name }}">Download Seating Chart</button>
     </form>
+
 </body>
 </html>

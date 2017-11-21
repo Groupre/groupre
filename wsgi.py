@@ -37,7 +37,7 @@ def run_groupre(students, row_count):
     if 'fallback' in students:
         chairs = os.path.join(
             main_dir, 'static/test/testFiles/fallback/chairs_fallback.csv')
-        groupre.main(['--fallback', '--chairs', chairs,
+        groupre.main(['--metrics', '--fallback', '--chairs', chairs,
                       '--students', students, '--output', output_name])
         return output_name
     if row_count <= 101:
@@ -51,7 +51,7 @@ def run_groupre(students, row_count):
         chairs = os.path.join(chairs, 'test_chairs_1.csv')
         students = os.path.join(test_location, 'test_students_1.csv')
         output_name = os.path.join(UPLOAD_FOLDER, 'test_output_1.csv')
-    arguments = ['--chairs', chairs, '--students',
+    arguments = ['--metrics', '--chairs', chairs, '--students',
                  students, '--output', output_name]
     groupre.main(arguments)
     return output_name
@@ -121,10 +121,17 @@ def upload_file():
 
 @application.route("/metrics/<string:output_name>")
 def metrics(output_name):
-  #  with open(output_name + '-metrics.txt', 'r') as f:
-  #      metrics = f.readlines()
+    metrics = UPLOAD_FOLDER + 'output/' + output_name + '-metrics.txt'
     output_name = output_name + '.csv'
-    return render_template("metrics.html", output_name=output_name)
+    try:
+        with open(metrics, 'r') as f:
+            metrics = f.readlines()
+        print('wutang')
+        for m in metrics:
+            print(m)
+        return render_template("metrics.html", output_name=output_name, metrics=metrics)
+    except FileNotFoundError:
+        return render_template("metrics.html", output_name=output_name)
 
 
 @application.route("/download/<string:output_name>", methods=['POST'])

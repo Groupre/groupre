@@ -20,6 +20,7 @@ def main(argv):
     chairs_csv = None
     students_csv = None
     fallback = None
+    metrics = None
     output_csv = None
 
     # groupre.py -c CHAIRS -s STUDENTS -f FALLBACK -o OUTPUT
@@ -29,6 +30,8 @@ def main(argv):
         '-s', '--students', help='Students input file')
     argparser.add_argument(
         '-f', '--fallback', help='Enable fallback functionality', action='store_true')
+    argparser.add_argument(
+        '-m', '--metrics', help='Enable metrics functionality', action='store_true')
     argparser.add_argument(
         '-o', '--output', help='Output file')
     argparser.set_defaults(fallback=False, output_csv='output.csv')
@@ -41,6 +44,7 @@ def main(argv):
     chairs_csv = parsed_args.chairs
     students_csv = parsed_args.students
     fallback = parsed_args.fallback
+    metrics = parsed_args.metrics
     output_csv = parsed_args.output
 
     print('Arguments: Chairs {}, Students {}, Fallback {}, Output {}'.format(
@@ -64,6 +68,11 @@ def main(argv):
         print('''Output file not specified, and the default was somehow
 			replaced. Please try specifying a proper output file.''')
         return
+
+    groupre_globals.METRICS_ENABLED = metrics
+
+    if groupre_globals.METRICS_ENABLED:
+        timing = time.time()
 
     # Update our global fallback toggle with our given argument.
     groupre_globals.FALLBACK_ENABLED = fallback
@@ -137,6 +146,10 @@ def main(argv):
     print('Processing', total_students,
           'students to be seated in', total_chairs, 'chairs...')
 
+    if groupre_globals.METRICS_ENABLED:
+        groupre_globals.METRICS.append('Students: ' + str(total_students))
+        groupre_globals.METRICS.append('Seats: ' + str(total_chairs))
+
     # Run our algorithm to match students to chairs within teams, keeping in mind their
     # scores and preferences.
     team_structures = build_team_structures(
@@ -157,10 +170,21 @@ def main(argv):
 
     print('----------')
     if groupre_globals.STUDENT_PRIORITY_TOTAL != 0:
-        print('Student Priority Rating:',
-              round(groupre_globals.STUDENT_PRIORITY_VALUE /
-                    groupre_globals.STUDENT_PRIORITY_TOTAL * 100, 2), '%')
+        priority_rating = ('Student Priority Rating: ' + str(
+            round(groupre_globals.STUDENT_PRIORITY_VALUE /
+                groupre_globals.STUDENT_PRIORITY_TOTAL * 100, 2)) + '%')
+        print(priority_rating)
     print('----------')
+
+    if groupre_globals.METRICS_ENABLED:
+        groupre_globals.METRICS.append(priority_rating)
+        metrics_file = output_csv.split('.', 1)[0] + '-metrics.txt'
+        print(metrics_file)
+        groupre_globals.METRICS.append('Time Elapsed: '+ str(time.time() - timing) +' seconds')
+        with open(metrics_file, 'w+') as f:
+            for metric in groupre_globals.METRICS:
+                f.write(metric + '\n')
+
 
 
 if __name__ == '__main__':

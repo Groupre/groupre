@@ -20,6 +20,8 @@ FALLBACK_CHAIRS_FRONT = []
 FALLBACK_CHAIRS_BACK = []
 FALLBACK_CHAIRS_AISLE = []
 
+METRICS_ENABLED = False
+METRICS = []
 
 def set_all_fallback_limits(limit):
     '''Sets all FALLBACK\_LIMIT_* global variables to the same setting.

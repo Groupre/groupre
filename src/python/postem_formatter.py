@@ -17,9 +17,6 @@ def process_csv(filename):
 def main(argv):
 
     argparser = argparse.ArgumentParser()
-    #
-    # output_csv = None
-    # teammates = None
 
     argparser.add_argument('-o', '--output', help='Output csv file')
     argparser.add_argument('-t', '--teammates', help='Enable teammate list', action='store_true')
