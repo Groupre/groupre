@@ -161,20 +161,7 @@ def priority_match(student, chairs, team_fields, team_structures):
 
         max_score = max(scored_chairs.values())
 
-    to_remove = []
-    num_found = 0
-    for chair in scored_chairs:
-        if scored_chairs[chair] != max_score:
-            to_remove.append(chair)
-        else:
-            num_found += 1
-
-    for chair in to_remove:
-        scored_chairs.pop(chair)
-
-    best_chairs = []
-    for chair in scored_chairs:
-        best_chairs.append(chair)
+    best_chairs = [chair for chair in scored_chairs if scored_chairs[chair] == max_score]
 
     # Randomize and choose a chair.
     chair = random.choice(best_chairs)
