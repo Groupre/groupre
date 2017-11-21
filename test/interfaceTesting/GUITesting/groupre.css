@@ -19,7 +19,7 @@ background-image: url("beach.jpg");}
 }
 
 .errorIntro.hidden {
-	visibility: hidden;	
+	visibility: hidden;
 }
 
 .outPut li {
@@ -63,7 +63,7 @@ border:3px solid #a9a9a9;
     border:3px solid #ff00ff;
     width:60px;
     height:60px;
-    
+
 }
 .table-layout td {
     text-align: center;

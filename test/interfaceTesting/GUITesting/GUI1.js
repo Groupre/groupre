@@ -87,4 +87,4 @@ function highlight_row() {
 
 }
 
-window.onload = highlight_row;
+window.onload = drag();
