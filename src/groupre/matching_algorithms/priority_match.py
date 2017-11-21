@@ -43,7 +43,7 @@ def fallback_front(preference, chair):
 
     if has_attribute:
         while (not preference_found
-               and fallback_level <= groupre_globals.FALLBACK_LIMIT_FRONT):
+               and fallback_start + fallback_level <= groupre_globals.FALLBACK_LIMIT_FRONT):
             if groupre_globals.FALLBACK_CHAIRS_FRONT[
                     fallback_start + fallback_level] in chair.attributes:
                 score += ((groupre_globals.FALLBACK_LIMIT_BACK - fallback_level + 1)
@@ -70,7 +70,7 @@ def fallback_back(preference, chair):
 
     if has_attribute:
         while (not preference_found
-               and fallback_level <= groupre_globals.FALLBACK_LIMIT_BACK):
+               and fallback_start + fallback_level <= groupre_globals.FALLBACK_LIMIT_BACK):
             if groupre_globals.FALLBACK_CHAIRS_BACK[
                     fallback_start + fallback_level] in chair.attributes:
                 score += ((groupre_globals.FALLBACK_LIMIT_BACK - fallback_level + 1)
@@ -97,7 +97,7 @@ def fallback_aisle(preference, chair):
 
     if has_attribute:
         while (not preference_found
-               and fallback_level <= groupre_globals.FALLBACK_LIMIT_AISLE):
+               and fallback_start + fallback_level <= groupre_globals.FALLBACK_LIMIT_AISLE):
             if groupre_globals.FALLBACK_CHAIRS_AISLE[
                     fallback_start + fallback_level] in chair.attributes:
                 score += ((groupre_globals.FALLBACK_LIMIT_BACK - fallback_level + 1)
