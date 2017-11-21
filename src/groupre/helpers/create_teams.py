@@ -71,11 +71,14 @@ def create_teams(students, chairs, team_structures):
             students.remove(student)
 
     # Sort by TeamID
-    sorted_teams = sorted(teams, key=lambda x: x.team_id)
+    sorted_teams = sorted(teams, key=lambda x: (x.team_id, x.entry_data.get('CID')))
 
     ret_teams = []
     ret_teams.append(team_fields)
     for team in sorted_teams:
-        ret_teams.append(team.entry_data.values())
+        current_ret = []
+        for field in team_fields:
+            current_ret.append(team.entry_data.get(field))
+        ret_teams.append(current_ret)
 
     return ret_teams

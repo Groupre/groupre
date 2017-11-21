@@ -19,3 +19,32 @@ FALLBACK_LIMIT_AISLE = 2
 FALLBACK_CHAIRS_FRONT = []
 FALLBACK_CHAIRS_BACK = []
 FALLBACK_CHAIRS_AISLE = []
+
+METRICS_ENABLED = False
+METRICS = []
+
+def set_all_fallback_limits(limit):
+    '''Sets all FALLBACK\_LIMIT_* global variables to the same setting.
+    Typically this won't be used since the amount of chairs with the same
+    number of fallback options for every attribute will not be the same.'''
+    global FALLBACK_LIMIT_FRONT
+    global FALLBACK_LIMIT_BACK
+    global FALLBACK_LIMIT_AISLE
+
+    FALLBACK_LIMIT_FRONT = limit
+    FALLBACK_LIMIT_BACK = limit
+    FALLBACK_LIMIT_AISLE = limit
+
+
+def set_all_fallback_limits_to_max():
+    '''Sets all FALLBACK\_LIMIT_* global variables to their maximum possible value.'''
+    global FALLBACK_CHAIRS_FRONT
+    global FALLBACK_CHAIRS_BACK
+    global FALLBACK_CHAIRS_AISLE
+    global FALLBACK_LIMIT_FRONT
+    global FALLBACK_LIMIT_BACK
+    global FALLBACK_LIMIT_AISLE
+
+    FALLBACK_LIMIT_FRONT = len(FALLBACK_CHAIRS_FRONT)
+    FALLBACK_LIMIT_BACK = len(FALLBACK_CHAIRS_BACK)
+    FALLBACK_LIMIT_AISLE = len(FALLBACK_CHAIRS_AISLE)
