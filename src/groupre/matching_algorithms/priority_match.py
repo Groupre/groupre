@@ -40,6 +40,7 @@ def fallback_front(preference, chair):
     for attribute in chair.attributes:
         if 'front-' in attribute:
             has_attribute = True
+            break
 
     if has_attribute:
         while (not preference_found
@@ -67,6 +68,7 @@ def fallback_back(preference, chair):
     for attribute in chair.attributes:
         if 'back-' in attribute:
             has_attribute = True
+            break
 
     if has_attribute:
         while (not preference_found
@@ -94,6 +96,7 @@ def fallback_aisle(preference, chair):
     for attribute in chair.attributes:
         if 'aisle-' in attribute:
             has_attribute = True
+            break
 
     if has_attribute:
         while (not preference_found
