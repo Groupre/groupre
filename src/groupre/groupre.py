@@ -181,7 +181,7 @@ def main(argv):
         metrics_file = output_csv.split('.', 1)[0] + '-metrics.txt'
         print(metrics_file)
         groupre_globals.METRICS.append('Time Elapsed: '+ str(time.time() - timing) +' seconds')
-        with open(metrics_file, 'w+') as f:
+        with open(metrics_file, 'w') as f:
             for metric in groupre_globals.METRICS:
                 f.write(metric + '\n')
 
