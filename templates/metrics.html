@@ -14,9 +14,14 @@
         <li>{{ m }}</li>
         {%- endfor %}
     </ul>
-
-    <form action="" method="post">
-        <button formaction="/download/{{ output_name }}">Download Seating Chart</button>
+    <div id="download">
+    <form action="" method="POST">
+        <button formaction="/download/{{ output_name ~ '.csv' }}">Download Seating Chart</button>
+    </form>
+    </div>
+    <br>
+    <form action"" method="POST">
+        <button formaction="/download/{{ output_name ~ '-postEm.csv' }}">Download Sakai Postem</button>
     </form>
 
 </body>
