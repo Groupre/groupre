@@ -8,8 +8,21 @@
     <h1>Metrics</h1>
     <h2>{{ output_name }}</h2>
     <div class="output"></div>
-    <form action="" method="post">
-        <button formaction="/download/{{ output_name }}">Download Seating Chart</button>
+    
+    <ul>
+        {%- for m in metrics %}
+        <li>{{ m }}</li>
+        {%- endfor %}
+    </ul>
+    <div id="download">
+    <form action="" method="POST">
+        <button formaction="/download/{{ output_name ~ '.csv' }}">Download Seating Chart</button>
     </form>
+    </div>
+    <br>
+    <form action"" method="POST">
+        <button formaction="/download/{{ output_name ~ '-postEm.csv' }}">Download Sakai Postem</button>
+    </form>
+
 </body>
 </html>

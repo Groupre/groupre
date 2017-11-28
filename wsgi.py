@@ -10,6 +10,7 @@ from werkzeug.utils import secure_filename
 
 # relies on groupre having been installed to the machine running this script
 import groupre
+from helpers import postem
 
 UPLOAD_FOLDER = os.getcwd() + '/uploads/'
 ALLOWED_EXTENSIONS = set(['csv'])
@@ -37,7 +38,7 @@ def run_groupre(students, row_count):
     if 'fallback' in students:
         chairs = os.path.join(
             main_dir, 'static/test/testFiles/fallback/chairs_fallback.csv')
-        groupre.main(['--fallback', '--chairs', chairs,
+        groupre.main(['--metrics', '--fallback', '--chairs', chairs,
                       '--students', students, '--output', output_name])
         return output_name
     if row_count <= 101:
@@ -51,7 +52,7 @@ def run_groupre(students, row_count):
         chairs = os.path.join(chairs, 'test_chairs_1.csv')
         students = os.path.join(test_location, 'test_students_1.csv')
         output_name = os.path.join(UPLOAD_FOLDER, 'test_output_1.csv')
-    arguments = ['--chairs', chairs, '--students',
+    arguments = ['--metrics', '--chairs', chairs, '--students',
                  students, '--output', output_name]
     groupre.main(arguments)
     return output_name
@@ -114,17 +115,27 @@ def upload_file():
             #         output += '\n'
             output_name = output_name.split('/')[-1].split('.', 1)[0]
             return redirect('/metrics/' + output_name)
+    # generate these test cases dynamically
     test_files = {'100 Students': 'test_students_demo_100.csv', '400 Students': 'test_students_demo_400.csv',
-                  '1000 Students': 'test_students_demo_1000.csv', 'Fallback Test': 'students_fallback.csv', 'All aisle':'students_fallback_all_aisle.csv', 'All Back':'students_fallback_all_back.csv', 'All Front':'students_fallback_all_front.csv', 'All Front 0 to 6':'students_fallback_all_front_0_to_6.csv', 'All Front, Back, Aisle':'students_fallback_all_front_and_back_and_aisle.csv'}
+                  '1000 Students': 'test_students_demo_1000.csv', 'Fallback Test': 'students_fallback.csv', 
+                  'All aisle':'students_fallback_all_aisle.csv', 'All Back':'students_fallback_all_back.csv', 
+                  'All Front':'students_fallback_all_front.csv', 'All Front 0 to 6':'students_fallback_all_front_0_to_6.csv', 
+                  'All Front, Back, Aisle':'students_fallback_all_front_and_back_and_aisle.csv'}
     return render_template('upload.html', test_files=test_files)
 
 
 @application.route("/metrics/<string:output_name>")
 def metrics(output_name):
-  #  with open(output_name + '-metrics.txt', 'r') as f:
-  #      metrics = f.readlines()
-    output_name = output_name + '.csv'
-    return render_template("metrics.html", output_name=output_name)
+    metrics = UPLOAD_FOLDER + 'output/' + output_name + '-metrics.txt'
+    try:
+        with open(metrics, 'r') as f:
+            metrics = f.readlines()
+        for m in metrics:
+            print(m)
+        postem.postem(['--output', UPLOAD_FOLDER + 'output/' + output_name + '.csv'])
+        return render_template("metrics.html", output_name=output_name, metrics=metrics)
+    except FileNotFoundError:
+        return render_template("metrics.html", output_name=output_name)
 
 
 @application.route("/download/<string:output_name>", methods=['POST'])

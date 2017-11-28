@@ -1,11 +1,14 @@
+#!/usr/bin/env python
+
 import argparse
 import csv
-import os
 import sys
 
 DEFAULT_COLUMNS = ['PID', 'StudentName', 'CID', 'TeamID']
 
+
 def process_csv(filename):
+    """Returns a 2D array of the output csv."""
     matrix = []
     with open(filename, newline='') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
@@ -14,35 +17,44 @@ def process_csv(filename):
     return matrix
 
 
-def main(argv):
+def postem(argv):
+    """Formats a groupre output file for Sakai PostEm format."""
+    #TODO clean up the amount of local vars, reduce number of lines
+    output_csv = None
+    teammates = None
 
     argparser = argparse.ArgumentParser()
-    #
-    # output_csv = None
-    # teammates = None
 
     argparser.add_argument('-o', '--output', help='Output csv file')
     argparser.add_argument('-t', '--teammates', help='Enable teammate list', action='store_true')
 
-    parsed_args = argparser.parse_args()
+    if 'postem.py' in argv[0]:
+        parsed_args = argparser.parse_args()
+    else:
+        parsed_args = argparser.parse_args(argv)
 
     output_csv = parsed_args.output
     teammates = parsed_args.teammates
+
+    if output_csv is None:
+        print('Missing csv file.')
+        return
 
     output = process_csv(output_csv)
 
     columns = output.pop(0)
     indeces = []
-    notfound =[]
-    for C in DEFAULT_COLUMNS:
-        if C in columns:
-            indeces.append(columns.index(C))
+    notfound = []
+
+    for column in DEFAULT_COLUMNS:
+        if column in columns:
+            indeces.append(columns.index(column))
         else:
-            notfound.append(C)
+            notfound.append(column)
 
     if len(notfound) > 0:
-        for C in notfound:
-            print('Output is missing the ' + C + ' field!')
+        for column in notfound:
+            print('Output is missing the ' + column + ' field!')
 
     final = []
     if teammates:
@@ -80,11 +92,12 @@ def main(argv):
             newrow.append(mates)
         final.append(newrow)
         i += 1
-    newname = os.path.join(os.path.dirname(output_csv), output_csv.split('.')[-2] + 'postEm.csv')
+
+    newname = output_csv.split('.csv')[0] + '-postEm.csv'
     with open(newname, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        for f in final:
-            writer.writerow(f)
+        for row in final:
+            writer.writerow(row)
 
 if __name__ == '__main__':
-    main(sys.argv)
+    postem(sys.argv)
