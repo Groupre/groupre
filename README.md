@@ -107,7 +107,7 @@ src/groupre/
 
 ## License
 
-~~Read our chosen license [here]().~~
+View our chosen license (MIT) [here](https://github.com/jeyerena/ClassTeamBuilder/blob/master/LICENSE).
 
 <!-- Begin References -->
 [UNC-CH]: https://www.unc.edu/
