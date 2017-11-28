@@ -22,15 +22,15 @@ Prospective users looking to utilize the groupre python module for a different o
 
 Following are the currently available command-line flags you can use when calling groupre:
 
-* **-c** or **--chairs**
+* **-c \<CHAIRS>** or **--chairs \<CHAIRS>**
   * The chairs input file.
-* **-s** or **--students**
+* **-s \<STUDENTS>** or **--students \<STUDENTS>**
   * The students input file.
 * **-f** or **--fallback**
   * Enable fallback functionality.
 * **-m** or **--metrics**
   * Enable metrics functionality.
-* **-o** or **--output**
+* **-o \<OUTPUT>** or **--output \<OUTPUT>**
   * The output file.
 
 <br><br><br>
