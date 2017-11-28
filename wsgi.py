@@ -10,6 +10,7 @@ from werkzeug.utils import secure_filename
 
 # relies on groupre having been installed to the machine running this script
 import groupre
+from helpers import postem
 
 UPLOAD_FOLDER = os.getcwd() + '/uploads/'
 ALLOWED_EXTENSIONS = set(['csv'])
@@ -31,7 +32,8 @@ def run_groupre(students, row_count):
     chairs = os.path.join(test_location, 'chairs/')
     # random name generation to allow multiple users
     output_name = UPLOAD_FOLDER + 'output/' + \
-        str(randint(1000000, 9999999)) + '' + str(randint(1000000, 9999999)) + '.csv'
+        str(randint(1000000, 9999999)) + '' + \
+        str(randint(1000000, 9999999)) + '.csv'
     # currently, this function will find a seat based on the amount of rows
     # later on, the second var will be the proper chair csv
     if 'fallback' in students:
@@ -114,21 +116,25 @@ def upload_file():
             #         output += '\n'
             output_name = output_name.split('/')[-1].split('.', 1)[0]
             return redirect('/metrics/' + output_name)
+    # generate these test cases dynamically
     test_files = {'100 Students': 'test_students_demo_100.csv', '400 Students': 'test_students_demo_400.csv',
-                  '1000 Students': 'test_students_demo_1000.csv', 'Fallback Test': 'students_fallback.csv', 'All aisle':'students_fallback_all_aisle.csv', 'All Back':'students_fallback_all_back.csv', 'All Front':'students_fallback_all_front.csv', 'All Front 0 to 6':'students_fallback_all_front_0_to_6.csv', 'All Front, Back, Aisle':'students_fallback_all_front_and_back_and_aisle.csv'}
+                  '1000 Students': 'test_students_demo_1000.csv', 'Fallback Test': 'students_fallback.csv',
+                  'All aisle': 'students_fallback_all_aisle.csv', 'All Back': 'students_fallback_all_back.csv',
+                  'All Front': 'students_fallback_all_front.csv', 'All Front 0 to 6': 'students_fallback_all_front_0_to_6.csv',
+                  'All Front, Back, Aisle': 'students_fallback_all_front_and_back_and_aisle.csv'}
     return render_template('upload.html', test_files=test_files)
 
 
 @application.route("/metrics/<string:output_name>")
 def metrics(output_name):
     metrics = UPLOAD_FOLDER + 'output/' + output_name + '-metrics.txt'
-    output_name = output_name + '.csv'
     try:
         with open(metrics, 'r') as f:
             metrics = f.readlines()
-        print('wutang')
         for m in metrics:
             print(m)
+        postem.postem(['--output', UPLOAD_FOLDER +
+                       'output/' + output_name + '.csv'])
         return render_template("metrics.html", output_name=output_name, metrics=metrics)
     except FileNotFoundError:
         return render_template("metrics.html", output_name=output_name)
@@ -149,7 +155,7 @@ def downloadcsv(output_name):
             mimetype="text/csv",
             headers={"Content-disposition":
                      "attachment; filename=" + output_name})
-    #TODO add CSV validation testing
+    # TODO add CSV validation testing
     with open(UPLOAD_FOLDER + "output/" + output_name, 'r') as file:
         reader = csv.reader(file, delimiter=',')
         csvfile = []

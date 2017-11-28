@@ -2,160 +2,32 @@
 
 import random
 
-import groupre_globals
 from data_structures import TeamMember
-
-
-def fallback(preference, chair):
-    '''Fallback mechanic shared starting code.'''
-    score = 0
-
-    if preference.name in chair.attributes:
-        score += 1
-        return score
-    else:
-        if 'front' in preference.name:
-            score += fallback_front(preference, chair)
-        elif 'back' in preference.name:
-            score += fallback_back(preference, chair)
-        elif 'aisle' in preference.name:
-            score += fallback_aisle(preference, chair)
-
-    return score
-
-
-def fallback_front(preference, chair):
-    '''Handles fallback for the front-* preference.'''
-
-    # TODO This likely doesn't handle the fallback case for the front-BEGIN:END range preference
-    # correctly as of yet. Will either need to create a new version for the range variant of the
-    # preference and make this one ignore any preference with a ':' included.
-
-    score = 0
-    has_attribute = False
-    preference_found = False
-    fallback_level = 1
-    fallback_start = int(preference.name.split('-', 1)[1])
-
-    for attribute in chair.attributes:
-        if 'front-' in attribute:
-            has_attribute = True
-            break
-
-    if has_attribute:
-        while (not preference_found
-               and fallback_start + fallback_level <= groupre_globals.FALLBACK_LIMIT_FRONT):
-            if groupre_globals.FALLBACK_CHAIRS_FRONT[
-                    fallback_start + fallback_level] in chair.attributes:
-                score += ((groupre_globals.FALLBACK_LIMIT_BACK - fallback_level + 1)
-                          / (groupre_globals.FALLBACK_LIMIT_BACK + 1))
-                preference_found = True
-            else:
-                fallback_level += 1
-
-    return score
-
-
-def fallback_back(preference, chair):
-    '''Handles fallback for the back-* preference.'''
-
-    score = 0
-    has_attribute = False
-    preference_found = False
-    fallback_level = 1
-    fallback_start = int(preference.name.split('-', 1)[1])
-
-    for attribute in chair.attributes:
-        if 'back-' in attribute:
-            has_attribute = True
-            break
-
-    if has_attribute:
-        while (not preference_found
-               and fallback_start + fallback_level <= groupre_globals.FALLBACK_LIMIT_BACK):
-            if groupre_globals.FALLBACK_CHAIRS_BACK[
-                    fallback_start + fallback_level] in chair.attributes:
-                score += ((groupre_globals.FALLBACK_LIMIT_BACK - fallback_level + 1)
-                          / (groupre_globals.FALLBACK_LIMIT_BACK + 1))
-                preference_found = True
-            else:
-                fallback_level += 1
-
-    return score
-
-
-def fallback_aisle(preference, chair):
-    '''Handles fallback for the aisle-* preference.'''
-
-    score = 0
-    has_attribute = False
-    preference_found = False
-    fallback_level = 1
-    fallback_start = int(preference.name.split('-', 1)[1])
-
-    for attribute in chair.attributes:
-        if 'aisle-' in attribute:
-            has_attribute = True
-            break
-
-    if has_attribute:
-        while (not preference_found
-               and fallback_start + fallback_level <= groupre_globals.FALLBACK_LIMIT_AISLE):
-            if groupre_globals.FALLBACK_CHAIRS_AISLE[
-                    fallback_start + fallback_level] in chair.attributes:
-                score += ((groupre_globals.FALLBACK_LIMIT_BACK - fallback_level + 1)
-                          / (groupre_globals.FALLBACK_LIMIT_BACK + 1))
-                preference_found = True
-            else:
-                fallback_level += 1
-
-    return score
-
-
-def range_front(preference, chair):
-    '''Handles the front-BEGIN:END range preference.'''
-    score = 0
-
-    if 'front-' and ':' in preference.name:
-        range_values = ('' + preference.name).split('-', 1)[1].split(':', 1)
-
-        applicable_attributes = []
-        current_value = int(range_values[0])
-        while current_value <= int(range_values[1]):
-            applicable_attributes.append('front-' + str(current_value))
-            current_value += 1
-
-        for attribute in applicable_attributes:
-            if attribute in chair.attributes:
-                # NOTE Adjusting score in the below manner can be misleading
-                # when debugging and using the priority rating we have at the moment.
-
-                # Score is adjusted by closeness to "origin".
-                # Should assign seats closer to the front with higher value.
-                found_value = int(('' + attribute).split('-', 1)[1])
-                score += ((int(range_values[1]) - int(found_value) + 1)
-                          / (int(range_values[1]) + 1))
-    return score
+import groupre_globals
+from .fallback import fallback
+from .range_preference import range_front
 
 
 def priority_match(student, chairs, team_fields, team_structures):
     '''This functionw will find a chair that is suitable for the student based
     on their preferences.'''
 
+    priority_score_val = 0
+
     # Find the possible_chairs that best match this student's priorities.
     scored_chairs = {}
     for chair in chairs:
         score = 0
-
         for preference in student.preferences:
             score += range_front(preference, chair)
-
             if score == 0 and preference.name in chair.attributes:
                 score += 1
-
         scored_chairs[chair] = score
 
     max_score = max(scored_chairs.values())
+
+    if max_score > 0:
+        priority_score_val += max_score
 
     if groupre_globals.FALLBACK_ENABLED and max_score == 0:
         # We likely need to see if fallback chairs can provide
@@ -165,12 +37,9 @@ def priority_match(student, chairs, team_fields, team_structures):
         scored_chairs = {}
         for chair in chairs:
             score = 0
-
             for preference in student.preferences:
                 score += fallback(preference, chair)
-
             scored_chairs[chair] = score
-
         max_score = max(scored_chairs.values())
 
     best_chairs = [
@@ -182,16 +51,60 @@ def priority_match(student, chairs, team_fields, team_structures):
 
     # Fill out data fields for the pair we have matched.
     data_fields = []
-
     data_fields.append(student.student_id)
     data_fields.append(student.student_name)
     data_fields.append(student.vip)
     data_fields.append(student.score)
-
     data_fields.append(chair.chair_id)
     data_fields.append(chair.team_id)
 
-    priority_score_val = max_score
+    unmatched_preferences = ''
+    for preference in student.preferences:
+        found_attr = False
+        if 'front-' and ':' in preference.name:
+            range_split = preference.name.split('-', 1)[1].split(':', 1)
+            range_start = range_split[0]
+            range_end = range_split[1]
+            for attribute in chair.attributes:
+                attr_level = int(attribute.split('-', 1)[1])
+                if groupre_globals.FALLBACK_ENABLED:
+                    if ('front' in attribute and (attr_level <= range_end
+                                                  + groupre_globals.FALLBACK_LIMIT_FRONT)
+                            or (attr_level >= range_start)):
+                        found_attr = True
+                else:
+                    if (('front' in attribute) and (attr_level <= range_end)
+                            and (attr_level >= range_start)):
+                        found_attr = True
+            if not found_attr:
+                unmatched_preferences += ('[' + preference.name + ']')
+        if groupre_globals.FALLBACK_ENABLED:
+            pref_split = preference.name.split("-", 1)
+            pref_prefix = pref_split[0]
+            pref_level = int(pref_split[1])
+            pref_start = pref_level
+            pref_end = pref_level
+            if pref_prefix == 'front':
+                pref_end += groupre_globals.FALLBACK_LIMIT_FRONT
+            elif pref_prefix == 'back':
+                pref_end += groupre_globals.FALLBACK_LIMIT_BACK
+            elif pref_prefix == 'aisle':
+                pref_end += groupre_globals.FALLBACK_LIMIT_AISLE
+            for attribute in chair.attributes:
+                if pref_prefix in attribute:
+                    attr_level = int(attribute.split('-', 1)[1])
+                    if (attr_level <= pref_end) and (attr_level >= pref_start):
+                        found_attr = True
+        if not found_attr:
+            if preference.name not in chair.attributes:
+                unmatched_preferences += preference.name + '|'
+
+    unmatched_len = len(unmatched_preferences)
+    if unmatched_len == 0:
+        priority_score_val = len(student.preferences)
+    else:
+        unmatched_split = (unmatched_preferences[0:len(unmatched_preferences) - 1].split('|'))
+        priority_score_val = (len(student.preferences) - len(unmatched_split))
 
     priority_score = '{} of {}'.format(
         priority_score_val, student.specificness)
@@ -202,20 +115,7 @@ def priority_match(student, chairs, team_fields, team_structures):
 
     data_fields.append(priority_score)
 
-    unmatched_preferences = ''
-    for preference in student.preferences:
-        if 'front-' and ':' in preference.name:
-            found_attr = False
-            for attribute in chair.attributes:
-                if 'front' not in attribute:
-                    found_attr = True
-
-            if not found_attr:
-                unmatched_preferences += '[' + \
-                    preference.name + ']'
-        elif preference.name not in chair.attributes:
-            unmatched_preferences += '[' + preference.name + ']'
-    data_fields.append(unmatched_preferences)
+    data_fields.append(unmatched_preferences[0:len(unmatched_preferences) - 1])
 
     ret = TeamMember(team_fields, data_fields)
 

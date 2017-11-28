@@ -122,7 +122,7 @@ def main(argv):
         groupre_globals.FALLBACK_CHAIRS_AISLE.sort(
             key=lambda x: (int)(('' + x).split('-', 1)[1]), reverse=False)
 
-        groupre_globals.set_all_fallback_limits_to_max()
+        # groupre_globals.set_all_fallback_limits_to_max()
 
     students = []
     with open(students_csv, 'r') as csvfile:
@@ -172,7 +172,7 @@ def main(argv):
     if groupre_globals.STUDENT_PRIORITY_TOTAL != 0:
         priority_rating = ('Student Priority Rating: ' + str(
             round(groupre_globals.STUDENT_PRIORITY_VALUE /
-                groupre_globals.STUDENT_PRIORITY_TOTAL * 100, 2)) + '%')
+                  groupre_globals.STUDENT_PRIORITY_TOTAL * 100, 2)) + '%')
         print(priority_rating)
     print('----------')
 
@@ -180,11 +180,11 @@ def main(argv):
         groupre_globals.METRICS.append(priority_rating)
         metrics_file = output_csv.split('.', 1)[0] + '-metrics.txt'
         print(metrics_file)
-        groupre_globals.METRICS.append('Time Elapsed: '+ str(time.time() - timing) +' seconds')
-        with open(metrics_file, 'w+') as f:
+        groupre_globals.METRICS.append(
+            'Time Elapsed: ' + str(time.time() - timing) + ' seconds')
+        with open(metrics_file, 'w') as file:
             for metric in groupre_globals.METRICS:
-                f.write(metric + '\n')
-
+                file.write(metric + '\n')
 
 
 if __name__ == '__main__':
