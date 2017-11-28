@@ -1,7 +1,7 @@
 $(function () {
   var isMouseDown = false,
     isHighlighted;
-  $("#groupreTable td")
+  $("#groupretable td")
     .mousedown(function () {
       isMouseDown = true;
       $(this).toggleClass("highlighted");
