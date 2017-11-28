@@ -12,6 +12,8 @@ def priority_match(student, chairs, team_fields, team_structures):
     '''This functionw will find a chair that is suitable for the student based
     on their preferences.'''
 
+    priority_score_val = 0
+
     # Find the possible_chairs that best match this student's priorities.
     scored_chairs = {}
     for chair in chairs:
@@ -26,6 +28,11 @@ def priority_match(student, chairs, team_fields, team_structures):
         scored_chairs[chair] = score
 
     max_score = max(scored_chairs.values())
+
+    if max_score > 0:
+        priority_score_val += max_score
+
+    fallback_used = False
 
     if groupre_globals.FALLBACK_ENABLED and max_score == 0:
         # We likely need to see if fallback chairs can provide
@@ -43,12 +50,48 @@ def priority_match(student, chairs, team_fields, team_structures):
 
         max_score = max(scored_chairs.values())
 
+        if max_score > 0:
+            fallback_used = True
+
     best_chairs = [
         chair for chair in scored_chairs if scored_chairs[chair] == max_score]
 
     # Randomize and choose a chair.
     chair = random.choice(best_chairs)
     chairs.remove(chair)
+
+    # if fallback_used:
+    #     for preference in student.preferences:
+    #         if 'front-' or 'back-' or 'aisle-' in preference.name:
+    #             preference_split = preference.name.split("-", 1)
+    #             preference_prefix = preference_split[0]
+    #             preference_level = int(preference_split[1])
+
+    #             for attribute in chair.attributes:
+    #                 if 'front-' or 'back-' or 'aisle-' in attribute:
+    #                     attribute_split = attribute.split("-", 1)
+    #                     attribute_prefix = attribute_split[0]
+    #                     attribute_level = int(attribute_split[1])
+
+    #                     if attribute_prefix == preference_prefix:
+    #                         fallback_level = 0
+    #                         if attribute_level > preference_level:
+    #                             fallback_level = attribute_level - preference_level
+    #                         else:
+    #                             fallback_level = preference_level - attribute_level
+
+    #                         if attribute_prefix == 'front':
+    #                             if (fallback_level
+    #                                     <= groupre_globals.FALLBACK_LIMIT_FRONT):
+    #                                 priority_score_val += 1
+    #                         elif attribute_prefix == 'back':
+    #                             if (fallback_level
+    #                                     <= groupre_globals.FALLBACK_LIMIT_BACK):
+    #                                 priority_score_val += 1
+    #                         elif attribute_prefix == 'aisle':
+    #                             if (fallback_level
+    #                                     <= groupre_globals.FALLBACK_LIMIT_AISLE):
+    #                                 priority_score_val += 1
 
     # Fill out data fields for the pair we have matched.
     data_fields = []
@@ -61,7 +104,49 @@ def priority_match(student, chairs, team_fields, team_structures):
     data_fields.append(chair.chair_id)
     data_fields.append(chair.team_id)
 
-    priority_score_val = max_score
+    unmatched_preferences = ''
+    for preference in student.preferences:
+        found_attr = False
+        if 'front-' and ':' in preference.name:
+            range_split = preference.name.split("-", 1)[1].split(":", 1)
+            range_start = range_split[0]
+            range_end = range_split[1]
+            for attribute in chair.attributes:
+                attr_level = int(attribute.split("-", 1)[1])
+                if groupre_globals.FALLBACK_ENABLED:
+                    if ('front' in attribute and (attr_level <= range_end
+                                                  + groupre_globals.FALLBACK_LIMIT_FRONT)
+                            or (attr_level >= range_start)):
+                        found_attr = True
+                else:
+                    if (('front' in attribute) and (attr_level <= range_end)
+                            and (attr_level >= range_start)):
+                        found_attr = True
+            if not found_attr:
+                unmatched_preferences += ('[' + preference.name + ']')
+        if groupre_globals.FALLBACK_ENABLED:
+            pref_split = preference.name.split("-", 1)
+            pref_prefix = pref_split[0]
+            pref_level = int(pref_split[1])
+            pref_start = pref_level
+            pref_end = pref_level
+            if pref_prefix == 'front':
+                pref_end += groupre_globals.FALLBACK_LIMIT_FRONT
+            elif pref_prefix == 'back':
+                pref_end += groupre_globals.FALLBACK_LIMIT_BACK
+            elif pref_prefix == 'aisle':
+                pref_end += groupre_globals.FALLBACK_LIMIT_AISLE
+            for attribute in chair.attributes:
+                if pref_prefix in attribute:
+                    attr_level = int(attribute.split("-", 1)[1])
+                    if (attr_level <= pref_end) and (attr_level >= pref_start):
+                        found_attr = True
+        if not found_attr:
+            if preference.name not in chair.attributes:
+                unmatched_preferences += preference.name + '|'
+
+    priority_score_val = (len(student.preferences) - len(
+        unmatched_preferences[0:len(unmatched_preferences) - 1].split("|")))
 
     priority_score = '{} of {}'.format(
         priority_score_val, student.specificness)
@@ -72,20 +157,7 @@ def priority_match(student, chairs, team_fields, team_structures):
 
     data_fields.append(priority_score)
 
-    unmatched_preferences = ''
-    for preference in student.preferences:
-        if 'front-' and ':' in preference.name:
-            found_attr = False
-            for attribute in chair.attributes:
-                if 'front' not in attribute:
-                    found_attr = True
-
-            if not found_attr:
-                unmatched_preferences += '[' + \
-                    preference.name + ']'
-        elif preference.name not in chair.attributes:
-            unmatched_preferences += '[' + preference.name + ']'
-    data_fields.append(unmatched_preferences)
+    data_fields.append(unmatched_preferences[0:len(unmatched_preferences) - 1])
 
     ret = TeamMember(team_fields, data_fields)
 

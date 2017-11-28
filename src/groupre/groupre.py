@@ -122,7 +122,7 @@ def main(argv):
         groupre_globals.FALLBACK_CHAIRS_AISLE.sort(
             key=lambda x: (int)(('' + x).split('-', 1)[1]), reverse=False)
 
-        groupre_globals.set_all_fallback_limits_to_max()
+        # groupre_globals.set_all_fallback_limits_to_max()
 
     students = []
     with open(students_csv, 'r') as csvfile:
