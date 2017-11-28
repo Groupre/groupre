@@ -53,7 +53,7 @@ def run_groupre(students, row_count):
         chairs = os.path.join(chairs, 'test_chairs_1.csv')
         students = os.path.join(test_location, 'test_students_1.csv')
         output_name = os.path.join(UPLOAD_FOLDER, 'test_output_1.csv')
-    arguments = ['--metrics' '--fallback', '--chairs', chairs, '--students',
+    arguments = ['--metrics', '--chairs', chairs, '--students',
                  students, '--output', output_name]
     groupre.main(arguments)
     return output_name
