@@ -78,7 +78,7 @@ groupre.main('groupre.py', ARGS)
 Where ARGS is defined as a list of arguments such as:
 
 ```python
-ARGS = ['--c', <CHAIRS>, '--s', <STUDENTS>, '--o', <OUTPUT>]
+ARGS = ['-c', <CHAIRS>, '-s', <STUDENTS>, '-o', <OUTPUT>]
 ```
 
 Where _\<CHAIRS>_, _\<STUDENTS>_, and _\<OUTPUT>_ are file locations for those respective files.
