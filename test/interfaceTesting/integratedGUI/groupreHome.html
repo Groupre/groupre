@@ -12,7 +12,7 @@
 </head>
 
 <body>
-<script src="cols.js"></script>
+<script src="groupreGUI.js"></script>
 <!-- <script src="GUI1.js"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -27,7 +27,7 @@ Enter rows here => <input id="Enter rows here:" value="10"/>
 Enter columns here => <input id="Enter columns here:" value="10"/>
 <input type="button" id="build" value="Build the room!"/>
 
-<select name="type" onmousedown="this.value='';" onchange="jsFunction(this.value);">
+<!---<select name="type" onmousedown="this.value='';" onchange="jsFunction(this.value);">
   <option value='drag'>Select a Grid</option>
   <option value='rows'>Click Rows</option>
   <option value='cols'>Click Columns</option>
@@ -37,10 +37,18 @@ Enter columns here => <input id="Enter columns here:" value="10"/>
   <option value='aisleCol'>Aisle Seats</option>
   <option value='empty'>Empty Seat</option>
   <option value='special'>Special Seat</option>
-</select>
+</select> -->
+
+<div id="controls">
+  <input type="button" id="leftHandedButton" value="Set Left-Handed Seat"/>
+  <input type="button" id="aisleButton" value="Set Aisle Seat"/>
+  <input type="button" id="frontRowButton" value="Set the Front Row"/>
+  <input type="button" id="backRowButton" value="Set the Back Row"/>
+  <input type="button" id="brokenButton" value="Set as Un-Usable"/>
+</div> 
 
 <div id="output">
-  <script src="cols.js"></script>
+  <script src="groupreGUI.js"></script>
 </div>
 
   </body>

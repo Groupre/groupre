@@ -55,7 +55,8 @@ function jsFunction(value) {
             });
             break;
 
-        case 'drag':
+
+        /*case 'drag':
             var isMouseDown = false,
             isHighlighted;
             $("#dataTable td")
@@ -75,7 +76,7 @@ function jsFunction(value) {
             .mouseup(function () {
                 isMouseDown = false;
             });
-            break;
+            break;*/
     }
 }
 
@@ -103,7 +104,32 @@ document.getElementById('build').onclick = function() {
         prevrow = row;
     }
     document.getElementById('output').appendChild(table);
+    drag();
 }
+
+function drag() {
+    var isMouseDown = false,
+    isHighlighted;
+    $("#dataTable td")
+    .mousedown(function () {
+        isMouseDown = true;
+        $(this).toggleClass("highlight");
+        isHighlighted = $(this).hasClass("highlight");
+        return false;
+    })
+    .mouseover(function () {
+        if (isMouseDown) {
+        $(this).toggleClass("highlight", isHighlighted);
+        }
+    });
+
+    $(document)
+    .mouseup(function () {
+        isMouseDown = false;
+    });
+}
+
+window.onload = drag();
 
 /*function colSelect() {
     $("#dataTable tr td").click(function() {

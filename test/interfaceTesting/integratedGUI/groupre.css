@@ -4,14 +4,24 @@ padding-right: 10em;
   font-family: Verdana, Geneva, sans-serif;
   color: #0000DD;
 
-background-image: url("beach.jpg");}
+background-image: url("beach.jpg");
+}
 
-  p.one {
+p.one {
 	border-style: solid;
     border-color: blue;
     border-width: 5px;
-    text-align: center;}
+    text-align: center;
+}
 
+.aisleLeft {
+  margin-right: 20px;
+  
+}
+
+.aisleRight {
+  margin-left: 20px;
+}
 
 .errorIntro {
   visibility: visible;
@@ -37,6 +47,7 @@ table td {
   vertical-align:middle;
   background-color:#00ffff;
   border:3px solid #ff00ff;
+  display:inline-block;
 }
 
 table td.highlighted {
@@ -54,7 +65,6 @@ border:3px solid #a9a9a9;
     text-align: center;
     width:60px;
     height:60px;
-    text-align:center;
     vertical-align:middle;
     background-color:#00ffff;
     border:3px solid #ff00ff;
@@ -79,10 +89,26 @@ td.highlight, tr.highlight {
   background-color: yellow;
 }
 
+.leftHand {
+  background-color: red;
+}
+
 .front {
   background-color: lightblue;
 }
 
 .back {
   background-color: lightcoral;
+}
+
+.broken {
+  visibility: hidden;
+}
+
+#controls {
+  float: right;
+}
+
+#controls input {
+  display: block;
 }
