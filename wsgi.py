@@ -161,6 +161,9 @@ def downloadcsv(output_name):
         headers={"Content-disposition":
                  "attachment; filename=" + output_name})
 
+@application.route("/board")
+def createBoard():
+    return render_template('board.html')
 
 if __name__ == "__main__":
     application.run()
