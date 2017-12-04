@@ -7,6 +7,7 @@ padding-right: 10em;
 background-image: url("beach.jpg");
 }
 
+
 p.one {
 	border-style: solid;
     border-color: blue;
@@ -105,10 +106,21 @@ td.highlight, tr.highlight {
   visibility: hidden;
 }
 
-#controls {
+#interface {
   float: right;
 }
 
 #controls input {
   display: block;
+}
+
+#interface #teamList {
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  background-color: white;
+}
+
+#interface p:hover {
+  background-color: yellow;
 }
