@@ -146,7 +146,37 @@ document.getElementById("brokenButton").onclick = function() {
     }
 }
 
+var teamNum = 0;
 
+document.getElementById("teamButton").onclick = function() {
+    var table = document.getElementById("dataTable");
+    var cells = table.getElementsByClassName("highlight");
+    var team = document.createElement('p');
+
+    if(cells.length < 1) {
+        return;
+    }
+
+    for(var i=0; i<cells.length; i++) {
+        var cell = cells[i];
+        cell.classList.toggle("team" + teamNum);
+    }
+
+    team.innerHTML = "Team " + teamNum;
+    team.id = "team" + teamNum;
+    teamNum += 1;
+    document.getElementById("teamList").appendChild(team);
+
+    cells = table.getElementsByTagName("td");
+    for(var i=0; i<cells.length; i++) {
+        var cell = cells[i];
+        cell.classList.remove("highlight");
+    }
+}
+
+document.getElementById("teamList").onclick = function() {
+    var table = document.getElementById("dataTable");
+}
 
 function drag() {
     var isMouseDown = false,
