@@ -118,8 +118,9 @@ td.highlight, tr.highlight {
   border-width: 1px;
   border-style: solid;
   border-color: black;
+  background-color: white;
 }
 
-#teamlist p:hover {
+#interface p:hover {
   background-color: yellow;
 }
