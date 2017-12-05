@@ -194,7 +194,14 @@ $(document).ready(function(){
             var teamId = team.id;
             var cells = table.getElementsByClassName(teamId);
             var temp = team.innerHTML;
-            team.innerHTML = cells[0].id;
+
+            var teamStr = "";
+            //team.innerHTML = "";
+            for(var i=0; i<cells.length; i++) {
+                //team.innerHTML = team.innerHTML + cells[i].id;
+                teamStr = teamStr + " " + cells[i].id;
+            }
+            alert(teamStr);
         });
         
     }
