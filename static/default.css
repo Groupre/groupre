@@ -1,0 +1,41 @@
+body {
+    display: block;
+    text-align: center;
+    font-family: sans-serif;
+    max-width: 100%;
+}
+.header{
+    margin: auto;
+    width: 40%;
+    padding: 10px;
+}
+.header img {
+	float: right;
+	width: 100px;
+	height: 100px;
+}
+  
+.header h1 {
+	position: relative;
+	top: 18px;
+	left: 0px;
+}
+
+.btn {
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 10px;
+	background: #000000;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+}
+
+.btn:hover {
+	background: #595959;
+	text-decoration: none;
+}
+
+#Mark{
+	max-height: 60px;
+	max-width: 60px;
+}

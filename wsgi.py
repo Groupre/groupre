@@ -165,6 +165,10 @@ def downloadcsv(output_name):
         headers={"Content-disposition":
                  "attachment; filename=" + output_name})
 
+@application.route("/room-creation")
+def create_room():
+    return render_template('groupreHome.html')
+
 #TODO Remove this route before 12/11/17
 @application.route("/guiTest/<string:html_file>")
 def testGUI(html_file):
