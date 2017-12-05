@@ -9,6 +9,7 @@ $(document).ready(function(){
     }
     var rows;
     var cols;
+    var roomID = document.getElementById('roomName').value;
     
     document.getElementById('build').onclick = function() {
         rows = parseInt(document.getElementById('Enter rows here:').value,10);
@@ -231,7 +232,7 @@ $(document).ready(function(){
     document.getElementById('saveChanges').onclick = function(){
         var array = [];
         //TODO add roomID form in groupreHome.html
-        array.push(['roomID', 'userID', rows, cols]);
+        array.push([roomID, 'default', rows, cols]);
         array.push(['CID', 'TID', 'Attributes']);
 
         var table = document.getElementById("dataTable");
