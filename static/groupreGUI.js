@@ -1,10 +1,10 @@
 $(document).ready(function(){
     var categories = {
-        left:'leftHand',
-        aisleL:'aisleLeft',
-        aisleR:'aisleRight',
-        front:'front',
-        back:'back',
+        left:'l',
+        aisleL:'a',
+        aisleR:'a',
+        front:'f',
+        back:'b',
         broken:'broken'
     }
     var rows;
@@ -233,7 +233,7 @@ $(document).ready(function(){
         var array = [];
         //TODO add roomID form in groupreHome.html
         array.push([roomID, 'default', rows, cols]);
-        array.push(['CID', 'TID', 'Attributes']);
+        array.push(['CID', 'TeamID', 'Attributes']);
 
         var table = document.getElementById("dataTable");
         var cells = table.getElementsByTagName("td");
