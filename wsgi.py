@@ -2,8 +2,8 @@
 
 import csv
 import os
+import json
 from random import randint
-
 from flask import (Flask, Response, flash, redirect, render_template, request,
                    url_for)
 from werkzeug.utils import secure_filename
@@ -58,6 +58,10 @@ def run_groupre(students, row_count):
     groupre.main(arguments)
     return output_name
 
+def _json_object_hook(d):
+    return namedtuple('X', d.keys())(*d.values())
+def json2obj(data):
+    return json.loads(data, object_hook=_json_object_hook)
 
 def make_tree(path):
     tree = dict(name=path.split('/')[-2], children=[])
@@ -107,21 +111,14 @@ def upload_file():
                 reader = csv.reader(csvfile, delimiter=',')
                 row_count = sum(1 for row in reader)
             output_name = run_groupre(newlocation, row_count)
-            # with open(output_name, 'r') as f:
-            #     reader = csv.reader(f, delimiter=',')
-            #     output = ''
-            #     for row in reader:
-            #         for field in row:
-            #             output += str(field) + ','
-            #         output += '\n'
             output_name = output_name.split('/')[-1].split('.', 1)[0]
             return redirect('/metrics/' + output_name)
-    # generate these test cases dynamically
-    test_files = {'100 Students': 'test_students_demo_100.csv', '400 Students': 'test_students_demo_400.csv',
-                  '1000 Students': 'test_students_demo_1000.csv', 'Fallback Test': 'students_fallback.csv',
-                  'All aisle': 'students_fallback_all_aisle.csv', 'All Back': 'students_fallback_all_back.csv',
-                  'All Front': 'students_fallback_all_front.csv', 'All Front 0 to 6': 'students_fallback_all_front_0_to_6.csv',
-                  'All Front, Back, Aisle': 'students_fallback_all_front_and_back_and_aisle.csv'}
+    testCasesDir = os.path.join(UPLOAD_FOLDER,"testCases")
+    test_files = {}
+    for file in os.listdir(testCasesDir):
+        testCasePath = os.path.join(testCasesDir, file)
+        testCaseName = os.path.basename(testCasePath).replace('_', ' ').split('.csv')[0].title()
+        test_files.update({testCaseName:testCasePath})
     return render_template('upload.html', test_files=test_files)
 
 
@@ -155,7 +152,6 @@ def downloadcsv(output_name):
             mimetype="text/csv",
             headers={"Content-disposition":
                      "attachment; filename=" + output_name})
-    # TODO add CSV validation testing
     with open(UPLOAD_FOLDER + "output/" + output_name, 'r') as file:
         reader = csv.reader(file, delimiter=',')
         csvfile = []
@@ -169,6 +165,16 @@ def downloadcsv(output_name):
         headers={"Content-disposition":
                  "attachment; filename=" + output_name})
 
+#TODO Remove this route before 12/11/17
+@application.route("/guiTest/<string:html_file>")
+def testGUI(html_file):
+    if html_file.split('.')[-1] == '.html':
+        return
+    return render_template(html_file)
+    
+@application.route("/json-handler", methods=['POST'])
+def handleJSON():
+    content = request.get_json()
 
 if __name__ == "__main__":
     application.run()

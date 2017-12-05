@@ -1,12 +1,23 @@
 function jsFunction(value)
 {
-    alert(value);
+    switch(value){
+      case 'drag':
+        alert(value);
+        drag();
+        break;
+      case 'highlight_rows':
+        alert(value);
+        highlight_row();
+        break;
+    }
+    //alert(value);
 }
 
 document.getElementById('build').onclick = function() {
     var rows = parseInt(document.getElementById('Enter rows here:').value,10);
     var cols = parseInt(document.getElementById('Enter columns here:').value,10);
     var table = document.createElement('table');
+    table.id = 'display-table';
     table.border = "1";
     var prevrow;
     for (var r = 0; r < (rows); r++) {
@@ -28,10 +39,10 @@ document.getElementById('build').onclick = function() {
     document.getElementById('output').appendChild(table);
 }
 
-$(function drag() {
+function drag() {
   var isMouseDown = false,
     isHighlighted;
-  $("#groupreTable td")
+  $("#output td")
     .mousedown(function () {
       isMouseDown = true;
       $(this).toggleClass("highlighted");
@@ -48,7 +59,7 @@ $(function drag() {
     .mouseup(function () {
       isMouseDown = false;
     });
-});
+}
 
 function highlight_row() {
     var table = document.getElementById('display-table');
@@ -76,5 +87,4 @@ function highlight_row() {
 
 }
 
-window.onload = highlight_row;
-
+window.onload = drag();

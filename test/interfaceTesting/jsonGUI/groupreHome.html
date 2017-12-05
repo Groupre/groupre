@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Groupre</title>
+  <meta name="description" content="GroupreHome">
+  <meta name="author" content="Team Groupre">
+
+  <link rel="stylesheet" href=groupre.css style type="text/css">
+
+</head>
+
+<body>
+<script src="groupreGUI.js"></script>
+<!-- <script src="GUI1.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<p class="one" style="color:#000000;font-size:64px;font-weight:bold;">Cheers! Welcome to Groupre.</p>
+
+<h2>Groupie the Groupre Grouper</h2>
+ <p> <img src="Groupre Icon.jpg" alt="Fish" style="width:20%"></p>
+
+<h1>Please select how many rows (horizontal) and columns (vertical) your classroom has.</h1>
+
+Enter rows here => <input id="Enter rows here:" value="10"/>
+Enter columns here => <input id="Enter columns here:" value="10"/>
+<input type="button" id="build" value="Build the room!"/>
+
+<!---<select name="type" onmousedown="this.value='';" onchange="jsFunction(this.value);">
+  <option value='drag'>Select a Grid</option>
+  <option value='rows'>Click Rows</option>
+  <option value='cols'>Click Columns</option>
+  <option value='front'>Front Row</option>
+  <option value='back'>Back Row</option>
+  <option value='leftyCol'>Left-Handed Seats</option>
+  <option value='aisleCol'>Aisle Seats</option>
+  <option value='empty'>Empty Seat</option>
+  <option value='special'>Special Seat</option>
+</select> -->
+
+<div id="controls">
+  <input type="button" id="leftHandedButton" value="Set Left-Handed Seat"/>
+  <input type="button" id="aisleButton" value="Set Aisle Seat"/>
+  <input type="button" id="frontRowButton" value="Set the Front Row"/>
+  <input type="button" id="backRowButton" value="Set the Back Row"/>
+  <input type="button" id="brokenButton" value="Set as Un-Usable"/>
+  <br>
+  <input type="button" id="saveChanges" value="Save Changes"/>
+</div> 
+
+<input type="button" id="reset" value="Reset Board"/>
+
+<div id="output">
+  <script src="groupreGUI.js"></script>
+</div>
+
+  </body>
+</html>
