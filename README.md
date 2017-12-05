@@ -125,7 +125,7 @@ An official versioning template has not yet been chosen.
 
 ## License
 
-View our chosen license (MIT) [here](https://github.com/jeyerena/ClassTeamBuilder/blob/master/LICENSE).
+View our chosen [LICENSE][license_file] file for details.
 
 <!-- Begin References -->
 [UNC-CH]: https://www.unc.edu/
@@ -141,4 +141,5 @@ View our chosen license (MIT) [here](https://github.com/jeyerena/ClassTeamBuilde
 [Flask]: http://flask.pocoo.org/
 [OpenShift]: https://www.openshift.com/
 [contributing_file]: https://github.com/jeyerena/ClassTeamBuilder/tree/master/CONTRIBUTING.md
+[license_file]: https://github.com/jeyerena/ClassTeamBuilder/blob/master/LICENSE
 <!-- End References -->
