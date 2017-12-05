@@ -23,12 +23,21 @@ def create_teams(students, chairs, team_structures):
 
     teams = []
 
+    # Does not work, since this comparison changes as more students are matched.
+    # For an accurate representation, we would need to do this loop after the sorting is done.
     if groupre_globals.GENDER_ENABLED:
         # Split our students into those who have the gender attribute and those who don't.
+        # print('DEBUG: DOING GENDER MATCH')
         non_gender_students = []
         gender_students = []
         for student in students:
-            if 'gender' in student.preferences:
+            has_gender = False
+            for preference in student.preferences:
+                if preference.name == 'gender':
+                    # print('DEBUG: HAS GENDER')
+                    has_gender = True
+
+            if has_gender:
                 gender_students.append(student)
             else:
                 non_gender_students.append(student)

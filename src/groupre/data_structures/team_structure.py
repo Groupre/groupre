@@ -18,6 +18,7 @@ class TeamStructure():
     def add_member(self, student):
         '''Used to add a member to this team.'''
         # self.score_total += int(student.score)
-        if 'gender' in student.preferences:
-            self.gender_total += 1
+        for preference in student.preferences:
+            if preference.name == 'gender':
+                self.gender_total += 1
         self.team_members.append(student)

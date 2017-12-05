@@ -51,8 +51,8 @@ def main(argv):
     output_csv = parsed_args.output
     gender = parsed_args.gender
 
-    print('Arguments: Chairs {}, Students {}, Fallback {}, Output {}'.format(
-        parsed_args.chairs, parsed_args.students, parsed_args.fallback, parsed_args.output))
+    print('Arguments: Chairs {}, Students {}, Fallback {}, Gender {}, Output {}'.format(
+        parsed_args.chairs, parsed_args.students, parsed_args.fallback, parsed_args.gender, parsed_args.output))
 
     if chairs_csv is None:
         print('Missing chairs input file.')
@@ -169,6 +169,8 @@ def main(argv):
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for team in teams:
             writer.writerow(team)
+
+    priority_rating = ''
 
     print('----------')
     if groupre_globals.STUDENT_PRIORITY_TOTAL != 0:
