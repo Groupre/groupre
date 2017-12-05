@@ -6,7 +6,8 @@ class TeamStructure():
 
     team_chairs = []
     team_members = []
-    score_total = 0
+    # score_total = 0
+    gender_total = 0
     team_id = None
 
     def __init__(self, chairs, team_id):
@@ -15,7 +16,8 @@ class TeamStructure():
             chair for chair in chairs if int(chair.team_id) == team_id]
 
     def add_member(self, student):
-        '''Used to add a member to this team. Increases the score_total and
-        adds the member to the team_members list.'''
-        self.score_total += int(student.score)
+        '''Used to add a member to this team.'''
+        # self.score_total += int(student.score)
+        if 'gender' in student.preferences:
+            self.gender_total += 1
         self.team_members.append(student)

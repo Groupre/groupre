@@ -6,7 +6,7 @@ from data_structures import TeamMember
 
 
 def random_match(student, chairs, team_fields, team_structures):
-    '''This functionw will find a chair for the student at random.'''
+    '''This method will find a chair for the student at random.'''
 
     # Randomly choose a chair.
     chair = random.choice(chairs)

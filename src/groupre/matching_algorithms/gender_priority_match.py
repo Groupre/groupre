@@ -1,4 +1,4 @@
-'''This module contains the priority_match method used by groupre.'''
+'''This module contains the gender__priority_match method used by groupre.'''
 
 import random
 
@@ -8,9 +8,12 @@ from .fallback import fallback
 from .range_preference import range_front
 
 
-def priority_match(student, chairs, team_fields, team_structures):
-    '''This method will find a chair that is suitable for the student based
-    on their preferences.'''
+# TODO Not worked on yet.
+
+
+def gender_priority_match(student, chairs, team_fields, team_structures):
+    '''This method will find a team that is suitable for a given student
+    based on their gender attribute as well as chair preferences.'''
 
     priority_score_val = 0
 
