@@ -1,4 +1,4 @@
-'''This module contains the random_match method used by groupre.'''
+'''This module contains the gender_random_match method used by groupre.'''
 
 import random
 
