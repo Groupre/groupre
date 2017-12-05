@@ -230,7 +230,7 @@ $(document).ready(function(){
 
     document.getElementById('saveChanges').onclick = function(){
         var array = [];
-        //TODO have this push room id, user id, whether fallback is enabled
+        //TODO add roomID form in groupreHome.html
         array.push(['roomID', 'userID', rows, cols]);
         array.push(['CID', 'TID', 'Attributes']);
 
