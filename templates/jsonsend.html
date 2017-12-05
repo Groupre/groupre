@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+	<link rel="stylesheet" href="../static/test.css" type="text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="../static/jquery.min.js"></script>
+	<script src="../static/send.js"></script>
+    <title>groupre</title>
+</head>
+
+<body>
+	<h1>Click</h1>
+	<button onclick="sendJSON()">Send JSON</button>
+	<td id="bourne">Send JSON again</td>
+	<script>
+	function sendJSON(){
+		alert('From HTML');        
+		var xmlhttp = new XMLHttpRequest(); 
+		xmlhttp.open("POST", "/json-handler");
+		xmlhttp.setRequestHeader("Content-Type", "application/json");
+		xmlhttp.send(JSON.stringify({name:"Json Bourne", time:"2pm"}));
+	}
+	</script>
+</body>
+</html>

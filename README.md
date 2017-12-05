@@ -16,7 +16,13 @@ In the event that the master documentation is not up to date, you can view the d
 
 ## Usage
 
-A prerequisite for using the groupre module is **Python 3**.
+### Prerequisites
+
+* Python 3
+
+<br>
+
+### General
 
 Prospective users looking to utilize the groupre python module for a different organization are encouraged to pull the groupre module source code located [here][masterSrc].
 
@@ -33,7 +39,7 @@ Following are the currently available command-line flags you can use when callin
 * **-o \<OUTPUT>** or **--output \<OUTPUT>**
   * The output file.
 
-<br><br><br>
+<br>
 
 ### Command-Line
 
@@ -47,7 +53,7 @@ Where _\<CHAIRS>_, _\<STUDENTS>_, and _\<OUTPUT>_ are file locations for those r
 
 Note: If groupre.py has not been given execution permissions, you may need to preface this command with "python" or your machine's equivalent Python 3 alias.
 
-<br><br><br>
+<br>
 
 ### Python Module Installation
 
@@ -78,7 +84,7 @@ groupre.main('groupre.py', ARGS)
 Where ARGS is defined as a list of arguments such as:
 
 ```python
-ARGS = ['--c', <CHAIRS>, '--s', <STUDENTS>, '--o', <OUTPUT>]
+ARGS = ['-c', <CHAIRS>, '-s', <STUDENTS>, '-o', <OUTPUT>]
 ```
 
 Where _\<CHAIRS>_, _\<STUDENTS>_, and _\<OUTPUT>_ are file locations for those respective files.
@@ -91,7 +97,7 @@ Where _\<CHAIRS>_, _\<STUDENTS>_, and _\<OUTPUT>_ are file locations for those r
 python setup.py develop --user -u
 ```
 
-<br><br><br>
+<br>
 
 ### Flask
 
@@ -105,9 +111,21 @@ Flask
 src/groupre/
 ```
 
+## Built With
+
+* [Flask][Flask] - The web framework used for our Carolina CloudApps deployment.
+
+## Contributing
+
+View our [CONTRIBUTING.md][contributing_file] file for details.
+
+## Versioning
+
+An official versioning template has not yet been chosen.
+
 ## License
 
-View our chosen license (MIT) [here](https://github.com/jeyerena/ClassTeamBuilder/blob/master/LICENSE).
+View our chosen [LICENSE][license_file] file for details.
 
 <!-- Begin References -->
 [UNC-CH]: https://www.unc.edu/
@@ -122,4 +140,6 @@ View our chosen license (MIT) [here](https://github.com/jeyerena/ClassTeamBuilde
 [developDocsArchive]: https://github.com/jeyerena/ClassTeamBuilder/tree/develop/docs/archive
 [Flask]: http://flask.pocoo.org/
 [OpenShift]: https://www.openshift.com/
+[contributing_file]: https://github.com/jeyerena/ClassTeamBuilder/tree/master/CONTRIBUTING.md
+[license_file]: https://github.com/jeyerena/ClassTeamBuilder/blob/master/LICENSE
 <!-- End References -->
