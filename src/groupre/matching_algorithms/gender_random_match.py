@@ -108,7 +108,6 @@ def gender_random_match(student, chairs, team_fields, team_structures):
             # for c in chairs:
             #     string += c.chair_id + ', '
             # print(string)
-                
 
     if not found_chair:
         print('DIDNT FIND THE CHAIR, THIS IS BAD')
