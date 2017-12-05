@@ -103,7 +103,8 @@ def priority_match(student, chairs, team_fields, team_structures):
     if unmatched_len == 0:
         priority_score_val = len(student.preferences)
     else:
-        unmatched_split = (unmatched_preferences[0:len(unmatched_preferences) - 1].split('|'))
+        unmatched_split = (unmatched_preferences[0:len(
+            unmatched_preferences) - 1].split('|'))
         priority_score_val = (len(student.preferences) - len(unmatched_split))
 
     priority_score = '{} of {}'.format(
