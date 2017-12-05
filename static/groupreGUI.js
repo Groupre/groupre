@@ -7,10 +7,12 @@ $(document).ready(function(){
         back:'back',
         broken:'broken'
     }
+    var rows;
+    var cols;
     
     document.getElementById('build').onclick = function() {
-        var rows = parseInt(document.getElementById('Enter rows here:').value,10);
-        var cols = parseInt(document.getElementById('Enter columns here:').value,10);
+        rows = parseInt(document.getElementById('Enter rows here:').value,10);
+        cols = parseInt(document.getElementById('Enter columns here:').value,10);
         var table = document.createElement('table');
         table.id = 'dataTable';
         table.border = "1";
@@ -226,8 +228,10 @@ $(document).ready(function(){
         });
     }
 
-    function saveChanges(){
+    document.getElementById('saveChanges').onclick = function(){
         var array = [];
+        //TODO have this push room id, user id, whether fallback is enabled
+        array.push(['roomID', 'userID', rows, cols]);
         array.push(['CID', 'TID', 'Attributes']);
 
         var table = document.getElementById("dataTable");
@@ -238,11 +242,14 @@ $(document).ready(function(){
             var row = [];
             row.push(cell.innerHTML);
 
-            for (var i=0; i<teamNum; i++) {
-                if (cell.classList.contains('team' + teamNum)){
-                    row.push(teamNum);
+            for (var j=0; j<teamNum; j++) {
+                if (cell.classList.contains('team' + j)){
+                    row.push(j);
                     break;
                 }
+            }
+            if (row.length == 1){
+                row.push(' ')
             }
 
             for(var key in categories) {
@@ -251,16 +258,14 @@ $(document).ready(function(){
                     row.push(cat);
                 }
             }
+            array.push(row)
         }
         var chairs = JSON.stringify(array);
-        var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-        xmlhttp.open("POST", "/json-handler");
-        xmlhttp.setRequestHeader("Content-Type", "application/json");
-        xmlhttp.send(JSON.stringify({name:"John Rambo", time:"2pm"}));
+        setTimeout(function(){
+            var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+            xmlhttp.open("POST", "/json-handler");
+            xmlhttp.setRequestHeader("Content-Type", "application/json");
+            xmlhttp.send(chairs);
+        }, 1000);
     }
-
-
 });
-
-
-

@@ -175,6 +175,19 @@ def testGUI(html_file):
 @application.route("/json-handler", methods=['POST'])
 def handleJSON():
     content = request.get_json()
+    info = content.pop(0)
+    roomID = info[0]
+    userID = info[1]
+    rows = info[2]
+    cols = info[3]
+    filename = UPLOAD_FOLDER + 'chairs/' + userID + '-' + roomID + '-' + str(rows) + '-' + str(cols) + '.csv'
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=',',
+                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        for row in content:
+            writer.writerow(row)
+    x = "whoo"
+
 
 if __name__ == "__main__":
     application.run()
