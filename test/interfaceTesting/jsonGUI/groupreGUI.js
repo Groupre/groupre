@@ -22,6 +22,8 @@ $(document).ready(function(){
                 //need to put int to string in here to change to seat letter
                 cell.id = 'Seat ' + r + ' ' + c;
                 cell.innerHTML = cell.id;
+                cell.style.width = (80/cols)+"%";
+                cell.style.height = (80/rows)+"%";
                 row.appendChild(cell);
             }
             if (prevrow) {
@@ -170,6 +172,7 @@ $(document).ready(function(){
         for(var i=0; i<cells.length; i++) {
             var cell = cells[i];
             cell.classList.toggle("team" + teamNum);
+            cell.innerHTML = ("Team " + teamNum);
         }
     
         team.innerHTML = "Team " + teamNum;
