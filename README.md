@@ -36,6 +36,8 @@ Following are the currently available command-line flags you can use when callin
   * Enable fallback functionality.
 * **-m** or **--metrics**
   * Enable metrics functionality.
+* **-g** or **--gender**
+  * Enable gender functionality.
 * **-o \<OUTPUT>** or **--output \<OUTPUT>**
   * The output file.
 
