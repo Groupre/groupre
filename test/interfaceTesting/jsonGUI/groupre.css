@@ -103,10 +103,32 @@ td.highlight, tr.highlight {
   visibility: hidden;
 }
 
-#controls {
+#interface {
   float: right;
 }
 
 #controls input {
   display: block;
+}
+
+#interface #teamList {
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  background-color: white;
+}
+
+#interface #teamList {
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  background-color: white;
+}
+
+#interface p:hover {
+  background-color: yellow;
+}
+
+#interface p:hover {
+  background-color: yellow;
 }

@@ -39,15 +39,22 @@ Enter columns here => <input id="Enter columns here:" value="10"/>
   <option value='special'>Special Seat</option>
 </select> -->
 
-<div id="controls">
-  <input type="button" id="leftHandedButton" value="Set Left-Handed Seat"/>
-  <input type="button" id="aisleButton" value="Set Aisle Seat"/>
-  <input type="button" id="frontRowButton" value="Set the Front Row"/>
-  <input type="button" id="backRowButton" value="Set the Back Row"/>
-  <input type="button" id="brokenButton" value="Set as Un-Usable"/>
-  <br>
-  <input type="button" id="saveChanges" value="Save Changes"/>
-</div> 
+<div id="interface">
+  <div id="controls">
+      <input type="button" id="teamButton" value="Create Team from Selected Seats"/>
+      <input type="button" id="leftHandedButton" value="Set Selected Seats as Left-Handed"/>
+      <input type="button" id="aisleButton" value="Place an Aisle Between Two Columns of Seats"/>
+      <input type="button" id="frontRowButton" value="Set Selected Seats as the Front Row"/>
+      <input type="button" id="backRowButton" value="Set Selected Seats as the Back Row"/>
+      <input type="button" id="brokenButton" value="Set Selected Seats as Un-Usable (Do this last!)"/>
+    <br>
+    <input type="button" id="saveChanges" value="Save Changes"/>
+  </div> 
+
+  <div id="teamList">
+    <script src="groupreGUI.js"></script>
+  </div>
+</div>
 
 <input type="button" id="reset" value="Reset Board"/>
 

@@ -156,6 +156,49 @@ $(document).ready(function(){
         }
     }
 
+    var teamNum = 0;
+    
+    document.getElementById("teamButton").onclick = function() {
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByClassName("highlight");
+        var team = document.createElement('p');
+    
+        if(cells.length < 1) {
+            return;
+        }
+    
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.toggle("team" + teamNum);
+        }
+    
+        team.innerHTML = "Team " + teamNum;
+        team.id = "team" + teamNum;
+        team.classList.add("team");
+        teamNum += 1;
+        document.getElementById("teamList").appendChild(team);
+    
+        cells = table.getElementsByTagName("td");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.remove("highlight");
+        }
+    }
+    
+    document.getElementById("teamList").onmouseover = function() {
+        var table = document.getElementById("dataTable");
+        var teamList = document.getElementsByClassName("team");
+    
+        $("#teamList p").mouseover(function() {
+            var team = this;
+            var teamId = team.id;
+            var cells = table.getElementsByClassName(teamId);
+            var temp = team.innerHTML;
+            team.innerHTML = cells[0].id;
+        });
+        
+    }
+
     document.getElementById("reset").onclick = function() {
         var table = document.getElementById("dataTable");
         var cells = table.getElementsByTagName("td");
