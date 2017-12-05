@@ -4,27 +4,40 @@ body {
     font-family: sans-serif;
     max-width: 100%;
 }
+
+h2{
+	margin: auto;
+    width: 30%;
+	padding: 10px;	
+}
+
+a{
+	text-decoration: none;
+}
+
 .header{
     margin: auto;
     width: 40%;
     padding: 10px;
 }
+
 .header img {
 	float: right;
-	width: 100px;
-	height: 100px;
+	width: 125px;
+	height: 125px;
 }
   
 .header h1 {
 	position: relative;
 	top: 18px;
 	left: 0px;
+	color: black;	
 }
 
 .btn {
 	font-family: Arial;
 	color: #ffffff;
-	font-size: 10px;
+	font-size: 15px;
 	background: #000000;
 	padding: 10px 20px 10px 20px;
 	text-decoration: none;
