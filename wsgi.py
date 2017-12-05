@@ -2,8 +2,8 @@
 
 import csv
 import os
+import json
 from random import randint
-
 from flask import (Flask, Response, flash, redirect, render_template, request,
                    url_for)
 from werkzeug.utils import secure_filename
@@ -58,6 +58,10 @@ def run_groupre(students, row_count):
     groupre.main(arguments)
     return output_name
 
+def _json_object_hook(d):
+    return namedtuple('X', d.keys())(*d.values())
+def json2obj(data):
+    return json.loads(data, object_hook=_json_object_hook)
 
 def make_tree(path):
     tree = dict(name=path.split('/')[-2], children=[])
@@ -160,6 +164,29 @@ def downloadcsv(output_name):
         mimetype="text/csv",
         headers={"Content-disposition":
                  "attachment; filename=" + output_name})
+
+#TODO Remove this route before 12/11/17
+@application.route("/guiTest/<string:html_file>")
+def testGUI(html_file):
+    if html_file.split('.')[-1] == '.html':
+        return
+    return render_template(html_file)
+    
+@application.route("/json-handler", methods=['POST'])
+def handleJSON():
+    content = request.get_json()
+    info = content.pop(0)
+    roomID = info[0]
+    userID = info[1]
+    rows = info[2]
+    cols = info[3]
+    filename = UPLOAD_FOLDER + 'chairs/' + userID + '-' + roomID + '-' + str(rows) + '-' + str(cols) + '.csv'
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=',',
+                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        for row in content:
+            writer.writerow(row)
+    x = "whoo"
 
 
 if __name__ == "__main__":

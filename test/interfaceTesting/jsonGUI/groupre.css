@@ -53,12 +53,10 @@ table td.highlighted {
 }
 
 table {
-    table-layout:fixed;
-    width: 100%;
-    text-align:center;
-    vertical-align:middle;
-    background-color:#d3d3d3;
-    border:3px solid #a9a9a9;
+text-align:center;
+vertical-align:middle;
+background-color:#d3d3d3;
+border:3px solid #a9a9a9;
 }
 
 .table-layout {
@@ -105,21 +103,10 @@ td.highlight, tr.highlight {
   visibility: hidden;
 }
 
-#interface {
+#controls {
   float: right;
 }
 
 #controls input {
   display: block;
-}
-
-#interface #teamList {
-  border-width: 1px;
-  border-style: solid;
-  border-color: black;
-  background-color: white;
-}
-
-#interface p:hover {
-  background-color: yellow;
 }
