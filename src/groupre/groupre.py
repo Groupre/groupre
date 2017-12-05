@@ -22,6 +22,7 @@ def main(argv):
     fallback = None
     metrics = None
     output_csv = None
+    gender = None
 
     # groupre.py -c CHAIRS -s STUDENTS -f FALLBACK -o OUTPUT
     argparser.add_argument(
@@ -34,6 +35,8 @@ def main(argv):
         '-m', '--metrics', help='Enable metrics functionality', action='store_true')
     argparser.add_argument(
         '-o', '--output', help='Output file')
+    argparser.add_argument(
+        '-g', '--gender', help='Enable gender functionality', action='store_true')
     argparser.set_defaults(fallback=False, output_csv='output.csv')
 
     if 'groupre.py' in argv[0]:
@@ -46,6 +49,7 @@ def main(argv):
     fallback = parsed_args.fallback
     metrics = parsed_args.metrics
     output_csv = parsed_args.output
+    gender = parsed_args.gender
 
     print('Arguments: Chairs {}, Students {}, Fallback {}, Output {}'.format(
         parsed_args.chairs, parsed_args.students, parsed_args.fallback, parsed_args.output))
@@ -74,8 +78,8 @@ def main(argv):
     if groupre_globals.METRICS_ENABLED:
         timing = time.time()
 
-    # Update our global fallback toggle with our given argument.
     groupre_globals.FALLBACK_ENABLED = fallback
+    groupre_globals.GENDER_ENABLED = gender
 
     priority_fields = []
 
@@ -152,11 +156,9 @@ def main(argv):
 
     # Run our algorithm to match students to chairs within teams, keeping in mind their
     # scores and preferences.
-    team_structures = build_team_structures(
-        chairs)
+    team_structures = build_team_structures(chairs)
 
-    teams = create_teams(
-        students, chairs, team_structures)
+    teams = create_teams(students, chairs, team_structures)
 
     # Write our output to a csv.
     # NOTE 'newline=''' required when writing on an OS that ends lines in CRLF rather than just LF.
