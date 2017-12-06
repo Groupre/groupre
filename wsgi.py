@@ -28,7 +28,8 @@ def allowed_file(filename):
 
 def run_groupre(students, row_count):
     main_dir = os.path.dirname(os.path.realpath(__file__))
-    test_location = os.path.join(main_dir, 'static/test/randomizedTests/')
+    # test_location = os.path.join(main_dir, 'static/test/randomizedTests/')
+    test_location = os.path.join(main_dir, 'uploads/')
     chairs = os.path.join(test_location, 'chairs/')
     # random name generation to allow multiple users
     output_name = UPLOAD_FOLDER + 'output/' + \
@@ -43,13 +44,13 @@ def run_groupre(students, row_count):
                       '--students', students, '--output', output_name])
         return output_name
     if row_count <= 101:
-        chairs = os.path.join(chairs, 'test_chairs_demo_100.csv')
+        chairs = os.path.join(chairs, 'default-g100-10-10.csv')
     elif row_count <= 401:
         chairs = os.path.join(chairs, 'test_chairs_demo_400.csv')
     elif row_count <= 1001:
         chairs = os.path.join(chairs, 'test_chairs_demo_1000.csv')
     else:
-        # only for testing response
+        # only for testing responses
         chairs = os.path.join(chairs, 'test_chairs_1.csv')
         students = os.path.join(test_location, 'test_students_1.csv')
         output_name = os.path.join(UPLOAD_FOLDER, 'test_output_1.csv')
@@ -118,7 +119,7 @@ def upload_file():
     for file in os.listdir(testCasesDir):
         testCasePath = os.path.join(testCasesDir, file)
         testCaseName = os.path.basename(testCasePath).replace('_', ' ').split('.csv')[0].title()
-        test_files.update({testCaseName:testCasePath})
+        test_files.update({testCaseName:file})
     return render_template('upload.html', test_files=test_files)
 
 

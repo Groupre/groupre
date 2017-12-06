@@ -27,7 +27,7 @@
     Enter rows here => <input id="Enter rows here:" value="10"/>
     Enter columns here => <input id="Enter columns here:" value="10"/>
     <input type="button" id="build" value="Build the room!"/>
-
+    
     <div id="interface">
       <div id="controls">
         <input type="button" id="teamButton" value="Create Team from Selected Seats"/>
@@ -38,7 +38,16 @@
         <input type="button" id="brokenButton" value="Set Selected Seats as Un-Usable"/>
         <br>
         <input type="button" id="saveChanges" value="Save Changes"/>
+        <p id="message"></p>        
       </div>
+
+      <form method="post">
+          <select id="dropdown" name="dropdown">
+          </select>
+          <input type="hidden" name="hiddenInput" id="hiddenInput" value="" />
+          <button type="button" onclick="autoAddTeams(select)">Auto Add Teams</button>
+        </form>
+      
       
       <input type="button" id="reset" value="Reset Board"/>
       
