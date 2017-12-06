@@ -1,14 +1,16 @@
 $(document).ready(function(){
     var categories = {
-        left:'l',
-        aisleL:'a',
-        aisleR:'a',
-        front:'f',
-        back:'b',
+        left:'left',
+        aisleL:'aisle',
+        aisleR:'aisle',
+        front:'front',
+        back:'back',
         broken:'broken'
     }
     var rows;
     var cols;
+    var select;
+    var maxGroupSize = 5;
     var roomID = document.getElementById('roomName').value;
     
     document.getElementById('build').onclick = function() {
@@ -23,19 +25,38 @@ $(document).ready(function(){
             for (var c = 0; c < (cols); c++) {
                 var cell = document.createElement('td');
                 //need to put int to string in here to change to seat letter
-                cell.id = 'Seat ' + r + ' ' + c;
+                cell.id = r + ',' + c;
                 cell.innerHTML = cell.id;
+                // cell.innerHTML = ''
                 row.appendChild(cell);
             }
-            if (prevrow) {
-                table.insertBefore(row, prevrow);
-            } else {
-                table.appendChild(row);
-            }
+            // if (prevrow) {
+            //     table.insertBefore(row, prevrow);
+            // } else {
+            //     table.appendChild(row);
+            // }
+            table.appendChild(row)
             prevrow = row;
         }
         document.getElementById('output').appendChild(table);
         drag();
+
+        // Auto-add suggestions and selection
+        var totalSeats = rows * cols;
+        for (i = 2; i <= maxGroupSize; i++) {
+        var opt = document.createElement("option");
+        opt.value = i;
+        opt.innerHTML = 'Groups of ' + i;
+        document.getElementById('dropdown').appendChild(opt);
+        }
+        select = document.getElementById('dropdown');
+
+    }
+
+    //Automatically add teams based on user selection
+    function autoAddTeams(objDropDown) {
+        var objHidden = document.getElementById("hiddenInput");
+        objHidden.value = objDropDown.value;
     }
 
     document.getElementById("leftHandedButton").onclick = function() {
@@ -93,23 +114,20 @@ $(document).ready(function(){
             }
         }
 
-        /*for(var i=0; i<cells.length; i++) {
-            var cell = cells[i];
-            var col = cell.getAttribute("id");
-            alert(col[col.length-1]);
-        }
-
-        /*for(var i=0; i<cells.length; i++) {
-            var cell = cells[i];
-            cell.classList.toggle("aisle");
-        }*/
-
         cells = table.getElementsByTagName("td");
         for(var i=0; i<cells.length; i++) {
             var cell = cells[i];
             cell.classList.remove("highlight");
         }
     }
+
+
+    
+    // window.onload = function() {
+
+    // }
+    
+
 
     document.getElementById("frontRowButton").onclick = function() {
         var table = document.getElementById("dataTable");
@@ -201,31 +219,63 @@ $(document).ready(function(){
             cell.classList.remove("highlight");
         }
     }
-
-    document.getElementById("teamList").onclick = function() {
-        var table = document.getElementById("dataTable");
-    }
-
+    
 
     function drag() {
         var isMouseDown = false,
         isHighlighted;
+        var startCell, endCell;
         $("#dataTable td")
         .mousedown(function () {
             isMouseDown = true;
+            startCell = this;
             $(this).toggleClass("highlight");
             isHighlighted = $(this).hasClass("highlight");
             return false;
         })
         .mouseover(function () {
             if (isMouseDown) {
-            $(this).toggleClass("highlight", isHighlighted);
+            endCell = this;
+            var startX = startCell.id.split(',')[0]
+            var startY = startCell.id.split(',')[1]
+            var endX =  endCell.id.split(',')[0]
+            var endY = endCell.id.split(',')[1]
+            if (endX < startX){
+                var tmp = startX;
+                startX = endX;
+                endX = tmp;
+            }
+            if (endY < startY){
+                var tmp = startY;
+                startY = endY;
+                endY = tmp;  
+            }
+            for (i = startX; i <= endX; i++){
+                for (j = startY; j <= endY; j++){
+                    var cellID = i + ',' + j;
+                    var highlightedCell = document.getElementById(cellID);
+                    $(highlightedCell).toggleClass("highlight", isHighlighted);
+                }
+            }
             }
         });
 
         $(document)
         .mouseup(function () {
             isMouseDown = false;
+        });
+    }
+    
+    document.getElementById("teamList").onmouseover = function() {
+        var table = document.getElementById("dataTable");
+        var teamList = document.getElementsByClassName("team");
+
+        $("#teamList p").mouseover(function() {
+            var team = this;
+            var teamId = team.id;
+            var cells = table.getElementsByClassName(teamId);
+            var temp = team.innerHTML;
+            team.innerHTML = cells[0].id;
         });
     }
 
@@ -268,5 +318,9 @@ $(document).ready(function(){
             xmlhttp.setRequestHeader("Content-Type", "application/json");
             xmlhttp.send(chairs);
         }, 1000);
+        document.getElementById('message').innerHTML = 'Changes saved.'
+        setTimeout(function(){
+            document.getElementById('message').innerHTML = ''
+        }, 2000);
     }
 });
