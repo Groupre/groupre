@@ -1,16 +1,17 @@
 $(document).ready(function(){
     var categories = {
-        left:'left',
-        aisleL:'aisle',
-        aisleR:'aisle',
+        leftHand:'left',
+        aisleLeft:'aisle',
+        aisleRight:'aisle',
         front:'front',
         back:'back',
         broken:'broken'
     }
     var rows;
     var cols;
-    var select;
     var maxGroupSize = 5;
+    var teamNum = 0;    
+    var currentTeams = {}
     var roomID = document.getElementById('roomName').value;
     
     document.getElementById('build').onclick = function() {
@@ -44,20 +45,46 @@ $(document).ready(function(){
         // Auto-add suggestions and selection
         var totalSeats = rows * cols;
         for (i = 2; i <= maxGroupSize; i++) {
-        var opt = document.createElement("option");
-        opt.value = i;
-        opt.innerHTML = 'Groups of ' + i;
-        document.getElementById('dropdown').appendChild(opt);
+            if (totalSeats % i == 0){
+                var opt = document.createElement("option");
+                opt.value = i;
+                opt.innerHTML = 'Groups of ' + i;
+                document.getElementById('dropdown').appendChild(opt);   
+            }
         }
-        select = document.getElementById('dropdown');
-
     }
 
     //Automatically add teams based on user selection
-    function autoAddTeams(objDropDown) {
-        var objHidden = document.getElementById("hiddenInput");
-        objHidden.value = objDropDown.value;
+    document.getElementById('autoAdd').onclick = function(){
+        var select = document.getElementById('dropdown');
+        var idx = select.selectedIndex;
+        var selectedOption = select.options[idx];
+        var teamSize = selectedOption.value;
+        var table = document.getElementById('dataTable');
+        var cells = table.getElementsByTagName('td')
+        var currTeam = 0;
+        var teamMembers = [];
+        for (var i=0; i < cells.length; i++){
+            var cell = cells[i];
+            cell.classList.toggle("team" + currTeam);
+            cell.innerHTML = currTeam;
+            teamMembers.push(cell);
+            if (((i + 1) % teamSize) == 0){
+                currentTeams[currTeam] = teamMembers;
+                teamMembers = [];
+                currTeam++;                
+            }
+        }
+        teamNum = currTeam;        
     }
+
+    function addToTeam(cell, team){
+        //TODO use this function for whenever we add to teams
+    }
+
+    function matchRuleShort(str, rule) {
+        return new RegExp("^" + rule.split("*").join(".*") + "$").test(str);
+      }
 
     document.getElementById("leftHandedButton").onclick = function() {
         var table = document.getElementById("dataTable");
@@ -119,14 +146,7 @@ $(document).ready(function(){
             var cell = cells[i];
             cell.classList.remove("highlight");
         }
-    }
-
-
-    
-    // window.onload = function() {
-
-    // }
-    
+    }    
 
 
     document.getElementById("frontRowButton").onclick = function() {
@@ -185,15 +205,22 @@ $(document).ready(function(){
             var cell = cells[i];
             for(var key in categories) {
                 var cat = categories[key];
-                if (cell.classList.contains(cat)){
-                    cell.classList.toggle(cat);
+                if (cell.classList.contains(key)){
+                    cell.classList.toggle(key);
+                }
+            }
+        }
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            for (var key in currentTeams){
+                if (cell.classList.contains('team' + key)){
+                    cell.classList.toggle('team' + key);
+                    cell.innerHTML = '';
                 }
             }
         }
     }
     
-    var teamNum = 0;
-
     document.getElementById("teamButton").onclick = function() {
         var table = document.getElementById("dataTable");
         var cells = table.getElementsByClassName("highlight");
@@ -203,10 +230,19 @@ $(document).ready(function(){
             return;
         }
 
+        var teamMembers = []
         for(var i=0; i<cells.length; i++) {
-            var cell = cells[i];
+            var cell = cells[i];            
+            for (j=0; j<teamNum; j++){
+                if (cell.classList.contains("team" + j)){
+                    cell.classList.toggle("team" + j);
+                }
+            }
             cell.classList.toggle("team" + teamNum);
+            cell.innerHTML = teamNum;
+            teamMembers.push(cell);
         }
+        currentTeams[teamNum] = teamMembers
 
         team.innerHTML = "Team " + teamNum;
         team.id = "team" + teamNum;
@@ -281,7 +317,6 @@ $(document).ready(function(){
 
     document.getElementById('saveChanges').onclick = function(){
         var array = [];
-        //TODO add roomID form in groupreHome.html
         array.push([roomID, 'default', rows, cols]);
         array.push(['CID', 'TeamID', 'Attributes']);
 
@@ -291,10 +326,11 @@ $(document).ready(function(){
         for(var i=0; i<cells.length; i++) {
             var cell = cells[i];
             var row = [];
-            row.push(cell.innerHTML);
+            var cid = cell.id.split(',');
+            row.push(cid[0] + cid[1]);
 
             for (var j=0; j<teamNum; j++) {
-                if (cell.classList.contains('team' + j)){
+                if (cell.classList.contains("team"+j)){
                     row.push(j);
                     break;
                 }
@@ -305,7 +341,7 @@ $(document).ready(function(){
 
             for(var key in categories) {
                 var cat = categories[key];
-                if (cell.classList.contains(cat)){
+                if (cell.classList.contains(key)){
                     row.push(cat);
                 }
             }
@@ -314,7 +350,7 @@ $(document).ready(function(){
         var chairs = JSON.stringify(array);
         setTimeout(function(){
             var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-            xmlhttp.open("POST", "/json-handler");
+            xmlhttp.open("POST", "/room-saver");
             xmlhttp.setRequestHeader("Content-Type", "application/json");
             xmlhttp.send(chairs);
         }, 1000);

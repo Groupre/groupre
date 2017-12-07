@@ -3,31 +3,24 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/default.css" type="text/css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>groupre: Upload Students Preference</title>
 </head>
 
 <body>
-    <a href="/"><div class="header">
-            <img alt="groupythegroupregrouper" src="../static/groupy.png">
-            <h1>Groupre</h1>            
-    </div></a>
+    <div class="w3-container">
+        <a href="/"><div class="w3-display-container w3-display-topmiddle" style="height:100px;width:50%">
+            <h1 class="w3-display-middle">Groupre</h1>                            
+            <img class="w3-display-right" alt="groupythegroupregrouper" src="../static/groupy.png" width="100px" height="100px">
+        </div></a>
+    </div>
 
-    <h2>Test Cases</h2>
-
-    <form action="" method="post">
-        <label>Test Cases:</label>
-        {%- for item in test_files.keys() %}
-        <button formaction="download/{{ test_files[item] }}">
-            <a>{{ item }}</a>
-        </button>
-        {%- endfor %}
-    </form>
-
-    <form method=post enctype=multipart/form-data>
-        <p>
-            <input type=file name=file>
-            <input type=submit value=Upload>
-    </form>
-
+    <div class="w3-container">
+        <div class="w3-display-container w3-display-middle" style="height:30%;width:50%">
+                <form class="w3-display-middle" method=post enctype=multipart/form-data>
+                        <input type=file name=file>
+                        <input type=submit value=Upload>
+                </form>
+        </div>
+    </div>
 </body>
