@@ -131,18 +131,24 @@ def runTests():
 def upload_file(roomID):
     if request.method == 'POST':
         if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
+          #  flash('No file part')
+            return redirect(url_for('selectRoom'))
         file = request.files['file']
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
+          #  flash('No selected file')
+            return redirect(url_for('selectRoom'))
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             newlocation = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(newlocation)
+            capacity = int(roomID.split('-')[-2]) * int(roomID.split('-')[-1])
+            with open(newlocation, newline='') as csvfile:
+                reader = csv.reader(csvfile, delimiter=',')
+                row_count = sum(1 for row in reader) - 1
+            if row_count > capacity:
+                return redirect(url_for('selectRoom'))
             fallback = False
             if 'fallback' in roomID:
                 roomID = roomID.split('-fallback', 1)[0]
