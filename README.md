@@ -134,9 +134,9 @@ The server available on our repository will attempt to upload room information f
 To add persistent storage to your [Carolina CloudApps][Carolina CloudApps] deployment, follow the following steps:
 
 1. Navigate to your deployment in the [Carolina CloudApps' Console][CloudApps_console].
-2. Select “Create Storage” fromt the “Storage” menu on the left. Set the size of your storage to something that could store a number of small files (e.g 2-5 GiB).
-3. Select “Deployment” fromt the “Applications” menu on the left. Select your deployment of groupre.
-4. Select “Add Storage” in the menu on the top right. And specify the following path under Mount Path: '/chairs'
+2. Select “Create Storage” from the “Storage” menu on the left. Set the size of your storage to something that could store a number of small files (e.g 2-5 GiB).
+3. Select “Deployment” from the “Applications” menu on the left. Select your deployment of groupre.
+4. Select “Add Storage” in the menu on the top right. And specify the following path under Mount Path: "/chairs".
 5. Click “Add” to confirm.
 
 For additional information on dealing with persistent storage, read up on increaing your storage volume in the [CloudApps Documentation][CloudAppsStorage_help].
