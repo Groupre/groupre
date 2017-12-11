@@ -129,15 +129,15 @@ Here is an example of a basic [Carolina CloudApps][Carolina CloudApps] setup:
 2. Create a **Python 3** application by using the *"Add to Project"* menu and going to *"Browse Catalog"*, then selecting *"Python"* and ensuring that you are using the **latest available Python 3 version** before clicking *"Select"*.
 3. Give the application a descriptive name, and then point it to the particular repository you want to use for the application. In our case, we use the master and develop branches of the groupre repository for our stable and developer deployments.
 
-The server available on our repository will attempt to upload room information for a classroom to a folder in the root directory called "/chairs". This path is used by persistent storage to ensure that room-information is not lost upon rebuild.
+The server available on our repository will attempt to upload room information for a classroom to a folder in the root directory called *"/chairs"*. This path is used by persistent storage to ensure that room-information is not lost upon rebuild.
 
 To add persistent storage to your [Carolina CloudApps][Carolina CloudApps] deployment, follow the following steps:
 
 1. Navigate to your deployment in the [Carolina CloudApps' Console][CloudApps_console].
-2. Select “Create Storage” from the “Storage” menu on the left. Set the size of your storage to something that could store a number of small files (e.g 2-5 GiB).
-3. Select “Deployment” from the “Applications” menu on the left. Select your deployment of groupre.
-4. Select “Add Storage” in the menu on the top right. And specify the following path under Mount Path: "/chairs".
-5. Click “Add” to confirm.
+2. Select *“Create Storage”* from the *“Storage”* menu on the left. Set the size of your storage to something that could store a number of small files (e.g 2-5 GiB).
+3. Select *“Deployment”* from the *“Applications”* menu on the left. Select your deployment of groupre.
+4. Select *“Add Storage”* in the menu on the top right. And specify the following path under Mount Path: *"/chairs"*.
+5. Click *“Add”* to confirm.
 
 For additional information on dealing with persistent storage, read up on increaing your storage volume in the [CloudApps Documentation][CloudAppsStorage_help].
 
