@@ -89,6 +89,9 @@ def create_teams(students, chairs, team_structures):
             priority_students, key=lambda x: (
                 x.vip, x.specificness, x.total_preference_value), reverse=True)
 
+        # for student in sorted_priority_students:
+        #     print(student.student_name, student.specificness)
+
         for student in sorted_priority_students:
             match = priority_match(
                 student, chairs, team_fields, team_structures)

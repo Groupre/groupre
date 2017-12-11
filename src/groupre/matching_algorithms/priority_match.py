@@ -20,9 +20,9 @@ def priority_match(student, chairs, team_fields, team_structures):
         score = 0
         for preference in student.preferences:
             score += range_front(preference, chair)
-            if score == 0 and preference.name in chair.attributes:
+            if preference.name in chair.attributes:
                 score += 1
-        scored_chairs[chair] = score
+        scored_chairs.update({chair:score})
 
     max_score = max(scored_chairs.values())
 
