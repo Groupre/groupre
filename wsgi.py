@@ -15,6 +15,11 @@ from helpers import postem
 UPLOAD_FOLDER = os.getcwd() + '/uploads/'
 ALLOWED_EXTENSIONS = set(['csv'])
 
+if os.path.exists('/chairs'):
+    CHAIRS_DIR = '/chairs'
+else:
+    CHAIRS_DIR = UPLOAD_FOLDER + 'chairs/'
+
 application = Flask(__name__)
 
 app = Flask(__name__)
@@ -142,7 +147,7 @@ def upload_file(roomID):
             if 'fallback' in roomID:
                 roomID = roomID.split('-fallback', 1)[0]
                 fallback = True
-            roomID = UPLOAD_FOLDER + 'chairs/' + roomID + '.csv'
+            roomID = CHAIRS_DIR + roomID + '.csv'
             output_name = run_groupre(newlocation, roomID, fallback, False)
             output_name = output_name.split('/')[-1].split('.', 1)[0]
             return redirect('/metrics/' + output_name)
@@ -150,9 +155,8 @@ def upload_file(roomID):
 
 @application.route("/room-select")
 def selectRoom():
-    chairsDir = os.path.join(UPLOAD_FOLDER,"chairs")
     chairFiles = {}
-    for cFile in os.listdir(chairsDir):
+    for cFile in os.listdir(CHAIRS_DIR):
         if '.csv' in cFile:
             cValue = cFile.split('.csv')[0]
             cKey = cValue.split('-')[2:]
@@ -180,7 +184,7 @@ def metrics(output_name):
 @application.route("/download/<string:output_name>", methods=['POST'])
 def downloadcsv(output_name):
     if "room-" in output_name:
-        with open(UPLOAD_FOLDER + "chairs/" + output_name, 'r') as file:
+        with open(CHAIRS_DIR + output_name, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             csvfile = []
             for row in reader:
@@ -237,7 +241,7 @@ def saveRoom():
     for item in info:
         filename.append(str(item))
     filename = '-'.join(filename)
-    filename = UPLOAD_FOLDER + 'chairs/room-' + filename + '.csv'
+    filename = CHAIRS_DIR + 'room-' + filename + '.csv'
     with open(filename, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
