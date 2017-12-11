@@ -143,7 +143,7 @@ For additional information on dealing with persistent storage, read up on increa
 
 Since [Carolina CloudApps][Carolina CloudApps] is based on [OpenShift][OpenShift], the process for deploying to an [OpenShift][OpenShift] target platform should be relatively similar.
 
-If you have pushed a change and wish to view the updated site on [Carolina CloudApps][Carolina CloudApps], simply rebuild the application that uses the branch you updated by using the menu button on the right of the element that corresponds to that application in the *Overview* section of the console.
+If you have pushed a change and wish to view the updated site on [Carolina CloudApps][Carolina CloudApps], simply rebuild the application that uses the branch you updated by using the menu button on the right of the element that corresponds to that application in the *"Overview"* section of the console.
 
 ### Developing with Flask
 
