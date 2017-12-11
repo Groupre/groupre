@@ -5,6 +5,29 @@ padding-right: 10em;
   color: #0000DD;
 }
 
+a{
+	text-decoration: none;
+}
+
+.header{
+  margin: auto;
+  width: 40%;
+  padding: 10px;
+}
+
+.header img {
+float: right;
+width: 125px;
+height: 125px;
+}
+
+.header h1 {
+position: relative;
+top: 18px;
+left: 0px;
+color: black;	
+}
+
 p.one {
 	border-style: solid;
     border-color: blue;

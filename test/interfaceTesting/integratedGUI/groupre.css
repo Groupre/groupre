@@ -121,6 +121,11 @@ td.highlight, tr.highlight {
   background-color: white;
 }
 
+#teamList [id^="team"] {
+  background-color: red;
+  
+}
+
 #interface p:hover {
   background-color: yellow;
 }
