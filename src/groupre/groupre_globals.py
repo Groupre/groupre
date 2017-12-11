@@ -23,6 +23,8 @@ FALLBACK_CHAIRS_AISLE = []
 METRICS_ENABLED = False
 METRICS = []
 
+GENDER_ENABLED = False
+
 def set_all_fallback_limits(limit):
     '''Sets all FALLBACK\_LIMIT_* global variables to the same setting.
     Typically this won't be used since the amount of chairs with the same
