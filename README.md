@@ -126,7 +126,7 @@ With this, you can easily tell that our [Carolina CloudApps][Carolina CloudApps]
 Here is an example of a basic [Carolina CloudApps][Carolina CloudApps] setup:
 
 1. Go to your [Carolina CloudApps' Console][CloudApps_console].
-2. Create a **Python 3** application by using the *"Add to Project"* menu and going to *"Browse Catalog"*, then selecting *"Python"* and ensuring that you are using the **latest available Python 3 version** before clicking *"Select"*.
+2. Create a **Python 3** application by using the *"Add to Project"* menu in the top nav-bar and going to *"Browse Catalog"*, then selecting *"Python"* and ensuring that you are using the **latest available Python 3 version** before clicking *"Select"*.
 3. Give the application a descriptive name, and then point it to the particular repository you want to use for the application. In our case, we use the master and develop branches of the groupre repository for our stable and developer deployments.
 
 The server available on our repository will attempt to upload room information for a classroom to a folder in the root directory called *"/chairs"*. This path is used by persistent storage to ensure that room-information is not lost upon rebuild.
@@ -142,6 +142,12 @@ To add persistent storage to your [Carolina CloudApps][Carolina CloudApps] deplo
 For additional information on dealing with persistent storage, read up on increaing your storage volume in the [CloudApps Documentation][CloudAppsStorage_help].
 
 Since [Carolina CloudApps][Carolina CloudApps] is based on [OpenShift][OpenShift], the process for deploying to an [OpenShift][OpenShift] target platform should be relatively similar.
+
+If you have pushed a change and wish to view the updated site on [Carolina CloudApps][Carolina CloudApps], simply rebuild the application that uses the branch you updated by using the menu button on the right of the element that corresponds to that application in the *Overview* section of the console.
+
+### Developing with Flask
+
+Developers looking to modify html files need to look in the *templates* directory, and called using render_template() calls. All other relevant files can be found (and should be stored) in the *static* directory.
 
 ## Built With
 
