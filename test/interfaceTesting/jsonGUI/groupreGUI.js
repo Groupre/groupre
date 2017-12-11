@@ -22,6 +22,8 @@ $(document).ready(function(){
                 //need to put int to string in here to change to seat letter
                 cell.id = 'Seat ' + r + ' ' + c;
                 cell.innerHTML = cell.id;
+                cell.style.width = (80/cols)+"%";
+                cell.style.height = (80/rows)+"%";
                 row.appendChild(cell);
             }
             if (prevrow) {
@@ -154,6 +156,57 @@ $(document).ready(function(){
             var cell = cells[i];
             cell.classList.remove("highlight");
         }
+    }
+
+    var teamNum = 0;
+    
+    document.getElementById("teamButton").onclick = function() {
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByClassName("highlight");
+        var team = document.createElement('p');
+    
+        if(cells.length < 1) {
+            return;
+        }
+    
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.toggle("team" + teamNum);
+            cell.innerHTML = ("Team " + teamNum);
+        }
+    
+        team.innerHTML = "Team " + teamNum;
+        team.id = "team" + teamNum;
+        team.classList.add("team");
+        teamNum += 1;
+        document.getElementById("teamList").appendChild(team);
+    
+        cells = table.getElementsByTagName("td");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.remove("highlight");
+        }
+    }
+    
+    document.getElementById("teamList").onmouseover = function() {
+        var table = document.getElementById("dataTable");
+        var teamList = document.getElementsByClassName("team");
+    
+        $("#teamList p").mouseover(function() {
+            var team = this;
+            var teamId = team.id;
+            var cells = table.getElementsByClassName(teamId);
+            var temp = team.innerHTML;
+
+            var teamStr = "";
+            //team.innerHTML = "";
+            for(var i=0; i<cells.length; i++) {
+                //team.innerHTML = team.innerHTML + cells[i].id;
+                teamStr = teamStr + " " + cells[i].id;
+            }
+            alert(teamStr);
+        });
+        
     }
 
     document.getElementById("reset").onclick = function() {

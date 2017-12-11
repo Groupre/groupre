@@ -164,6 +164,7 @@ document.getElementById("teamButton").onclick = function() {
 
     team.innerHTML = "Team " + teamNum;
     team.id = "team" + teamNum;
+    team.classList.add("team");
     teamNum += 1;
     document.getElementById("teamList").appendChild(team);
 
@@ -174,8 +175,18 @@ document.getElementById("teamButton").onclick = function() {
     }
 }
 
-document.getElementById("teamList").onclick = function() {
+document.getElementById("teamList").onmouseover = function() {
     var table = document.getElementById("dataTable");
+    var teamList = document.getElementsByClassName("team");
+
+    $("#teamList p").mouseover(function() {
+        var team = this;
+        var teamId = team.id;
+        var cells = table.getElementsByClassName(teamId);
+        var temp = team.innerHTML;
+        team.innerHTML = cells[0].id;
+    });
+    
 }
 
 function drag() {

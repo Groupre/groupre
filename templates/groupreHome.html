@@ -9,37 +9,25 @@
 
   <link rel="stylesheet" href="../static/groupre.css" style type="text/css">
   <script type="text/javascript" src="../static/groupreGUI.js"></script>
-    <!-- <script src="GUI1.js"></script> -->
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="../static/jquery.min.js"></script>
 
 </head>
 
 <body>
+    <a href="/"><div class="header">
+        <img alt="groupythegroupregrouper" src="../static/groupy.png">
+        <h1>Groupre</h1>            
+    </div></a>
 
-    <p class="one" style="color:#000000;font-size:64px;font-weight:bold;">Cheers! Welcome to Groupre.</p>
-
-    <h2>Groupie the Groupre Grouper</h2>
-    <p> <img src="../static/GroupreIcon.jpg" alt="Fish" style="width:20%"></p>
-
-    <h1>Please select how many rows (horizontal) and columns (vertical) your classroom has.</h1>
-
+    <script type="text/javascript" src="../static/jquery.min.js"></script>
+    <br>
+    Room Name: <input id="roomName" value="g100"/>
+    <br>
     Enter rows here => <input id="Enter rows here:" value="10"/>
     Enter columns here => <input id="Enter columns here:" value="10"/>
     <input type="button" id="build" value="Build the room!"/>
-
-    <!---<select name="type" onmousedown="this.value='';" onchange="jsFunction(this.value);">
-      <option value='drag'>Select a Grid</option>
-      <option value='rows'>Click Rows</option>
-      <option value='cols'>Click Columns</option>
-      <option value='front'>Front Row</option>
-      <option value='back'>Back Row</option>
-      <option value='leftyCol'>Left-Handed Seats</option>
-      <option value='aisleCol'>Aisle Seats</option>
-      <option value='empty'>Empty Seat</option>
-      <option value='special'>Special Seat</option>
-    </select> -->
-
+    
     <div id="interface">
       <div id="controls">
         <input type="button" id="teamButton" value="Create Team from Selected Seats"/>
@@ -50,7 +38,22 @@
         <input type="button" id="brokenButton" value="Set Selected Seats as Un-Usable"/>
         <br>
         <input type="button" id="saveChanges" value="Save Changes"/>
+        <p id="message"></p>        
       </div>
+
+      <!-- <form method="post">
+          <select id="dropdown" name="dropdown">
+          </select>
+          <input type="hidden" name="hiddenInput" id="hiddenInput" value="" />
+          <button type="button" onclick="autoAddTeams(select)">Auto Add Teams</button>
+      </form> -->
+
+      <form action="">
+        <select id="dropdown">
+        </select> 
+        <button type="button" id="autoAdd">Submit</button>
+      </form>
+      
       
       <input type="button" id="reset" value="Reset Board"/>
       
