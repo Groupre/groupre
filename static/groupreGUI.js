@@ -15,6 +15,7 @@ $(document).ready(function(){
     var roomID = document.getElementById('roomName').value;
     
     document.getElementById('build').onclick = function() {
+        this.hidden = true;
         rows = parseInt(document.getElementById('Enter rows here:').value,10);
         cols = parseInt(document.getElementById('Enter columns here:').value,10);
         var table = document.createElement('table');
