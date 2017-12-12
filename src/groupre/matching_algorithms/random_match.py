@@ -6,7 +6,7 @@ from data_structures import TeamMember
 
 
 def random_match(student, chairs, team_fields, team_structures):
-    '''This functionw will find a chair for the student at random.'''
+    '''This method will find a chair for the student at random.'''
 
     # Randomly choose a chair.
     chair = random.choice(chairs)
@@ -29,7 +29,7 @@ def random_match(student, chairs, team_fields, team_structures):
     unmatched_preferences = ''
     for preference in student.preferences:
         if preference not in chair.attributes:
-            unmatched_preferences += '[' + preference + ']'
+            unmatched_preferences += '[' + preference.name + ']'
     data_fields.append(unmatched_preferences)
 
     ret = TeamMember(team_fields, data_fields)
