@@ -204,7 +204,8 @@ $(document).ready(function(){
                 //team.innerHTML = team.innerHTML + cells[i].id;
                 teamStr = teamStr + " " + cells[i].id;
             }
-            alert(teamStr);
+            //alert(teamStr);
+            //return;
         });
         
     }

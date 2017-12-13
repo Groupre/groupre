@@ -52,7 +52,8 @@ def main(argv):
     gender = parsed_args.gender
 
     print('Arguments: Chairs {}, Students {}, Fallback {}, Gender {}, Output {}'.format(
-        parsed_args.chairs, parsed_args.students, parsed_args.fallback, parsed_args.gender, parsed_args.output))
+        parsed_args.chairs, parsed_args.students, parsed_args.fallback,
+        parsed_args.gender, parsed_args.output))
 
     if chairs_csv is None:
         print('Missing chairs input file.')
