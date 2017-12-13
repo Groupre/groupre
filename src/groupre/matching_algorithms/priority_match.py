@@ -20,9 +20,9 @@ def priority_match(student, chairs, team_fields, team_structures):
         score = 0
         for preference in student.preferences:
             score += range_front(preference, chair)
-            if score == 0 and preference.name in chair.attributes:
+            if preference.name in chair.attributes:
                 score += 1
-        scored_chairs[chair] = score
+        scored_chairs.update({chair: score})
 
     max_score = max(scored_chairs.values())
 
@@ -63,24 +63,27 @@ def priority_match(student, chairs, team_fields, team_structures):
         found_attr = False
         if 'front-' and ':' in preference.name:
             range_split = preference.name.split('-', 1)[1].split(':', 1)
-            range_start = range_split[0]
-            range_end = range_split[1]
+            range_start = int(range_split[0])
+            range_end = int(range_split[1])
             for attribute in chair.attributes:
-                attr_level = int(attribute.split('-', 1)[1])
-                if groupre_globals.FALLBACK_ENABLED:
-                    if ('front' in attribute and (attr_level <= range_end
-                                                  + groupre_globals.FALLBACK_LIMIT_FRONT)
-                            or (attr_level >= range_start)):
-                        found_attr = True
-                else:
-                    if (('front' in attribute) and (attr_level <= range_end)
-                            and (attr_level >= range_start)):
-                        found_attr = True
+                if attribute != 'left-handed':
+                    attr_level = int(attribute.split('-', 1)[1])
+                    if groupre_globals.FALLBACK_ENABLED:
+                        if ('front' in attribute and (attr_level <= range_end
+                                                      + groupre_globals.FALLBACK_LIMIT_FRONT)
+                                or (attr_level >= range_start)):
+                            found_attr = True
+                    else:
+                        if (('front' in attribute) and (attr_level <= range_end)
+                                and (attr_level >= range_start)):
+                            found_attr = True
             if not found_attr:
                 unmatched_preferences += ('[' + preference.name + ']')
-        if groupre_globals.FALLBACK_ENABLED:
+        if (groupre_globals.FALLBACK_ENABLED
+                and preference.name != 'left-handed' and ':' not in preference.name):
             pref_split = preference.name.split("-", 1)
             pref_prefix = pref_split[0]
+            # print(preference.name)
             pref_level = int(pref_split[1])
             pref_start = pref_level
             pref_end = pref_level
