@@ -1,10 +1,10 @@
 $(document).ready(function(){
     var categories = {
         leftHand:'left',
-        aisleLeft:'aisle',
-        aisleRight:'aisle',
-        front:'front',
-        back:'back',
+        aisleLeft:'aisle-0',
+        aisleRight:'aisle-0',
+        front:'front-0',
+        back:'back-0',
         broken:'broken'
     }
     var rows;
