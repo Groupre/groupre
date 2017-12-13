@@ -152,6 +152,7 @@ def main(argv):
           'students to be seated in', total_chairs, 'chairs...')
 
     if groupre_globals.METRICS_ENABLED:
+        groupre_globals.METRICS = []
         groupre_globals.METRICS.append('Students: ' + str(total_students))
         groupre_globals.METRICS.append('Seats: ' + str(total_chairs))
 
