@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../static/default.css">
     <title>Download Seating Chart</title>
 </head>
 <body>
@@ -9,15 +10,13 @@
             <img alt="groupythegroupregrouper" src="../static/groupy.png">
             <h1>Groupre</h1>            
     </div></a>
-    <h1>Metrics</h1>
+    <h2>Metrics</h2>
     <h2>{{ output_name }}</h2>
     <div class="output"></div>
     
-    <ul>
-        {%- for m in metrics %}
-        <li>{{ m }}</li>
-        {%- endfor %}
-    </ul>
+    {%- for m in metrics %}
+    <p>{{ m }}</p>
+    {%- endfor %}
     <div id="download">
     <form action="" method="POST">
         <button formaction="/download/{{ output_name ~ '.csv' }}">Download Seating Chart</button>
