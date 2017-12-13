@@ -16,7 +16,7 @@ UPLOAD_FOLDER = os.getcwd() + '/uploads/'
 ALLOWED_EXTENSIONS = set(['csv'])
 
 if os.path.exists('/chairs'):
-    CHAIRS_DIR = '/chairs'
+    CHAIRS_DIR = '/chairs/'
 else:
     CHAIRS_DIR = UPLOAD_FOLDER + 'chairs/'
 
