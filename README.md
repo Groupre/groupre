@@ -147,7 +147,7 @@ If you have pushed a change and wish to view the updated site on [Carolina Cloud
 
 ### Developing with Flask
 
-Developers looking to modify html files need to look in the *templates* directory, and called using render_template() calls. All other relevant files can be found (and should be stored) in the *static* directory.
+Developers looking to modify html files need to look in the *templates* directory. All other relevant files can be found (and should be stored) in the *static* directory.
 
 ## Built With
 
