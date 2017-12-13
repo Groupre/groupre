@@ -13,11 +13,13 @@ $(document).ready(function(){
     var teamNum = 0;    
     var currentTeams = {}
     var roomID = document.getElementById('roomName').value;
+    var newID;
     
     document.getElementById('build').onclick = function() {
         this.hidden = true;
         rows = parseInt(document.getElementById('Enter rows here:').value,10);
         cols = parseInt(document.getElementById('Enter columns here:').value,10);
+        newID = 'default-' + roomID + '-' + rows + '-' + cols
         var table = document.createElement('table');
         table.id = 'dataTable';
         table.border = "1";
