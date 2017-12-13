@@ -318,7 +318,7 @@ $(document).ready(function(){
 
     document.getElementById('saveChanges').onclick = function(){
         var array = [];
-        array.push([roomID, 'default', rows, cols]);
+        array.push(['default', roomID, rows, cols]);
         array.push(['CID', 'TeamID', 'Attributes']);
 
         var table = document.getElementById("dataTable");

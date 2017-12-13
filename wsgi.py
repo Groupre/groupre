@@ -150,11 +150,15 @@ def upload_file(roomID):
             if row_count > capacity:
                 return redirect(url_for('selectRoom'))
             fallback = False
+            gender = False
             if 'fallback' in roomID:
                 roomID = roomID.split('-fallback', 1)[0]
                 fallback = True
+            if 'gender' in roomID:
+                roomID = roomID.split('-gender', 1)[0]
+                gender = True
             roomID = CHAIRS_DIR + roomID + '.csv'
-            output_name = run_groupre(newlocation, roomID, fallback, False)
+            output_name = run_groupre(newlocation, roomID, fallback, gender)
             output_name = output_name.split('/')[-1].split('.', 1)[0]
             return redirect('/metrics/' + output_name)
     return render_template('upload.html')
