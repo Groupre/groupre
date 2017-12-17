@@ -65,11 +65,6 @@ def run_test(students, row_count):
         output_name = os.path.join(UPLOAD_FOLDER, 'test_output_1.csv')
     return run_groupre(students, chairs, False, False)
 
-def _json_object_hook(d):
-    return namedtuple('X', d.keys())(*d.values())
-def json2obj(data):
-    return json.loads(data, object_hook=_json_object_hook)
-
 def make_tree(path):
     tree = dict(name=path.split('/')[-2], children=[])
     try:
@@ -85,8 +80,16 @@ def make_tree(path):
                 tree['children'].append(dict(name=name))
     return tree
 
+def seeDirContents(dirpath):
+    dir_files = {}
+    for dirfile in os.listdir(dirpath):
+        dirpath = os.path.join(dirpath, dirfile)
+        dirfilename = os.path.basename(dirfile).replace('_', ' ').split('.csv')[0].title()
+        dir_files.update({dirfilename:dirpath})
+    return dir_files
+
 @application.route("/")
-def hello():
+def index():
     return render_template('index.html')
 
 
@@ -94,7 +97,6 @@ def hello():
 def docs():
     path = os.path.dirname(os.path.realpath(__file__)) + '/static/docs/archive'
     return render_template('dirtree.html', tree=make_tree(path))
-
 
 @application.route('/test', methods=['GET', 'POST'])
 def runTests():
@@ -120,12 +122,7 @@ def runTests():
             output_name = output_name.split('/')[-1].split('.', 1)[0]
             return redirect('/metrics/' + output_name)
     testCasesDir = os.path.join(UPLOAD_FOLDER,"testCases")
-    test_files = {}
-    for testCase in os.listdir(testCasesDir):
-        testCasePath = os.path.join(testCasesDir, testCase)
-        testCaseName = os.path.basename(testCasePath).replace('_', ' ').split('.csv')[0].title()
-        test_files.update({testCaseName:testCase})
-    return render_template('test.html', test_files=test_files)
+    return render_template('test.html', test_files=seeDirContents(testCasesDir))
 
 @application.route('/upload/<string:roomID>', methods=['GET', 'POST'])
 def upload_file(roomID):
@@ -236,13 +233,6 @@ def downloadcsv(output_name):
 def create_room():
     return render_template('groupreHome.html')
 
-#TODO Remove this route before 12/11/17
-@application.route("/guiTest/<string:html_file>")
-def testGUI(html_file):
-    if html_file.split('.')[-1] == '.html':
-        return render_template(html_file)
-    return html_file
-    
 @application.route("/room-saver", methods=['POST'])
 def saveRoom():
     content = request.get_json()
