@@ -124,6 +124,28 @@ def runTests():
     testCasesDir = os.path.join(UPLOAD_FOLDER,"testCases")
     return render_template('test.html', test_files=seeDirContents(testCasesDir))
 
+@application.route('/upload-room', methods=['GET', 'POST'])
+def upload_room():
+    if request.method == 'POST':
+        if 'file' not in request.files:
+          #  flash('No file part')
+            return redirect(url_for('upload_room'))
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+          #  flash('No selected file')
+            return redirect(url_for('upload_room'))
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            newlocation = os.path.join(CHAIRS_DIR, filename)
+            file.save(newlocation)
+            with open(newlocation, newline='') as csvfile:
+                reader = csv.reader(csvfile, delimiter=',')
+                row_count = sum(1 for row in reader) - 1
+            return redirect('/upload/' + filename.split('.csv')[0])
+    return render_template('upload.html')
+
 @application.route('/upload/<string:roomID>', methods=['GET', 'POST'])
 def upload_file(roomID):
     if request.method == 'POST':
