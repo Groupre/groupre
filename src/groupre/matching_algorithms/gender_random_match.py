@@ -7,7 +7,7 @@ from data_structures import TeamMember
 
 def gender_random_match(student, chairs, team_fields, team_structures):
     '''This method will find a team for a given student based on their
-    gender attribute..'''
+    gender attribute.'''
 
     # This code assumes that teams are of sizes greater than at least 4.
 
@@ -94,6 +94,10 @@ def gender_random_match(student, chairs, team_fields, team_structures):
             # print('No available unoccupied chair located in this team.')
 
         num_checked += 1
+
+    # The below section seems to be a sanity check as well as a removal of
+    # the chair from our primary list. Can likely be simplified and we can
+    # maybe remove the sanity check
 
     found_chair = False
     # print('using chair: ' + chair.chair_id)
