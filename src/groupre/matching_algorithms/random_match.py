@@ -16,7 +16,15 @@ def random_match(student, chairs, team_fields, team_structures):
     data_fields = []
 
     data_fields.append(student.student_id)
-    data_fields.append(student.student_name)
+
+    student_name = student.student_name.split(',')
+    name = ''
+    for part in student_name:
+        name += part
+
+    # print(name)
+
+    data_fields.append(name)
     data_fields.append(student.vip)
     data_fields.append(student.score)
 
