@@ -32,7 +32,11 @@ def fallback_front(preference, chair):
     has_attribute = False
     preference_found = False
     fallback_level = 1
-    fallback_start = int(preference.name.split('-', 1)[1])
+    # print(preference.name)
+    if ':' in preference.name:
+        fallback_start = int(preference.name.split('-', 1)[1].split(':', 1)[1])
+    else:
+        fallback_start = int(preference.name.split('-', 1)[1])
 
     for attribute in chair.attributes:
         if 'front-' in attribute:

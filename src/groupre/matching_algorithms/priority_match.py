@@ -58,8 +58,6 @@ def priority_match(student, chairs, team_fields, team_structures):
     for part in student_name:
         name += part
 
-    # print(name)
-
     data_fields.append(name)
     data_fields.append(student.vip)
     data_fields.append(student.score)
@@ -69,12 +67,14 @@ def priority_match(student, chairs, team_fields, team_structures):
     unmatched_preferences = ''
     for preference in student.preferences:
         found_attr = False
-        if 'front-' and ':' in preference.name:
+        if ('front-' and ':') in preference.name:
             range_split = preference.name.split('-', 1)[1].split(':', 1)
             range_start = int(range_split[0])
             range_end = int(range_split[1])
             for attribute in chair.attributes:
-                if attribute != 'left-handed':
+                # TODO Modify this to handle attributes better, or enforce
+                # that left-handed be lefthanded instead
+                if attribute != 'left-handed' and '-' in attribute:
                     attr_level = int(attribute.split('-', 1)[1])
                     if groupre_globals.FALLBACK_ENABLED:
                         if ('front' in attribute and (attr_level <= range_end
@@ -88,10 +88,11 @@ def priority_match(student, chairs, team_fields, team_structures):
             if not found_attr:
                 unmatched_preferences += ('[' + preference.name + ']')
         if (groupre_globals.FALLBACK_ENABLED
-                and preference.name != 'left-handed' and ':' not in preference.name):
+                and preference.name != 'left-handed'
+                and ':' not in preference.name
+                and '-' in preference.name):
             pref_split = preference.name.split("-", 1)
             pref_prefix = pref_split[0]
-            # print(preference.name)
             pref_level = int(pref_split[1])
             pref_start = pref_level
             pref_end = pref_level

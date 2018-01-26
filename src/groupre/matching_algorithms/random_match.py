@@ -22,8 +22,6 @@ def random_match(student, chairs, team_fields, team_structures):
     for part in student_name:
         name += part
 
-    # print(name)
-
     data_fields.append(name)
     data_fields.append(student.vip)
     data_fields.append(student.score)
