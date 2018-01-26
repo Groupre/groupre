@@ -19,8 +19,9 @@ def priority_match(student, chairs, team_fields, team_structures):
     for chair in chairs:
         score = 0
         for preference in student.preferences:
-            score += range_front(preference, chair)
-            if preference.name in chair.attributes:
+            if ':' in preference.name:
+                score += range_front(preference, chair)
+            elif preference.name in chair.attributes:
                 score += 1
         scored_chairs.update({chair: score})
 
