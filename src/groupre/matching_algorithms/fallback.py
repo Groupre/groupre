@@ -22,34 +22,24 @@ def fallback(preference, chair):
 
 
 def fallback_front(preference, chair):
-    '''Handles fallback for the front-* preference.'''
-
-    # TODO This likely doesn't handle the fallback case for the front-BEGIN:END range preference
-    # correctly as of yet. Will either need to create a new version for the range variant of the
-    # preference and make this one ignore any preference with a ':' included.
+    '''Handles fallback for the front-* and front-*:* preferences.'''
 
     score = 0
-    has_attribute = False
     preference_found = False
     fallback_level = 1
-    # print(preference.name)
+
     if ':' in preference.name:
         fallback_start = int(preference.name.split('-', 1)[1].split(':', 1)[1])
     else:
         fallback_start = int(preference.name.split('-', 1)[1])
 
-    for attribute in chair.attributes:
-        if 'front-' in attribute:
-            has_attribute = True
-            break
-
-    if has_attribute:
+    if any('front-' in attribute for attribute in chair.attributes):
         while (not preference_found
-               and fallback_start + fallback_level <= groupre_globals.FALLBACK_LIMIT_FRONT):
+               and fallback_start + fallback_level < groupre_globals.FALLBACK_LIMIT_FRONT):
             if groupre_globals.FALLBACK_CHAIRS_FRONT[
                     fallback_start + fallback_level] in chair.attributes:
-                score += ((groupre_globals.FALLBACK_LIMIT_BACK - fallback_level + 1)
-                          / (groupre_globals.FALLBACK_LIMIT_BACK + 1))
+                score += ((groupre_globals.FALLBACK_LIMIT_FRONT - fallback_level + 1)
+                          / (groupre_globals.FALLBACK_LIMIT_FRONT + 1))
                 preference_found = True
             else:
                 fallback_level += 1
@@ -58,22 +48,20 @@ def fallback_front(preference, chair):
 
 
 def fallback_back(preference, chair):
-    '''Handles fallback for the back-* preference.'''
+    '''Handles fallback for the back-* and back-*:* preferences.'''
 
     score = 0
-    has_attribute = False
     preference_found = False
     fallback_level = 1
-    fallback_start = int(preference.name.split('-', 1)[1])
 
-    for attribute in chair.attributes:
-        if 'back-' in attribute:
-            has_attribute = True
-            break
+    if ':' in preference.name:
+        fallback_start = int(preference.name.split('-', 1)[1].split(':', 1)[1])
+    else:
+        fallback_start = int(preference.name.split('-', 1)[1])
 
-    if has_attribute:
+    if any('back-' in attribute for attribute in chair.attributes):
         while (not preference_found
-               and fallback_start + fallback_level <= groupre_globals.FALLBACK_LIMIT_BACK):
+               and fallback_start + fallback_level < groupre_globals.FALLBACK_LIMIT_BACK):
             if groupre_globals.FALLBACK_CHAIRS_BACK[
                     fallback_start + fallback_level] in chair.attributes:
                 score += ((groupre_globals.FALLBACK_LIMIT_BACK - fallback_level + 1)
@@ -81,31 +69,28 @@ def fallback_back(preference, chair):
                 preference_found = True
             else:
                 fallback_level += 1
-
     return score
 
 
 def fallback_aisle(preference, chair):
-    '''Handles fallback for the aisle-* preference.'''
+    '''Handles fallback for the aisle-* and aisle-*:* preferences.'''
 
     score = 0
-    has_attribute = False
     preference_found = False
     fallback_level = 1
-    fallback_start = int(preference.name.split('-', 1)[1])
 
-    for attribute in chair.attributes:
-        if 'aisle-' in attribute:
-            has_attribute = True
-            break
+    if ':' in preference.name:
+        fallback_start = int(preference.name.split('-', 1)[1].split(':', 1)[1])
+    else:
+        fallback_start = int(preference.name.split('-', 1)[1])
 
-    if has_attribute:
+    if any('aisle-' in attribute for attribute in chair.attributes):
         while (not preference_found
-               and fallback_start + fallback_level <= groupre_globals.FALLBACK_LIMIT_AISLE):
+               and fallback_start + fallback_level < groupre_globals.FALLBACK_LIMIT_AISLE):
             if groupre_globals.FALLBACK_CHAIRS_AISLE[
                     fallback_start + fallback_level] in chair.attributes:
-                score += ((groupre_globals.FALLBACK_LIMIT_BACK - fallback_level + 1)
-                          / (groupre_globals.FALLBACK_LIMIT_BACK + 1))
+                score += ((groupre_globals.FALLBACK_LIMIT_AISLE - fallback_level + 1)
+                          / (groupre_globals.FALLBACK_LIMIT_AISLE + 1))
                 preference_found = True
             else:
                 fallback_level += 1

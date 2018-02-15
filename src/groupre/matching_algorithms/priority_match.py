@@ -23,6 +23,7 @@ def priority_match(student, chairs, team_fields, team_structures):
                 score += range_front(preference, chair)
             elif preference.name in chair.attributes:
                 score += 1
+
         scored_chairs.update({chair: score})
 
     max_score = max(scored_chairs.values())
@@ -68,47 +69,52 @@ def priority_match(student, chairs, team_fields, team_structures):
     unmatched_preferences = ''
     for preference in student.preferences:
         found_attr = False
-        if ('front-' and ':') in preference.name:
+        if ':' in preference.name:
+            range_name = preference.name.split('-', 1)[0]
             range_split = preference.name.split('-', 1)[1].split(':', 1)
             range_start = int(range_split[0])
             range_end = int(range_split[1])
-            for attribute in chair.attributes:
-                # TODO Modify this to handle attributes better, or enforce
-                # that left-handed be lefthanded instead
-                if attribute != 'left-handed' and '-' in attribute:
-                    attr_level = int(attribute.split('-', 1)[1])
-                    if groupre_globals.FALLBACK_ENABLED:
-                        if (('front' in attribute)
-                                and (attr_level <= range_end
-                                     + groupre_globals.FALLBACK_LIMIT_FRONT)
-                                and (attr_level >= range_start)):
-                            found_attr = True
-                    else:
-                        if (('front' in attribute)
-                                and (attr_level <= range_end)
-                                and (attr_level >= range_start)):
-                            found_attr = True
 
-        if (groupre_globals.FALLBACK_ENABLED
+            for attribute in (attr for attr in chair.attributes if range_name in attr):
+                attr_level = int(attribute.split('-', 1)[1])
+                if groupre_globals.FALLBACK_ENABLED:
+                    limit = 0
+                    if range_name == 'front':
+                        limit = groupre_globals.FALLBACK_LIMIT_FRONT
+                    elif range_name == 'back':
+                        limit = groupre_globals.FALLBACK_LIMIT_BACK
+                    elif range_name == 'aisle':
+                        limit = groupre_globals.FALLBACK_LIMIT_AISLE
+
+                    if (attr_level >= range_start
+                            and attr_level <= range_end + limit):
+                        found_attr = True
+                else:
+                    if (attr_level >= range_start
+                            and attr_level <= range_end):
+                        found_attr = True
+        elif (groupre_globals.FALLBACK_ENABLED
                 and preference.name != 'left-handed'
-                and ':' not in preference.name
                 and '-' in preference.name):
             pref_split = preference.name.split("-", 1)
             pref_prefix = pref_split[0]
             pref_level = int(pref_split[1])
             pref_start = pref_level
             pref_end = pref_level
+
             if pref_prefix == 'front':
                 pref_end += groupre_globals.FALLBACK_LIMIT_FRONT
             elif pref_prefix == 'back':
                 pref_end += groupre_globals.FALLBACK_LIMIT_BACK
             elif pref_prefix == 'aisle':
                 pref_end += groupre_globals.FALLBACK_LIMIT_AISLE
+
             for attribute in chair.attributes:
                 if pref_prefix in attribute:
                     attr_level = int(attribute.split('-', 1)[1])
                     if (attr_level <= pref_end) and (attr_level >= pref_start):
                         found_attr = True
+
         if not found_attr:
             if preference.name not in chair.attributes:
                 unmatched_preferences += preference.name + '|'
@@ -129,7 +135,6 @@ def priority_match(student, chairs, team_fields, team_structures):
     groupre_globals.STUDENT_PRIORITY_TOTAL += student.specificness
 
     data_fields.append(priority_score)
-
     data_fields.append(unmatched_preferences[0:len(unmatched_preferences) - 1])
 
     ret = TeamMember(team_fields, data_fields)
