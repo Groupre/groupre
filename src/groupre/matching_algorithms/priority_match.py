@@ -78,16 +78,17 @@ def priority_match(student, chairs, team_fields, team_structures):
                 if attribute != 'left-handed' and '-' in attribute:
                     attr_level = int(attribute.split('-', 1)[1])
                     if groupre_globals.FALLBACK_ENABLED:
-                        if ('front' in attribute and (attr_level <= range_end
-                                                      + groupre_globals.FALLBACK_LIMIT_FRONT)
+                        if (('front' in attribute)
+                                and (attr_level <= range_end
+                                     + groupre_globals.FALLBACK_LIMIT_FRONT)
                                 and (attr_level >= range_start)):
                             found_attr = True
                     else:
-                        if (('front' in attribute) and (attr_level <= range_end)
+                        if (('front' in attribute)
+                                and (attr_level <= range_end)
                                 and (attr_level >= range_start)):
                             found_attr = True
-            if not found_attr:
-                unmatched_preferences += ('[' + preference.name + ']')
+
         if (groupre_globals.FALLBACK_ENABLED
                 and preference.name != 'left-handed'
                 and ':' not in preference.name
