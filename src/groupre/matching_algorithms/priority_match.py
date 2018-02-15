@@ -80,7 +80,7 @@ def priority_match(student, chairs, team_fields, team_structures):
                     if groupre_globals.FALLBACK_ENABLED:
                         if ('front' in attribute and (attr_level <= range_end
                                                       + groupre_globals.FALLBACK_LIMIT_FRONT)
-                                or (attr_level >= range_start)):
+                                and (attr_level >= range_start)):
                             found_attr = True
                     else:
                         if (('front' in attribute) and (attr_level <= range_end)
