@@ -5,6 +5,7 @@ def range_front(preference, chair):
     '''Handles the front-BEGIN:END range preference.'''
     score = 0
 
+    # NOTE "NOT" preference modifier:
     if '!' in preference.name:
         not_modifier = True
         pref_name = preference.name[1:len(preference.name)]

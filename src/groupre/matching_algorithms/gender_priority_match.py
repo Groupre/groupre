@@ -9,6 +9,7 @@ from .range_preference import range_front
 
 
 # TODO Not worked on yet.
+# TODO Support "NOT" mechanic here.
 
 
 def gender_priority_match(student, chairs, team_fields, team_structures):

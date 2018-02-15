@@ -5,6 +5,9 @@ import random
 from data_structures import TeamMember
 
 
+# TODO Support "NOT" mechanic here.
+
+
 def gender_random_match(student, chairs, team_fields, team_structures):
     '''This method will find a team for a given student based on their
     gender attribute.'''

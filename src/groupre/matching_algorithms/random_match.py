@@ -5,6 +5,9 @@ import random
 from data_structures import TeamMember
 
 
+# TODO Support "NOT" mechanic here.
+
+
 def random_match(student, chairs, team_fields, team_structures):
     '''This method will find a chair for the student at random.'''
 
