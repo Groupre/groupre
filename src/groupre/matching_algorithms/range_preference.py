@@ -5,8 +5,15 @@ def range_front(preference, chair):
     '''Handles the front-BEGIN:END range preference.'''
     score = 0
 
-    if 'front-' and ':' in preference.name:
-        range_values = ('' + preference.name).split('-', 1)[1].split(':', 1)
+    if '!' in preference.name:
+        not_modifier = True
+        pref_name = preference.name[1:len(preference.name)]
+    else:
+        not_modifier = False
+        pref_name = preference.name
+
+    if 'front-' and ':' in pref_name:
+        range_values = pref_name.split('-', 1)[1].split(':', 1)
 
         applicable_attributes = []
         current_value = int(range_values[0])
@@ -21,7 +28,12 @@ def range_front(preference, chair):
 
                 # Score is adjusted by closeness to "origin".
                 # Should assign seats closer to the front with higher value.
-                found_value = int(('' + attribute).split('-', 1)[1])
-                score += ((int(range_values[1]) - int(found_value) + 1)
-                          / (int(range_values[1]) + 1))
+                found_value = int(attribute.split('-', 1)[1])
+
+                if not_modifier:
+                    score -= ((int(range_values[1]) - int(found_value) + 1)
+                              / (int(range_values[1]) + 1))
+                else:
+                    score += ((int(range_values[1]) - int(found_value) + 1)
+                              / (int(range_values[1]) + 1))
     return score

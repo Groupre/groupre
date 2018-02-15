@@ -19,10 +19,21 @@ def priority_match(student, chairs, team_fields, team_structures):
     for chair in chairs:
         score = 0
         for preference in student.preferences:
-            if ':' in preference.name:
+            # NOTE "NOT" preference modifier:
+            if '!' in preference.name:
+                not_modifier = True
+                pref_name = preference.name[1:len(preference.name)]
+            else:
+                not_modifier = False
+                pref_name = preference.name
+
+            if ':' in pref_name:
                 score += range_front(preference, chair)
-            elif preference.name in chair.attributes:
-                score += 1
+            elif pref_name in chair.attributes:
+                if not_modifier:
+                    score -= 1
+                else:
+                    score += 1
 
         scored_chairs.update({chair: score})
 
@@ -41,7 +52,8 @@ def priority_match(student, chairs, team_fields, team_structures):
             score = 0
             for preference in student.preferences:
                 score += fallback(preference, chair)
-            scored_chairs[chair] = score
+            # scored_chairs[chair] = score
+            scored_chairs.update({chair: score})
         max_score = max(scored_chairs.values())
 
     best_chairs = [
@@ -68,10 +80,18 @@ def priority_match(student, chairs, team_fields, team_structures):
 
     unmatched_preferences = ''
     for preference in student.preferences:
+        # NOTE "NOT" preference modifier:
+        if '!' in preference.name:
+            not_modifier = True
+            pref_name = preference.name[1:len(preference.name)]
+        else:
+            not_modifier = False
+            pref_name = preference.name
+
         found_attr = False
-        if ':' in preference.name:
-            range_name = preference.name.split('-', 1)[0]
-            range_split = preference.name.split('-', 1)[1].split(':', 1)
+        if ':' in pref_name:
+            range_name = pref_name.split('-', 1)[0]
+            range_split = pref_name.split('-', 1)[1].split(':', 1)
             range_start = int(range_split[0])
             range_end = int(range_split[1])
 
@@ -94,9 +114,9 @@ def priority_match(student, chairs, team_fields, team_structures):
                             and attr_level <= range_end):
                         found_attr = True
         elif (groupre_globals.FALLBACK_ENABLED
-                and preference.name != 'left-handed'
-                and '-' in preference.name):
-            pref_split = preference.name.split("-", 1)
+                and pref_name != 'left-handed'  # TODO Change left-handed to not have a '-'
+                and '-' in pref_name):
+            pref_split = pref_name.split("-", 1)
             pref_prefix = pref_split[0]
             pref_level = int(pref_split[1])
             pref_start = pref_level
@@ -115,9 +135,12 @@ def priority_match(student, chairs, team_fields, team_structures):
                     if (attr_level <= pref_end) and (attr_level >= pref_start):
                         found_attr = True
 
-        if not found_attr:
-            if preference.name not in chair.attributes:
+        if not_modifier:
+            if found_attr:
                 unmatched_preferences += preference.name + '|'
+        elif not found_attr:
+            if pref_name not in chair.attributes:
+                unmatched_preferences += pref_name + '|'
 
     unmatched_len = len(unmatched_preferences)
     if unmatched_len == 0:
