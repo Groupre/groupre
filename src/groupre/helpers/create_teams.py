@@ -4,7 +4,7 @@ import random
 
 import groupre_globals
 from matching_algorithms import (priority_match, random_match,
-                                 gender_random_match, gender_priority_match)
+                                 gender_random_match)
 
 
 def create_teams(students, chairs, team_structures):

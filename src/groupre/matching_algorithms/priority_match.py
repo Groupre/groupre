@@ -5,7 +5,7 @@ import random
 from data_structures import TeamMember
 import groupre_globals
 from .fallback import fallback
-from .range_preference import range_front
+from .range_preference import range_preference
 
 
 def priority_match(student, chairs, team_fields, team_structures):
@@ -19,21 +19,33 @@ def priority_match(student, chairs, team_fields, team_structures):
     for chair in chairs:
         score = 0
         for preference in student.preferences:
+            pref_names = []
+
             # NOTE "NOT" preference modifier:
             if '!' in preference.name:
                 not_modifier = True
-                pref_name = preference.name[1:len(preference.name)]
+                pref_names.append(preference.name[1:len(preference.name)])
             else:
                 not_modifier = False
-                pref_name = preference.name
+                pref_names.append(preference.name)
 
-            if ':' in pref_name:
-                score += range_front(preference, chair)
-            elif pref_name in chair.attributes:
-                if not_modifier:
-                    score -= 1
+            # NOTE "OR" preference modifier:
+            if '|' in preference.name:
+                or_modifier = True
+                pref_names.append(preference.name.split('|'))
+
+            for pref_name in pref_names:
+                if ':' in pref_name:
+                    score_result = range_preference(pref_name, chair)
+                elif pref_name in chair.attributes:
+                    score_result = 1
                 else:
-                    score += 1
+                    score_result = 0
+
+                if not_modifier:
+                    score -= score_result
+                else:
+                    score += score_result
 
         scored_chairs.update({chair: score})
 
