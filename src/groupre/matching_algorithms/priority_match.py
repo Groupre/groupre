@@ -51,7 +51,6 @@ def priority_match(student, chairs, team_fields, team_structures):
             score = 0
             for preference in student.preferences:
                 score += fallback(preference, chair)
-            # scored_chairs[chair] = score
             scored_chairs.update({chair: score})
         max_score = max(scored_chairs.values())
 
