@@ -147,17 +147,17 @@ def priority_match(student, chairs, team_fields, team_structures):
 
         if not_modifier:
             if found_attr:
-                unmatched_preferences += preference.name + '|'
+                unmatched_preferences += preference.name + ';'
         elif not found_attr:
             if pref_name not in chair.attributes:
-                unmatched_preferences += pref_name + '|'
+                unmatched_preferences += pref_name + ';'
 
     unmatched_len = len(unmatched_preferences)
     if unmatched_len == 0:
         priority_score_val = len(student.preferences)
     else:
         unmatched_split = (unmatched_preferences[0:len(
-            unmatched_preferences) - 1].split('|'))
+            unmatched_preferences) - 1].split(';'))
         priority_score_val = (len(student.preferences) - len(unmatched_split))
 
     priority_score = '{} of {}'.format(
@@ -169,6 +169,12 @@ def priority_match(student, chairs, team_fields, team_structures):
 
     data_fields.append(priority_score)
     data_fields.append(unmatched_preferences[0:len(unmatched_preferences) - 1])
+
+    # NOTE debug
+    # string = ''
+    # for preference in student.preferences:
+    #     string += preference.name + ';'
+    # data_fields.append(string)
 
     ret = TeamMember(team_fields, data_fields)
 

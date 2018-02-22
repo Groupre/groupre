@@ -13,8 +13,8 @@ class Preference:
         if name == 'front-0':
             self.value = 5
         elif name == 'back-0':
-            self.value = 5
+            self.value = 2
         elif name == 'aisle-0':
-            self.value = 5
+            self.value = 2
         else:
             self.value = 1
