@@ -47,7 +47,6 @@ def priority_match(student, chairs, team_fields, team_structures):
         # a better maximum score for this student.
 
         # Re-score the chairs while looking for fallback options this time.
-        scored_chairs = {}
         for chair in chairs:
             score = 0
             for preference in student.preferences:
