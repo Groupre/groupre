@@ -6,9 +6,10 @@ import argparse
 import csv
 import sys
 import time
+from typing import List
 
 import groupre_globals
-from data_structures import Chair, Student
+from data_structures import Chair, Student, TeamStructure
 from helpers import build_team_structures, create_teams
 
 
@@ -17,12 +18,12 @@ def main(argv):
 
     argparser = argparse.ArgumentParser()
 
-    chairs_csv = None
-    students_csv = None
-    fallback = None
-    metrics = None
-    output_csv = None
-    gender = None
+    chairs_csv: str = None
+    students_csv: str = None
+    fallback: bool = None
+    metrics: bool = None
+    output_csv: str = None
+    gender: bool = None
 
     # groupre.py -c CHAIRS -s STUDENTS -f FALLBACK -o OUTPUT
     argparser.add_argument(
@@ -44,12 +45,12 @@ def main(argv):
     else:
         parsed_args = argparser.parse_args(argv)
 
-    chairs_csv = parsed_args.chairs
-    students_csv = parsed_args.students
-    fallback = parsed_args.fallback
-    metrics = parsed_args.metrics
-    output_csv = parsed_args.output
-    gender = parsed_args.gender
+    chairs_csv: str = parsed_args.chairs
+    students_csv: str = parsed_args.students
+    fallback: bool = parsed_args.fallback
+    metrics: bool = parsed_args.metrics
+    output_csv: str = parsed_args.output
+    gender: bool = parsed_args.gender
 
     print('Arguments: Chairs {}, Students {}, Fallback {}, Gender {}, Output {}'.format(
         parsed_args.chairs, parsed_args.students, parsed_args.fallback,
@@ -158,7 +159,7 @@ def main(argv):
 
     # Run our algorithm to match students to chairs within teams, keeping in mind their
     # scores and preferences.
-    team_structures = build_team_structures(chairs)
+    team_structures: List[TeamStructure] = build_team_structures(chairs)
 
     teams = create_teams(students, chairs, team_structures)
 

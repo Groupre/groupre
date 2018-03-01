@@ -1,11 +1,12 @@
 '''This module contains the Preference class used by groupre.'''
+# TODO Implement range-preference weighting.
 
 
 class Preference:
     '''A class dedicated to storing the preferences and specificness level of a given Student.'''
 
-    name = None
-    value = None
+    name: str = None
+    value: int = None
 
     def __init__(self, name):
         self.name = name

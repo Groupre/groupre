@@ -1,16 +1,20 @@
 '''This module contains the range_preference related functions used by groupre.'''
 
+from typing import List
 
-def range_preference(pref_name, chair):
+from data_structures import Chair
+
+
+def range_preference(pref_name: str, chair: Chair):
     '''Handles the preference-BEGIN:END range preference.'''
-    score = 0
+    score: int = 0
 
     # ':' is assumed to be in pref_name
 
     pref_prefix = pref_name.split('-', 1)[0] + '-'
     range_values = pref_name.split('-', 1)[1].split(':', 1)
 
-    applicable_attributes = []
+    applicable_attributes: List[str] = []
     current_value = int(range_values[0])
     while current_value <= int(range_values[1]):
         applicable_attributes.append(pref_prefix + str(current_value))

@@ -1,11 +1,12 @@
 '''This module contains the fallback methods used by groupre.'''
 
 import groupre_globals
+from data_structures import Preference, Chair
 
 
-def fallback(preference, chair):
+def fallback(preference: Preference, chair: Chair):
     '''Fallback mechanic shared starting code.'''
-    score = 0
+    score: int = 0
 
     # NOTE "NOT" preference modifier:
     if '!' in preference.name:

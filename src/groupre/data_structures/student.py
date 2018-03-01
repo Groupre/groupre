@@ -1,5 +1,7 @@
 '''This module contains the Student class used by groupre.'''
 
+from typing import Union, List
+
 import groupre_globals
 from data_structures import Preference
 
@@ -7,16 +9,16 @@ from data_structures import Preference
 class Student:
     '''A class dedicated to storing the preferences and specificness level of a given Student.'''
 
-    student_id = None
-    student_name = None
-    vip = False
-    score = None
+    student_id: Union[int, str] = None
+    student_name: str = None
+    vip: bool = False
+    score: int = None
 
-    preferences = None
-    specificness = None
-    total_preference_value = None
+    preferences: List[str] = None
+    specificness: int = None
+    total_preference_value: int = None
 
-    def __init__(self, required=None, preferences=None):
+    def __init__(self, required=None, preferences: List[str]=None):
         self.student_id = required[0]
         self.student_name = required[1]
         self.vip = required[2]

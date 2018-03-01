@@ -1,14 +1,15 @@
 '''This module contains the priority_match method used by groupre.'''
 
 import random
+from typing import List
 
-from data_structures import TeamMember
+from data_structures import TeamMember, Student, Chair, TeamStructure
 import groupre_globals
 from .fallback import fallback
 from .range_preference import range_preference
 
 
-def priority_match(student, chairs, team_fields, team_structures):
+def priority_match(student: Student, chairs: List[Chair], team_fields: List[str], team_structures: List[TeamStructure]):
     '''This method will find a chair that is suitable for the student based
     on their preferences.'''
 
