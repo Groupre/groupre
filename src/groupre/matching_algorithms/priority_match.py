@@ -31,7 +31,7 @@ def priority_match(student, chairs, team_fields, team_structures):
 
             # NOTE "OR" preference modifier:
             if '|' in preference.name:
-                or_modifier = True
+                #or_modifier = True
                 pref_names.append(preference.name.split('|'))
 
             for pref_name in pref_names:
@@ -124,8 +124,8 @@ def priority_match(student, chairs, team_fields, team_structures):
                             and attr_level <= range_end):
                         found_attr = True
         elif (groupre_globals.FALLBACK_ENABLED
-                and pref_name != 'left-handed'  # TODO Change left-handed to not have a '-'
-                and '-' in pref_name):
+              and pref_name != 'left-handed'  # TODO Change left-handed to not have a '-'
+              and '-' in pref_name):
             pref_split = pref_name.split("-", 1)
             pref_prefix = pref_split[0]
             pref_level = int(pref_split[1])

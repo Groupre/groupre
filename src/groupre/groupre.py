@@ -71,7 +71,7 @@ def main(argv):
 
     if output_csv is None:
         print('''Output file not specified, and the default was somehow
-			replaced. Please try specifying a proper output file.''')
+                replaced. Please try specifying a proper output file.''')
         return
 
     groupre_globals.METRICS_ENABLED = metrics
