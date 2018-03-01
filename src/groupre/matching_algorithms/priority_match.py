@@ -3,8 +3,9 @@
 import random
 from typing import List
 
-from data_structures import TeamMember, Student, Chair, TeamStructure
 import groupre_globals
+from data_structures import Chair, Student, TeamMember, TeamStructure
+
 from .fallback import fallback
 from .range_preference import range_preference
 

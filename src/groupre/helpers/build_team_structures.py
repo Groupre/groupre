@@ -2,7 +2,7 @@
 
 from typing import List
 
-from data_structures import TeamStructure, Chair
+from data_structures import Chair, TeamStructure
 
 
 def build_team_structures(chairs: List[Chair]):

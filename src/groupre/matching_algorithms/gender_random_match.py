@@ -1,14 +1,14 @@
 '''This module contains the gender_random_match method used by groupre.'''
 
 import random
+from typing import List
 
-from data_structures import TeamMember
-
+from data_structures import Chair, Student, TeamMember, TeamStructure
 
 # TODO Support "NOT" mechanic here.
 
 
-def gender_random_match(student, chairs, team_fields, team_structures):
+def gender_random_match(student: Student, chairs: List[Chair], team_fields: List[str], team_structures: List[TeamStructure]):
     '''This method will find a team for a given student based on their
     gender attribute.'''
 

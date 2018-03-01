@@ -19,14 +19,15 @@ def process_csv(filename):
 
 def postem(argv):
     """Formats a groupre output file for Sakai PostEm format."""
-    #TODO clean up the amount of local vars, reduce number of lines
+    # TODO clean up the amount of local vars, reduce number of lines
     output_csv = None
     teammates = None
 
     argparser = argparse.ArgumentParser()
 
     argparser.add_argument('-o', '--output', help='Output csv file')
-    argparser.add_argument('-t', '--teammates', help='Enable teammate list', action='store_true')
+    argparser.add_argument('-t', '--teammates',
+                           help='Enable teammate list', action='store_true')
 
     if 'postem.py' in argv[0]:
         parsed_args = argparser.parse_args()
@@ -95,9 +96,11 @@ def postem(argv):
 
     newname = output_csv.split('.csv')[0] + '-postEm.csv'
     with open(newname, 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        writer = csv.writer(csvfile, delimiter=',',
+                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for row in final:
             writer.writerow(row)
+
 
 if __name__ == '__main__':
     postem(sys.argv)

@@ -1,6 +1,6 @@
 '''This module contains the Student class used by groupre.'''
 
-from typing import Union, List
+from typing import List, Union
 
 import groupre_globals
 from data_structures import Preference

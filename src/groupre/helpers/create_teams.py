@@ -4,9 +4,9 @@ import random
 from typing import List
 
 import groupre_globals
-from data_structures import Student, Chair, TeamStructure
-from matching_algorithms import (priority_match, random_match,
-                                 gender_random_match)
+from data_structures import Chair, Student, TeamStructure
+from matching_algorithms import (gender_random_match, priority_match,
+                                 random_match)
 
 
 def create_teams(students: List[Student], chairs: List[Chair], team_structures: List[TeamStructure]):
