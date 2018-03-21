@@ -26,17 +26,16 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
 
+
 # helper scripts
-
-
 def allowed_file(filename):
     return '.' in filename and filename.split('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 def run_groupre(students, chairs, fallback, gender):
-    output_name = UPLOAD_FOLDER + 'output/' + \
-        str(randint(1000000, 9999999)) + '' + \
-        str(randint(1000000, 9999999)) + '.csv'
+    output_name = (UPLOAD_FOLDER + 'output/' +
+                   str(randint(1000000, 9999999)) + '' +
+                   str(randint(1000000, 9999999)) + '.csv')
     arguments = ['--metrics', '--chairs', chairs, '--students',
                  students, '--output', output_name]
     if fallback:
@@ -96,12 +95,12 @@ def seeDirContents(dirpath):
     return dir_files
 
 
-@application.route("/")
+@application.route('/')
 def index():
     return render_template('index.html')
 
 
-@application.route("/docs/")
+@application.route('/docs/')
 def docs():
     path = os.path.dirname(os.path.realpath(__file__)) + '/static/docs/archive'
     return render_template('dirtree.html', tree=make_tree(path))
@@ -130,7 +129,7 @@ def runTests():
             output_name = run_test(newlocation, row_count)
             output_name = output_name.split('/')[-1].split('.', 1)[0]
             return redirect('/metrics/' + output_name)
-    testCasesDir = os.path.join(UPLOAD_FOLDER, "testCases")
+    testCasesDir = os.path.join(UPLOAD_FOLDER, 'testCases')
     return render_template('test.html', test_files=seeDirContents(testCasesDir))
 
 
@@ -194,7 +193,7 @@ def upload_file(roomID):
     return render_template('upload.html')
 
 
-@application.route("/room-select")
+@application.route('/room-select')
 def selectRoom():
     chairFiles = {}
     for cFile in os.listdir(CHAIRS_DIR):
@@ -206,10 +205,10 @@ def selectRoom():
             cKey = roomID + capacity
             # cKey = '-'.join(cValue.split('-')[2:]).title()
             chairFiles.update({cKey: cValue})
-    return render_template("room.html", chairFiles=chairFiles)
+    return render_template('room.html', chairFiles=chairFiles)
 
 
-@application.route("/metrics/<string:output_name>")
+@application.route('/metrics/<string:output_name>')
 def metrics(output_name):
     metrics = UPLOAD_FOLDER + 'output/' + output_name + '-metrics.txt'
     try:
@@ -219,14 +218,14 @@ def metrics(output_name):
             print(m)
         postem.postem(['--output', UPLOAD_FOLDER +
                        'output/' + output_name + '.csv'])
-        return render_template("metrics.html", output_name=output_name, metrics=metrics)
+        return render_template('metrics.html', output_name=output_name, metrics=metrics)
     except FileNotFoundError:
-        return render_template("metrics.html", output_name=output_name)
+        return render_template('metrics.html', output_name=output_name)
 
 
-@application.route("/download/<string:output_name>", methods=['POST'])
+@application.route('/download/<string:output_name>', methods=['POST'])
 def downloadcsv(output_name):
-    if "room-" in output_name:
+    if 'room-' in output_name:
         with open(CHAIRS_DIR + output_name, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             csvfile = []
@@ -236,11 +235,11 @@ def downloadcsv(output_name):
                 csvfile += '\n'
         return Response(
             csvfile,
-            mimetype="text/csv",
-            headers={"Content-disposition":
-                     "attachment; filename=" + output_name})
+            mimetype='text/csv',
+            headers={'Content-disposition':
+                     'attachment; filename=' + output_name})
     if 'test' in output_name or 'fallback' in output_name:
-        with open(UPLOAD_FOLDER + "testCases/" + output_name, 'r') as file:
+        with open(UPLOAD_FOLDER + 'testCases/' + output_name, 'r') as file:
             reader = csv.reader(file, delimiter=',')
             csvfile = []
             for row in reader:
@@ -249,10 +248,10 @@ def downloadcsv(output_name):
                 csvfile += '\n'
         return Response(
             csvfile,
-            mimetype="text/csv",
-            headers={"Content-disposition":
-                     "attachment; filename=" + output_name})
-    with open(UPLOAD_FOLDER + "output/" + output_name, 'r') as file:
+            mimetype='text/csv',
+            headers={'Content-disposition':
+                     'attachment; filename=' + output_name})
+    with open(UPLOAD_FOLDER + 'output/' + output_name, 'r') as file:
         reader = csv.reader(file, delimiter=',')
         csvfile = []
         for row in reader:
@@ -261,17 +260,17 @@ def downloadcsv(output_name):
             csvfile += '\n'
     return Response(
         csvfile,
-        mimetype="text/csv",
-        headers={"Content-disposition":
-                 "attachment; filename=" + output_name})
+        mimetype='text/csv',
+        headers={'Content-disposition':
+                 'attachment; filename=' + output_name})
 
 
-@application.route("/room-creation")
+@application.route('/room-creation')
 def create_room():
     return render_template('groupreHome.html')
 
 
-@application.route("/room-saver", methods=['POST'])
+@application.route('/room-saver', methods=['POST'])
 def saveRoom():
     content = request.get_json()
     info = content.pop(0)
@@ -287,5 +286,5 @@ def saveRoom():
             writer.writerow(row)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     application.run()
