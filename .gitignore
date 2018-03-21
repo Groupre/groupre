@@ -1,6 +1,5 @@
 .vscode
 output.csv
-confidential
 __pycache__
 *Output.csv
 *output.csv

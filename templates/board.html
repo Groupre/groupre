@@ -2,18 +2,19 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
 	<link rel="stylesheet" href="{{ url_for('static', filename='test.css') }}" type="text/css">
 	<script src="{{ url_for('static', filename='board.js') }}"></script>
-    <title>groupre</title>
+	<title>groupre</title>
 </head>
 
 <body>
 	<div id="b_creation">
-		Rows:<input id="rows" />
-		Columns:<input id="cols" />
+		Rows:
+		<input id="rows" /> Columns:
+		<input id="cols" />
 		<input type="button" id="build" value="Submit" />
 	</div>
 
-    <div id="board"></div>
+	<div id="board"></div>
 </body>
