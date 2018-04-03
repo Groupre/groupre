@@ -49,7 +49,7 @@ def run_groupre(students, chairs, fallback, gender):
 def run_test(students, row_count):
     main_dir = os.path.dirname(os.path.realpath(__file__))
     test_location = os.path.join(main_dir, 'uploads/')
-    chairs = os.path.join(main_dir, 'src/python/chairs/')
+    # chairs = os.path.join(main_dir, 'src/python/chairs/')
     # currently, this function will find a seat based on the amount of rows
     if 'fallback' in students:
         chairs = os.path.join(
@@ -216,8 +216,7 @@ def metrics(output_name):
             metrics = f.readlines()
         for m in metrics:
             print(m)
-        postem.postem(['--output', UPLOAD_FOLDER +
-                       'output/' + output_name + '.csv'])
+        postem(['--output', UPLOAD_FOLDER + 'output/' + output_name + '.csv'])
         return render_template('metrics.html', output_name=output_name, metrics=metrics)
     except FileNotFoundError:
         return render_template('metrics.html', output_name=output_name)

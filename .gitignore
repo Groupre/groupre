@@ -5,3 +5,4 @@ __pycache__
 *output.csv
 test_output*
 groupre.egg-info/
+uploads/output/

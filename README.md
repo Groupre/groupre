@@ -18,7 +18,7 @@ In the event that the master documentation is not up to date, you can view the d
 
 ### Prerequisites
 
-* [Python 3][Python3]
+* [Python 3.6][Python3]
 
 <br>
 
@@ -183,6 +183,6 @@ View our chosen [LICENSE][license_file] file for details.
 [OpenShift]: https://www.openshift.com/
 [contributing_file]: https://github.com/jeyerena/ClassTeamBuilder/tree/master/CONTRIBUTING.md
 [license_file]: https://github.com/jeyerena/ClassTeamBuilder/blob/master/LICENSE
-[Python3]: https://www.python.org/downloads/release/python-363/
+[Python3]: https://www.python.org/downloads/
 [gunicorn]: http://gunicorn.org/
 <!-- End References -->
