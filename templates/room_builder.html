@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+	<title>groupre - Room Builder Alpha</title>
+
+	<!--CSS-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" />
+	<link rel="stylesheet" href="static/css/style.css" />
+	<link rel="stylesheet" href="static/css/interact_test.css" />
+</head>
+
+<body>
+	<nav class="light-blue lighten-1" role="navigation">
+		<div class="nav-wrapper container">
+			<a id="logo-container" href="/" class="brand-logo">groupre</a>
+		</div>
+	</nav>
+	<div class="section no-pad-bot" id="index-banner">
+		<div class="container">
+			<br>
+			<br>
+			<h1 class="header center light-blue-text">Room Builder</h1>
+			<div class="row center">
+				<h5 class="header col s12 light">The Room Builder portion of groupre is currently under construction.</h5>
+			</div>
+			<div class="row center">
+				<a href="/" id="homepage-button" class="btn-large waves-effect waves-light light-blue">Homepage</a>
+			</div>
+			<br>
+			<br>
+		</div>
+	</div>
+
+	<!-- grid Prototype -->
+	<div class="section no-pad-bot" id="gridPrototype">
+		<div class="container">
+			<div class="row center">
+				<h5 class="header col s12 light">Grid Prototype</h5>
+			</div>
+
+			<!-- <div id="content" class="fluid translucent"> -->
+			<!-- <div class="content-inner"> -->
+			<canvas id="pixelCanvas" width="700" height="700" style="position: relative; left: 50%; margin-left: -350px;"></canvas>
+			<!-- </div> -->
+			<!-- </div> -->
+		</div>
+	</div>
+
+	<!-- squareGrid -->
+	<!-- <div class="section no-pad-bot" id="gridList-demo">
+		<div class="container">
+			<div class="row center">
+				<h5 class="header col s12 light">Square Grid</h5>
+			</div>
+
+			<div class="row center">
+				<form action="/square_grid_demo">
+					<input class="btn-large waves-effect waves-light light-blue" type="submit" value="SquareGrid Demo" />
+				</form>
+			</div>
+		</div>
+	</div> -->
+
+	<!-- gridList -->
+	<!-- <div class="section no-pad-bot" id="gridList-demo">
+		<div class="container">
+			<div class="row center">
+				<h5 class="header col s12 light">Grid List</h5>
+			</div>
+
+			<div class="row center">
+				<form action="/grid_list_demo">
+					<input class="btn-large waves-effect waves-light light-blue" type="submit" value="GridList Demo" />
+				</form>
+			</div>
+		</div>
+	</div> -->
+
+	<!-- <div class="section no-pad-bot" id="demo-banner">
+		<div class="container">
+			<br>
+			<br>
+			<h1 class="header center light-blue-text">interact.js Demos</h1>
+			<div class="row center">
+				<h5 class="header col s12 light">Tests from interact.js' site.</h5>
+			</div>
+			<div class="row center">
+				<a href="http://interactjs.io/docs/#" id="homepage-button" class="btn-large waves-effect waves-light light-blue">interact.js Docs</a>
+			</div>
+			<br>
+			<br>
+		</div>
+	</div> -->
+
+	<!-- Dragging -->
+	<!-- <div class="section no-pad-bot" id="dragging-demo">
+		<div class="container">
+			<div class="row center">
+				<h5 class="header col s12 light">Dragging</h5>
+			</div>
+
+			<div id="drag-1" class="draggable">
+				<p>You can drag one element</p>
+			</div>
+			<div id="drag-2" class="draggable">
+				<p>with each pointer</p>
+			</div>
+		</div>
+	</div>
+
+	<br>
+	<br> -->
+
+	<!-- Drag and drop -->
+	<!-- <div class="section no-pad-bot" id="draganddrop-demo">
+		<div class="container">
+			<div class="row center">
+				<h5 class="header col s12 light">Drag and drop</h5>
+			</div>
+
+			<div id="no-drop" class="draggable drag-drop">#no-drop</div>
+
+			<div id="yes-drop" class="draggable drag-drop">#yes-drop</div>
+
+			<div id="outer-dropzone" class="dropzone">
+				#outer-dropzone
+				<div id="inner-dropzone" class="dropzone">#inner-dropzone</div>
+			</div>
+		</div>
+	</div>
+
+	<br>
+	<br> -->
+
+	<!-- Snapping -->
+	<!-- <div class="section no-pad-bot" id="snapping-demo">
+		<div class="container">
+			<div class="row center">
+				<h5 class="header col s12 light">Snapping</h5>
+			</div>
+
+			<div id="grid-snap">
+				Dragging is constrained to the corners of a grid
+			</div>
+		</div>
+	</div>
+
+	<br>
+	<br> -->
+
+	<!-- Resizing -->
+	<!-- <div class="section no-pad-bot" id="snapping-demo">
+		<div class="container">
+			<div class="row center">
+				<h5 class="header col s12 light">Resizing</h5>
+			</div>
+
+			<div class="resize-container">
+				<div class="resize-drag">
+					Resize from any edge or corner
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br>
+	<br> -->
+
+	<!-- Tap, doubletap and hold (?) -->
+	<!-- <div class="section no-pad-bot" id="tapdoubletapandhold-demo">
+		<div class="container">
+			<div class="row center">
+				<h5 class="header col s12 light">Tap, doubletap and hold</h5>
+			</div>
+
+			<div class="tap-target-i">
+				<p>Tap to change color</p>
+				<p>Doubletap to change size</p>
+				<p>Hold to rotate</p>
+			</div>
+		</div>
+	</div> -->
+
+	<br>
+	<br>
+
+	<!--Footer Section-->
+	<footer class="page-footer grey darken-4">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text">Project Information</h5>
+					<p class="grey-text text-lighten-4">The groupre project is designed to provide a tool for instructional use in large classroom environments where assigning
+						of seats for team-creation or other similar goals is desired.</p>
+				</div>
+				<div class="col l3 s12">
+					<h5 class="white-text">Other Links</h5>
+					<ul>
+						<li>
+							<a class="white-text" href="https://github.com/jeyerena/ClassTeamBuilder">Project GitHub</a>
+						</li>
+						<li>
+							<a class="white-text" href="https://github.com/jeyerena/ClassTeamBuilder/tree/master/docs">Documentation</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container">
+				Made by
+				<a class="light-blue-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+			</div>
+		</div>
+	</footer>
+
+
+	<!--Scripts-->
+	<!-- JQuery -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	    crossorigin="anonymous"></script>
+	<!-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+	    crossorigin="anonymous"></script> -->
+	<!-- <script src="https://code.jquery.com/color/jquery.color-2.1.2.min.js" integrity="sha256-H28SdxWrZ387Ldn0qogCzFiUDDxfPiNIyJX7BECQkDE="
+	    crossorigin="anonymous"></script> -->
+
+	<!-- Materialize -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+	<!-- Interact -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.3/dist/interact.min.js"></script> -->
+	<!-- <script src="static/js/interact_test.js"></script> -->
+
+	<!-- Grid Prototype -->
+	<script src="static/js/gridCanvas.js"></script>
+	<script src="static/js/grid.js"></script>
+</body>
+
+</html>
