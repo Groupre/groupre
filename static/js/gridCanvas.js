@@ -71,7 +71,6 @@ letters = {
 	'`': [0, 0, 0, 224, 448, 384, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 };
 
-
 $(document).ready(function () {
 	pixelCanvas = $('#pixelCanvas');
 	canvasContext = document.getElementById('pixelCanvas').getContext('2d');
@@ -80,83 +79,211 @@ $(document).ready(function () {
 	blocksSequence = new Array;
 	targetColour = new Colour(255, 0, 0);
 	colToUse = new Colour(222, 222, 222);
-	baseColour = new Colour(20, 20, 20);
+	baseColour = new Colour(255, 255, 255);
 	spirals = Array();
 	lastX = -1; // Last hit coords
 	lastY = -1;
 	colourMode = true;
 	animators = Array();
 	message = '';
-	originX = 350;
-	originY = 350;
+	originX = 0; // 350 is default
+	originY = 0; // 350 is default
 
 	grid = new Grid;
 	grid.init();
 
-	pixelCanvas.mousemove(function (e) {
+	// pixelCanvas.mousemove(function (e) {
+	// 	var x = e.pageX - $(this).offset().left - 102;
+	// 	var y = e.pageY - $(this).offset().top - 102;
 
+	// 	x = Math.floor(x / grid.totalBlockWidth);
+	// 	y = Math.floor(y / grid.totalBlockWidth);
+
+	// 	// Check we're not out of bounds
+	// 	if (x > (grid.cols - 1) || y > (grid.rows - 1)) return;
+	// 	if (x < 0 || y < 0) return;
+
+	// 	if (lastX != x || lastY != y) {
+	// 		grid.blocks[y][x].hit();
+	// 		lastX = x;
+	// 		lastY = y;
+	// 	}
+	// });
+
+	var mouseIsDown = false;
+
+	// pixelCanvas.onmousedown = function (e) {
+	// 	// dragOffset.x = e.x - mainLayer.trans.x;
+	// 	// dragOffset.y = e.y - mainLayer.trans.y;
+
+	// 	mouseIsDown = true;
+	// }
+
+	// pixelCanvas.onmouseup = function (e) {
+	// 	if (mouseIsDown) mouseClick(e);
+
+	// 	mouseIsDown = false;
+	// }
+
+	// pixelCanvas.onmousemove = function (e) {
+	// 	if (!mouseIsDown) return;
+
+	// 	// mainLayer.trans.x = e.x - dragOffset.x;
+	// 	// mainlayer.trans.y = e.y - dragOffset.y;
+	// 	return false;
+	// }
+
+	// function mouseClick(e) {
+	// 	// Click Action
+	// 	var x = e.pageX - $(this).offset().left - 102;
+	// 	var y = e.pageY - $(this).offset().top - 102;
+
+	// 	x = Math.floor(x / grid.totalBlockWidth);
+	// 	y = Math.floor(y / grid.totalBlockWidth);
+
+	// 	// Check we're not out of bounds
+	// 	if (x > (grid.cols - 1) || y > (grid.rows - 1)) return;
+	// 	if (x < 0 || y < 0) return;
+
+	// 	grid.blocks[y][x].handleClick();
+	// }
+
+	isDown = false;
+
+	pixelCanvas.mousedown(function (e) {
+		console.log('down');
+
+		e.stopPropagation();
+		e.preventDefault();
 		var x = e.pageX - $(this).offset().left - 102;
 		var y = e.pageY - $(this).offset().top - 102;
+		mouseX = Math.floor(x / grid.totalBlockWidth);
+		mouseY = Math.floor(y / grid.totalBlockWidth);
 
-		x = Math.floor(x / grid.totalBlockWidth);
-		y = Math.floor(y / grid.totalBlockWidth);
+		// Put your mousedown stuff here.
+		startX = mouseX;
+		startY = mouseY;
+		isDown = true;
+	});
 
-		// Check we're not out of bounds
-		if (x > (grid.cols - 1) || y > (grid.rows - 1)) return;
-		if (x < 0 || y < 0) return;
+	pixelCanvas.mouseup(function (e) {
+		console.log('up');
 
-		if (lastX != x || lastY != y) {
-			grid.blocks[y][x].hit();
-			lastX = x;
-			lastY = y;
+		e.stopPropagation();
+		e.preventDefault();
+		var x = e.pageX - $(this).offset().left - 102;
+		var y = e.pageY - $(this).offset().top - 102;
+		mouseX = Math.floor(x / grid.totalBlockWidth);
+		mouseY = Math.floor(y / grid.totalBlockWidth);
+
+		// Put your mouseup stuff here.
+		isDown = false;
+		console.log('x1: ' + startX + ', y1: ' + startY + ', x2: ' + mouseX + ', y2: ' + mouseY);
+		topLeftX = Math.min(startX, mouseX);
+		topLeftY = Math.min(startY, mouseY);
+		botRightX = Math.max(startX, mouseX);
+		botRightY = Math.max(startY, mouseY);
+		var xRange = botRightX - topLeftX;
+		var yRange = botRightY - topLeftY;
+		for (var i = topLeftY; i <= botRightY; i++) {
+			// i = Y = row
+			for (var j = topLeftX; j <= botRightX; j++) {
+				// j = X = col
+				grid.blocks[i][j].handleClick();
+			}
 		}
 	});
 
-	pixelCanvas.click(function (e) {
+	pixelCanvas.mousemove(function (e) {
+		console.log('move');
+
+		if (!isDown) return;
+
+		e.stopPropagation();
+		e.preventDefault();
 		var x = e.pageX - $(this).offset().left - 102;
 		var y = e.pageY - $(this).offset().top - 102;
+		mouseX = Math.floor(x / grid.totalBlockWidth);
+		mouseY = Math.floor(y / grid.totalBlockWidth);
 
-		x = Math.floor(x / grid.totalBlockWidth);
-		y = Math.floor(y / grid.totalBlockWidth);
-
-		// Check we're not out of bounds
-		if (x > (grid.cols - 1) || y > (grid.rows - 1)) return;
-		if (x < 0 || y < 0) return;
-
-		if (x == 0 && y == 0) { // If you click the top left, it starts a spiral
-			spiral = new Spiral;
-		} else if (x == (grid.cols - 1) && y == (grid.rows - 1)) { // bottom right adds multiple
-			autoAdd(50);
-		} else if (x == 0 && y == 15) { // bottom left changes colour mode
-			colourMode = (colourMode == true) ? false : true;
-		} else if (x == (grid.cols - 1) && y == 0) { // top right rotates grid
-			gridRotate = 0.2;
-		} else grid.blocks[y][x].hit();
+		// Put your mousemove stuff here.
+		topLeftX = Math.min(startX, mouseX);
+		topLeftY = Math.min(startY, mouseY);
+		botRightX = Math.max(startX, mouseX);
+		botRightY = Math.max(startY, mouseY);
+		var xRange = botRightX - topLeftX;
+		var yRange = botRightY - topLeftY;
+		for (var i = topLeftY; i <= botRightY; i++) {
+			// i = Y = row
+			for (var j = topLeftX; j <= botRightX; j++) {
+				// j = X = col
+				grid.blocks[i][j].hit();
+			}
+		}
 	});
 
+	pixelCanvas.mouseout(function (e) {
+		console.log('out');
+	});
+
+	// pixelCanvas.click(function (e) {
+	// 	var x = e.pageX - $(this).offset().left - 102;
+	// 	var y = e.pageY - $(this).offset().top - 102;
+
+	// 	x = Math.floor(x / grid.totalBlockWidth);
+	// 	y = Math.floor(y / grid.totalBlockWidth);
+
+	// 	// Check we're not out of bounds
+	// 	if (x > (grid.cols - 1) || y > (grid.rows - 1)) return;
+	// 	if (x < 0 || y < 0) return;
+
+	// 	// if (x == 0 && y == 0) { // If you click the top left, it starts a spiral
+	// 	// 	spiral = new Spiral;
+	// 	// } else if (x == (grid.cols - 1) && y == (grid.rows - 1)) { // bottom right adds multiple
+	// 	// 	autoAdd(50);
+	// 	// } else if (x == 0 && y == 15) { // bottom left changes colour mode
+	// 	// 	colourMode = (colourMode == true) ? false : true;
+	// 	// } else if (x == (grid.cols - 1) && y == 0) { // top right rotates grid
+	// 	// 	gridRotate = 0.2;
+	// 	// } else
+
+	// 	// if (lastX != x || lastY != y) {
+	// 	// 	grid.blocks[y][x].hit();
+	// 	// 	lastX = x;
+	// 	// 	lastY = y;
+	// 	// }
+
+	// 	// grid.blocks[y][x].hit();
+	// 	// lastX = x;
+	// 	// lastY = y;
+
+	// 	grid.blocks[y][x].handleClick();
+
+	// 	// grid.blocks[y][x].hit();
+	// });
 
 	$(document).keypress(function (e) {
 		// press return to play the message
-		if (e.which == 13 && message != '') {
-			messageAnimation = new StartMessage(message);
-			animators.push(messageAnimation);
-			message = '';
-			return;
-		}
+		// if (e.which == 13 && message != '') {
+		// 	messageAnimation = new StartMessage(message);
+		// 	animators.push(messageAnimation);
+		// 	message = '';
+		// 	return;
+		// }
 
 		// Other letters go into the queue
 		// Ensure any previous messages are stopped
-		if (typeof messageAnimation != 'undefined') {
-			messageAnimation.stop();
-			delete messageAnimation;
-		}
+		// if (typeof messageAnimation != 'undefined') {
+		// 	messageAnimation.stop();
+		// 	delete messageAnimation;
+		// }
 
-		renderLetter(String.fromCharCode(e.which));
-		message += String.fromCharCode(e.which);
+		// renderLetter(String.fromCharCode(e.which));
+		// message += String.fromCharCode(e.which);
 
 	})
 
-	animators.push(new StartMessage('mesmerizer!'));
+	// animators.push(new StartMessage('mesmerizer!'));
 	t = setInterval('tick()', 30);
 });
 
@@ -208,9 +335,9 @@ function rand(n) {
 }
 
 function Block(context, x, y, grid) {
-
 	this.neighbours = Array();
-	this.colour = getColour();
+	// this.colour = getColour();
+	this.colour = new Colour(0, 0, 0)
 	this.nextColour = this.colour;
 	this.ink = 0;
 	this.lastSizeDiff = 0;
@@ -221,6 +348,31 @@ function Block(context, x, y, grid) {
 	this.grid = grid;
 	this.xPixels = x * grid.totalBlockWidth;
 	this.yPixels = y * grid.totalBlockWidth;
+	this.baseColour = new Colour(0, 0, 0);
+
+	// For Chairs
+	this.disabled = false;
+	this.acceptingInput = false;
+
+	console.log('x:', this.x, 'y:', this.y);
+
+	this.label;
+	this.bareLabel;
+	if (this.x == 0 && this.y == 0) {
+		this.bareLabel = '';
+		this.label = '';
+	} else if (this.x == 0) {
+		this.bareLabel = this.y;
+		this.label = 'r: ' + this.bareLabel;
+	} else if (this.y == 0) {
+		this.bareLabel = this.x;
+		this.label = 'c: ' + this.bareLabel;
+	} else {
+		var xLabel = this.x;
+		var yLabel = this.y;
+		this.bareLabel = '(' + xLabel + ',' + yLabel + ')';
+		this.label = '(' + xLabel + ',' + yLabel + ')';
+	}
 
 	this.setNeighbours = function (neighbours) {
 		this.neighbours = neighbours;
@@ -232,6 +384,11 @@ function Block(context, x, y, grid) {
 		this.colour.b = newCol.b;
 	}
 
+	this.setBaseColour = function (newCol) {
+		this.baseColour.r = newCol.r;
+		this.baseColour.g = newCol.g;
+		this.baseColour.b = newCol.b;
+	}
 
 	this.magic = function () {
 		this.setColour(this.nextColour);
@@ -251,7 +408,7 @@ function Block(context, x, y, grid) {
 		} else if (this.ink > 0) this.ink--;
 
 		// If the ink is 0, return to white
-		if (this.ink == 0) this.setColour(averageColours(this.colour, baseColour));
+		if (this.ink == 0) this.setColour(averageColours(this.colour, this.baseColour));
 
 		// Change the size of the el
 		sizeDiff = Math.round(15 * (this.ink / this.grid.maxInk));
@@ -272,7 +429,6 @@ function Block(context, x, y, grid) {
 		ctx.translate((this.xPixels) + this.grid.halfBlockWidth - 248, (this.yPixels) + this.grid.halfBlockWidth - 248);
 		if (this.rotate > 0) ctx.rotate((Math.PI / 180) * this.rotate);
 		ctx.fillRect(-this.grid.halfBlockWidth, -this.grid.halfBlockWidth, this.grid.blockWidth, this.grid.blockWidth);
-		//ctx.fillRect ( -15, -15, 30 , 30 );
 
 		sizeDiff = Math.round((Math.floor(this.grid.blockWidth / 2)) * (this.ink / this.grid.maxInk));
 
@@ -281,16 +437,135 @@ function Block(context, x, y, grid) {
 		if (sizeDiff > 0) ctx.strokeRect(-this.grid.halfBlockWidth + (sizeDiff / 2), -this.grid.halfBlockWidth + (sizeDiff / 2), this.grid.blockWidth - (sizeDiff), this.grid.blockWidth - (sizeDiff));
 		if (this.rotate > 0) this.rotate += 10;
 		if (this.rotate > 90) this.rotate = 0;
+
+		// Text
+		ctx.lineWidth = 1;
+		ctx.fillStyle = '#CC00FF';
+		ctx.lineStyle = '#ffff00';
+		ctx.font = '18px sans-serif';
+		ctx.textAlign = 'center'
+
+		labelText = this.label;
+		// if (this.x == 0 && this.y == 0) {
+		// 	labelText = '';
+		// } else if (this.x == 0) {
+		// 	labelText = 'r: ' + this.y;
+		// } else if (this.y == 0) {
+		// 	labelText = 'c: ' + this.x;
+		// } else {
+		// 	labelText = '(' + this.x + ',' + this.y + ')';
+		// }
+
+		ctx.fillText(labelText, 0, -(this.grid.halfBlockWidth / 3));
+
+		infoText = '';
+		if (this.disabled) {
+			infoText = 'forbid';
+		} else {
+			infoText = '';
+		}
+
+		ctx.fillText(infoText, 0, 2 * this.grid.halfBlockWidth / 3)
+
 		ctx.restore();
 	}
 
 	this.hit = function () {
-		this.setColour(getColour());
-		this.ink = 200;
-		this.rotate = 1;
+		// this.setColour(getColour());
+		this.setColour(new Colour(102, 204, 255)); // Light-blue for selection?
+		// this.ink = 200;
+		// this.rotate = 1;
+	}
+
+	this.unhit = function () {
+		this.setColour(this.baseColour);
+	}
+
+	this.toggleDisabled = function () {
+		this.disabled = !this.disabled;
+
+		if (!this.disabled) {
+			this.setBaseColour(new Colour(0, 0, 0));
+			this.setColour(new Colour(0, 0, 0));
+		} else {
+			this.setBaseColour(new Colour(255, 255, 255));
+			this.setColour(new Colour(255, 255, 255));
+		}
+	}
+
+	this.handleClick = function () {
+		if (this.x == 0 || this.y == 0) {
+			// A column or row identifier was clicked, or we are at the top left corner.
+			if (this.x == 0 && this.y == 0) {
+				// Corner.
+			} else if (this.x == 0) {
+				// Row.
+				this.rowClick();
+			} else {
+				// Column.
+				this.columnClick();
+			}
+		} else {
+			// We are clicking on a chair-slot.
+			this.standardClick();
+		}
+	}
+
+	this.standardClick = function () {
+		this.toggleDisabled();
+	}
+
+	this.rowClick = function () {
+		this.acceptingInput = true;
+		this.handleInputColor();
+
+		var input = prompt("Please enter the label you'd like to use for this row.", this.y);
+		this.bareLabel = input;
+		this.label = 'r: ' + this.bareLabel;
+
+		this.acceptingInput = false;
+		this.handleInputColor();
+
+		for (let block of grid.blocks[this.y]) {
+			block.updateLabel();
+		}
+	}
+
+	this.columnClick = function () {
+		this.acceptingInput = true;
+		this.handleInputColor();
+
+		var input = prompt("Please enter the label you'd like to use for this column.", this.x);
+		this.bareLabel = input;
+		this.label = 'c: ' + this.bareLabel;
+
+		this.acceptingInput = false;
+		this.handleInputColor();
+
+		for (let row of grid.blocks) {
+			row[this.x].updateLabel();
+		}
+	}
+
+	this.handleInputColor = function () {
+		if (this.acceptingInput) {
+			this.setBaseColour(new Colour(255, 255, 102));
+			this.setColour(new Colour(255, 255, 102));
+		} else {
+			this.setBaseColour(new Colour(0, 0, 0));
+			this.setColour(new Colour(0, 0, 0));
+		}
+	}
+
+	this.updateLabel = function () {
+		if (this.x == 0 || this.y == 0) return;
+
+		var xLabel = grid.blocks[this.y][0].bareLabel;
+		var yLabel = grid.blocks[0][this.x].bareLabel;
+		this.bareLabel = '' + xLabel + yLabel;
+		this.label = '(' + xLabel + ',' + yLabel + ')';
 	}
 }
-
 
 function Colour(r, g, b) {
 	this.r = r;
@@ -310,9 +585,6 @@ function Colour(r, g, b) {
 		return 'rgba(' + this.r + ', ' + this.g + ', ' + this.b + ', ' + alpha + ')';
 	}
 }
-
-
-
 
 function Spiral() {
 	this.x = 0;
@@ -384,7 +656,6 @@ function Spiral() {
 	}, 50);
 }
 
-
 function getColour() {
 	if (colourMode) {
 		if (colToUse.r == targetColour.r && colToUse.g == targetColour.g && colToUse.b == targetColour.b) targetColour = new Colour(rand(255), rand(255), rand(255));
@@ -392,7 +663,6 @@ function getColour() {
 	} else colToUse = new Colour(rand(255), rand(255), rand(255));
 	return colToUse;
 }
-
 
 function renderLetter(letter) {
 	toRender = letters[letter];
@@ -438,12 +708,16 @@ function StartMessage(message) {
 function Grid() {
 	this.rows = 16;
 	this.cols = 16;
-	this.blockWidth = 30;
+	this.blockWidth = 50;
 	this.blockSpacing = 1;
 	this.maxInk = 200;
 	this.blocks = Array();
 	this.blocksSequence = Array();
 	var canvasContext = document.getElementById('pixelCanvas').getContext('2d');
+
+	// NOTE Resizing based on this seems to break centering?
+	canvasContext.canvas.width = window.innerWidth;
+	canvasContext.canvas.height = window.innerHeight;
 
 	// Do some maths to speed up the calculations later
 	this.totalBlockWidth = this.blockWidth + this.blockSpacing;
@@ -481,7 +755,6 @@ function Grid() {
 		}
 	}
 }
-
 
 function fadeText() {
 	$('.fade').fadeTo('slow', 0);
