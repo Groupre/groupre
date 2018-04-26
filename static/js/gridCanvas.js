@@ -1,89 +1,19 @@
 // Courtesy of https://dan.forys.uk/experiments/mesmerizer/
 
-letters = {
-	'a': [0, 0, 0, 224, 240, 496, 496, 440, 920, 1020, 1020, 2044, 1550, 3598, 3590, 0],
-	'b': [0, 0, 0, 2032, 4080, 3120, 3120, 3888, 4080, 8176, 7216, 6192, 7216, 8176, 4080, 0],
-	'c': [0, 0, 0, 4064, 8176, 7224, 6200, 24, 24, 24, 24, 6168, 7224, 8176, 4064, 0],
-	'd': [0, 0, 0, 2040, 4088, 3608, 7192, 7192, 6168, 7192, 7192, 7192, 3608, 4088, 2040, 0],
-	'e': [0, 0, 0, 8176, 8176, 48, 48, 48, 4080, 4080, 48, 48, 48, 8176, 8176, 0],
-	'f': [0, 0, 0, 4080, 4080, 48, 48, 48, 2032, 2032, 48, 48, 48, 48, 48, 0],
-	'g': [0, 0, 0, 4064, 8176, 14392, 14392, 24, 24, 15896, 15896, 12344, 14392, 16368, 16352, 0],
-	'h': [0, 0, 0, 6192, 6192, 6192, 6192, 6192, 8176, 8176, 6192, 6192, 6192, 6192, 6192, 0],
-	'i': [0, 0, 0, 384, 384, 384, 384, 384, 384, 384, 384, 384, 384, 384, 384, 0],
-	'j': [0, 0, 0, 3072, 3072, 3072, 3072, 3072, 3072, 3072, 3072, 3168, 3680, 4064, 2016, 0],
-	'k': [0, 0, 0, 3608, 1816, 920, 984, 504, 248, 504, 952, 1944, 1816, 3608, 7704, 0],
-	'l': [0, 0, 0, 48, 48, 48, 48, 48, 48, 48, 48, 48, 48, 4080, 4080, 0],
-	'm': [0, 0, 0, 14392, 14392, 15480, 15480, 15480, 16120, 14040, 14040, 14296, 14296, 13208, 13208, 0],
-	'n': [0, 0, 0, 6256, 6256, 6384, 6384, 6640, 7088, 7088, 7984, 7728, 7728, 7216, 7216, 0],
-	'o': [0, 0, 0, 4064, 8176, 14392, 14392, 12312, 12312, 12312, 12312, 14392, 14392, 8176, 4064, 0],
-	'p': [0, 0, 0, 4080, 8176, 7216, 6192, 7216, 7728, 4080, 1008, 48, 48, 48, 48, 0],
-	'q': [0, 0, 0, 2032, 4088, 7196, 7196, 6156, 6156, 6156, 6156, 7964, 7964, 8184, 16368, 6144],
-	'r': [0, 0, 0, 4088, 4088, 3096, 3096, 3864, 4088, 2040, 3608, 3608, 3096, 3096, 7192, 0],
-	's': [0, 0, 0, 1008, 2040, 3608, 3608, 248, 1016, 2016, 3840, 3612, 3612, 2040, 2032, 0],
-	't': [0, 0, 0, 8176, 8176, 768, 768, 768, 768, 768, 768, 768, 768, 768, 768, 0],
-	'u': [0, 0, 0, 6192, 6192, 6192, 6192, 6192, 6192, 6192, 6192, 6192, 7280, 8176, 4064, 0],
-	'v': [0, 0, 0, 7180, 7196, 3100, 3608, 1592, 1840, 1904, 880, 992, 992, 480, 448, 0],
-	'w': [0, 0, 0, 25027, 29127, 29671, 29670, 13158, 13166, 16254, 7804, 7740, 7740, 7740, 3096, 0],
-	'x': [0, 0, 0, 3612, 3640, 1904, 1008, 992, 448, 480, 992, 1904, 1848, 3644, 7196, 0],
-	'y': [0, 0, 0, 3598, 3612, 1852, 952, 1008, 496, 224, 192, 192, 192, 192, 192, 0],
-	'z': [0, 0, 0, 8160, 8160, 7168, 3584, 1792, 1920, 896, 448, 224, 240, 8176, 8176, 0],
-	'!': [0, 0, 0, 384, 384, 384, 384, 384, 384, 384, 384, 384, 0, 384, 384, 0],
-	'@': [0, 0, 0, 8160, 16376, 30780, 28636, 61422, 60534, 52790, 58934, 58934, 30518, 32766, 16382, 28],
-	'Â£': [0, 0, 0, 4032, 4064, 3168, 96, 96, 496, 496, 96, 96, 112, 4080, 4080, 0],
-	'$': [0, 128, 992, 2032, 3760, 3760, 176, 496, 2016, 3968, 3712, 3248, 3760, 2032, 2016, 128],
-	'%': [0, 0, 0, 3196, 3836, 1772, 2028, 1020, 1020, 16304, 32704, 30400, 30432, 32352, 15920, 0],
-	'^': [0, 0, 0, 448, 960, 992, 1888, 1648, 0, 0, 0, 0, 0, 0, 0, 0],
-	'&': [0, 0, 0, 992, 1008, 880, 1008, 992, 496, 3576, 4024, 3864, 3864, 8184, 8176, 0],
-	'*': [0, 0, 0, 192, 1008, 1008, 480, 480, 320, 0, 0, 0, 0, 0, 0, 0],
-	'(': [0, 0, 0, 768, 896, 384, 448, 192, 192, 192, 192, 192, 192, 192, 448, 384],
-	')': [0, 0, 0, 224, 192, 448, 384, 896, 896, 896, 768, 896, 896, 896, 384, 448],
-	'_': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	'+': [0, 0, 0, 0, 0, 384, 384, 384, 4080, 4080, 384, 384, 384, 0, 0, 0],
-	'}': [0, 0, 0, 480, 480, 448, 384, 384, 896, 896, 896, 384, 384, 384, 384, 448],
-	'{': [0, 0, 0, 896, 896, 384, 384, 448, 448, 224, 224, 448, 448, 384, 384, 384],
-	'|': [0, 0, 0, 384, 384, 384, 384, 384, 384, 384, 384, 384, 384, 384, 384, 384],
-	'"': [0, 0, 0, 1728, 1728, 1728, 1728, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	':': [0, 0, 0, 0, 0, 0, 384, 384, 0, 0, 0, 0, 0, 384, 384, 0],
-	'?': [0, 0, 0, 2016, 4080, 3632, 3632, 3584, 1792, 1920, 896, 384, 384, 384, 384, 0],
-	'>': [0, 0, 0, 0, 0, 112, 496, 2016, 3840, 3840, 2016, 496, 112, 0, 0, 0],
-	'<': [0, 0, 0, 0, 0, 3584, 3968, 992, 240, 240, 1008, 3968, 3584, 0, 0, 0],
-	'~': [0, 0, 0, 4080, 4080, 1552, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	'1': [0, 0, 0, 3072, 3840, 3968, 3456, 3072, 3072, 3072, 3072, 3072, 3072, 3072, 3072, 0],
-	'2': [0, 0, 0, 2016, 4080, 3696, 3120, 3584, 3840, 1920, 960, 480, 240, 4080, 4080, 0],
-	'3': [0, 0, 0, 992, 2032, 1584, 1552, 1920, 1984, 3968, 3584, 3120, 3632, 2032, 2016, 0],
-	'4': [0, 0, 0, 1792, 1792, 1920, 1984, 1728, 1760, 1648, 1584, 4080, 4080, 1536, 1536, 0],
-	'5': [0, 0, 0, 2032, 2032, 48, 48, 2032, 2032, 3632, 3584, 3632, 3632, 2032, 992, 0],
-	'6': [0, 0, 0, 2016, 2032, 3696, 48, 2032, 2032, 3632, 3632, 3632, 3696, 2032, 2016, 0],
-	'7': [0, 0, 0, 4064, 4064, 3072, 3584, 1536, 1792, 1792, 768, 896, 384, 384, 448, 0],
-	'8': [0, 0, 0, 2016, 2032, 1648, 1648, 2032, 992, 2032, 3696, 3632, 3632, 4080, 2016, 0],
-	'9': [0, 0, 0, 992, 2032, 3632, 3632, 3632, 4080, 4064, 4032, 3632, 1584, 2032, 992, 0],
-	'0': [0, 0, 0, 992, 2032, 3696, 3632, 3632, 3120, 3120, 3632, 3632, 3696, 2032, 992, 0],
-	'-': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 960, 960, 0, 0, 0, 0],
-	'=': [0, 0, 0, 0, 0, 0, 4080, 4080, 0, 0, 4080, 4080, 0, 0, 0, 0],
-	']': [0, 0, 0, 480, 480, 384, 384, 384, 384, 384, 384, 384, 384, 384, 384, 384],
-	'[': [0, 0, 0, 960, 960, 192, 192, 192, 192, 192, 192, 192, 192, 192, 192, 192],
-	'\\': [0, 0, 0, 96, 96, 96, 224, 192, 192, 192, 384, 384, 384, 896, 768, 0],
-	'\'': [0, 0, 0, 384, 384, 384, 384, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	';': [0, 0, 0, 0, 0, 0, 384, 384, 0, 0, 0, 0, 0, 384, 384, 384],
-	'/': [0, 0, 0, 768, 896, 384, 384, 384, 192, 192, 192, 224, 96, 96, 96, 0],
-	'.': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 384, 384, 0],
-	',': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 896, 896, 896],
-	'`': [0, 0, 0, 224, 448, 384, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-};
-
+// Main portion of canvas setup.
 $(document).ready(function () {
 	pixelCanvas = $('#pixelCanvas');
 	canvasContext = document.getElementById('pixelCanvas').getContext('2d');
 	row = new Array;
 	blocks = new Array;
 	blocksSequence = new Array;
-	targetColour = new Colour(255, 0, 0);
-	colToUse = new Colour(222, 222, 222);
-	baseColour = new Colour(255, 255, 255);
+	targetColor = new Color(255, 0, 0);
+	colToUse = new Color(222, 222, 222);
+	baseColor = new Color(255, 255, 255);
 	spirals = Array();
 	lastX = -1; // Last hit coords
 	lastY = -1;
-	colourMode = true;
+	colorMode = true;
 	animators = Array();
 	message = '';
 	originX = 0; // 350 is default
@@ -92,64 +22,17 @@ $(document).ready(function () {
 	grid = new Grid;
 	grid.init();
 
-	// pixelCanvas.mousemove(function (e) {
-	// 	var x = e.pageX - $(this).offset().left - 102;
-	// 	var y = e.pageY - $(this).offset().top - 102;
+	selectedBlocks = [];
 
-	// 	x = Math.floor(x / grid.totalBlockWidth);
-	// 	y = Math.floor(y / grid.totalBlockWidth);
-
-	// 	// Check we're not out of bounds
-	// 	if (x > (grid.cols - 1) || y > (grid.rows - 1)) return;
-	// 	if (x < 0 || y < 0) return;
-
-	// 	if (lastX != x || lastY != y) {
-	// 		grid.blocks[y][x].hit();
-	// 		lastX = x;
-	// 		lastY = y;
-	// 	}
-	// });
+	renameMode = false;
 
 	var mouseIsDown = false;
 
-	// pixelCanvas.onmousedown = function (e) {
-	// 	// dragOffset.x = e.x - mainLayer.trans.x;
-	// 	// dragOffset.y = e.y - mainLayer.trans.y;
-
-	// 	mouseIsDown = true;
-	// }
-
-	// pixelCanvas.onmouseup = function (e) {
-	// 	if (mouseIsDown) mouseClick(e);
-
-	// 	mouseIsDown = false;
-	// }
-
-	// pixelCanvas.onmousemove = function (e) {
-	// 	if (!mouseIsDown) return;
-
-	// 	// mainLayer.trans.x = e.x - dragOffset.x;
-	// 	// mainlayer.trans.y = e.y - dragOffset.y;
-	// 	return false;
-	// }
-
-	// function mouseClick(e) {
-	// 	// Click Action
-	// 	var x = e.pageX - $(this).offset().left - 102;
-	// 	var y = e.pageY - $(this).offset().top - 102;
-
-	// 	x = Math.floor(x / grid.totalBlockWidth);
-	// 	y = Math.floor(y / grid.totalBlockWidth);
-
-	// 	// Check we're not out of bounds
-	// 	if (x > (grid.cols - 1) || y > (grid.rows - 1)) return;
-	// 	if (x < 0 || y < 0) return;
-
-	// 	grid.blocks[y][x].handleClick();
-	// }
-
 	isDown = false;
 
+	// NOTE Fix mouse offset after fixing margin offset.
+
+	// Below functions mainly deal with input via mouse and keyboard for selection and actions taken on canvas grid.
 	pixelCanvas.mousedown(function (e) {
 		console.log('down');
 
@@ -185,6 +68,14 @@ $(document).ready(function () {
 		botRightY = Math.max(startY, mouseY);
 		var xRange = botRightX - topLeftX;
 		var yRange = botRightY - topLeftY;
+
+		// Clear past selection.
+		selectedBlocks.forEach(function (item, index, array) {
+			item.unselect();
+		});
+		selectedBlocks = [];
+
+		// Do our click.
 		for (var i = topLeftY; i <= botRightY; i++) {
 			// i = Y = row
 			for (var j = topLeftX; j <= botRightX; j++) {
@@ -226,64 +117,22 @@ $(document).ready(function () {
 		console.log('out');
 	});
 
-	// pixelCanvas.click(function (e) {
-	// 	var x = e.pageX - $(this).offset().left - 102;
-	// 	var y = e.pageY - $(this).offset().top - 102;
-
-	// 	x = Math.floor(x / grid.totalBlockWidth);
-	// 	y = Math.floor(y / grid.totalBlockWidth);
-
-	// 	// Check we're not out of bounds
-	// 	if (x > (grid.cols - 1) || y > (grid.rows - 1)) return;
-	// 	if (x < 0 || y < 0) return;
-
-	// 	// if (x == 0 && y == 0) { // If you click the top left, it starts a spiral
-	// 	// 	spiral = new Spiral;
-	// 	// } else if (x == (grid.cols - 1) && y == (grid.rows - 1)) { // bottom right adds multiple
-	// 	// 	autoAdd(50);
-	// 	// } else if (x == 0 && y == 15) { // bottom left changes colour mode
-	// 	// 	colourMode = (colourMode == true) ? false : true;
-	// 	// } else if (x == (grid.cols - 1) && y == 0) { // top right rotates grid
-	// 	// 	gridRotate = 0.2;
-	// 	// } else
-
-	// 	// if (lastX != x || lastY != y) {
-	// 	// 	grid.blocks[y][x].hit();
-	// 	// 	lastX = x;
-	// 	// 	lastY = y;
-	// 	// }
-
-	// 	// grid.blocks[y][x].hit();
-	// 	// lastX = x;
-	// 	// lastY = y;
-
-	// 	grid.blocks[y][x].handleClick();
-
-	// 	// grid.blocks[y][x].hit();
-	// });
-
 	$(document).keypress(function (e) {
-		// press return to play the message
-		// if (e.which == 13 && message != '') {
-		// 	messageAnimation = new StartMessage(message);
-		// 	animators.push(messageAnimation);
-		// 	message = '';
-		// 	return;
-		// }
+		console.log("keycode pressed: " + e.keyCode);
 
-		// Other letters go into the queue
-		// Ensure any previous messages are stopped
-		// if (typeof messageAnimation != 'undefined') {
-		// 	messageAnimation.stop();
-		// 	delete messageAnimation;
-		// }
+		// r is 114 - Rename
+		if (e.keyCode == 114) {
+			renameMode = true;
+		} else {
+			renameMode = false;
+		}
 
-		// renderLetter(String.fromCharCode(e.which));
-		// message += String.fromCharCode(e.which);
-
+		// Send keypress to each selected block.
+		selectedBlocks.forEach(function (item, index, array) {
+			item.sendKeypress(e);
+		});
 	})
 
-	// animators.push(new StartMessage('mesmerizer!'));
 	t = setInterval('tick()', 30);
 });
 
@@ -312,9 +161,8 @@ function tick() {
 	canvasContext.restore();
 }
 
-function averageColours(col1, col2) {
-	//return {r: Math.round((col1.r + col2.r) / 2), g: Math.round((col1.g + col2.g) / 2), b: Math.round((col1.b + col2.b) / 2)};
-	newCol = new Colour;
+function averageColors(col1, col2) {
+	newCol = new Color;
 	if (col1.r < col2.r) newCol.r = col1.r + 1;
 	else if (col1.r > col2.r) newCol.r = col1.r - 1;
 	else newCol.r = col1.r;
@@ -334,11 +182,12 @@ function rand(n) {
 	return (Math.floor(Math.random() * n));
 }
 
+// Primary piece of representation in the grid.
 function Block(context, x, y, grid) {
 	this.neighbours = Array();
-	// this.colour = getColour();
-	this.colour = new Colour(0, 0, 0)
-	this.nextColour = this.colour;
+	// this.color = getColor();
+	this.color = new Color(0, 0, 0)
+	this.nextColor = this.color;
 	this.ink = 0;
 	this.lastSizeDiff = 0;
 	this.x = x;
@@ -348,11 +197,14 @@ function Block(context, x, y, grid) {
 	this.grid = grid;
 	this.xPixels = x * grid.totalBlockWidth;
 	this.yPixels = y * grid.totalBlockWidth;
-	this.baseColour = new Colour(0, 0, 0);
+	this.baseColor = new Color(0, 0, 0);
 
 	// For Chairs
 	this.disabled = false;
+	this.aisle = false;
+	this.leftHanded = false;
 	this.acceptingInput = false;
+	this.selected = false;
 
 	console.log('x:', this.x, 'y:', this.y);
 
@@ -378,20 +230,20 @@ function Block(context, x, y, grid) {
 		this.neighbours = neighbours;
 	}
 
-	this.setColour = function (newCol) {
-		this.colour.r = newCol.r;
-		this.colour.g = newCol.g;
-		this.colour.b = newCol.b;
+	this.setColor = function (newCol) {
+		this.color.r = newCol.r;
+		this.color.g = newCol.g;
+		this.color.b = newCol.b;
 	}
 
-	this.setBaseColour = function (newCol) {
-		this.baseColour.r = newCol.r;
-		this.baseColour.g = newCol.g;
-		this.baseColour.b = newCol.b;
+	this.setBaseColor = function (newCol) {
+		this.baseColor.r = newCol.r;
+		this.baseColor.g = newCol.g;
+		this.baseColor.b = newCol.b;
 	}
 
 	this.magic = function () {
-		this.setColour(this.nextColour);
+		this.setColor(this.nextColor);
 
 		// Work out which neighbour has the most ink
 		var bestNeighbour = this.neighbours[0];
@@ -401,14 +253,14 @@ function Block(context, x, y, grid) {
 
 		// Only do something if the best neighbour has more ink than me
 		if (bestNeighbour.ink > this.ink && bestNeighbour.ink > 1) {
-			this.setColour(averageColours(this.colour, bestNeighbour.colour));
+			this.setColor(averageColors(this.color, bestNeighbour.color));
 			this.ink = Math.round(bestNeighbour.ink * 0.7);
 			bestNeighbour.ink = bestNeighbour.ink - Math.round(this.ink / 50);
 			if (bestNeighbour.ink < 0) bestNeighbour.ink = 0;
 		} else if (this.ink > 0) this.ink--;
 
 		// If the ink is 0, return to white
-		if (this.ink == 0) this.setColour(averageColours(this.colour, this.baseColour));
+		if (this.ink == 0) this.setColor(averageColors(this.color, this.baseColor));
 
 		// Change the size of the el
 		sizeDiff = Math.round(15 * (this.ink / this.grid.maxInk));
@@ -418,13 +270,15 @@ function Block(context, x, y, grid) {
 	this.draw = function () {
 		var ctx = this.ctx;
 
-		borderColour = new Colour(this.colour.r, this.colour.g, this.colour.b);
-		borderColour.add(20);
+		borderColor = new Color(this.color.r, this.color.g, this.color.b);
+		borderColor.add(20);
 
-		ctx.fillStyle = this.colour.toRgba(1);
+		ctx.fillStyle = this.color.toRgba(1);
 		ctx.strokeStyle = 'rgba(255,255,255, 0.2)';
 
 		ctx.save();
+
+		// NOTE Change offset to remove margin.
 
 		ctx.translate((this.xPixels) + this.grid.halfBlockWidth - 248, (this.yPixels) + this.grid.halfBlockWidth - 248);
 		if (this.rotate > 0) ctx.rotate((Math.PI / 180) * this.rotate);
@@ -438,59 +292,99 @@ function Block(context, x, y, grid) {
 		if (this.rotate > 0) this.rotate += 10;
 		if (this.rotate > 90) this.rotate = 0;
 
-		// Text
+		// Text will be inverse of block color.
+		inverseHex = rgbToHex(255 - this.baseColor.r, 255 - this.baseColor.g, 255 - this.baseColor.b);
 		ctx.lineWidth = 1;
-		ctx.fillStyle = '#CC00FF';
+		// ctx.fillStyle = '#CC00FF';
+		ctx.fillStyle = inverseHex;
 		ctx.lineStyle = '#ffff00';
 		ctx.font = '18px sans-serif';
-		ctx.textAlign = 'center'
+		ctx.textAlign = 'center';
 
 		labelText = this.label;
-		// if (this.x == 0 && this.y == 0) {
-		// 	labelText = '';
-		// } else if (this.x == 0) {
-		// 	labelText = 'r: ' + this.y;
-		// } else if (this.y == 0) {
-		// 	labelText = 'c: ' + this.x;
-		// } else {
-		// 	labelText = '(' + this.x + ',' + this.y + ')';
-		// }
 
 		ctx.fillText(labelText, 0, -(this.grid.halfBlockWidth / 3));
 
 		infoText = '';
 		if (this.disabled) {
-			infoText = 'forbid';
-		} else {
-			infoText = '';
+			infoText += 'X';
+		}
+		if (this.leftHanded) {
+			infoText += 'L';
+		}
+		if (this.aisle) {
+			infoText += 'A';
 		}
 
-		ctx.fillText(infoText, 0, 2 * this.grid.halfBlockWidth / 3)
+		ctx.fillText(infoText, 0, 2 * this.grid.halfBlockWidth / 3);
 
 		ctx.restore();
 	}
 
 	this.hit = function () {
-		// this.setColour(getColour());
-		this.setColour(new Colour(102, 204, 255)); // Light-blue for selection?
-		// this.ink = 200;
-		// this.rotate = 1;
+		this.setColor(new Color(102, 204, 255)); // Light-blue for selection?
 	}
 
 	this.unhit = function () {
-		this.setColour(this.baseColour);
+		this.setColor(this.baseColor);
 	}
 
 	this.toggleDisabled = function () {
 		this.disabled = !this.disabled;
+		this.handleAppearance();
+	}
 
-		if (!this.disabled) {
-			this.setBaseColour(new Colour(0, 0, 0));
-			this.setColour(new Colour(0, 0, 0));
-		} else {
-			this.setBaseColour(new Colour(255, 255, 255));
-			this.setColour(new Colour(255, 255, 255));
+	this.toggleLeftHanded = function () {
+		this.leftHanded = !this.leftHanded;
+
+		if (!this.leftHanded) {} else {
+			this.aisle = false;
 		}
+
+		this.handleAppearance();
+	}
+
+	this.toggleAisle = function () {
+		this.aisle = !this.aisle;
+
+		if (!this.aisle) {} else {
+			this.leftHanded = false;
+			this.disabled = false;
+		}
+
+		this.handleAppearance();
+	}
+
+	this.sendKeypress = function (e) {
+		// x is 120 - forbid
+		// l is 108 - left-handed
+		// a is 97 - aisle
+
+		switch (e.keyCode) {
+			case 120: // forbid
+				this.toggleDisabled();
+				break;
+			case 108: // left-handed
+				this.toggleLeftHanded();
+				break;
+			case 97: // aisle
+				this.toggleAisle();
+				break;
+			default:
+				break;
+		}
+	}
+
+	this.select = function () {
+		this.selected = true;
+		this.handleAppearance();
+
+		selectedBlocks.push(this);
+	}
+
+	this.unselect = function () {
+		this.selected = false;
+		this.handleAppearance();
 	}
 
 	this.handleClick = function () {
@@ -511,49 +405,73 @@ function Block(context, x, y, grid) {
 		}
 	}
 
+	this.handleAppearance = function () {
+		if (this.selected) {
+			this.setBaseColor(new Color(0, 0, 255));
+			this.setColor(new Color(0, 0, 255));
+		} else if (this.disabled) {
+			this.setBaseColor(new Color(255, 255, 255));
+			this.setColor(new Color(255, 255, 255));
+		} else if (this.aisle) {
+			this.setBaseColor(new Color(0, 255, 0));
+			this.setColor(new Color(0, 255, 0));
+		} else if (this.leftHanded) {
+			this.setBaseColor(new Color(255, 0, 0));
+			this.setColor(new Color(255, 0, 0));
+		} else if (this.acceptingInput) {
+			this.setBaseColor(new Color(255, 255, 102));
+			this.setColor(new Color(255, 255, 102));
+		} else {
+			this.setBaseColor(new Color(0, 0, 0));
+			this.setColor(new Color(0, 0, 0));
+		}
+	}
+
 	this.standardClick = function () {
-		this.toggleDisabled();
+		this.select();
 	}
 
 	this.rowClick = function () {
-		this.acceptingInput = true;
-		this.handleInputColor();
+		if (renameMode) {
+			this.acceptingInput = true;
+			this.handleAppearance();
 
-		var input = prompt("Please enter the label you'd like to use for this row.", this.y);
-		this.bareLabel = input;
-		this.label = 'r: ' + this.bareLabel;
+			var input = prompt("Please enter the label you'd like to use for this row.", this.y);
+			this.bareLabel = input;
+			this.label = 'r: ' + this.bareLabel;
 
-		this.acceptingInput = false;
-		this.handleInputColor();
+			this.acceptingInput = false;
+			this.handleAppearance();
 
-		for (let block of grid.blocks[this.y]) {
-			block.updateLabel();
+			for (let block of grid.blocks[this.y]) {
+				block.updateLabel();
+			}
+		} else {
+			for (let block of grid.blocks[this.y]) {
+				block.select();
+			}
 		}
 	}
 
 	this.columnClick = function () {
-		this.acceptingInput = true;
-		this.handleInputColor();
+		if (renameMode) {
+			this.acceptingInput = true;
+			this.handleAppearance();
 
-		var input = prompt("Please enter the label you'd like to use for this column.", this.x);
-		this.bareLabel = input;
-		this.label = 'c: ' + this.bareLabel;
+			var input = prompt("Please enter the label you'd like to use for this column.", this.x);
+			this.bareLabel = input;
+			this.label = 'c: ' + this.bareLabel;
 
-		this.acceptingInput = false;
-		this.handleInputColor();
+			this.acceptingInput = false;
+			this.handleAppearance();
 
-		for (let row of grid.blocks) {
-			row[this.x].updateLabel();
-		}
-	}
-
-	this.handleInputColor = function () {
-		if (this.acceptingInput) {
-			this.setBaseColour(new Colour(255, 255, 102));
-			this.setColour(new Colour(255, 255, 102));
+			for (let row of grid.blocks) {
+				row[this.x].updateLabel();
+			}
 		} else {
-			this.setBaseColour(new Colour(0, 0, 0));
-			this.setColour(new Colour(0, 0, 0));
+			for (let row of grid.blocks) {
+				row[this.x].select();
+			}
 		}
 	}
 
@@ -567,7 +485,7 @@ function Block(context, x, y, grid) {
 	}
 }
 
-function Colour(r, g, b) {
+function Color(r, g, b) {
 	this.r = r;
 	this.g = g;
 	this.b = b;
@@ -586,128 +504,18 @@ function Colour(r, g, b) {
 	}
 }
 
-function Spiral() {
-	this.x = 0;
-	this.y = 0;
-	this.direction = 0;
-	this.timer = null;
-	this.upperLimitX = 15;
-	this.upperLimitY = 15;
-	this.lowerLimitX = 0;
-	this.lowerLimitY = 1;
-
-	this.tick = function () {
-		if (this.x == 7 && this.y == 8) {
-			this.x = 0;
-			this.y = 0;
-			this.upperLimitX = 15;
-			this.upperLimitY = 15;
-			this.lowerLimitX = 0;
-			this.lowerLimitY = 1;
-			this.direction = 0;
-		}
-
-		grid.blocks[this.y][this.x].hit();
-
-		if (this.direction == 0) {
-			this.x++;
-			if (this.x > this.upperLimitX) {
-				this.direction = 1;
-				this.x = this.upperLimitX;
-				this.upperLimitX--;
-			}
-		}
-
-		if (this.direction == 1) {
-			this.y++;
-			if (this.y > this.upperLimitY) {
-				this.direction = 2;
-				this.y = this.upperLimitY;
-				this.upperLimitY--;
-			}
-		}
-
-		if (this.direction == 2) {
-			this.x--;
-			if (this.x < this.lowerLimitX) {
-				this.direction = 3;
-				this.x = this.lowerLimitX;
-				this.lowerLimitX++;
-			}
-		}
-
-		if (this.direction == 3) {
-			this.y--;
-			if (this.y < this.lowerLimitY) {
-				this.direction = 0;
-				this.y = this.lowerLimitY;
-				this.lowerLimitY++;
-			}
-		}
-	}
-
-	this.stop = function () {
-		clearInterval(this.timer);
-	}
-
-	var self = this;
-	this.timer = setInterval(function () {
-		self.tick();
-	}, 50);
-}
-
-function getColour() {
-	if (colourMode) {
-		if (colToUse.r == targetColour.r && colToUse.g == targetColour.g && colToUse.b == targetColour.b) targetColour = new Colour(rand(255), rand(255), rand(255));
-		colToUse = averageColours(colToUse, targetColour);
-	} else colToUse = new Colour(rand(255), rand(255), rand(255));
+function getColor() {
+	if (colorMode) {
+		if (colToUse.r == targetColor.r && colToUse.g == targetColor.g && colToUse.b == targetColor.b) targetColor = new Color(rand(255), rand(255), rand(255));
+		colToUse = averageColors(colToUse, targetColor);
+	} else colToUse = new Color(rand(255), rand(255), rand(255));
 	return colToUse;
 }
 
-function renderLetter(letter) {
-	toRender = letters[letter];
-	colour = getColour();
-	for (rows = 0; rows < 16; rows++) {
-		rowTotal = 0;
-		for (cols = 0; cols < 16; cols++) {
-			if ((toRender[rows] & Math.pow(2, cols)) > 0) {
-				grid.blocks[rows][cols].hit();
-			}
-		}
-	}
-}
-
-function StartMessage(message) {
-	this.msgIndex = 0;
-	this.timer = null;
-
-	if (typeof message == 'undefined') this.message = $('#message').val().toLowerCase();
-	else this.message = message;
-
-	var self = this;
-
-	this.timer = setInterval(function () {
-		self.tick();
-	}, 300);
-
-	this.tick = function () {
-
-		if (this.message[this.msgIndex] != ' ') {
-			renderLetter(this.message[this.msgIndex]);
-		}
-		this.msgIndex++;
-
-		if (this.msgIndex >= this.message.length) clearInterval(this.timer);
-	}
-
-	this.stop = function () {
-		clearInterval(this.timer);
-	}
-}
-
+// Contains Blocks within canvas.
 function Grid() {
-	this.rows = 16;
-	this.cols = 16;
+	this.rows = 32;
+	this.cols = 32;
 	this.blockWidth = 50;
 	this.blockSpacing = 1;
 	this.maxInk = 200;
@@ -715,13 +523,13 @@ function Grid() {
 	this.blocksSequence = Array();
 	var canvasContext = document.getElementById('pixelCanvas').getContext('2d');
 
-	// NOTE Resizing based on this seems to break centering?
-	canvasContext.canvas.width = window.innerWidth;
-	canvasContext.canvas.height = window.innerHeight;
-
 	// Do some maths to speed up the calculations later
 	this.totalBlockWidth = this.blockWidth + this.blockSpacing;
 	this.halfBlockWidth = Math.floor(this.totalBlockWidth / 2);
+
+	// NOTE Resizing based on this seems to break centering?
+	canvasContext.canvas.width = this.totalBlockWidth * this.cols;
+	canvasContext.canvas.height = this.totalBlockWidth * this.rows;
 
 	this.init = function () {
 		// initialise the blocks
@@ -761,3 +569,12 @@ function fadeText() {
 }
 
 var t = setTimeout('fadeText()', 10000);
+
+function rgbToHex(r, g, b) {
+	return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function componentToHex(c) {
+	var hex = c.toString(16);
+	return hex.length == 1 ? "0" + hex : hex;
+}
