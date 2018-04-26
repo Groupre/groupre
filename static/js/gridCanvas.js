@@ -30,7 +30,7 @@ $(document).ready(function () {
 
 	isDown = false;
 
-	// NOTE Fix mouse offset after fixing margin offset.
+	mouseOffset = 0; // was 102 now is 0
 
 	// Below functions mainly deal with input via mouse and keyboard for selection and actions taken on canvas grid.
 	pixelCanvas.mousedown(function (e) {
@@ -38,8 +38,8 @@ $(document).ready(function () {
 
 		e.stopPropagation();
 		e.preventDefault();
-		var x = e.pageX - $(this).offset().left - 102;
-		var y = e.pageY - $(this).offset().top - 102;
+		var x = e.pageX - $(this).offset().left - mouseOffset;
+		var y = e.pageY - $(this).offset().top - mouseOffset;
 		mouseX = Math.floor(x / grid.totalBlockWidth);
 		mouseY = Math.floor(y / grid.totalBlockWidth);
 
@@ -54,8 +54,8 @@ $(document).ready(function () {
 
 		e.stopPropagation();
 		e.preventDefault();
-		var x = e.pageX - $(this).offset().left - 102;
-		var y = e.pageY - $(this).offset().top - 102;
+		var x = e.pageX - $(this).offset().left - mouseOffset;
+		var y = e.pageY - $(this).offset().top - mouseOffset;
 		mouseX = Math.floor(x / grid.totalBlockWidth);
 		mouseY = Math.floor(y / grid.totalBlockWidth);
 
@@ -92,8 +92,8 @@ $(document).ready(function () {
 
 		e.stopPropagation();
 		e.preventDefault();
-		var x = e.pageX - $(this).offset().left - 102;
-		var y = e.pageY - $(this).offset().top - 102;
+		var x = e.pageX - $(this).offset().left - mouseOffset;
+		var y = e.pageY - $(this).offset().top - mouseOffset;
 		mouseX = Math.floor(x / grid.totalBlockWidth);
 		mouseY = Math.floor(y / grid.totalBlockWidth);
 
@@ -279,8 +279,9 @@ function Block(context, x, y, grid) {
 		ctx.save();
 
 		// NOTE Change offset to remove margin.
+		// was 248 now is 350
 
-		ctx.translate((this.xPixels) + this.grid.halfBlockWidth - 248, (this.yPixels) + this.grid.halfBlockWidth - 248);
+		ctx.translate((this.xPixels) + this.grid.halfBlockWidth - 350, (this.yPixels) + this.grid.halfBlockWidth - 350);
 		if (this.rotate > 0) ctx.rotate((Math.PI / 180) * this.rotate);
 		ctx.fillRect(-this.grid.halfBlockWidth, -this.grid.halfBlockWidth, this.grid.blockWidth, this.grid.blockWidth);
 
