@@ -29,7 +29,15 @@ If any errors are received, verify that the input files are in the correct forma
 
 ## Current Needs, Should Project End Today
 
-* Finished web-app GUI
-* Interaction between web-app GUI and back-end module
-* Debugging
-* Finalization of CloudApps integration
+As of 04/26/2018, the current plan for features or prominant issues still standing will be summarized here. The most up-to-date location to find this sort of information will be at the issues page for the groupre repository, located at https://github.com/Groupre/groupre/issues.
+
+* Finished front-end:
+  * Finalized Room Builder (Blueprints)
+  * Finalized Template Editor (Templates)
+  * Ability to save Blueprints and Templates to local machine.
+  * Ability to save Blueprints and Templates to server.
+    * User actions and ownership determined by Onyen.
+  * Ability to process a given Template alongside input Student data.
+* Finished back-end:
+  * Student-To-Student matching:
+    * Design for generalized language to describe matching criteria and rulesets for any given situation by the user.
