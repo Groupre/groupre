@@ -12,7 +12,7 @@ Testing will be of the core Python back-end module through direct calling of the
 
 ## Test Cases
 
-Test cases are expected to yield information confirming successful processing of input data in accordance with program parameters. Failing that, testing is expected to yield errors related to either the algorithm’s processing of the data, or data input errors. 
+Test cases are expected to yield information confirming successful processing of input data in accordance with program parameters. Failing that, testing is expected to yield errors related to either the algorithm’s processing of the data, or data input errors.
 Specific issues that will be tested for include, but are not limited to the following:
 
 * Students who are able to ask for outlandish amounts of preferences for Chair attributes that have no overlap (read: chairs that fulfill all criteria) are hard to account for. It is expected that a given Student will not be able to make so many selections of preferences to where this scenario is realistic, however.
