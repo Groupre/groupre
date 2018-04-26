@@ -2,7 +2,7 @@
 
 ## Architecture
 
-<!-- Abstract Overview picture goes here! -->
+![Abstract Overview Diagram](./diagrams/abstract_overview.png)
 
 The above diagram provides a rough overview of how the groupre module back-end and its web front-end interact for any general usage of the program. Green boxes denote input into or output from the program, orange ovals denote functionality within the groupre module, yellow curved boxes denote some of the data structures used, and the red curved boxes denote a global module used by groupre.
 
