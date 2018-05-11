@@ -1,9 +1,16 @@
 // Courtesy of https://dan.forys.uk/experiments/mesmerizer/
 
+// NOTE Similar in design to the Blueprint Builder. Will allow the user to overlay a blueprint (loaded from a saved file) and add attributes to the chairs such as forbidding chairs in their configuration or setting up the group schema for the classroom they wish to use.
+
+// TODO Add a way to load from a JSON file and display the room properly for editing.
+// TODO Add a way to save the Template after it is created (JSON).
+// TODO Add a way to define groups in the layout and then remove them if needed.
+// TODO Add automatic pattern-matching to make laying out groups in a large room easier.
+
 // Main portion of canvas setup.
 $(document).ready(function () {
-	pixelCanvas = $('#pixelCanvas');
-	canvasContext = document.getElementById('pixelCanvas').getContext('2d');
+	pixelCanvas = $('#templateBuilder');
+	canvasContext = document.getElementById('templateBuilder').getContext('2d');
 	row = new Array;
 	blocks = new Array;
 	blocksSequence = new Array;
@@ -361,18 +368,10 @@ function Block(context, x, y, grid) {
 
 	this.sendKeypress = function (e) {
 		// x is 120 - forbid
-		// l is 108 - left-handed
-		// a is 97 - aisle
 
 		switch (e.keyCode) {
 			case 120: // forbid
 				this.toggleDisabled();
-				break;
-			case 108: // left-handed
-				this.toggleLeftHanded();
-				break;
-			case 97: // aisle
-				this.toggleAisle();
 				break;
 			default:
 				break;
@@ -525,7 +524,7 @@ function Grid() {
 	this.maxInk = 200;
 	this.blocks = Array();
 	this.blocksSequence = Array();
-	var canvasContext = document.getElementById('pixelCanvas').getContext('2d');
+	var canvasContext = document.getElementById('templateBuilder').getContext('2d');
 
 	// Do some maths to speed up the calculations later
 	this.totalBlockWidth = this.blockWidth + this.blockSpacing;
