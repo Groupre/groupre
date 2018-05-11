@@ -133,6 +133,9 @@ $(document).ready(function () {
 		});
 	})
 
+	// NOTE keydown and keyup seem to not be active, at least in Chrome.
+	// As such, getting information such as whether shift is held down or not may not be possible.
+
 	t = setInterval('tick()', 30);
 });
 
