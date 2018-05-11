@@ -12,6 +12,8 @@ from werkzeug.utils import secure_filename
 import groupre
 from helpers import postem
 
+# NOTE All/most commented out lines in the following script are from the first iteration of the groupre web app. Left as reference if necessary for further modifications in the overhauled front-end web interface. As of the last usage of the old front-end, uploading files did not work, so use the below commented-out lines as reference with caution.
+
 # UPLOAD_FOLDER = os.getcwd() + '/uploads/'
 # ALLOWED_EXTENSIONS = set(['csv'])
 
