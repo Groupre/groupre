@@ -165,9 +165,9 @@ def main(argv):
     # NOTE 'newline=''' required when writing on an OS that ends lines in CRLF rather than just LF.
     print('----------')
     print('Seats assigned. Writing to csv.')
-    with open(output_csv, 'w', newline='') as csvfile:
+    with open(output_csv, 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter=',',
-                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
+                            quotechar='|',quoting=csv.QUOTE_MINIMAL)
         for team in teams:
             writer.writerow(team)
 
