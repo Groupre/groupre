@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+	<title>groupre - demo</title>
+
+	<!--CSS-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" />
+	<link rel="stylesheet" href="static/css/style.css" />
+</head>
+
+<body>
+	<nav class="light-blue lighten-1" role="navigation">
+		<div class="nav-wrapper container">
+			<a id="logo-container" href="/" class="brand-logo">groupre</a>
+		</div>
+	</nav>
+	<div class="section no-pad-bot" id="index-banner">
+		<div class="container">
+			<br>
+			<br>
+			<h1 class="header center light-blue-text">demo</h1>
+			<div class="row center">
+				<h5 class="header col s12 light">The demo portion of groupre is currently under construction.</h5>
+			</div>
+			<div class="row center">
+				<a href="/" id="homepage-button" class="btn-large waves-effect waves-light light-blue">Homepage</a>
+			</div>
+			<br>
+			<br>
+		</div>
+    </div>
+    
+    <div class = "section no-pad-bot" > 
+        <div class=" container" >
+            <div class=" row center">
+                <form action="/transform" method="post" enctype="multipart/form-data">
+                    <input type="file" name="data_file" />
+                    <input type="submit" />
+                </form>
+            </div>
+        </div>
+    </div>
+
+	<!-- grid Prototype -->
+	<!-- <div class="section no-pad-bot" id="gridPrototype">
+		<div class="container">
+			<div class="row center">
+				<h2 class="header col s12 light">Grid Prototype</h5>
+			</div>
+
+			<div class="row center">
+				<h5 class="header col s12 light">Use your mouse to select squares. Clicking a column or row header will select all squares in that row or column.
+				</h5>
+				<h5 class="header col s12 light">Hotkeys X, A, and L set attributes to a chair such as "Forbid", "Aisle", and "Left-Handed" respectively.
+				</h5>
+				<h5 class="header col s12 light">Holding R while clicking a row or column header will let you rename that row or column.
+				</h5>
+			</div>
+
+			<div class="row center" style="height: 500px; overflow: scroll;">
+				<canvas id="blueprintBuilder"></canvas>
+			</div>
+		</div>
+	</div>
+
+	<br>
+	<br> -->
+
+	<!--Footer Section-->
+	<footer class="page-footer grey darken-4">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text">Project Information</h5>
+					<p class="grey-text text-lighten-4">The groupre project is designed to provide a tool for instructional use in large classroom environments where assigning
+						of seats for team-creation or other similar goals is desired.</p>
+				</div>
+				<div class="col l3 s12">
+					<h5 class="white-text">Other Links</h5>
+					<ul>
+						<li>
+							<a class="white-text" href="https://github.com/jeyerena/ClassTeamBuilder">Project GitHub</a>
+						</li>
+						<li>
+							<a class="white-text" href="https://github.com/jeyerena/ClassTeamBuilder/tree/master/docs">Documentation</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container">
+				Made by
+				<a class="light-blue-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+			</div>
+		</div>
+	</footer>
+
+
+	<!--Scripts-->
+	<!-- JQuery -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	    crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+	    crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/color/jquery.color-2.1.2.min.js" integrity="sha256-H28SdxWrZ387Ldn0qogCzFiUDDxfPiNIyJX7BECQkDE="
+	    crossorigin="anonymous"></script>
+
+	<!-- Materialize -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+	<!-- Grid Prototype -->
+	<script src="static/js/blueprintBuilder.js"></script>
+</body>
+
+</html>
