@@ -1,55 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-	<title>groupre - Materialize Test Homepage</title>
-
-	<!--CSS-->
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link href="static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
-	<link href="static/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
-</head>
-
-<body>
-	<nav class="light-blue lighten-1" role="navigation">
-		<div class="nav-wrapper container">
-			<a id="logo-container" href="/" class="brand-logo">groupre</a>
-			<!-- <ul class="right hide-on-med-and-down">
-				<li>
-					<a href="#">Run groupre</a>
-				</li>
-				<li>
-					<a href="#">Upload Room</a>
-				</li>
-				<li>
-					<a href="#">Create Room</a>
-				</li>
-				<li>
-					<a href="#">Run Tests</a>
-				</li>
-			</ul> -->
-
-			<!-- <ul id="nav-mobile" class="side-nav">
-				<li>
-					<a href="#">Run groupre</a>
-				</li>
-				<li>
-					<a href="#">Upload Room</a>
-				</li>
-				<li>
-					<a href="#">Create Room</a>
-				</li>
-				<li>
-					<a href="#">Run Tests</a>
-				</li>
-			</ul> -->
-			<!-- <a href="#" data-activates="nav-mobile" class="button-collapse">
-				<i class="material-icons">menu</i>
-			</a> -->
-		</div>
-	</nav>
+{% extends "layout.html" %}
+{% block content %}
 	<div class="section" id="index-banner">
 		<div class="container">
 			<br>
@@ -69,8 +19,20 @@
 			</div>
 			<div class="row center">
 				<!-- <a href="/test" id="room_builder_button" class="btn-large waves-effect waves-light light-blue">Room Builder Alpha</a> -->
+				<form action="/login">
+					<input class="btn-large waves-effect waves-light light-blue" type="submit" value="Login" />
+				</form>
+			</div>
+			<div class="row center">
+				<!-- <a href="/test" id="room_builder_button" class="btn-large waves-effect waves-light light-blue">Room Builder Alpha</a> -->
+				<form action="/register">
+					<input class="btn-large waves-effect waves-light light-blue" type="submit" value="Register" />
+				</form>
+			</div>
+			<div class="row center">
+				<!-- <a href="/test" id="room_builder_button" class="btn-large waves-effect waves-light light-blue">Room Builder Alpha</a> -->
 				<form action="/demo">
-					<input class="btn-large waves-effect waves-light light-blue" type="submit" value="TestDemo" />
+					<input class="btn-large waves-effect waves-light light-blue" type="submit" value="run Groupre" />
 				</form>
 			</div>
 			<br>
@@ -116,6 +78,4 @@
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="static/js/materialize.js"></script>
 	<script src="static/js/init.js"></script>
-</body>
-
-</html>
+{% endblock content %}

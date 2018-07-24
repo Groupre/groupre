@@ -1,23 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-	<title>groupre - demo</title>
-
-	<!--CSS-->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" />
-	<link rel="stylesheet" href="static/css/style.css" />
-</head>
-
-<body>
-	<nav class="light-blue lighten-1" role="navigation">
-		<div class="nav-wrapper container">
-			<a id="logo-container" href="/" class="brand-logo">groupre</a>
-		</div>
-	</nav>
+{% extends "layout.html" %}
+{% block content %}
 	<div class="section no-pad-bot" id="index-banner">
 		<div class="container">
 			<br>
@@ -37,38 +19,18 @@
     <div class = "section no-pad-bot" > 
         <div class=" container" >
             <div class=" row center">
+				<h4>
+					Upload student csv and chair csv here (order matters)
+				</h4>
                 <form action="/transform" method="post" enctype="multipart/form-data">
-                    <input type="file" name="data_file" />
+					<input type="file"  name="student_file" />
+					<input type="file"  name="chair_file" />
                     <input type="submit" />
-                </form>
+				</form>
             </div>
         </div>
-    </div>
-
-	<!-- grid Prototype -->
-	<!-- <div class="section no-pad-bot" id="gridPrototype">
-		<div class="container">
-			<div class="row center">
-				<h2 class="header col s12 light">Grid Prototype</h5>
-			</div>
-
-			<div class="row center">
-				<h5 class="header col s12 light">Use your mouse to select squares. Clicking a column or row header will select all squares in that row or column.
-				</h5>
-				<h5 class="header col s12 light">Hotkeys X, A, and L set attributes to a chair such as "Forbid", "Aisle", and "Left-Handed" respectively.
-				</h5>
-				<h5 class="header col s12 light">Holding R while clicking a row or column header will let you rename that row or column.
-				</h5>
-			</div>
-
-			<div class="row center" style="height: 500px; overflow: scroll;">
-				<canvas id="blueprintBuilder"></canvas>
-			</div>
-		</div>
 	</div>
 
-	<br>
-	<br> -->
 
 	<!--Footer Section-->
 	<footer class="page-footer grey darken-4">
@@ -115,6 +77,4 @@
 
 	<!-- Grid Prototype -->
 	<script src="static/js/blueprintBuilder.js"></script>
-</body>
-
-</html>
+{% endblock content %}
