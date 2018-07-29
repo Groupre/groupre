@@ -1,6 +1,7 @@
 # groupre
 
 Welcome to the groupre GitHub repository!
+This branch of groupre is for the development on Carolina Cloudapps. 
 
 ## Overview
 
