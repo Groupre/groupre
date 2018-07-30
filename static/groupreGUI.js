@@ -14,7 +14,7 @@ $(document).ready(function(){
     var currentTeams = {}
     var roomID = document.getElementById('roomName').value;
     
-    document.getElementById('building').onclick = function() {
+    document.getElementById('build').onclick = function() {
         console.log("c = 1 printed");
         this.hidden = true;
         rows = parseInt(document.getElementById('Enter rows here:').value,10);
