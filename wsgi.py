@@ -255,4 +255,4 @@ def saveRoom():
             writer.writerow(row)
 
 if __name__ == "__main__":
-    application.run()
+    application.run(debug=True)

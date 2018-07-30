@@ -1,0 +1,4 @@
+Students: 243
+Seats: 243
+Student Priority Rating: 16.73%
+Time Elapsed: 0.24171209335327148 seconds
