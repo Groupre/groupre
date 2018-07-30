@@ -14,7 +14,8 @@ $(document).ready(function(){
     var currentTeams = {}
     var roomID = document.getElementById('roomName').value;
     
-    document.getElementById('build').onclick = function() {
+    document.getElementById('building').onclick = function() {
+        console.log("c = 1 printed");
         this.hidden = true;
         rows = parseInt(document.getElementById('Enter rows here:').value,10);
         cols = parseInt(document.getElementById('Enter columns here:').value,10);
@@ -31,6 +32,10 @@ $(document).ready(function(){
                 cell.innerHTML = cell.id;
                 // cell.innerHTML = ''
                 row.appendChild(cell);
+                if (c== 1){
+                    console.log("c = 1 printed");
+                    cell.classList.toggle("leftHand");
+                }
             }
             // if (prevrow) {
             //     table.insertBefore(row, prevrow);
@@ -90,7 +95,7 @@ $(document).ready(function(){
     document.getElementById("leftHandedButton").onclick = function() {
         var table = document.getElementById("dataTable");
         var cells = table.getElementsByClassName("highlight");
-
+        console.log("c = 1 printed");
         for(var i=0; i<cells.length; i++) {
             var cell = cells[i];
             cell.classList.toggle("leftHand");

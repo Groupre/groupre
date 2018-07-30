@@ -232,12 +232,12 @@ def downloadcsv(output_name):
 def create_room():
     return render_template('groupreHome.html')
 
-#TODO Remove this route before 12/11/17
-@application.route("/guiTest/<string:html_file>")
-def testGUI(html_file):
-    if html_file.split('.')[-1] == '.html':
-        return render_template(html_file)
-    return html_file
+# #TODO Remove this route before 12/11/17
+# @application.route("/guiTest/<string:html_file>")
+# def testGUI(html_file):
+#     if html_file.split('.')[-1] == '.html':
+#         return render_template(html_file)
+#     return html_file
     
 @application.route("/room-saver", methods=['POST'])
 def saveRoom():
