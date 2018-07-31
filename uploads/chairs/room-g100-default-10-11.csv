@@ -9,6 +9,7 @@ CID,TeamID,Attributes
 07, ,front
 08, ,front
 09, ,front
+010, ,front
 10, ,left
 11, 
 12, 
@@ -19,6 +20,7 @@ CID,TeamID,Attributes
 17, 
 18, 
 19, 
+110, 
 20, ,left
 21, 
 22, 
@@ -29,6 +31,7 @@ CID,TeamID,Attributes
 27, 
 28, 
 29, 
+210, 
 30, ,left
 31, 
 32, 
@@ -39,6 +42,7 @@ CID,TeamID,Attributes
 37, 
 38, 
 39, 
+310, 
 40, ,left
 41, 
 42, 
@@ -49,6 +53,7 @@ CID,TeamID,Attributes
 47, 
 48, 
 49, 
+410, 
 50, ,left
 51, 
 52, 
@@ -59,6 +64,7 @@ CID,TeamID,Attributes
 57, 
 58, 
 59, 
+510, 
 60, ,left
 61, 
 62, 
@@ -69,6 +75,7 @@ CID,TeamID,Attributes
 67, 
 68, 
 69, 
+610, 
 70, ,left
 71, 
 72, 
@@ -79,6 +86,7 @@ CID,TeamID,Attributes
 77, 
 78, 
 79, 
+710, 
 80, ,left
 81, 
 82, 
@@ -89,6 +97,7 @@ CID,TeamID,Attributes
 87, 
 88, 
 89, 
+810, 
 90, ,left
 91, ,back
 92, ,back
@@ -99,3 +108,4 @@ CID,TeamID,Attributes
 97, ,back
 98, ,back
 99, ,back
+910, ,back
