@@ -9,13 +9,12 @@ $(document).ready(function(){
     }
     var rows;
     var cols;
-    var maxGroupSize = 5;
+    var maxGroupSize = 6;
     var teamNum = 0;    
     var currentTeams = {}
     var roomID = document.getElementById('roomName').value;
     
     document.getElementById('build').onclick = function() {
-        console.log("c = 1 printed");
         this.hidden = true;
         rows = parseInt(document.getElementById('Enter rows here:').value,10);
         cols = parseInt(document.getElementById('Enter columns here:').value,10);
@@ -32,16 +31,15 @@ $(document).ready(function(){
                 cell.innerHTML = cell.id;
                 // cell.innerHTML = ''
                 row.appendChild(cell);
-                if (c== 1){
-                    console.log("c = 1 printed");
+                if (c== 0){
                     cell.classList.toggle("leftHand");
+                } else if (r == 0) {
+                    cell.classList.toggle("front");
+                } else if (r+1 == rows) {
+                    cell.classList.toggle("back");
                 }
             }
-            // if (prevrow) {
-            //     table.insertBefore(row, prevrow);
-            // } else {
-            //     table.appendChild(row);
-            // }
+
             table.appendChild(row)
             prevrow = row;
         }
@@ -129,20 +127,29 @@ $(document).ready(function(){
 
             if(col == 0) {
                 cell.classList.toggle("aisleLeft");
+
+                cells[i+1].classList.toggle("leftHand");
+
             } else if(col1 == 0 && col2 == 0) {
                 col1 = col;
                 if(col > nextCol) {
                     col2 = col;
                     col1 = nextCol;
                     cell.classList.toggle("aisleRight");
+
                 } else {
                     cell.classList.toggle("aisleLeft");
+                    cells[i+1].classList.toggle("leftHand");
+
                 }
             } else {
                 if(col == col1) {
                     cell.classList.toggle("aisleLeft");
+                    cells[i+1].classList.toggle("leftHand");
+
                 } else if(col == col2) {
                     cell.classList.toggle("aisleRight");
+
                 }
             }
         }
