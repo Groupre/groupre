@@ -20,6 +20,7 @@ $(document).ready(function(){
         rows = parseInt(document.getElementById('Enter rows here:').value,10);
         cols = parseInt(document.getElementById('Enter columns here:').value,10);
         roomID = document.getElementById('roomID').value;
+	console.log(roomID);
         var table = document.createElement('table');
         table.id = 'dataTable';
         table.border = "1";
@@ -55,6 +56,7 @@ $(document).ready(function(){
                 var opt = document.createElement("option");
                 opt.value = i;
                 opt.innerHTML = 'Groups of ' + i;
+		console.log(i);
                 document.getElementById('dropdown').appendChild(opt);   
             }
         }
