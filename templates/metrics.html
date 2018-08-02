@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Download Seating Chart</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block content %}
         <a href="/"><div class="header">
                 <img alt="groupythegroupregrouper" src="../static/groupy.png">
                 <h1>Groupre - Room Builder</h1>            
@@ -28,5 +23,4 @@
         <button formaction="/download/{{ output_name ~ '-postEm.csv' }}">Download Sakai Postem</button>
     </form>
 
-</body>
-</html>
+    {% endblock content %}

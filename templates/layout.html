@@ -4,20 +4,29 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-	<title>groupre - demo</title>
+	<meta name="description" content="GroupreHome">
+	<meta name="author" content="Team Groupre">
+	  
+	<title>groupre {{ title }} </title>
+
 
 	<!--CSS-->
+	<link rel="stylesheet" type="text/css" href="../static/default.css">
+	<link rel="stylesheet" href="../static/groupre.css" style type="text/css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" />
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" /> -->
 	<link rel="stylesheet" href="static/css/style.css" />
+	<link rel="stylesheet" href="../static/test.css" type="text/css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+	<script type="text/javascript" src="../static/groupreGUI.js"></script>
+  	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script type="text/javascript" src="../static/jquery.min.js"></script>
+	  <script type="text/javascript" src="../static/send.js"></script>
 </head>
 
 <body>
-	<nav class="light-blue lighten-1" role="navigation">
-		<div class="nav-wrapper container">
-			<a id="logo-container" href="/" class="brand-logo">groupre</a>
-		</div>
-    </nav>
+	
     {% block content %}{% endblock %}
 </body>
 </html> 

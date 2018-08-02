@@ -87,7 +87,7 @@ def make_tree(path):
 
 @application.route("/")
 def hello():
-    return render_template('index.html')
+    return render_template('index.html', title = "Home")
 
 
 @application.route("/docs/")
@@ -125,7 +125,7 @@ def runTests():
         testCasePath = os.path.join(testCasesDir, testCase)
         testCaseName = os.path.basename(testCasePath).replace('_', ' ').split('.csv')[0].title()
         test_files.update({testCaseName:testCase})
-    return render_template('test.html', test_files=test_files)
+    return render_template('test.html', test_files=test_files, title = "Test Upload")
 
 @application.route('/upload/<string:roomID>', methods=['GET', 'POST'])
 def upload_file(roomID):
@@ -157,7 +157,7 @@ def upload_file(roomID):
             output_name = run_groupre(newlocation, roomID, fallback, False)
             output_name = output_name.split('/')[-1].split('.', 1)[0]
             return redirect('/metrics/' + output_name)
-    return render_template('upload.html')
+    return render_template('upload.html', title = "Upload page")
 
 @application.route("/room-select")
 def selectRoom():
@@ -171,7 +171,7 @@ def selectRoom():
             cKey = roomID + capacity
             # cKey = '-'.join(cValue.split('-')[2:]).title()
             chairFiles.update({cKey:cValue})
-    return render_template("room.html", chairFiles=chairFiles)
+    return render_template("room.html", chairFiles=chairFiles, title = "Run Groupre")
 
 @application.route("/metrics/<string:output_name>")
 def metrics(output_name):
@@ -183,9 +183,9 @@ def metrics(output_name):
             print(m)
         postem.postem(['--output', UPLOAD_FOLDER +
                        'output/' + output_name + '.csv'])
-        return render_template("metrics.html", output_name=output_name, metrics=metrics)
+        return render_template("metrics.html", output_name=output_name, metrics=metrics , title = "Metrics result")
     except FileNotFoundError:
-        return render_template("metrics.html", output_name=output_name)
+        return render_template("metrics.html", output_name=output_name, title = "Metrics result")
 
 @application.route("/download/<string:output_name>", methods=['POST'])
 def downloadcsv(output_name):
@@ -230,8 +230,10 @@ def downloadcsv(output_name):
 
 @application.route("/room-creation")
 def create_room():
-    return render_template('groupreHome.html')
-
+    return render_template('groupreHome.html', title = "Create class")
+@application.route("/team-creation")
+def create_team():
+    return render_template('groupreTeam.html', title = "Create teams")
 # #TODO Remove this route before 12/11/17
 # @application.route("/guiTest/<string:html_file>")
 # def testGUI(html_file):

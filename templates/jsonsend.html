@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-	<link rel="stylesheet" href="../static/test.css" type="text/css">
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript" src="../static/jquery.min.js"></script>
-	<script type="text/javascript" src="../static/send.js"></script>
-    <title>groupre</title>
-</head>
-
-<body>
+	{% extends "layout.html" %}
+	{% block content %}
 	<h1>Click</h1>
 	<button onclick="sendJSON()">Send JSON</button>
     <input type="button" id="bourne" value="Send JSON again"/>
@@ -23,5 +13,4 @@
 		xmlhttp.send(JSON.stringify({name:"Json Bourne", time:"2pm"}));
 	}
 	</script>
-</body>
-</html>
+	{% endblock content %}

@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
 
-  <title>Groupre</title>
-  <meta name="description" content="GroupreHome">
-  <meta name="author" content="Team Groupre">
-
-  <link rel="stylesheet" href="../static/groupre.css" style type="text/css">
-  <script type="text/javascript" src="../static/groupreGUI.js"></script>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript" src="../static/jquery.min.js"></script>
-
-</head>
-
-<body>
+	{% extends "layout.html" %}
+	{% block content %}
     <a href="/"><div class="header">
         <img alt="groupythegroupregrouper" src="../static/groupy.png">
         <h1>Groupre - Room Builder</h1>            
@@ -59,6 +45,4 @@
     <div id="output"> 
         <script src="../static/groupreGUI.js"></script>
       </div>
-
-</body>
-</html>
+{% endblock content %}

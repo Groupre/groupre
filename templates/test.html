@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/default.css" type="text/css">
-    <title>groupre: Upload Students Preference</title>
-</head>
-
-<body>
+{% extends "layout.html" %}
+{% block content %}
     <a href="/"><div class="header">
             <img alt="groupythegroupregrouper" src="../static/groupy.png">
             <h1>Groupre</h1>            
@@ -29,5 +21,4 @@
             <input type=file name=file>
             <input type=submit value=Upload>
     </form>
-
-</body>
+{% endblock content %}
