@@ -1,4 +1,40 @@
 
-{% extends "layout.html" %}
-{% block content %}
+	{% extends "layout.html" %}
+	{% block content %}
+    <a href="/"><div class="header">
+        <img alt="groupythegroupregrouper" src="../static/groupy.png">
+        <h1>Groupre - {{title}}</h1>            
+    </div></a>
+
+    <script type="text/javascript" src="../static/jquery.min.js"></script>
+    <br>
+    Select Room from templates : <select id = "roomDropdown"></select>
+    <input type="button" id="show" value="Build the room!"/>
+    
+    <div id="interface">
+      <div id="controls">
+        <input type="button" id="teamButton" value="Create Team from Selected Seats"/>
+        <br>
+        <input type="button" id="saveChanges" value="Save Changes"/>
+        <p id="message"></p>        
+
+        <form action="">
+          <select id="dropdown">
+          </select> 
+          <button type="button" id="autoAdd">Submit</button>
+        </form>
+        
+        
+        <input type="button" id="reset" value="Reset Board"/>
+       
+      <div id="teamList">
+        <script src="../static/groupreGUI.js"></script> 
+      </div>
+    </div> 
+      
+      
+    </div>
+    <div id="output"> 
+        <script src="../static/groupreGUI.js"></script>
+      </div>
 {% endblock content %}

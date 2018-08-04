@@ -13,12 +13,17 @@ import groupre
 from helpers import postem
 
 UPLOAD_FOLDER = os.getcwd() + '/uploads/'
-ALLOWED_EXTENSIONS = set(['csv'])
+ALLOWED_EXTENSIONS = set(['csv','json'])
 
 if os.path.exists('/chairs'):
     CHAIRS_DIR = '/chairs'
 else:
     CHAIRS_DIR = UPLOAD_FOLDER + 'chairs/'
+# classroom template dir
+if os.path.exists('/classes'):
+    CLASS_DIR = '/classes'
+else:
+    CLASS_DIR = UPLOAD_FOLDER + 'classes/'
 
 application = Flask(__name__)
 
@@ -233,13 +238,10 @@ def create_room():
     return render_template('groupreHome.html', title = "Create class")
 @application.route("/team-creation")
 def create_team():
-    return render_template('groupreTeam.html', title = "Create teams")
-# #TODO Remove this route before 12/11/17
-# @application.route("/guiTest/<string:html_file>")
-# def testGUI(html_file):
-#     if html_file.split('.')[-1] == '.html':
-#         return render_template(html_file)
-#     return html_file
+    classes = {}
+
+    return render_template('groupreTeam.html',title = "Create teams")
+
     
 @application.route("/room-saver", methods=['POST'])
 def saveRoom():
@@ -255,6 +257,20 @@ def saveRoom():
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for row in content:
             writer.writerow(row)
+#saveing class template
+#under construction need to save json
+@application.route("/class-saver", methods=['POST'])
+def saveClass():
+    content = request.get_json()
+    info = content.pop(0)
+    filename = []
+    for item in info:
+        filename.append(str(item))
+    filename = '-'.join(filename)
+    filename = CLASS_DIR + 'class_template-' + filename + '.json'
+    with open(filename, 'w') as outfile:
+        json.dump(data,outfile,ensure_ascii=False)
+        
 
 if __name__ == "__main__":
     application.run(debug=True)
