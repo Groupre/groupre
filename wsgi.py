@@ -20,6 +20,11 @@ if os.path.exists('/chairs'):
 else:
     CHAIRS_DIR = UPLOAD_FOLDER + 'chairs/'
 
+if os.path.exists('/classrooms'):
+    CLASSROOMS_DIR = '/classrooms'
+else:
+    CLASSROOMS_DIR = UPLOAD_FOLDER + 'classrooms/'
+
 application = Flask(__name__)
 
 app = Flask(__name__)
