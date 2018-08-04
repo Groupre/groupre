@@ -48,43 +48,43 @@ $(document).ready(function(){
         }
         document.getElementById('output').appendChild(table);
         drag();
-
-        // Auto-add suggestions and selection
-        var totalSeats = rows * cols;
-        for (i = 2; i <= maxGroupSize; i++) {
-            if (totalSeats % i == 0){
-                var opt = document.createElement("option");
-                opt.value = i;
-                opt.innerHTML = 'Groups of ' + i;
-		console.log(i);
-                document.getElementById('dropdown').appendChild(opt);   
-            }
-        }
     }
 
     //Automatically add teams based on user selection
-    document.getElementById('autoAdd').onclick = function(){
-        var select = document.getElementById('dropdown');
-        var idx = select.selectedIndex;
-        var selectedOption = select.options[idx];
-        var teamSize = selectedOption.value;
-        var table = document.getElementById('dataTable');
-        var cells = table.getElementsByTagName('td')
-        var currTeam = 0;
-        var teamMembers = [];
-        for (var i=0; i < cells.length; i++){
-            var cell = cells[i];
-            cell.classList.toggle("team" + currTeam);
-            cell.innerHTML = currTeam;
-            teamMembers.push(cell);
-            if (((i + 1) % teamSize) == 0){
-                currentTeams[currTeam] = teamMembers;
-                teamMembers = [];
-                currTeam++;                
-            }
-        }
-        teamNum = currTeam;        
-    }
+    // document.getElementById('autoAdd').onclick = function(){
+    //     // Auto-add suggestions and selection
+    //     var totalSeats = rows * cols;
+    //     for (i = 2; i <= maxGroupSize; i++) {
+    //         if (totalSeats % i == 0){
+    //             var opt = document.createElement("option");
+    //             opt.value = i;
+    //             opt.innerHTML = 'Groups of ' + i;
+	// 	console.log(i);
+    //             document.getElementById('dropdown').appendChild(opt);   
+    //         }
+    //     }
+
+    //     var select = document.getElementById('dropdown');
+    //     var idx = select.selectedIndex;
+    //     var selectedOption = select.options[idx];
+    //     var teamSize = selectedOption.value;
+    //     var table = document.getElementById('dataTable');
+    //     var cells = table.getElementsByTagName('td')
+    //     var currTeam = 0;
+    //     var teamMembers = [];
+    //     for (var i=0; i < cells.length; i++){
+    //         var cell = cells[i];
+    //         cell.classList.toggle("team" + currTeam);
+    //         cell.innerHTML = currTeam;
+    //         teamMembers.push(cell);
+    //         if (((i + 1) % teamSize) == 0){
+    //             currentTeams[currTeam] = teamMembers;
+    //             teamMembers = [];
+    //             currTeam++;                
+    //         }
+    //     }
+    //     teamNum = currTeam;        
+    // }
 
     function addToTeam(cell, team){
         //TODO use this function for whenever we add to teams
@@ -238,40 +238,40 @@ $(document).ready(function(){
         }
     }
     
-    document.getElementById("teamButton").onclick = function() {
-        var table = document.getElementById("dataTable");
-        var cells = table.getElementsByClassName("highlight");
-        var team = document.createElement('p');
+    // document.getElementById("teamButton").onclick = function() {
+    //     var table = document.getElementById("dataTable");
+    //     var cells = table.getElementsByClassName("highlight");
+    //     var team = document.createElement('p');
 
-        if(cells.length < 1) {
-            return;
-        }
+    //     if(cells.length < 1) {
+    //         return;
+    //     }
 
-        var teamMembers = []
-        for(var i=0; i<cells.length; i++) {
-            var cell = cells[i];            
-            for (j=0; j<teamNum; j++){
-                if (cell.classList.contains("team" + j)){
-                    cell.classList.toggle("team" + j);
-                }
-            }
-            cell.classList.toggle("team" + teamNum);
-            cell.innerHTML = teamNum;
-            teamMembers.push(cell);
-        }
-        currentTeams[teamNum] = teamMembers
+    //     var teamMembers = []
+    //     for(var i=0; i<cells.length; i++) {
+    //         var cell = cells[i];            
+    //         for (j=0; j<teamNum; j++){
+    //             if (cell.classList.contains("team" + j)){
+    //                 cell.classList.toggle("team" + j);
+    //             }
+    //         }
+    //         cell.classList.toggle("team" + teamNum);
+    //         cell.innerHTML = teamNum;
+    //         teamMembers.push(cell);
+    //     }
+    //     currentTeams[teamNum] = teamMembers
 
-        team.innerHTML = "Team " + teamNum;
-        team.id = "team" + teamNum;
-        teamNum += 1;
-        document.getElementById("teamList").appendChild(team);
+    //     team.innerHTML = "Team " + teamNum;
+    //     team.id = "team" + teamNum;
+    //     teamNum += 1;
+    //     document.getElementById("teamList").appendChild(team);
 
-        cells = table.getElementsByTagName("td");
-        for(var i=0; i<cells.length; i++) {
-            var cell = cells[i];
-            cell.classList.remove("highlight");
-        }
-    }
+    //     cells = table.getElementsByTagName("td");
+    //     for(var i=0; i<cells.length; i++) {
+    //         var cell = cells[i];
+    //         cell.classList.remove("highlight");
+    //     }
+    // }
     
 
     function drag() {
@@ -319,18 +319,6 @@ $(document).ready(function(){
         });
     }
     
-    document.getElementById("teamList").onmouseover = function() {
-        var table = document.getElementById("dataTable");
-        var teamList = document.getElementsByClassName("team");
-
-        $("#teamList p").mouseover(function() {
-            var team = this;
-            var teamId = team.id;
-            var cells = table.getElementsByClassName(teamId);
-            var temp = team.innerHTML;
-            team.innerHTML = cells[0].id;
-        });
-    }
 
     document.getElementById('saveChanges').onclick = function(){
         var array = [];

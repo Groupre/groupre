@@ -1,8 +1,13 @@
 body {
     display: block;
     text-align: center;
-    font-family: sans-serif;
-    max-width: 100%;
+    /* font-family: sans-serif; */
+	max-width: 100%;
+	padding-left: 10em;
+	padding-right: 10em;
+  	font-family: Verdana, Geneva, sans-serif;
+  	color: black;
+
 }
 
 h2{
@@ -28,12 +33,16 @@ a{
 }
   
 .header h1 {
-	position: relative;
+	position: fixed;
 	top: 18px;
-	left: 0px;
+	left: 20px;
 	color: black;	
 }
-
+.pageTitle{
+	position: relative;
+	left: 35%;
+	color: black;
+}
 .btn {
 	font-family: Arial;
 	color: #ffffff;

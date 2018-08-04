@@ -1,12 +1,8 @@
 
 	{% extends "layout.html" %}
-	{% block content %}
-    <a href="/"><div class="header">
-        <img alt="groupythegroupregrouper" src="../static/groupy.png">
-        <h1>Groupre - Room Builder</h1>            
-    </div></a>
-
-    <script type="text/javascript" src="../static/jquery.min.js"></script>
+  {% block content %}
+    <h2 class = "pageTitle">{{title}}</h2>
+    <!-- <script type="text/javascript" src="../static/jquery.min.js"></script> -->
     <br>
     Room Name: <input id="roomID"/>
     <br>
@@ -16,7 +12,6 @@
     
     <div id="interface">
       <div id="controls">
-        <input type="button" id="teamButton" value="Create Team from Selected Seats"/>
         <input type="button" id="leftHandedButton" value="Set Selected Seats as Left-Handed"/>
         <input type="button" id="aisleButton" value="Place an Aisle Between Two Columns of Seats"/>
         <input type="button" id="frontRowButton" value="Set Selected Seats as the Front Row"/>
@@ -26,21 +21,17 @@
         <input type="button" id="saveChanges" value="Save Changes"/>
         <p id="message"></p>        
 
-        <form action="">
+        <!-- <form>
           <select id="dropdown">
           </select> 
           <button type="button" id="autoAdd">Submit</button>
-        </form>
+        </form> -->
         
         
         <input type="button" id="reset" value="Reset Board"/>
        
-      <div id="teamList">
-        <script src="../static/groupreGUI.js"></script> 
-      </div>
+     
     </div> 
-      
-      
     </div>
     <div id="output"> 
         <script src="../static/groupreGUI.js"></script>

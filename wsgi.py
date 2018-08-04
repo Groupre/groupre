@@ -261,5 +261,19 @@ def saveRoom():
         for row in content:
             writer.writerow(row)
 
+@application.route("/class-saver", methods=['POST'])
+def saveClass():
+    content = request.get_json()
+    info = content.pop(0)
+    filename = []
+    for item in info:
+        filename.append(str(item))
+    filename = '-'.join(filename)
+    filename = CLASS_DIR + 'class_template-' + filename + '.json'
+    with open(filename, 'w') as outfile:
+        json.dump(data,outfile,ensure_ascii=False)
+        
+
+
 if __name__ == "__main__":
     application.run(debug=True)
