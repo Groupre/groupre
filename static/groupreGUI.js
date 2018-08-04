@@ -237,43 +237,6 @@ $(document).ready(function(){
             }
         }
     }
-    
-    // document.getElementById("teamButton").onclick = function() {
-    //     var table = document.getElementById("dataTable");
-    //     var cells = table.getElementsByClassName("highlight");
-    //     var team = document.createElement('p');
-
-    //     if(cells.length < 1) {
-    //         return;
-    //     }
-
-    //     var teamMembers = []
-    //     for(var i=0; i<cells.length; i++) {
-    //         var cell = cells[i];            
-    //         for (j=0; j<teamNum; j++){
-    //             if (cell.classList.contains("team" + j)){
-    //                 cell.classList.toggle("team" + j);
-    //             }
-    //         }
-    //         cell.classList.toggle("team" + teamNum);
-    //         cell.innerHTML = teamNum;
-    //         teamMembers.push(cell);
-    //     }
-    //     currentTeams[teamNum] = teamMembers
-
-    //     team.innerHTML = "Team " + teamNum;
-    //     team.id = "team" + teamNum;
-    //     teamNum += 1;
-    //     document.getElementById("teamList").appendChild(team);
-
-    //     cells = table.getElementsByTagName("td");
-    //     for(var i=0; i<cells.length; i++) {
-    //         var cell = cells[i];
-    //         cell.classList.remove("highlight");
-    //     }
-    // }
-    
-
     function drag() {
         var isMouseDown = false,
         isHighlighted;
@@ -352,16 +315,18 @@ $(document).ready(function(){
             }
             array.push(row)
         }
-        var chairs = JSON.stringify(array);
+        var classroom = JSON.stringify(array);
         setTimeout(function(){
             var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-            xmlhttp.open("POST", "/room-saver");
+            xmlhttp.open("POST", "/class-saver");
             xmlhttp.setRequestHeader("Content-Type", "application/json");
-            xmlhttp.send(chairs);
+            xmlhttp.send(classroom);
         }, 1000);
         document.getElementById('message').innerHTML = 'Changes saved.'
         setTimeout(function(){
             document.getElementById('message').innerHTML = ''
         }, 2000);
     }
+
+    
 });

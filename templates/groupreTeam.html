@@ -5,8 +5,13 @@
 <p>Select a classroom template</p>
 <form>
     <select id = "classList">
+        {%- for item in roomFiles.keys() %}
+        <option value="{{ roomFiles[item] }}">{{ item }}</option>
+        {%- endfor %}
     </select>
-</form>
+    <button type = "button" id="buildRoom" > Build Room </button>
+  </form>
+    
 <div id="interface">
         <div id="controls">
           <input type="button" id="teamButton" value="Create Team from Selected Seats"/>
@@ -22,13 +27,10 @@
           <input type="button" id="resetTeam" value="Reset Team"/>
          
         <div id="teamList">
-          <script src="../static/groupreGUI.js"></script> 
         </div>
       </div> 
         
         
-      </div>
-      <!-- <div id="output"> 
-          <script src="../static/groupreGUI.js"></script>
-        </div> -->
+  </div>
+
 {% endblock content %}

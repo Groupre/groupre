@@ -137,12 +137,13 @@ def upload_file(roomID):
     if request.method == 'POST':
         if 'file' not in request.files:
           #  flash('No file part')
+            flash('Your file doesnt exist')
             return redirect(url_for('selectRoom'))
         file = request.files['file']
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
-          #  flash('No selected file')
+            flash('No selected file')
             return redirect(url_for('selectRoom'))
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -153,6 +154,7 @@ def upload_file(roomID):
                 reader = csv.reader(csvfile, delimiter=',')
                 row_count = sum(1 for row in reader) - 1
             if row_count > capacity:
+                flash('Students more than num of seats')
                 return redirect(url_for('selectRoom'))
             fallback = False
             if 'fallback' in roomID:
@@ -235,10 +237,20 @@ def downloadcsv(output_name):
 
 @application.route("/room-creation")
 def create_room():
-    return render_template('groupreHome.html', title = "Create class")
+    return render_template('groupreHome.html', roomFiles = "" , title = "Create class")
 @application.route("/team-creation")
 def create_team():
-    return render_template('groupreTeam.html', title = "Create teams")
+    roomFiles = {}
+    for rFile in os.listdir(CLASSROOMS_DIR):
+        if '.json' in rFile:
+            rValue = rFile.split('.json')[0]
+            rKey = rValue.split('-')[2:]
+            roomID = rKey[0].title()
+            capacity = ' ' + str(int(rKey[1]) * int(rKey[2])) + ' Students'
+            rKey = roomID + capacity
+            # cKey = '-'.join(cValue.split('-')[2:]).title()
+            roomFiles.update({rKey:rValue})
+    return render_template('groupreTeam.html', roomFiles = roomFiles , title = "Create teams")
 # #TODO Remove this route before 12/11/17
 # @application.route("/guiTest/<string:html_file>")
 # def testGUI(html_file):
@@ -260,6 +272,7 @@ def saveRoom():
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for row in content:
             writer.writerow(row)
+    return "saved room"
 
 @application.route("/class-saver", methods=['POST'])
 def saveClass():
@@ -269,11 +282,10 @@ def saveClass():
     for item in info:
         filename.append(str(item))
     filename = '-'.join(filename)
-    filename = CLASS_DIR + 'class_template-' + filename + '.json'
+    filename = CLASSROOMS_DIR + 'template-' + filename + '.json'
     with open(filename, 'w') as outfile:
-        json.dump(data,outfile,ensure_ascii=False)
-        
-
+        json.dump(content[2:],outfile,ensure_ascii=False)
+    return "saved template"    
 
 if __name__ == "__main__":
     application.run(debug=True)

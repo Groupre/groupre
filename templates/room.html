@@ -8,7 +8,7 @@
                 <!--input type="checkbox" class="w3-display-topmiddle" id="check"-->                
                 <form class="w3-display-middle" method="POST" action="selectRoom(select)">
                     <p>Select a Room</p>
-                    <select id="dropdown">
+                    <select id="fileList">
                         {%- for item in chairFiles.keys() %}
                         <option value="{{ chairFiles[item] }}">{{ item }}</option>
                         {%- endfor %}
@@ -17,7 +17,7 @@
                 </form>
                 <script>
                     document.getElementById("selectRoom").onclick = function(){
-                        var select = document.getElementById('dropdown');
+                        var select = document.getElementById('fileList');
                         var idx = select.selectedIndex;
                         var selectedOption = select.options[idx].value;
                        /* var fallback = document.getElementById("check").checked;

@@ -7,8 +7,12 @@ $(document).ready(function(){
     var roomID;
 
     // Selects the room from template and builds it. 
-    document.getElementById('buildTeam').onclick = function(){
-
+    document.getElementById('buildRoom').onclick = function(){
+        alert("building");
+        var select = document.getElementById('classList');
+        var idx = select.selectedIndex;
+        var selectedOption = select.options[idx].value;
+        alert(selectedOption);
     }
     // Automatically add teams based on user selection
     document.getElementById('autoAdd').onclick = function(){
@@ -95,7 +99,48 @@ $(document).ready(function(){
     }
 
     document.getElementById("saveTeam").onclick = function() {
+        var array = [];
+        array.push([roomID, 'default', rows, cols]);
+        array.push(['CID', 'TeamID', 'Attributes']);
 
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByTagName("td");
+        
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            var row = [];
+            var cid = cell.id.split(',');
+            row.push(cid[0] + cid[1]);
+
+            for (var j=0; j<teamNum; j++) {
+                if (cell.classList.contains("team"+j)){
+                    row.push(j);
+                    break;
+                }
+            }
+            if (row.length == 1){
+                row.push(' ')
+            }
+
+            for(var key in categories) {
+                var cat = categories[key];
+                if (cell.classList.contains(key)){
+                    row.push(cat);
+                }
+            }
+            array.push(row)
+        }
+        var chairs = JSON.stringify(array);
+        setTimeout(function(){
+            var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+            xmlhttp.open("POST", "/room-saver");
+            xmlhttp.setRequestHeader("Content-Type", "application/json");
+            xmlhttp.send(chairs);
+        }, 1000);
+        document.getElementById('message').innerHTML = 'Changes saved.'
+        setTimeout(function(){
+            document.getElementById('message').innerHTML = ''
+        }, 2000);
     }
 
     
