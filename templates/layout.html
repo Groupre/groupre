@@ -11,32 +11,6 @@
 
 
 	<!--CSS-->
-			<!--navigation bar-->
-	<style>
-		ul {
-			list-style-type: none;
-			margin: 0;
-			padding: 0;
-			overflow: hidden;
-			background-color: #333;
-		}
-		
-		li {
-			float: left;
-		}
-		
-		li a {
-			display: block;
-			color: white;
-			text-align: center;
-			padding: 14px 16px;
-			text-decoration: none;
-		}
-		
-		li a:hover {
-			background-color: #111;
-		}
-		</style>
 	<link rel="stylesheet" type="text/css" href="../static/default.css">
 	<link rel="stylesheet" href="../static/groupre.css" style type="text/css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
@@ -52,17 +26,7 @@
 </head>
 
 <body>
-		<ul>
-				<li><a class="active" href="/">Home</a></li>
-				<li><a href="/room-select">Run Groupre</a></li>
-				<li><a href="/room-creation">Build Class</a></li>
-				<li><a href="/team-creation">Build Team</a></li>
-				<li><a href="/test">Run Test</a></li>
-				<li><a href="https://github.com/Groupre/groupre">Github</a></li>
-
-			</ul>
-			  
-			
+	
     {% block content %}{% endblock %}
 </body>
 </html> 

@@ -61,10 +61,7 @@ $(document).ready(function(){
             }
         }
     }
-    // Selects the room from template and builds it. 
-    document.getElementById('show').onclick = function(){
 
-    }
     //Automatically add teams based on user selection
     document.getElementById('autoAdd').onclick = function(){
         var select = document.getElementById('dropdown');
@@ -100,6 +97,7 @@ $(document).ready(function(){
     document.getElementById("leftHandedButton").onclick = function() {
         var table = document.getElementById("dataTable");
         var cells = table.getElementsByClassName("highlight");
+        console.log("c = 1 printed");
         for(var i=0; i<cells.length; i++) {
             var cell = cells[i];
             cell.classList.toggle("leftHand");
@@ -333,7 +331,7 @@ $(document).ready(function(){
             team.innerHTML = cells[0].id;
         });
     }
-    // save team setting to csv
+
     document.getElementById('saveChanges').onclick = function(){
         var array = [];
         array.push([roomID, 'default', rows, cols]);
@@ -376,51 +374,6 @@ $(document).ready(function(){
         document.getElementById('message').innerHTML = 'Changes saved.'
         setTimeout(function(){
             document.getElementById('message').innerHTML = ''
-        }, 2000);   
-    }
-    // saves room teamplate.
-    document.getElementById("saveClass").onclick = function(){
-        var array = [];
-        array.push([roomID, 'default', rows, cols]);
-        array.push(['CID', 'TeamID', 'Attributes']);
-
-        var table = document.getElementById("dataTable");
-        var cells = table.getElementsByTagName("td");
-        
-        for(var i=0; i<cells.length; i++) {
-            var cell = cells[i];
-            var row = [];
-            var cid = cell.id.split(',');
-            row.push(cid[0] + cid[1]);
-
-            for (var j=0; j<teamNum; j++) {
-                if (cell.classList.contains("team"+j)){
-                    row.push(j);
-                    break;
-                }
-            }
-            if (row.length == 1){
-                row.push(' ')
-            }
-
-            for(var key in categories) {
-                var cat = categories[key];
-                if (cell.classList.contains(key)){
-                    row.push(cat);
-                }
-            }
-            array.push(row)
-        }
-        var classes = JSON.stringify(array);
-        setTimeout(function(){
-            var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-            xmlhttp.open("POST", "/class-saver");
-            xmlhttp.setRequestHeader("Content-Type", "application/json");
-            xmlhttp.send(classes);
-        }, 1000);
-        document.getElementById('message').innerHTML = 'Changes saved.'
-        setTimeout(function(){
-            document.getElementById('message').innerHTML = ''
-        }, 2000);   
+        }, 2000);
     }
 });
