@@ -11,7 +11,7 @@ $(document).ready(function(){
     var cols;
     var maxGroupSize = 6;
     var teamNum = 0;    
-    var currentTeams = {}
+    var currentTeams = {};
     var roomID;
 
     

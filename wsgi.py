@@ -131,7 +131,9 @@ def runTests():
         testCaseName = os.path.basename(testCasePath).replace('_', ' ').split('.csv')[0].title()
         test_files.update({testCaseName:testCase})
     return render_template('test.html', test_files=test_files, title = "Test Upload")
-
+@application.route('/upload/template/<string:jsonName>',methods = ['GET','POST'])
+def retrieve_file(jsonName):
+    file = request.files()
 @application.route('/upload/<string:roomID>', methods=['GET', 'POST'])
 def upload_file(roomID):
     if request.method == 'POST':
@@ -240,16 +242,10 @@ def create_room():
     return render_template('groupreHome.html', roomFiles = "" , title = "Create class")
 @application.route("/team-creation")
 def create_team():
-    roomFiles = {}
+    roomFiles = []
     for rFile in os.listdir(CLASSROOMS_DIR):
         if '.json' in rFile:
-            rValue = rFile.split('.json')[0]
-            rKey = rValue.split('-')[2:]
-            roomID = rKey[0].title()
-            capacity = ' ' + str(int(rKey[1]) * int(rKey[2])) + ' Students'
-            rKey = roomID + capacity
-            # cKey = '-'.join(cValue.split('-')[2:]).title()
-            roomFiles.update({rKey:rValue})
+            roomFiles.append(rFile)
     return render_template('groupreTeam.html', roomFiles = roomFiles , title = "Create teams")
 # #TODO Remove this route before 12/11/17
 # @application.route("/guiTest/<string:html_file>")
@@ -273,7 +269,7 @@ def saveRoom():
         for row in content:
             writer.writerow(row)
     return "saved room"
-
+#saves json file from class builder to upload
 @application.route("/class-saver", methods=['POST'])
 def saveClass():
     content = request.get_json()

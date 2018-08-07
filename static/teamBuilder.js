@@ -3,16 +3,31 @@ $(document).ready(function(){
     var cols;
     var maxGroupSize = 6;
     var teamNum = 0;    
-    var currentTeams = {}
+    var currentTeams = {};
     var roomID;
+    
+    var template= null;
 
     // Selects the room from template and builds it. 
     document.getElementById('buildRoom').onclick = function(){
-        alert("building");
+        
         var select = document.getElementById('classList');
         var idx = select.selectedIndex;
-        var selectedOption = select.options[idx].value;
-        alert(selectedOption);
+        var selectedOption = select.options[idx].text;
+        
+        var filepath = '/uploads/classrooms/' + selectedOption;
+
+        // this doesnt work because the server file cant be access directly 
+        readTextFile(filepath, function(text){
+        var data = JSON.parse(text);
+        alert(data);
+            });
+
+            /** design pattern get name here sent xttp request to flask
+            flask gets the string and search server for file
+            load the file and return new page for built room 
+            */
+        
     }
     // Automatically add teams based on user selection
     document.getElementById('autoAdd').onclick = function(){
@@ -143,6 +158,20 @@ $(document).ready(function(){
         }, 2000);
     }
 
+
+    function readTextFile(filepath, callback) {
+        var rawFile = new XMLHttpRequest();
+        rawFile.overrideMimeType("application/json");
+        rawFile.open("GET", filepath, true);
+        rawFile.onreadystatechange = function() {
+            if (rawFile.readyState === 4 && rawFile.status == "200") {
+                callback(rawFile.responseText);
+            }
+        }
+        rawFile.send(null);
+    }
+    
+      
     
 
 });

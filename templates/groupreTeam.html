@@ -5,7 +5,7 @@
 <p>Select a classroom template</p>
 <form>
     <select id = "classList">
-        {%- for item in roomFiles.keys() %}
+        {%- for item in roomFiles %}
         <option value="{{ roomFiles[item] }}">{{ item }}</option>
         {%- endfor %}
     </select>
@@ -21,7 +21,7 @@
   
           <form>
             <select id="dropdown">
-            </select>  -->
+            </select> 
             <button type="button" id="autoAdd">Submit</button>
           </form>
           <input type="button" id="resetTeam" value="Reset Team"/>
