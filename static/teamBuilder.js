@@ -1,4 +1,12 @@
 $(document).ready(function(){
+    var categories = {
+        leftHand:'left',
+        aisleLeft:'aisleleft',
+        aisleRight:'aisleright',
+        front:'front',
+        back:'back',
+        broken:'broken'
+    }
     var rows;
     var cols;
     var maxGroupSize = 6;
@@ -75,12 +83,24 @@ $(document).ready(function(){
             prevrow = row;
         }
         document.getElementById('template').appendChild(table);
-        drag();   
+        drag();
+        
+        // Auto-add suggestions and selection
+        var totalSeats = rows * cols;
+        for (i = 2; i <= maxGroupSize; i++) {
+            if (totalSeats % i == 0){
+                var opt = document.createElement("option");
+                opt.value = i;
+                opt.innerHTML = 'Groups of ' + i;
+		console.log(i);
+                document.getElementById('dropdown').appendChild(opt);   
+            }
+        }
+
            
     }
 
     document.getElementById("teamButton").onclick = function() {
-        alert("teambuilder");
         var table = document.getElementById("dataTable");
         var cells = table.getElementsByClassName("highlight");
         var team = document.createElement('p');
@@ -129,6 +149,7 @@ $(document).ready(function(){
     }
 
     document.getElementById("saveTeam").onclick = function() {
+        alert('save team');
         var array = [];
         array.push([roomID, teamName, rows, cols]);
         array.push(['CID', 'TeamID', 'Attributes']);
@@ -167,9 +188,9 @@ $(document).ready(function(){
             xmlhttp.setRequestHeader("Content-Type", "application/json");
             xmlhttp.send(chairs);
         }, 1000);
-        document.getElementById('message').innerHTML = 'Changes saved.'
+        document.getElementById('notice').innerHTML = 'Team changes saved.'
         setTimeout(function(){
-            document.getElementById('message').innerHTML = ''
+            document.getElementById('notice').innerHTML = ''
         }, 2000);
     }
     document.getElementById("resetTeam").onclick = function(){
@@ -189,41 +210,30 @@ $(document).ready(function(){
     //     rawFile.send(null);
     // }
 
-    //Automatically add teams based on user selection
-    // document.getElementById('autoAdd').onclick = function(){
-    //     // Auto-add suggestions and selection
-    //     var totalSeats = rows * cols;
-    //     for (i = 2; i <= maxGroupSize; i++) {
-    //         if (totalSeats % i == 0){
-    //             var opt = document.createElement("option");
-    //             opt.value = i;
-    //             opt.innerHTML = 'Groups of ' + i;
-	// 	console.log(i);
-    //             document.getElementById('dropdown').appendChild(opt);   
-    //         }
-    //     }
-
-    //     var select = document.getElementById('dropdown');
-    //     var idx = select.selectedIndex;
-    //     var selectedOption = select.options[idx];
-    //     var teamSize = selectedOption.value;
-    //     var table = document.getElementById('dataTable');
-    //     var cells = table.getElementsByTagName('td')
-    //     var currTeam = 0;
-    //     var teamMembers = [];
-    //     for (var i=0; i < cells.length; i++){
-    //         var cell = cells[i];
-    //         cell.classList.toggle("team" + currTeam);
-    //         cell.innerHTML = currTeam;
-    //         teamMembers.push(cell);
-    //         if (((i + 1) % teamSize) == 0){
-    //             currentTeams[currTeam] = teamMembers;
-    //             teamMembers = [];
-    //             currTeam++;                
-    //         }
-    //     }
-    //     teamNum = currTeam;        
-    // }
+    // Automatically add teams based on user selection
+    document.getElementById('autoAdd').onclick = function(){
+        
+        var select = document.getElementById('dropdown');
+        var idx = select.selectedIndex;
+        var selectedOption = select.options[idx];
+        var teamSize = selectedOption.value;
+        var table = document.getElementById('dataTable');
+        var cells = table.getElementsByTagName('td')
+        var currTeam = 0;
+        var teamMembers = [];
+        for (var i=0; i < cells.length; i++){
+            var cell = cells[i];
+            cell.classList.toggle("team" + currTeam);
+            cell.innerHTML = currTeam;
+            teamMembers.push(cell);
+            if (((i + 1) % teamSize) == 0){
+                currentTeams[currTeam] = teamMembers;
+                teamMembers = [];
+                currTeam++;                
+            }
+        }
+        teamNum = currTeam;        
+    }
 
       
     

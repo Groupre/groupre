@@ -286,7 +286,7 @@ $(document).ready(function(){
             xmlhttp.setRequestHeader("Content-Type", "application/json");
             xmlhttp.send(classroom);
         }, 1000);
-        document.getElementById('message').innerHTML = 'Changes saved.'
+        document.getElementById('message').innerHTML = 'Class template saved.'
         setTimeout(function(){
             document.getElementById('message').innerHTML = ''
         }, 2000);

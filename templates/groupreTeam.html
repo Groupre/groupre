@@ -8,7 +8,7 @@
 </script>
 <div>
   <h4>Room selected = {{name}}</h4>
-  <h4>Room Name: <input id="teamName"/></h4>
+  <h4>section name: <input id="teamName"/></h4>
   <form>
     <input type = "button" id = "buildClass" value = "Build Class"/>
   </form>
@@ -18,7 +18,13 @@
       <input type="button" id="teamButton" value="Create Team from Selected Seats"/>
       
       <input type="button" id="saveTeam" value="Save Team"/>
-      <p id="message"></p>        
+      <p id="notice"></p>        
+
+      <form action="">
+          <select id="dropdown">
+          </select> 
+          <button type="button" id="autoAdd">Submit</button>
+        </form>
 
       <input type="button" id="resetTeam" value="Reset Team"/>
      
