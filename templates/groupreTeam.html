@@ -1,36 +1,37 @@
 
 {% extends "layout.html" %}
 {% block content %}
-<h2 class = "pageTitle" >{{title}}</h2>
-<p>Select a classroom template</p>
-<form>
-    <select id = "classList">
-        {%- for item in roomFiles %}
-        <option value="{{ roomFiles[item] }}">{{ item }}</option>
-        {%- endfor %}
-    </select>
-    <button type = "button" id="buildRoom" > Build Room </button>
+<script>
+  // loads json from flask
+  var template = JSON.parse('{{jdata | tojson | safe}}');
+  var tempName = '{{name}}';
+</script>
+<div>
+  <h4>Room selected = {{name}}</h4>
+  <h4>Room Name: <input id="teamName"/></h4>
+  <form>
+    <input type = "button" id = "buildClass" value = "Build Class"/>
   </form>
-    
+</div>
 <div id="interface">
-        <div id="controls">
-          <input type="button" id="teamButton" value="Create Team from Selected Seats"/>
-          
-          <input type="button" id="saveTeam" value="Save Team"/>
-          <p id="message"></p>        
-  
-          <form>
-            <select id="dropdown">
-            </select> 
-            <button type="button" id="autoAdd">Submit</button>
-          </form>
-          <input type="button" id="resetTeam" value="Reset Team"/>
-         
-        <div id="teamList">
-        </div>
-      </div> 
-        
-        
-  </div>
+    <div id="controls">
+      <input type="button" id="teamButton" value="Create Team from Selected Seats"/>
+      
+      <input type="button" id="saveTeam" value="Save Team"/>
+      <p id="message"></p>        
+
+      <input type="button" id="resetTeam" value="Reset Team"/>
+     
+    <div id="teamList">
+        <script src="../static/teamBuilder.js"></script>
+    </div>
+  </div> 
+</div>
+<div id="template">
+  <p>
+    Note: Blue is front row, Red is left column, Pink is back row.
+  </p>
+    <script src="../static/teamBuilder.js"></script>
+</div>
 
 {% endblock content %}

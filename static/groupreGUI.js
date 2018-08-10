@@ -1,8 +1,8 @@
 $(document).ready(function(){
     var categories = {
         leftHand:'left',
-        aisleLeft:'aisle',
-        aisleRight:'aisle',
+        aisleLeft:'aisleleft',
+        aisleRight:'aisleright',
         front:'front',
         back:'back',
         broken:'broken'
@@ -20,7 +20,7 @@ $(document).ready(function(){
         rows = parseInt(document.getElementById('Enter rows here:').value,10);
         cols = parseInt(document.getElementById('Enter columns here:').value,10);
         roomID = document.getElementById('roomID').value;
-	console.log(roomID);
+	
         var table = document.createElement('table');
         table.id = 'dataTable';
         table.border = "1";
@@ -49,42 +49,6 @@ $(document).ready(function(){
         document.getElementById('output').appendChild(table);
         drag();
     }
-
-    //Automatically add teams based on user selection
-    // document.getElementById('autoAdd').onclick = function(){
-    //     // Auto-add suggestions and selection
-    //     var totalSeats = rows * cols;
-    //     for (i = 2; i <= maxGroupSize; i++) {
-    //         if (totalSeats % i == 0){
-    //             var opt = document.createElement("option");
-    //             opt.value = i;
-    //             opt.innerHTML = 'Groups of ' + i;
-	// 	console.log(i);
-    //             document.getElementById('dropdown').appendChild(opt);   
-    //         }
-    //     }
-
-    //     var select = document.getElementById('dropdown');
-    //     var idx = select.selectedIndex;
-    //     var selectedOption = select.options[idx];
-    //     var teamSize = selectedOption.value;
-    //     var table = document.getElementById('dataTable');
-    //     var cells = table.getElementsByTagName('td')
-    //     var currTeam = 0;
-    //     var teamMembers = [];
-    //     for (var i=0; i < cells.length; i++){
-    //         var cell = cells[i];
-    //         cell.classList.toggle("team" + currTeam);
-    //         cell.innerHTML = currTeam;
-    //         teamMembers.push(cell);
-    //         if (((i + 1) % teamSize) == 0){
-    //             currentTeams[currTeam] = teamMembers;
-    //             teamMembers = [];
-    //             currTeam++;                
-    //         }
-    //     }
-    //     teamNum = currTeam;        
-    // }
 
     function addToTeam(cell, team){
         //TODO use this function for whenever we add to teams
@@ -285,7 +249,7 @@ $(document).ready(function(){
 
     document.getElementById('saveChanges').onclick = function(){
         var array = [];
-        array.push([roomID, 'default', rows, cols]);
+        array.push([roomID, 'RowCol', rows, cols]);
         array.push(['CID', 'TeamID', 'Attributes']);
 
         var table = document.getElementById("dataTable");

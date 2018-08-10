@@ -5,67 +5,82 @@ $(document).ready(function(){
     var teamNum = 0;    
     var currentTeams = {};
     var roomID;
+    var teamName;
     
-    var template= null;
+    document.getElementById('buildClass').onclick = function() {
+        this.hidden = true;
+        rows = parseInt(tempName.split("-")[3]);
+        cols = parseInt(tempName.split("-")[4].split(".")[0]);
+        teamName = document.getElementById('teamName').value;
 
-    // Selects the room from template and builds it. 
-    document.getElementById('buildRoom').onclick = function(){
-        
-        var select = document.getElementById('classList');
-        var idx = select.selectedIndex;
-        var selectedOption = select.options[idx].text;
-        
-        var filepath = '/uploads/classrooms/' + selectedOption;
+        roomID = tempName.split("-")[1];
+        var table = document.createElement('table');
+        table.id = 'dataTable';
+        table.border = "1";
+        var prevrow;
+        var index = 0;
+        for (var r = 0; r < (rows); r++) {
+            var row = document.createElement('tr');
+            for (var c = 0; c < (cols); c++) {
+                var cell = document.createElement('td');
+                //need to put int to string in here to change to seat letter
+                cell.id = r + ',' + c;
+                cell.innerHTML = cell.id;
+                // cell.innerHTML = ''
+                row.appendChild(cell);
 
-        // this doesnt work because the server file cant be access directly 
-        readTextFile(filepath, function(text){
-        var data = JSON.parse(text);
-        alert(data);
-            });
-
-            /** design pattern get name here sent xttp request to flask
-            flask gets the string and search server for file
-            load the file and return new page for built room 
-            */
-        
-    }
-    // Automatically add teams based on user selection
-    document.getElementById('autoAdd').onclick = function(){
-        // Auto-add suggestions and selection
-        var totalSeats = rows * cols;
-        for (i = 2; i <= maxGroupSize; i++) {
-            if (totalSeats % i == 0){
-                var opt = document.createElement("option");
-                opt.value = i;
-                opt.innerHTML = 'Groups of ' + i;
-		console.log(i);
-                document.getElementById('dropdown').appendChild(opt);   
+                if (c== 0){
+                    cell.classList.toggle("leftHand");
+                } else if (r == 0) {
+                    cell.classList.toggle("front");
+                } else if (r+1 == rows) {
+                    cell.classList.toggle("back");
+                }else{
+                    var prop = template[index][2];
+                    console.log(prop);
+                    switch (prop) {
+                        case "left":
+                            cell.classList.toggle("leftHand");
+                            break;
+                        case "front" :
+                            cell.classList.toggle("front");
+                            break;
+                        case "aisleleft" :
+                            cell.classList.toggle("aisleLeft");
+                            break;
+                        case "aisleright" :
+                            cell.classList.toggle("aisleRight");
+                            break;
+                        case "back" :
+                            cell.classList.toggle("back");
+                            break;
+                        case "broken":
+                            cell.classList.toggle("broken");
+                            break;
+    
+                    }
+                }
+                index += 1;
+                // check saved room properties
+                // var prop;
+                // if (r == 0) {
+                //     prop = template[c][2];
+                // } else if (c == 0){
+                //     prop = template[r*10][2];
+                // }else{
+                //     prop = template[r*c][2];
+                // }  
             }
+            table.appendChild(row)
+            prevrow = row;
         }
-
-        var select = document.getElementById('dropdown');
-        var idx = select.selectedIndex;
-        var selectedOption = select.options[idx];
-        var teamSize = selectedOption.value;
-        var table = document.getElementById('dataTable');
-        var cells = table.getElementsByTagName('td')
-        var currTeam = 0;
-        var teamMembers = [];
-        for (var i=0; i < cells.length; i++){
-            var cell = cells[i];
-            cell.classList.toggle("team" + currTeam);
-            cell.innerHTML = currTeam;
-            teamMembers.push(cell);
-            if (((i + 1) % teamSize) == 0){
-                currentTeams[currTeam] = teamMembers;
-                teamMembers = [];
-                currTeam++;                
-            }
-        }
-        teamNum = currTeam;        
+        document.getElementById('template').appendChild(table);
+        drag();   
+           
     }
 
     document.getElementById("teamButton").onclick = function() {
+        alert("teambuilder");
         var table = document.getElementById("dataTable");
         var cells = table.getElementsByClassName("highlight");
         var team = document.createElement('p');
@@ -115,7 +130,7 @@ $(document).ready(function(){
 
     document.getElementById("saveTeam").onclick = function() {
         var array = [];
-        array.push([roomID, 'default', rows, cols]);
+        array.push([roomID, teamName, rows, cols]);
         array.push(['CID', 'TeamID', 'Attributes']);
 
         var table = document.getElementById("dataTable");
@@ -157,21 +172,103 @@ $(document).ready(function(){
             document.getElementById('message').innerHTML = ''
         }, 2000);
     }
+    document.getElementById("resetTeam").onclick = function(){
 
-
-    function readTextFile(filepath, callback) {
-        var rawFile = new XMLHttpRequest();
-        rawFile.overrideMimeType("application/json");
-        rawFile.open("GET", filepath, true);
-        rawFile.onreadystatechange = function() {
-            if (rawFile.readyState === 4 && rawFile.status == "200") {
-                callback(rawFile.responseText);
-            }
-        }
-        rawFile.send(null);
     }
-    
+
+
+    // function readTextFile(filepath, callback) {
+    //     var rawFile = new XMLHttpRequest();
+    //     rawFile.overrideMimeType("application/json");
+    //     rawFile.open("GET", filepath, true);
+    //     rawFile.onreadystatechange = function() {
+    //         if (rawFile.readyState === 4 && rawFile.status == "200") {
+    //             callback(rawFile.responseText);
+    //         }
+    //     }
+    //     rawFile.send(null);
+    // }
+
+    //Automatically add teams based on user selection
+    // document.getElementById('autoAdd').onclick = function(){
+    //     // Auto-add suggestions and selection
+    //     var totalSeats = rows * cols;
+    //     for (i = 2; i <= maxGroupSize; i++) {
+    //         if (totalSeats % i == 0){
+    //             var opt = document.createElement("option");
+    //             opt.value = i;
+    //             opt.innerHTML = 'Groups of ' + i;
+	// 	console.log(i);
+    //             document.getElementById('dropdown').appendChild(opt);   
+    //         }
+    //     }
+
+    //     var select = document.getElementById('dropdown');
+    //     var idx = select.selectedIndex;
+    //     var selectedOption = select.options[idx];
+    //     var teamSize = selectedOption.value;
+    //     var table = document.getElementById('dataTable');
+    //     var cells = table.getElementsByTagName('td')
+    //     var currTeam = 0;
+    //     var teamMembers = [];
+    //     for (var i=0; i < cells.length; i++){
+    //         var cell = cells[i];
+    //         cell.classList.toggle("team" + currTeam);
+    //         cell.innerHTML = currTeam;
+    //         teamMembers.push(cell);
+    //         if (((i + 1) % teamSize) == 0){
+    //             currentTeams[currTeam] = teamMembers;
+    //             teamMembers = [];
+    //             currTeam++;                
+    //         }
+    //     }
+    //     teamNum = currTeam;        
+    // }
+
       
     
+    function drag() {
+        var isMouseDown = false,
+        isHighlighted;
+        var startCell, endCell;
+        $("#dataTable td")
+        .mousedown(function () {
+            isMouseDown = true;
+            startCell = this;
+            $(this).toggleClass("highlight");
+            isHighlighted = $(this).hasClass("highlight");
+            return false;
+        })
+        .mouseover(function () {
+            if (isMouseDown) {
+            endCell = this;
+            var startX = startCell.id.split(',')[0]
+            var startY = startCell.id.split(',')[1]
+            var endX =  endCell.id.split(',')[0]
+            var endY = endCell.id.split(',')[1]
+            if (endX < startX){
+                var tmp = startX;
+                startX = endX;
+                endX = tmp;
+            }
+            if (endY < startY){
+                var tmp = startY;
+                startY = endY;
+                endY = tmp;  
+            }
+            for (i = startX; i <= endX; i++){
+                for (j = startY; j <= endY; j++){
+                    var cellID = i + ',' + j;
+                    var highlightedCell = document.getElementById(cellID);
+                    $(highlightedCell).toggleClass("highlight", isHighlighted);
+                }
+            }
+            }
+        });
 
+        $(document)
+        .mouseup(function () {
+            isMouseDown = false;
+        });
+    }
 });

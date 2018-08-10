@@ -131,9 +131,14 @@ def runTests():
         testCaseName = os.path.basename(testCasePath).replace('_', ' ').split('.csv')[0].title()
         test_files.update({testCaseName:testCase})
     return render_template('test.html', test_files=test_files, title = "Test Upload")
-@application.route('/upload/template/<string:jsonName>',methods = ['GET','POST'])
+@application.route('/template/<string:jsonName>',methods = ['GET','POST'])
 def retrieve_file(jsonName):
-    file = request.files()
+    # returns json files to javascript
+    filepath =CLASSROOMS_DIR + jsonName
+    with open(filepath, 'r') as f:
+        jdata = json.load(f)
+    return render_template('groupreTeam.html', jdata = jdata , name = jsonName)
+    
 @application.route('/upload/<string:roomID>', methods=['GET', 'POST'])
 def upload_file(roomID):
     if request.method == 'POST':
@@ -246,7 +251,7 @@ def create_team():
     for rFile in os.listdir(CLASSROOMS_DIR):
         if '.json' in rFile:
             roomFiles.append(rFile)
-    return render_template('groupreTeam.html', roomFiles = roomFiles , title = "Create teams")
+    return render_template('chooseTeam.html', roomFiles = roomFiles , title = "Create teams")
 # #TODO Remove this route before 12/11/17
 # @application.route("/guiTest/<string:html_file>")
 # def testGUI(html_file):
@@ -280,7 +285,7 @@ def saveClass():
     filename = '-'.join(filename)
     filename = CLASSROOMS_DIR + 'template-' + filename + '.json'
     with open(filename, 'w') as outfile:
-        json.dump(content[2:],outfile,ensure_ascii=False)
+        json.dump(content[1:],outfile,ensure_ascii=False)
     return "saved template"    
 
 if __name__ == "__main__":
