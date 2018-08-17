@@ -1,23 +1,26 @@
 $(document).ready(function(){
     var categories = {
         leftHand:'left',
-        aisleLeft:'aisle',
-        aisleRight:'aisle',
+        aisleLeft:'aisleleft',
+        aisleRight:'aisleright',
         front:'front',
         back:'back',
         broken:'broken'
     }
     var rows;
     var cols;
-    var maxGroupSize = 5;
+    var maxGroupSize = 6;
     var teamNum = 0;    
-    var currentTeams = {}
-    var roomID = document.getElementById('roomName').value;
+    var currentTeams = {};
+    var roomID;
+
     
     document.getElementById('build').onclick = function() {
         this.hidden = true;
         rows = parseInt(document.getElementById('Enter rows here:').value,10);
         cols = parseInt(document.getElementById('Enter columns here:').value,10);
+        roomID = document.getElementById('roomID').value;
+	
         var table = document.createElement('table');
         table.id = 'dataTable';
         table.border = "1";
@@ -31,52 +34,20 @@ $(document).ready(function(){
                 cell.innerHTML = cell.id;
                 // cell.innerHTML = ''
                 row.appendChild(cell);
+                if (c== 0){
+                    cell.classList.toggle("leftHand");
+                } else if (r == 0) {
+                    cell.classList.toggle("front");
+                } else if (r+1 == rows) {
+                    cell.classList.toggle("back");
+                }
             }
-            // if (prevrow) {
-            //     table.insertBefore(row, prevrow);
-            // } else {
-            //     table.appendChild(row);
-            // }
+
             table.appendChild(row)
             prevrow = row;
         }
         document.getElementById('output').appendChild(table);
         drag();
-
-        // Auto-add suggestions and selection
-        var totalSeats = rows * cols;
-        for (i = 2; i <= maxGroupSize; i++) {
-            if (totalSeats % i == 0){
-                var opt = document.createElement("option");
-                opt.value = i;
-                opt.innerHTML = 'Groups of ' + i;
-                document.getElementById('dropdown').appendChild(opt);   
-            }
-        }
-    }
-
-    //Automatically add teams based on user selection
-    document.getElementById('autoAdd').onclick = function(){
-        var select = document.getElementById('dropdown');
-        var idx = select.selectedIndex;
-        var selectedOption = select.options[idx];
-        var teamSize = selectedOption.value;
-        var table = document.getElementById('dataTable');
-        var cells = table.getElementsByTagName('td')
-        var currTeam = 0;
-        var teamMembers = [];
-        for (var i=0; i < cells.length; i++){
-            var cell = cells[i];
-            cell.classList.toggle("team" + currTeam);
-            cell.innerHTML = currTeam;
-            teamMembers.push(cell);
-            if (((i + 1) % teamSize) == 0){
-                currentTeams[currTeam] = teamMembers;
-                teamMembers = [];
-                currTeam++;                
-            }
-        }
-        teamNum = currTeam;        
     }
 
     function addToTeam(cell, team){
@@ -90,7 +61,7 @@ $(document).ready(function(){
     document.getElementById("leftHandedButton").onclick = function() {
         var table = document.getElementById("dataTable");
         var cells = table.getElementsByClassName("highlight");
-
+        console.log("c = 1 printed");
         for(var i=0; i<cells.length; i++) {
             var cell = cells[i];
             cell.classList.toggle("leftHand");
@@ -124,20 +95,29 @@ $(document).ready(function(){
 
             if(col == 0) {
                 cell.classList.toggle("aisleLeft");
+
+                cells[i+1].classList.toggle("leftHand");
+
             } else if(col1 == 0 && col2 == 0) {
                 col1 = col;
                 if(col > nextCol) {
                     col2 = col;
                     col1 = nextCol;
                     cell.classList.toggle("aisleRight");
+
                 } else {
                     cell.classList.toggle("aisleLeft");
+                    cells[i+1].classList.toggle("leftHand");
+
                 }
             } else {
                 if(col == col1) {
                     cell.classList.toggle("aisleLeft");
+                    cells[i+1].classList.toggle("leftHand");
+
                 } else if(col == col2) {
                     cell.classList.toggle("aisleRight");
+
                 }
             }
         }
@@ -221,43 +201,6 @@ $(document).ready(function(){
             }
         }
     }
-    
-    document.getElementById("teamButton").onclick = function() {
-        var table = document.getElementById("dataTable");
-        var cells = table.getElementsByClassName("highlight");
-        var team = document.createElement('p');
-
-        if(cells.length < 1) {
-            return;
-        }
-
-        var teamMembers = []
-        for(var i=0; i<cells.length; i++) {
-            var cell = cells[i];            
-            for (j=0; j<teamNum; j++){
-                if (cell.classList.contains("team" + j)){
-                    cell.classList.toggle("team" + j);
-                }
-            }
-            cell.classList.toggle("team" + teamNum);
-            cell.innerHTML = teamNum;
-            teamMembers.push(cell);
-        }
-        currentTeams[teamNum] = teamMembers
-
-        team.innerHTML = "Team " + teamNum;
-        team.id = "team" + teamNum;
-        teamNum += 1;
-        document.getElementById("teamList").appendChild(team);
-
-        cells = table.getElementsByTagName("td");
-        for(var i=0; i<cells.length; i++) {
-            var cell = cells[i];
-            cell.classList.remove("highlight");
-        }
-    }
-    
-
     function drag() {
         var isMouseDown = false,
         isHighlighted;
@@ -303,22 +246,10 @@ $(document).ready(function(){
         });
     }
     
-    document.getElementById("teamList").onmouseover = function() {
-        var table = document.getElementById("dataTable");
-        var teamList = document.getElementsByClassName("team");
-
-        $("#teamList p").mouseover(function() {
-            var team = this;
-            var teamId = team.id;
-            var cells = table.getElementsByClassName(teamId);
-            var temp = team.innerHTML;
-            team.innerHTML = cells[0].id;
-        });
-    }
 
     document.getElementById('saveChanges').onclick = function(){
         var array = [];
-        array.push([roomID, 'default', rows, cols]);
+        array.push([roomID, 'RowCol', rows, cols]);
         array.push(['CID', 'TeamID', 'Attributes']);
 
         var table = document.getElementById("dataTable");
@@ -348,16 +279,18 @@ $(document).ready(function(){
             }
             array.push(row)
         }
-        var chairs = JSON.stringify(array);
+        var classroom = JSON.stringify(array);
         setTimeout(function(){
             var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-            xmlhttp.open("POST", "/room-saver");
+            xmlhttp.open("POST", "/class-saver");
             xmlhttp.setRequestHeader("Content-Type", "application/json");
-            xmlhttp.send(chairs);
+            xmlhttp.send(classroom);
         }, 1000);
-        document.getElementById('message').innerHTML = 'Changes saved.'
+        document.getElementById('message').innerHTML = 'Class template saved.'
         setTimeout(function(){
             document.getElementById('message').innerHTML = ''
         }, 2000);
     }
+
+    
 });

@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Download Seating Chart</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block content %}
     <h1>Metrics</h1>
     <h2>{{ output_name }}</h2>
     <div class="output"></div>
@@ -24,5 +19,4 @@
         <button formaction="/download/{{ output_name ~ '-postEm.csv' }}">Download Sakai Postem</button>
     </form>
 
-</body>
-</html>
+    {% endblock content %}

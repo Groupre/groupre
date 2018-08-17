@@ -20,6 +20,11 @@ if os.path.exists('/chairs'):
 else:
     CHAIRS_DIR = UPLOAD_FOLDER + 'chairs/'
 
+if os.path.exists('/classrooms'):
+    CLASSROOMS_DIR = '/classrooms'
+else:
+    CLASSROOMS_DIR = UPLOAD_FOLDER + 'classrooms/'
+
 application = Flask(__name__)
 
 app = Flask(__name__)
@@ -87,7 +92,7 @@ def make_tree(path):
 
 @application.route("/")
 def hello():
-    return render_template('index.html')
+    return render_template('index.html', title = "Home")
 
 
 @application.route("/docs/")
@@ -125,19 +130,27 @@ def runTests():
         testCasePath = os.path.join(testCasesDir, testCase)
         testCaseName = os.path.basename(testCasePath).replace('_', ' ').split('.csv')[0].title()
         test_files.update({testCaseName:testCase})
-    return render_template('test.html', test_files=test_files)
-
+    return render_template('test.html', test_files=test_files, title = "Test Upload")
+@application.route('/template/<string:jsonName>',methods = ['GET','POST'])
+def retrieve_file(jsonName):
+    # returns json files to javascript
+    filepath =CLASSROOMS_DIR + jsonName
+    with open(filepath, 'r') as f:
+        jdata = json.load(f)
+    return render_template('groupreTeam.html', jdata = jdata , name = jsonName)
+    
 @application.route('/upload/<string:roomID>', methods=['GET', 'POST'])
 def upload_file(roomID):
     if request.method == 'POST':
         if 'file' not in request.files:
           #  flash('No file part')
+            flash('Your file doesnt exist')
             return redirect(url_for('selectRoom'))
         file = request.files['file']
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
-          #  flash('No selected file')
+            flash('No selected file')
             return redirect(url_for('selectRoom'))
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
@@ -148,6 +161,7 @@ def upload_file(roomID):
                 reader = csv.reader(csvfile, delimiter=',')
                 row_count = sum(1 for row in reader) - 1
             if row_count > capacity:
+                flash('Students more than num of seats')
                 return redirect(url_for('selectRoom'))
             fallback = False
             if 'fallback' in roomID:
@@ -157,7 +171,7 @@ def upload_file(roomID):
             output_name = run_groupre(newlocation, roomID, fallback, False)
             output_name = output_name.split('/')[-1].split('.', 1)[0]
             return redirect('/metrics/' + output_name)
-    return render_template('upload.html')
+    return render_template('upload.html', title = "Upload page")
 
 @application.route("/room-select")
 def selectRoom():
@@ -171,7 +185,7 @@ def selectRoom():
             cKey = roomID + capacity
             # cKey = '-'.join(cValue.split('-')[2:]).title()
             chairFiles.update({cKey:cValue})
-    return render_template("room.html", chairFiles=chairFiles)
+    return render_template("room.html", chairFiles=chairFiles, title = "Run Groupre")
 
 @application.route("/metrics/<string:output_name>")
 def metrics(output_name):
@@ -183,9 +197,9 @@ def metrics(output_name):
             print(m)
         postem.postem(['--output', UPLOAD_FOLDER +
                        'output/' + output_name + '.csv'])
-        return render_template("metrics.html", output_name=output_name, metrics=metrics)
+        return render_template("metrics.html", output_name=output_name, metrics=metrics , title = "Metrics result")
     except FileNotFoundError:
-        return render_template("metrics.html", output_name=output_name)
+        return render_template("metrics.html", output_name=output_name, title = "Metrics result")
 
 @application.route("/download/<string:output_name>", methods=['POST'])
 def downloadcsv(output_name):
@@ -230,14 +244,20 @@ def downloadcsv(output_name):
 
 @application.route("/room-creation")
 def create_room():
-    return render_template('groupreHome.html')
-
-#TODO Remove this route before 12/11/17
-@application.route("/guiTest/<string:html_file>")
-def testGUI(html_file):
-    if html_file.split('.')[-1] == '.html':
-        return render_template(html_file)
-    return html_file
+    return render_template('groupreHome.html', roomFiles = "" , title = "Create class")
+@application.route("/team-creation")
+def create_team():
+    roomFiles = []
+    for rFile in os.listdir(CLASSROOMS_DIR):
+        if '.json' in rFile:
+            roomFiles.append(rFile)
+    return render_template('chooseTeam.html', roomFiles = roomFiles , title = "Create teams")
+# #TODO Remove this route before 12/11/17
+# @application.route("/guiTest/<string:html_file>")
+# def testGUI(html_file):
+#     if html_file.split('.')[-1] == '.html':
+#         return render_template(html_file)
+#     return html_file
     
 @application.route("/room-saver", methods=['POST'])
 def saveRoom():
@@ -253,6 +273,20 @@ def saveRoom():
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for row in content:
             writer.writerow(row)
+    return "saved room"
+#saves json file from class builder to upload
+@application.route("/class-saver", methods=['POST'])
+def saveClass():
+    content = request.get_json()
+    info = content.pop(0)
+    filename = []
+    for item in info:
+        filename.append(str(item))
+    filename = '-'.join(filename)
+    filename = CLASSROOMS_DIR + 'template-' + filename + '.json'
+    with open(filename, 'w') as outfile:
+        json.dump(content[1:],outfile,ensure_ascii=False)
+    return "saved template"    
 
 if __name__ == "__main__":
-    application.run()
+    application.run(debug=True)
