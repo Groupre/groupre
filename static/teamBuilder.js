@@ -149,7 +149,7 @@ $(document).ready(function(){
     }
 
     document.getElementById("saveTeam").onclick = function() {
-        alert('save team');
+
         var array = [];
         array.push([roomID, teamName, rows, cols]);
         array.push(['CID', 'TeamID', 'Attributes']);
@@ -194,6 +194,23 @@ $(document).ready(function(){
         }, 2000);
     }
     document.getElementById("resetTeam").onclick = function(){
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByTagName("td");
+
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            for (var key in currentTeams){
+                if (cell.classList.contains('team' + key)){
+                    cell.classList.toggle('team' + key);
+                    cell.innerHTML = '';
+                }
+            }
+        }
+        tlist = document.getElementById('teamList');
+        while (tlist.firstChild) {
+            tlist.removeChild(tlist.firstChild);
+        }
+
 
     }
 
