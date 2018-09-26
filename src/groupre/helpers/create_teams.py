@@ -1,17 +1,19 @@
 '''This module contains the create_teams method used by groupre.'''
 
 import random
+from typing import List
 
 import groupre_globals
-from matching_algorithms import (priority_match, random_match,
-                                 gender_random_match, gender_priority_match)
+from data_structures import Chair, Student, TeamStructure
+from matching_algorithms import (gender_random_match, priority_match,
+                                 random_match)
 
 
-def create_teams(students, chairs, team_structures):
+def create_teams(students: List[Student], chairs: List[Chair], team_structures: List[TeamStructure]):
     '''Fills out an array of teams to be returned and formatted as a csv.'''
 
     # Format our header for the categories the input specified.
-    team_fields = []
+    team_fields: List[str] = []
     for field in groupre_globals.STUDENT_REQUIRED_FIELDS:
         team_fields.append(field)
     for field in groupre_globals.CHAIR_REQUIRED_FIELDS:
@@ -87,7 +89,12 @@ def create_teams(students, chairs, team_structures):
         # Order our priority students by specificness.
         sorted_priority_students = sorted(
             priority_students, key=lambda x: (
-                x.vip, x.specificness, x.total_preference_value), reverse=True)
+                x.vip, x.total_preference_value, x.specificness), reverse=True)
+
+        # NOTE debug
+        # for student in sorted_priority_students:
+        #     print(student.student_name, student.total_preference_value,
+        #           student.specificness)
 
         # for student in sorted_priority_students:
         #     print(student.student_name, student.specificness)

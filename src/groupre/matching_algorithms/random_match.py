@@ -1,11 +1,12 @@
 '''This module contains the random_match method used by groupre.'''
 
 import random
+from typing import List
 
-from data_structures import TeamMember
+from data_structures import Chair, Student, TeamMember, TeamStructure
 
 
-def random_match(student, chairs, team_fields, team_structures):
+def random_match(student: Student, chairs: List[Chair], team_fields, team_structures: List[TeamStructure]):
     '''This method will find a chair for the student at random.'''
 
     # Randomly choose a chair.
@@ -16,7 +17,13 @@ def random_match(student, chairs, team_fields, team_structures):
     data_fields = []
 
     data_fields.append(student.student_id)
-    data_fields.append(student.student_name)
+
+    student_name = student.student_name.split(',')
+    name = ''
+    for part in student_name:
+        name += part
+
+    data_fields.append(name)
     data_fields.append(student.vip)
     data_fields.append(student.score)
 

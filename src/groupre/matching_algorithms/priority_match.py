@@ -1,14 +1,16 @@
 '''This module contains the priority_match method used by groupre.'''
 
 import random
+from typing import List
 
-from data_structures import TeamMember
 import groupre_globals
+from data_structures import Chair, Student, TeamMember, TeamStructure
+
 from .fallback import fallback
-from .range_preference import range_front
+from .range_preference import range_preference
 
 
-def priority_match(student, chairs, team_fields, team_structures):
+def priority_match(student: Student, chairs: List[Chair], team_fields: List[str], team_structures: List[TeamStructure]):
     '''This method will find a chair that is suitable for the student based
     on their preferences.'''
 
@@ -19,9 +21,34 @@ def priority_match(student, chairs, team_fields, team_structures):
     for chair in chairs:
         score = 0
         for preference in student.preferences:
-            score += range_front(preference, chair)
-            if preference.name in chair.attributes:
-                score += 1
+            pref_names = []
+
+            # NOTE "NOT" preference modifier:
+            if '!' in preference.name:
+                not_modifier = True
+                pref_names.append(preference.name[1:len(preference.name)])
+            else:
+                not_modifier = False
+                pref_names.append(preference.name)
+
+            # NOTE "OR" preference modifier:
+            if '|' in preference.name:
+                #or_modifier = True
+                pref_names.append(preference.name.split('|'))
+
+            for pref_name in pref_names:
+                if ':' in pref_name:
+                    score_result = range_preference(pref_name, chair)
+                elif pref_name in chair.attributes:
+                    score_result = 1
+                else:
+                    score_result = 0
+
+                if not_modifier:
+                    score -= score_result
+                else:
+                    score += score_result
+
         scored_chairs.update({chair: score})
 
     max_score = max(scored_chairs.values())
@@ -34,12 +61,11 @@ def priority_match(student, chairs, team_fields, team_structures):
         # a better maximum score for this student.
 
         # Re-score the chairs while looking for fallback options this time.
-        scored_chairs = {}
         for chair in chairs:
             score = 0
             for preference in student.preferences:
                 score += fallback(preference, chair)
-            scored_chairs[chair] = score
+            scored_chairs.update({chair: score})
         max_score = max(scored_chairs.values())
 
     best_chairs = [
@@ -52,7 +78,13 @@ def priority_match(student, chairs, team_fields, team_structures):
     # Fill out data fields for the pair we have matched.
     data_fields = []
     data_fields.append(student.student_id)
-    data_fields.append(student.student_name)
+
+    student_name = student.student_name.split(',')
+    name = ''
+    for part in student_name:
+        name += part
+
+    data_fields.append(name)
     data_fields.append(student.vip)
     data_fields.append(student.score)
     data_fields.append(chair.chair_id)
@@ -60,54 +92,74 @@ def priority_match(student, chairs, team_fields, team_structures):
 
     unmatched_preferences = ''
     for preference in student.preferences:
+        # NOTE "NOT" preference modifier:
+        if '!' in preference.name:
+            not_modifier = True
+            pref_name = preference.name[1:len(preference.name)]
+        else:
+            not_modifier = False
+            pref_name = preference.name
+
         found_attr = False
-        if 'front-' and ':' in preference.name:
-            range_split = preference.name.split('-', 1)[1].split(':', 1)
+        if ':' in pref_name:
+            range_name = pref_name.split('-', 1)[0]
+            range_split = pref_name.split('-', 1)[1].split(':', 1)
             range_start = int(range_split[0])
             range_end = int(range_split[1])
-            for attribute in chair.attributes:
-                if attribute != 'left-handed':
-                    attr_level = int(attribute.split('-', 1)[1])
-                    if groupre_globals.FALLBACK_ENABLED:
-                        if ('front' in attribute and (attr_level <= range_end
-                                                      + groupre_globals.FALLBACK_LIMIT_FRONT)
-                                or (attr_level >= range_start)):
-                            found_attr = True
-                    else:
-                        if (('front' in attribute) and (attr_level <= range_end)
-                                and (attr_level >= range_start)):
-                            found_attr = True
-            if not found_attr:
-                unmatched_preferences += ('[' + preference.name + ']')
-        if (groupre_globals.FALLBACK_ENABLED
-                and preference.name != 'left-handed' and ':' not in preference.name):
-            pref_split = preference.name.split("-", 1)
+
+            for attribute in (attr for attr in chair.attributes if range_name in attr):
+                attr_level = int(attribute.split('-', 1)[1])
+                if groupre_globals.FALLBACK_ENABLED:
+                    limit = 0
+                    if range_name == 'front':
+                        limit = groupre_globals.FALLBACK_LIMIT_FRONT
+                    elif range_name == 'back':
+                        limit = groupre_globals.FALLBACK_LIMIT_BACK
+                    elif range_name == 'aisle':
+                        limit = groupre_globals.FALLBACK_LIMIT_AISLE
+
+                    if (attr_level >= range_start
+                            and attr_level <= range_end + limit):
+                        found_attr = True
+                else:
+                    if (attr_level >= range_start
+                            and attr_level <= range_end):
+                        found_attr = True
+        elif (groupre_globals.FALLBACK_ENABLED
+              and pref_name != 'left-handed'  # TODO Change left-handed to not have a '-'
+              and '-' in pref_name):
+            pref_split = pref_name.split("-", 1)
             pref_prefix = pref_split[0]
-            # print(preference.name)
             pref_level = int(pref_split[1])
             pref_start = pref_level
             pref_end = pref_level
+
             if pref_prefix == 'front':
                 pref_end += groupre_globals.FALLBACK_LIMIT_FRONT
             elif pref_prefix == 'back':
                 pref_end += groupre_globals.FALLBACK_LIMIT_BACK
             elif pref_prefix == 'aisle':
                 pref_end += groupre_globals.FALLBACK_LIMIT_AISLE
+
             for attribute in chair.attributes:
                 if pref_prefix in attribute:
                     attr_level = int(attribute.split('-', 1)[1])
                     if (attr_level <= pref_end) and (attr_level >= pref_start):
                         found_attr = True
-        if not found_attr:
-            if preference.name not in chair.attributes:
-                unmatched_preferences += preference.name + '|'
+
+        if not_modifier:
+            if found_attr:
+                unmatched_preferences += preference.name + ';'
+        elif not found_attr:
+            if pref_name not in chair.attributes:
+                unmatched_preferences += pref_name + ';'
 
     unmatched_len = len(unmatched_preferences)
     if unmatched_len == 0:
         priority_score_val = len(student.preferences)
     else:
         unmatched_split = (unmatched_preferences[0:len(
-            unmatched_preferences) - 1].split('|'))
+            unmatched_preferences) - 1].split(';'))
         priority_score_val = (len(student.preferences) - len(unmatched_split))
 
     priority_score = '{} of {}'.format(
@@ -118,8 +170,13 @@ def priority_match(student, chairs, team_fields, team_structures):
     groupre_globals.STUDENT_PRIORITY_TOTAL += student.specificness
 
     data_fields.append(priority_score)
-
     data_fields.append(unmatched_preferences[0:len(unmatched_preferences) - 1])
+
+    # NOTE debug
+    # string = ''
+    # for preference in student.preferences:
+    #     string += preference.name + ';'
+    # data_fields.append(string)
 
     ret = TeamMember(team_fields, data_fields)
 

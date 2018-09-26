@@ -6,9 +6,10 @@ import argparse
 import csv
 import sys
 import time
+from typing import List
 
 import groupre_globals
-from data_structures import Chair, Student
+from data_structures import Chair, Student, TeamStructure
 from helpers import build_team_structures, create_teams
 
 
@@ -17,12 +18,12 @@ def main(argv):
 
     argparser = argparse.ArgumentParser()
 
-    chairs_csv = None
-    students_csv = None
-    fallback = None
-    metrics = None
-    output_csv = None
-    gender = None
+    chairs_csv: str = None
+    students_csv: str = None
+    fallback: bool = None
+    metrics: bool = None
+    output_csv: str = None
+    gender: bool = None
 
     # groupre.py -c CHAIRS -s STUDENTS -f FALLBACK -o OUTPUT
     argparser.add_argument(
@@ -44,12 +45,12 @@ def main(argv):
     else:
         parsed_args = argparser.parse_args(argv)
 
-    chairs_csv = parsed_args.chairs
-    students_csv = parsed_args.students
-    fallback = parsed_args.fallback
-    metrics = parsed_args.metrics
-    output_csv = parsed_args.output
-    gender = parsed_args.gender
+    chairs_csv: str = parsed_args.chairs
+    students_csv: str = parsed_args.students
+    fallback: bool = parsed_args.fallback
+    metrics: bool = parsed_args.metrics
+    output_csv: str = parsed_args.output
+    gender: bool = parsed_args.gender
 
     print('Arguments: Chairs {}, Students {}, Fallback {}, Gender {}, Output {}'.format(
         parsed_args.chairs, parsed_args.students, parsed_args.fallback,
@@ -71,7 +72,7 @@ def main(argv):
 
     if output_csv is None:
         print('''Output file not specified, and the default was somehow
-			replaced. Please try specifying a proper output file.''')
+                replaced. Please try specifying a proper output file.''')
         return
 
     groupre_globals.METRICS_ENABLED = metrics
@@ -101,7 +102,7 @@ def main(argv):
                 priority_fields.append(field)
 
         for row in reader:
-            chairs.append(Chair(
+            chairs.append(Chair(    
                 row[:len(groupre_globals.CHAIR_REQUIRED_FIELDS)],
                 row[len(groupre_globals.CHAIR_REQUIRED_FIELDS):]))
 
@@ -111,6 +112,7 @@ def main(argv):
             for attribute in chair.attributes:
                 if 'front' in attribute:
                     if attribute not in groupre_globals.FALLBACK_CHAIRS_FRONT:
+                        print(attribute)
                         groupre_globals.FALLBACK_CHAIRS_FRONT.append(attribute)
                 elif 'back' in attribute:
                     if attribute not in groupre_globals.FALLBACK_CHAIRS_BACK:
@@ -118,7 +120,8 @@ def main(argv):
                 elif 'aisle' in attribute:
                     if attribute not in groupre_globals.FALLBACK_CHAIRS_AISLE:
                         groupre_globals.FALLBACK_CHAIRS_AISLE.append(attribute)
-
+        for x in groupre_globals.FALLBACK_CHAIRS_FRONT:
+            print("groupre_globals: " + x)
         # Sort our fallback options.
         groupre_globals.FALLBACK_CHAIRS_FRONT.sort(
             key=lambda x: (int)(('' + x).split('-', 1)[1]), reverse=False)
@@ -152,12 +155,13 @@ def main(argv):
           'students to be seated in', total_chairs, 'chairs...')
 
     if groupre_globals.METRICS_ENABLED:
+        groupre_globals.METRICS = []
         groupre_globals.METRICS.append('Students: ' + str(total_students))
         groupre_globals.METRICS.append('Seats: ' + str(total_chairs))
 
     # Run our algorithm to match students to chairs within teams, keeping in mind their
     # scores and preferences.
-    team_structures = build_team_structures(chairs)
+    team_structures: List[TeamStructure] = build_team_structures(chairs)
 
     teams = create_teams(students, chairs, team_structures)
 
@@ -165,9 +169,9 @@ def main(argv):
     # NOTE 'newline=''' required when writing on an OS that ends lines in CRLF rather than just LF.
     print('----------')
     print('Seats assigned. Writing to csv.')
-    with open(output_csv, 'w') as csvfile:
+    with open(output_csv, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',',
-                            quotechar='|',quoting=csv.QUOTE_MINIMAL)
+                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for team in teams:
             writer.writerow(team)
 

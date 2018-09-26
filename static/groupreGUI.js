@@ -95,8 +95,8 @@ $(document).ready(function(){
 
             if(col == 0) {
                 cell.classList.toggle("aisleLeft");
-
                 cells[i+1].classList.toggle("leftHand");
+                console.log("col == 0,left");
 
             } else if(col1 == 0 && col2 == 0) {
                 col1 = col;
@@ -104,19 +104,23 @@ $(document).ready(function(){
                     col2 = col;
                     col1 = nextCol;
                     cell.classList.toggle("aisleRight");
-
+                    console.log("col > nextCol,right");
                 } else {
                     cell.classList.toggle("aisleLeft");
                     cells[i+1].classList.toggle("leftHand");
+                    console.log("col <=,left");
 
                 }
             } else {
                 if(col == col1) {
                     cell.classList.toggle("aisleLeft");
                     cells[i+1].classList.toggle("leftHand");
+                    console.log("col == col1,left");
+
 
                 } else if(col == col2) {
                     cell.classList.toggle("aisleRight");
+                    console.log("col== col2, right");
 
                 }
             }
