@@ -19,13 +19,14 @@ def fallback(preference: Preference, chair: Chair):
     if pref_name in chair.attributes:
         score += 1
     else:
+        print(pref_name)
         if 'front' in pref_name:
             fallback_limit = groupre_globals.FALLBACK_LIMIT_FRONT
         elif 'back' in pref_name:
             fallback_limit = groupre_globals.FALLBACK_LIMIT_BACK
         elif 'aisle' in pref_name:
             fallback_limit = groupre_globals.FALLBACK_LIMIT_AISLE
-
+        print(fallback_limit)
         preference_found = False
         fallback_level = 1
 
