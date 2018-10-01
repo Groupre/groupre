@@ -102,7 +102,7 @@ def main(argv):
                 priority_fields.append(field)
 
         for row in reader:
-            chairs.append(Chair(
+            chairs.append(Chair(    
                 row[:len(groupre_globals.CHAIR_REQUIRED_FIELDS)],
                 row[len(groupre_globals.CHAIR_REQUIRED_FIELDS):]))
 
@@ -112,6 +112,7 @@ def main(argv):
             for attribute in chair.attributes:
                 if 'front' in attribute:
                     if attribute not in groupre_globals.FALLBACK_CHAIRS_FRONT:
+                        print(attribute)
                         groupre_globals.FALLBACK_CHAIRS_FRONT.append(attribute)
                 elif 'back' in attribute:
                     if attribute not in groupre_globals.FALLBACK_CHAIRS_BACK:
@@ -119,7 +120,8 @@ def main(argv):
                 elif 'aisle' in attribute:
                     if attribute not in groupre_globals.FALLBACK_CHAIRS_AISLE:
                         groupre_globals.FALLBACK_CHAIRS_AISLE.append(attribute)
-
+        for x in groupre_globals.FALLBACK_CHAIRS_FRONT:
+            print("groupre_globals: " + x)
         # Sort our fallback options.
         groupre_globals.FALLBACK_CHAIRS_FRONT.sort(
             key=lambda x: (int)(('' + x).split('-', 1)[1]), reverse=False)

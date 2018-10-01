@@ -1,3 +1,3 @@
 #!/bin/bash
-python3.6 ./../../src/groupre/groupre.py -c chairs/test_chairs_1.csv -s students/test_students_1.csv -o output/test_output_1.csv
+python3.6 ./../../src/groupre/groupre.py -f -c chairs/chair201007.csv -s students/student201_007.csv -o output/test_output.csv
 
