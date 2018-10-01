@@ -1,0 +1,16 @@
+
+	{% extends "layout.html" %}
+	{% block content %}
+	<h1>Click</h1>
+	<button onclick="sendJSON()">Send JSON</button>
+    <input type="button" id="bourne" value="Send JSON again"/>
+	<script>
+	function sendJSON(){
+		alert('From HTML');        
+		var xmlhttp = new XMLHttpRequest(); 
+		xmlhttp.open("POST", "/json-handler");
+		xmlhttp.setRequestHeader("Content-Type", "application/json");
+		xmlhttp.send(JSON.stringify({name:"Json Bourne", time:"2pm"}));
+	}
+	</script>
+	{% endblock content %}

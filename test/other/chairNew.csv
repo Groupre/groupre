@@ -1,0 +1,256 @@
+CID,TeamID,Attributes
+O1	1	aisle
+O2	1	
+O3	1	"left,aisle"
+O4	2	aisle
+O5	2	
+O6	2	"left,aisle"
+N1	3	aisle
+N2	3	
+N3	3	
+N4	4	
+N5	4	
+N6	4	
+N7	5	
+N8	5	
+N9	6	
+N10	6	
+N11	6	
+N12	7	
+N13	7	
+N14	7	
+N15	8	
+N16	8	
+N17	8	"left,aisle"
+M1	9	aisle
+M2	9	
+M3	9	
+M4	10	
+M5	10	
+M6	10	
+M7	11	
+M8	11	
+M9	11	
+M10	12	
+M11	12	
+M12	12	
+M13	13	
+M14	13	
+M15	13	
+M16	14	
+M17	14	"left,aisle"
+L1	15	aisle
+L2	15	
+L3	15	
+L4	16	
+L5	16	
+L6	16	
+L7	17	
+L8	17	
+L9	17	
+L10	18	
+L11	18	
+L12	18	
+L13	18	
+L14	19	
+L15	19	
+L16	19	
+L17	20	
+L18	20	
+L19	20	"left,aisle"
+K1	21	aisle
+K2	21	
+K3	21	
+K4	22	
+K5	22	
+K6	22	
+K7	22	
+K8	23	
+K9	23	
+K10	23	
+K11	24	
+K12	24	
+K13	24	
+K14	25	
+K15	25	
+K16	25	
+K17	26	
+K18	26	
+K19	26	"left,aisle"
+J1	27	aisle
+J2	27	
+J3	27	
+J4	28	
+J5	28	
+J6	28	
+J7	29	
+J8	29	
+J9	29	
+J10	30	
+J11	30	
+J12	30	
+J13	31	
+J14	31	
+J15	31	
+J16	31	
+J17	32	
+J18	32	
+J19	32	"left,aisle"
+H1	33	aisle
+H2	33	
+H3	33	
+H4	34	
+H5	34	
+H6	34	
+H7	34	
+H8	35	
+H9	35	
+H10	35	
+H11	36	
+H12	36	
+H13	36	
+H14	37	
+H15	37	
+H16	37	
+H17	38	
+H18	38	
+H19	38	"left,aisle"
+G1	39	aisle
+G2	39	
+G3	39	
+G4	40	
+G5	40	
+G6	40	
+G7	41	
+G8	41	
+G9	41	
+G10	42	
+G11	42	
+G12	42	
+G13	43	
+G14	43	
+G15	43	
+G16	44	
+G17	44	"left,aisle"
+F1	45	aisle
+F2	45	
+F3	45	
+F4	46	
+F5	46	
+F6	46	
+F7	47	
+F8	47	
+F9	47	
+F10	48	
+F11	48	
+F12	49	
+F13	49	
+F14	49	
+F15	50	
+F16	50	
+F17	50	"left,aisle"
+E1	51	aisle
+E2	51	
+E3	51	
+E4	52	
+E5	52	
+E6	52	
+E7	53	
+E8	53	
+E9	53	
+E10	54	
+E11	54	
+E12	54	
+E13	54	
+E14	55	
+E15	55	
+E16	55	
+E17	56	
+E18	56	
+E19	56	"left,aisle"
+D1	57	aisle
+D2	57	
+D3	57	
+D4	58	
+D5	58	
+D6	58	
+D7	59	
+D8	59	
+D9	60	
+D10	60	
+D11	60	
+D12	61	
+D13	61	
+D14	61	
+D15	62	
+D16	62	
+D17	62	
+D18	63	
+D19	63	"left,aisle"
+C1	64	aisle
+C2	64	
+C3	64	
+C4	65	
+C5	65	
+C6	66	
+C7	66	
+C8	66	
+C9	67	
+C10	67	
+C11	67	
+C12	68	
+C13	68	
+C14	68	
+C15	69	
+C16	69	
+C17	69	
+C18	70	
+C19	70	"left,aisle"
+B1	71	aisle
+B2	71	
+B3	71	
+B4	72	
+B5	72	
+B6	73	
+B7	73	
+B8	73	
+B9	74	
+B10	74	
+B11	74	
+B12	75	
+B13	75	
+B14	75	
+B15	76	
+B16	76	
+B17	76	
+B18	77	
+B19	77	
+A1	78	
+A2	78	
+A3	78	
+A4	79	
+A5	79	
+A6	79	
+A7	80	
+A8	80	
+A9	80	
+A10	81	
+A11	81	
+A12	81	
+A13	82	
+A14	82	
+A15	82	
+A16	83	
+A17	83	"left,aisle"
+X1	84	"front,aisle"
+X2	84	front
+X3	84	"aisle,front,left"
+X4	85	"aisle,front"
+X5	85	front
+X6	85	front
+X7	86	front
+X8	86	"aisle,left,front"
+X9	87	aisle
+X10	87	front
+X11	88	front
+X12	88	"left,front"

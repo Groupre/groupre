@@ -4,20 +4,80 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-	<title>groupre - demo</title>
+	<meta name="description" content="GroupreHome">
+	<meta name="author" content="Team Groupre">
+	  
+	<title>groupre {{ title }} </title>
 
+	<style>
+		ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			background-color: #333;
+			position:absolute;
+			top:0px;
+			left:0px;
+			width:100%;
+		}
+		
+		li {
+			float: left;
+		}
+		
+		li a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+		
+		li a:hover {
+			background-color: #111;
+		}
+		</style>
 	<!--CSS-->
+	<link rel="stylesheet" type="text/css" href="../static/default.css">
+	<link rel="stylesheet" href="../static/groupre.css" style type="text/css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" />
-	<link rel="stylesheet" href="static/css/style.css" />
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" /> -->
+	<!-- <link rel="stylesheet" href="static/css/style.css" /> -->
+	<link rel="stylesheet" href="../static/test.css" type="text/css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+  	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	  <script type="text/javascript" src="../static/jquery.min.js"></script>
+	  <script type="text/javascript" src="../static/groupreGUI.js"></script>
+	  <script type="text/javascript" src="../static/teamBuilder.js"></script>
+	  <script type="text/javascript" src="../static/send.js"></script>
 </head>
 
 <body>
-	<nav class="light-blue lighten-1" role="navigation">
-		<div class="nav-wrapper container">
-			<a id="logo-container" href="/" class="brand-logo">groupre</a>
-		</div>
-    </nav>
+	<ul>
+		<li><a class="active" href="/">Home</a></li>
+		<li><a href="/room-select">Run Groupre</a></li>
+		<li><a href="/room-creation">Build Class</a></li>
+		<li><a href="/team-creation">Build Team</a></li>
+		<li><a href="/test">Run Test</a></li>
+		<li><a href="https://github.com/Groupre/groupre">Github</a></li>
+	 </ul>
+	 <a href="/"><div class="header">
+		<img alt="groupythegroupregrouper" src="../static/groupy.png">
+
+		<h1>Groupre - Alpha</h1>            
+	  </div></a>
+	<!-- wsgi flashing -->
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+		<ul class=flashes>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
     {% block content %}{% endblock %}
 </body>
 </html> 

@@ -1,81 +1,27 @@
 {% extends "layout.html" %}
 {% block content %}
-	<div class="section" id="index-banner">
-		<div class="container">
-			<br>
-			<br>
-			<h1 class="header center light-blue-text">groupre</h1>
-			<div class="row center">
-				<h5 class="header col s12 light">Test homepage based on Materialize Starter Template.</h5>
-			</div>
-			<div class="row center">
-				<a href="http://materializecss.com/getting-started.html" id="materialize_docs_button" class="btn-large waves-effect waves-light light-blue">Materialize Docs</a>
-			</div>
-			<div class="row center">
-				<!-- <a href="/test" id="room_builder_button" class="btn-large waves-effect waves-light light-blue">Room Builder Alpha</a> -->
-				<form action="/room_builder">
-					<input class="btn-large waves-effect waves-light light-blue" type="submit" value="Room Builder Alpha" />
-				</form>
-			</div>
-			<div class="row center">
-				<!-- <a href="/test" id="room_builder_button" class="btn-large waves-effect waves-light light-blue">Room Builder Alpha</a> -->
-				<form action="/login">
-					<input class="btn-large waves-effect waves-light light-blue" type="submit" value="Login" />
-				</form>
-			</div>
-			<div class="row center">
-				<!-- <a href="/test" id="room_builder_button" class="btn-large waves-effect waves-light light-blue">Room Builder Alpha</a> -->
-				<form action="/register">
-					<input class="btn-large waves-effect waves-light light-blue" type="submit" value="Register" />
-				</form>
-			</div>
-			<div class="row center">
-				<!-- <a href="/test" id="room_builder_button" class="btn-large waves-effect waves-light light-blue">Room Builder Alpha</a> -->
-				<form action="/demo">
-					<input class="btn-large waves-effect waves-light light-blue" type="submit" value="run Groupre" />
-				</form>
-			</div>
-			<br>
-			<br>
-		</div>
-	</div>
-
-	<br>
-	<br>
-
-	<!--Footer Section-->
-	<footer class="page-footer grey darken-4">
-		<div class="container">
-			<div class="row">
-				<div class="col l6 s12">
-					<h5 class="white-text">Project Information</h5>
-					<p class="grey-text text-lighten-4">The groupre project is designed to provide a tool for instructional use in large classroom environments where assigning
-						of seats for team-creation or other similar goals is desired.</p>
-				</div>
-				<div class="col l3 s12">
-					<h5 class="white-text">Other Links</h5>
-					<ul>
-						<li>
-							<a class="white-text" href="https://github.com/Groupre/groupre/tree/develop">Project GitHub</a>
-						</li>
-						<li>
-							<a class="white-text" href="https://github.com/Groupre/groupre/tree/develop/docs">Documentation</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		<div class="footer-copyright">
-			<div class="container">
-				Made by
-				<a class="light-blue-text text-lighten-3" href="http://materializecss.com">Materialize</a>
-			</div>
-		</div>
-	</footer>
-
-
-	<!--Scripts-->
-	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script src="static/js/materialize.js"></script>
-	<script src="static/js/init.js"></script>
-{% endblock content %}
+    <h2 class = "pageTitle" >{{title}}</h2>
+    <br>    
+    <br>    
+    <div class="options">
+    <form action="/room-select">
+        <input class="btn" type="submit" value="Run Groupre" />
+    </form>    
+    <form action="/room-creation">
+        <input class="btn" type="submit" value="Create Room template" />
+    </form>
+    <form action="/team-creation">
+        <input class = "btn" type = "submit" value = "Create Teams"/>
+    </form>
+    <form action="/test">
+        <input class="btn" type="submit" value="Run Tests" />
+    </form>
+    </div>
+    <br>
+    <br>
+    <a href="https://github.com/jeyerena/ClassTeamBuilder"><img id="Mark" alt="Github page" src="../static/GitHub-Mark/PNG/GitHub-Mark-120px-plus.png" border="0"></a>
+    <br>
+    <br>
+    <a href="https://github.com/jeyerena/ClassTeamBuilder/tree/master/docs">Documentation</a>
+    <br>
+    {% endblock content %}

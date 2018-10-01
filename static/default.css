@@ -1,0 +1,63 @@
+body {
+    display: block;
+    text-align: center;
+    /* font-family: sans-serif; */
+	max-width: 100%;
+	padding-left: 10em;
+	padding-right: 10em;
+  	font-family: Verdana, Geneva, sans-serif;
+  	color: black;
+
+}
+
+h2{
+	margin: auto;
+    width: 30%;
+	padding: 10px;	
+}
+
+a{
+	text-decoration: none;
+}
+
+.header{
+    margin: auto;
+    width: 40%;
+    padding: 10px;
+}
+
+.header img {
+	float: right;
+	width: 125px;
+	height: 125px;
+}
+  
+.header h1 {
+	position: fixed;
+	top: 18px;
+	left: 20px;
+	color: black;	
+}
+.pageTitle{
+	position: relative;
+	left: 35%;
+	color: black;
+}
+.btn {
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 15px;
+	background: #000000;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+}
+
+.btn:hover {
+	background: #595959;
+	text-decoration: none;
+}
+
+#Mark{
+	max-height: 60px;
+	max-width: 60px;
+}
