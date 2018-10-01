@@ -1,18 +1,18 @@
 
    {% extends "layout.html" %}
    {% block content %}
-   <div class="w3-container">
-        <a href="/"><div class="w3-display-container w3-display-topmiddle" style="height:100px;width:50%">
-            <h1 class="w3-display-middle">Groupre</h1>                            
-            <img class="w3-display-right" alt="groupythegroupregrouper" src="../static/groupy.png" width="100px" height="100px">
-        </div></a>
-    </div>
-
     <div class="w3-container">
         <div class="w3-display-container w3-display-middle" style="height:30%;width:50%">
                 <form class="w3-display-middle" method=post enctype=multipart/form-data>
-                        <input type=file name=file>
-                        <input type=submit value=Upload>
+                    <input type= "file" name="file">
+                    <p>choose fall back</p>
+                    <input type="checkbox" name = "fall back" value = "fallback">
+                    <p>choose team matching priority</p>
+                    <label><input type ="radio" name = "teamOpt" value = "gender">gender match</label>
+                    <label><input type ="radio" name = "teamOpt" value = "highlow">score match high with low</label>
+                    <label><input type ="radio" name = "teamOpt" value = "average">score match average</label>
+                    <br>
+                    <input type= "submit" value="Upload">
                 </form>
         </div>
     </div>
