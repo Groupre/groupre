@@ -70,11 +70,11 @@ table td.highlighted {
 
 table {
     table-layout:fixed;
-    width: 80%;
+    width: 100%;
     text-align:center;
     vertical-align:middle;
-    background-color:#d3d3d3;
-    border:3px solid #a9a9a9;
+    background-color:white;
+    border:5px solid brown;
     margin-top: 20px;
 }
 
@@ -115,22 +115,28 @@ td.highlight, tr.highlight {
 }
 
 .back {
-  background-color: lightcoral;
+  background-color: lightgreen;
 }
 
 .broken {
   visibility: hidden;
 }
-
-#interface #controls{
+#interface{
+  width:100%;
+}
+#controls{
   float: right;
   margin-top: 20px;
+  width :384px;
+  border: 1px black dashed;
 }
 
-#interface #output {
+#output {
   float: left;
-  height: 70%;
-  width: 50%;
+  height: 100%;
+  width: 75%;
+  overflow: auto;
+  border: 1px black dashed;
 }
 
 #interface input {
@@ -140,7 +146,7 @@ td.highlight, tr.highlight {
   height: 40px;
 }
 
-#interface #teamList {
+#teamList {
   border-width: 1px;
   border-style: solid;
   border-color: black;

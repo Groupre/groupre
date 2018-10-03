@@ -16,7 +16,7 @@
 			padding: 0;
 			overflow: hidden;
 			background-color: #333;
-			position:absolute;
+			position: relative;;
 			top:0px;
 			left:0px;
 			width:100%;
@@ -40,11 +40,9 @@
 		}
 		</style>
 	<!--CSS-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 	<link rel="stylesheet" type="text/css" href="../static/default.css">
 	<link rel="stylesheet" href="../static/groupre.css" style type="text/css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" /> -->
-	<!-- <link rel="stylesheet" href="static/css/style.css" /> -->
 	<link rel="stylesheet" href="../static/test.css" type="text/css">
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
@@ -64,21 +62,21 @@
 		<li><a href="/test">Run Test</a></li>
 		<li><a href="https://github.com/Groupre/groupre" target="_blank">Github</a></li>
 	 </ul>
-	 <a href="/"><div class="header">
+	 <div id = "prompt">
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+				   {% for message in messages %}
+					  {{ message }}
+				   {% endfor %}
+				{% endif %}
+			 {% endwith %}
+	</div>
+	 <a href="/">
+		<div class="header">
 		<img alt="groupythegroupregrouper" src="../static/groupy.png">
-
-		<h1>Groupre - Alpha</h1>            
-	  </div></a>
-	<!-- wsgi flashing -->
-	{% with messages = get_flashed_messages() %}
-	{% if messages %}
-		<ul class=flashes>
-		{% for message in messages %}
-		  <li>{{ message }}</li>
-		{% endfor %}
-		</ul>
-	  {% endif %}
-	{% endwith %}
+		<h1>Groupre - Alpha</h1>
+	  </div>
+	</a>
     {% block content %}{% endblock %}
 </body>
 </html> 

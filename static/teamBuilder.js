@@ -37,9 +37,7 @@ $(document).ready(function(){
                 // cell.innerHTML = ''
                 row.appendChild(cell);
 
-                if (c== 0){
-                    cell.classList.toggle("leftHand");
-                } else if (r == 0) {
+                if (r == 0) {
                     cell.classList.toggle("front");
                 } else if (r+1 == rows) {
                     cell.classList.toggle("back");

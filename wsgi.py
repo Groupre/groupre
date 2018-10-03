@@ -27,9 +27,9 @@ else:
 
 application = Flask(__name__)
 
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
+application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+application.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
+application.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 
 #helper scripts
 def allowed_file(filename):
@@ -137,7 +137,7 @@ def retrieve_file(jsonName):
     filepath =CLASSROOMS_DIR + jsonName
     with open(filepath, 'r') as f:
         jdata = json.load(f)
-    return render_template('groupreTeam.html', jdata = jdata , name = jsonName)
+    return render_template('groupreTeam.html', jdata = jdata , name = jsonName, title = "Template")
     
 @application.route('/upload/<string:roomID>', methods=['GET', 'POST'])
 def upload_file(roomID):
@@ -184,7 +184,7 @@ def upload_file(roomID):
             #     fallback = True
             
             roomID = CHAIRS_DIR + roomID + '.csv'
-            output_name = run_groupre(newlocation, roomID, fallback, False)
+            output_name = run_groupre(newlocation, roomID, fallback, gender)
             output_name = output_name.split('/')[-1].split('.', 1)[0]
             return redirect('/metrics/' + output_name)
     return render_template('upload.html', title = "Upload page")
@@ -305,4 +305,5 @@ def saveClass():
     return "saved template"    
 
 if __name__ == "__main__":
+    application.secret_key = '5791628bb0b13ce0c676dfde280ba245'
     application.run(debug=True)

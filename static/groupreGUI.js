@@ -34,9 +34,7 @@ $(document).ready(function(){
                 cell.innerHTML = cell.id;
                 // cell.innerHTML = ''
                 row.appendChild(cell);
-                if (c== 0){
-                    cell.classList.toggle("leftHand");
-                } else if (r == 0) {
+                if (r == 0) {
                     cell.classList.toggle("front");
                 } else if (r+1 == rows) {
                     cell.classList.toggle("back");
@@ -95,7 +93,6 @@ $(document).ready(function(){
 
             if(col == 0) {
                 cell.classList.toggle("aisleLeft");
-                cells[i+1].classList.toggle("leftHand");
                 console.log("col == 0,left");
 
             } else if(col1 == 0 && col2 == 0) {
@@ -107,14 +104,12 @@ $(document).ready(function(){
                     console.log("col > nextCol,right");
                 } else {
                     cell.classList.toggle("aisleLeft");
-                    cells[i+1].classList.toggle("leftHand");
                     console.log("col <=,left");
 
                 }
             } else {
                 if(col == col1) {
                     cell.classList.toggle("aisleLeft");
-                    cells[i+1].classList.toggle("leftHand");
                     console.log("col == col1,left");
 
 
