@@ -141,7 +141,21 @@ def retrieve_file(jsonName):
     
 @application.route('/upload/<string:roomID>', methods=['GET', 'POST'])
 def upload_file(roomID):
+    # This is options for grouping
+    fallback = False
+    gender = False
+    mHighLow = False
+    mAverage = False
     if request.method == 'POST':
+        # check if any of the options were checked for groupre
+        if (request.form.get('fall_back') == "fallback"):
+            fallback = True
+        elif (request.form.get('teamOpt') == "gender"):
+            gender = True
+        elif (request.form.get('teamOpt') == "highlow"):
+            mHighLow = True
+        elif (request.form.get('teamOpt') == "average"):
+            mAverage = True
         if 'file' not in request.files:
           #  flash('No file part')
             flash('Your file doesnt exist')
@@ -153,6 +167,7 @@ def upload_file(roomID):
             flash('No selected file')
             return redirect(url_for('selectRoom'))
         if file and allowed_file(file.filename):
+        
             filename = secure_filename(file.filename)
             newlocation = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(newlocation)
@@ -163,10 +178,11 @@ def upload_file(roomID):
             if row_count > capacity:
                 flash('Students more than num of seats')
                 return redirect(url_for('selectRoom'))
-            fallback = False
-            if 'fallback' in roomID:
-                roomID = roomID.split('-fallback', 1)[0]
-                fallback = True
+            # Old fallback implementation
+            # if 'fallback' in roomID:
+            #     roomID = roomID.split('-fallback', 1)[0]
+            #     fallback = True
+            
             roomID = CHAIRS_DIR + roomID + '.csv'
             output_name = run_groupre(newlocation, roomID, fallback, False)
             output_name = output_name.split('/')[-1].split('.', 1)[0]

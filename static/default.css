@@ -12,9 +12,8 @@ body {
 }
 
 h2{
-	margin: auto;
-    width: 30%;
-	padding: 10px;	
+	width:100%;
+	text-align:center;		
 }
 
 a{
