@@ -126,9 +126,15 @@ td.highlight, tr.highlight {
 }
 #controls{
   float: right;
-  margin-top: 20px;
-  width :384px;
+  width :100%;
+  height:100%;
   border: 1px black dashed;
+}
+#controls > * {
+  position: relative;
+  float:left;
+  margin: 20px 40px;
+  text-align: center;
 }
 
 #output {
@@ -141,7 +147,6 @@ td.highlight, tr.highlight {
 
 #interface input {
   display: block;
-  margin-bottom: 10px;
   font-weight: bold;
   height: 40px;
 }

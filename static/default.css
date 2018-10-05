@@ -7,13 +7,16 @@ body {
 	padding-right: 10em;
   	font-family: Verdana, Geneva, sans-serif;
 	color: black;
+	background:#80d4ff ;
 }
 
 h2{
 	width:100%;
 	text-align:center;		
 }
-
+.options > *{
+	margin: 20px 0;
+}
 a{
 	text-decoration: none;
 }
@@ -45,11 +48,12 @@ a{
 	color: black;
 }
 .btn {
+	border-radius: 15px;
 	font-family: Arial;
 	color: #ffffff;
-	font-size: 15px;
-	background: #000000;
-	padding: 10px 20px 10px 20px;
+	font-size: 18px;
+	background: #80d4ff;
+	padding: 20px 20px 40px 20px;
 	text-decoration: none;
 }
 
@@ -64,6 +68,9 @@ a{
 }
 
 #prompt{
-	width:30%;
+	color:red;
+	text-align: center;
+	font-size:40px;
+	width:100%;
 	margin:auto;
 }

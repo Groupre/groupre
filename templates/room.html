@@ -3,10 +3,10 @@
     <h1 class = "pageTitle" >{{title}}</h1>
     <br>
 
-    <div class="w3-container">
-        <div class="w3-display-container w3-display-middle" style="height:30%;width:50%">
+    <div>
+        <div>
                 <!--input type="checkbox" class="w3-display-topmiddle" id="check"-->                
-                <form class="w3-display-middle" method="POST" action="selectRoom(select)">
+                <form method="POST" action="selectRoom(select)">
                     <p>Select a Room</p>
                     <select id="fileList">
                         {%- for item in chairFiles.keys() %}
