@@ -1,33 +1,40 @@
 {% extends "layout.html" %}
 {% block content %}
-<a href="/">
-    <div class="header">
-    <img alt="groupythegroupregrouper" src="../static/groupy.png">
-    <h1>Groupre - Alpha</h1>
-  </div>
-</a>
+    <h1 >Groupre - Alpha</h1>
+
     <h1 class = "pageTitle" >{{title}}</h1>
     <br>    
     <br>    
-    <div class="options">
-    <form action="/room-select">
-        <input class="btn" type="submit" value="Run Groupre" />
-    </form>    
-    <form action="/room-creation">
-        <input class="btn" type="submit" value="Create Room template" />
-    </form>
-    <form action="/team-creation">
-        <input class = "btn" type = "submit" value = "Create Teams"/>
-    </form>
-    <form action="/test">
-        <input class="btn" type="submit" value="Run Tests" />
-    </form>
+    <div class="container">
+        <div class = "row">
+                <div class = "col-md-3">
+                    <a href = "/room-select">
+                        <div class = "text-block hvr-grow-rotate">
+                            <h1>Run Groupre</h1>
+                        </div>
+                    </a>
+                </div>
+                <div class = "col-md-3">
+                        <a href = "/room-creation">
+                            <div class = "text-block hvr-grow-rotate">
+                                <h1>Create Class</h1>
+                            </div>
+                        </a>
+                </div>
+                <div class = "col-md-3">
+                        <a href = "/team-creation">
+                            <div class = "text-block hvr-grow-rotate">
+                                <h1>Create Teams</h1>
+                            </div>
+                        </a>
+                </div>
+                <div class = "col-md-3">
+                        <a href = "/test">
+                            <div class = "text-block hvr-grow-rotate">
+                                <h1>Run Test</h1>
+                            </div>
+                        </a>
+                </div>
+        </div>
     </div>
-    <br>
-    <br>
-    <a href="https://github.com/jeyerena/ClassTeamBuilder"><img id="Mark" alt="Github page" src="../static/GitHub-Mark/PNG/GitHub-Mark-120px-plus.png" border="0"></a>
-    <br>
-    <br>
-    <a href="https://github.com/jeyerena/ClassTeamBuilder/tree/master/docs">Documentation</a>
-    <br>
     {% endblock content %}
