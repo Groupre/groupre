@@ -1,5 +1,6 @@
 body{
 	background:#eafaff;
+	text-align: center;
 }
 h1 {
 	text-align:center;
@@ -32,4 +33,8 @@ a:hover {
 .hvr-grow-rotate:hover, .hvr-grow-rotate:focus, .hvr-grow-rotate:active {
   -webkit-transform: scale(1.1) rotate(4deg);
   transform: scale(1.1) rotate(4deg);
+}
+
+form{
+	display: inline-block;
 }

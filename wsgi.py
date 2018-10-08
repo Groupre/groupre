@@ -187,7 +187,7 @@ def upload_file(roomID):
             output_name = run_groupre(newlocation, roomID, fallback, gender)
             output_name = output_name.split('/')[-1].split('.', 1)[0]
             return redirect('/metrics/' + output_name)
-    return render_template('upload.html', title = "Upload page")
+    return render_template('upload.html', title = "Loaded " + str(roomID))
 
 @application.route("/room-select")
 def selectRoom():
