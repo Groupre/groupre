@@ -1,6 +1,7 @@
 body{
 	background:#eafaff;
 	text-align: center;
+	font-size:18px;
 }
 h1 {
 	text-align:center;
@@ -38,3 +39,4 @@ a:hover {
 form{
 	display: inline-block;
 }
+

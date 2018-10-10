@@ -6,16 +6,28 @@
 
     </select>
     <form action="" method="post">
-        {%- for item in test_files.keys() %}
-        <button formaction="download/{{ test_files[item] }}">
-            <a>{{ item }}</a>   
-        </button>
-        {%- endfor %}
+        <div class = "form-group">
+                {%- for item in test_files.keys() %}
+                <div class = "col-md-6">
+                        <button class = "btn btn-info" formaction="download/{{ test_files[item] }}">
+                            <a>{{ item }}</a>   
+                        </button>
+                </div>
+                {%- endfor %}
+        </div>
+        <div class = "form-group">
+            <p>Test files for download</p>
+        </div>
+        
+ 
+
     </form>
 
     <form method=post enctype=multipart/form-data>
-        <p>
+        <div class = "form-group">
             <input type= "file" name= "file">
-            <input type= "submit" value= "Upload">
+            <input class = "btn btn-success" type= "submit" value= "Upload">
+        </div>
+            
     </form>
 {% endblock content %}

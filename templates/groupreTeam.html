@@ -8,36 +8,43 @@
 </script>
 <h1 class = "pageTitle">{{title}}</h1>
 <div>
-  <h4>Room selected = {{name}}</h4>
-  <h4>section name: <input id="teamName"/></h4>
   <form>
-    <input class = "btn btn-success" type = "button" id = "buildClass" value = "Build Class"/>
+    <h4>Room selected = {{name}}</h4>
+    <div class = "form-inline">
+        <h4>section name: <input id="teamName"/></h4> 
+        <input class = "btn btn-success ml-sm-4" type = "button" id = "buildClass" value = "Build Class"/>
+    </div>
   </form>
 </div>
 <div id="interface">
-    <p>
-        Note: Blue is front row, Red is left column, Pink is back row.
-      </p>
     <div id="controls">
-      <input class="btn btn-info" type="button" id="teamButton" value="Create Team from Selected Seats"/>
-      
-      <input class = "btn btn-success" type="button" id="saveTeam" value="Save Team"/>
-      <p id="notice"></p>        
-
       <form action="">
-          <select id="dropdown">
-          </select> 
-          <button class = "btn btn-info" type="button" id="autoAdd">Pick Group</button>
-        </form>
+        <div class = "form-group">
+          <input class="btn btn-info" type="button" id="teamButton" value="Create Team from Selected Seats"/>    
+        </div>
 
-      <input class = "btn btn-warning" type="button" id="resetTeam" value="Reset Team"/>
-     
+        <div class = "form-group">
+            <select id="dropdown">
+              </select> 
+              <button class = "btn btn-info" type="button" id="autoAdd">Form Group</button>
+        </div>
+       
+      <div class = "form-group">
+          <input class = "btn btn-warning" type="button" id="resetTeam" value="Reset Team"/>
+          <input class = "btn btn-success" type="button" id="saveTeam" value="Save Team"/>
+          <p id="notice"></p>    
+      </div>
+    </form>
+      
     <div id="teamList">
         <script src="../static/teamBuilder.js"></script>
     </div>
   </div> 
 </div>
 <div id="template">
+    <p>
+        Note: Blue is front row, Red is left handed seats, Pink is back row.
+    </p>
     <script src="../static/teamBuilder.js"></script>
 </div>
 
