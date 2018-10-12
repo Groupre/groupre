@@ -16,6 +16,16 @@
                     <div class = "form-group">Enter columns here => <input id="Enter columns here:" value="10"/>
                     </div>
                     <div class = "form-group"><input class = "btn btn-success" type="button" id="build" value="Build the room!"/></div>
+                    <div class = "form-group notworking">
+                        <p>This funtionality is currently unavailable</p>
+                        <select id = "templateList">
+                            {%- for item in roomFiles %}
+                            <option value="{{ roomFiles[item] }}">{{ item }}</option>
+                            {%- endfor %}
+                        </select>
+                        <button class = "btn btn-info" type = "button" id="goToTemplate" >modify template</button>
+                    </div>
+                    
                 </form>
     
             </div>

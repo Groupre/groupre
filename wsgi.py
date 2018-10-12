@@ -260,7 +260,11 @@ def downloadcsv(output_name):
 
 @application.route("/room-creation")
 def create_room():
-    return render_template('groupreHome.html', roomFiles = "" , title = "Create class")
+    roomFiles = []
+    for rFile in os.listdir(CLASSROOMS_DIR):
+        if '.json' in rFile:
+            roomFiles.append(rFile)
+    return render_template('groupreHome.html', roomFiles = roomFiles , title = "Create class")
 @application.route("/team-creation")
 def create_team():
     roomFiles = []

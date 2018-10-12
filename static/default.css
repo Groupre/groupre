@@ -40,3 +40,11 @@ form{
 	display: inline-block;
 }
 
+#prompt{
+	font-size:28px;
+	color:red;
+}
+.notworking{
+	background: grey;	
+}
+
