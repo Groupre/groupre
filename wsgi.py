@@ -27,9 +27,11 @@ else:
 
 application = Flask(__name__)
 
-application.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-application.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
-application.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
+app = Flask(__name__)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
+app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 
 #helper scripts
 def allowed_file(filename):
@@ -44,7 +46,7 @@ def run_groupre(students, chairs, fallback, gender):
     if fallback:
         arguments.insert(0, '--fallback')
     if gender:
-        arguments.append(0, '--gender')
+        arguments.applicationend(0, '--gender')
     groupre.main(arguments)
     return output_name
 
@@ -85,9 +87,9 @@ def make_tree(path):
         for name in lst:
             fn = os.path.join(path, name)
             if os.path.isdir(fn):
-                tree['children'].append(make_tree(fn))
+                tree['children'].applicationend(make_tree(fn))
             else:
-                tree['children'].append(dict(name=name))
+                tree['children'].applicationend(dict(name=name))
     return tree
 
 @application.route("/")
@@ -116,7 +118,7 @@ def runTests():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            newlocation = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            newlocation = os.path.join(application.config['UPLOAD_FOLDER'], filename)
             file.save(newlocation)
             with open(newlocation, newline='') as csvfile:
                 reader = csv.reader(csvfile, delimiter=',')
@@ -178,10 +180,6 @@ def upload_file(roomID):
             if row_count > capacity:
                 flash('Students more than num of seats')
                 return redirect(url_for('selectRoom'))
-            # Old fallback implementation
-            # if 'fallback' in roomID:
-            #     roomID = roomID.split('-fallback', 1)[0]
-            #     fallback = True
             
             roomID = CHAIRS_DIR + roomID + '.csv'
             output_name = run_groupre(newlocation, roomID, fallback, gender)
@@ -272,20 +270,14 @@ def create_team():
         if '.json' in rFile:
             roomFiles.append(rFile)
     return render_template('chooseTeam.html', roomFiles = roomFiles , title = "Create teams")
-# #TODO Remove this route before 12/11/17
-# @application.route("/guiTest/<string:html_file>")
-# def testGUI(html_file):
-#     if html_file.split('.')[-1] == '.html':
-#         return render_template(html_file)
-#     return html_file
-    
+
 @application.route("/room-saver", methods=['POST'])
 def saveRoom():
     content = request.get_json()
     info = content.pop(0)
     filename = []
     for item in info:
-        filename.append(str(item))
+        filename.applicationend(str(item))
     filename = '-'.join(filename)
     filename = CHAIRS_DIR + 'room-' + filename + '.csv'
     with open(filename, 'w', newline='') as csvfile:
@@ -301,7 +293,7 @@ def saveClass():
     info = content.pop(0)
     filename = []
     for item in info:
-        filename.append(str(item))
+        filename.applicationend(str(item))
     filename = '-'.join(filename)
     filename = CLASSROOMS_DIR + 'template-' + filename + '.json'
     with open(filename, 'w') as outfile:
