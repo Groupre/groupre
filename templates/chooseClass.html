@@ -1,0 +1,39 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h2>{{title}}</h2>
+<p>Select a classroom template</p>
+<form>
+    <form-group>
+        <label>Choose an existing template</label>
+            <select id = "classList">
+                    {%- for item in roomFiles %}
+                    <option value="{{ roomFiles[item] }}">{{ item }}</option>
+                    {%- endfor %}
+                </select>
+                <button class = "btn btn-info" type = "button" id="goToClass">Go</button>
+    </form-group>
+    
+    <div class = "form-group">
+        <label>Make new template</label >
+        <button class = "btn btn-info" type = "button" id="newClass">Go</button>
+    </div>
+</form>
+<script>
+        // Selects the room from template and builds it. 
+        document.getElementById('goToClass').onclick = function(){
+        var select = document.getElementById('classList');
+        var idx = select.selectedIndex;
+        var selectedOption = select.options[idx].text;
+        
+        window.location='/class/' + selectedOption;
+    }
+        document.getElementById("newClass").onclick = function () {
+            window.location = '/room-creation';
+        }
+</script>
+
+    
+
+
+{% endblock content %}

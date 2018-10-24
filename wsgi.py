@@ -46,7 +46,7 @@ def run_groupre(students, chairs, fallback, gender):
     if fallback:
         arguments.insert(0, '--fallback')
     if gender:
-        arguments.applicationend(0, '--gender')
+        arguments.append(0, '--gender')
     groupre.main(arguments)
     return output_name
 
@@ -87,9 +87,9 @@ def make_tree(path):
         for name in lst:
             fn = os.path.join(path, name)
             if os.path.isdir(fn):
-                tree['children'].applicationend(make_tree(fn))
+                tree['children'].append(make_tree(fn))
             else:
-                tree['children'].applicationend(dict(name=name))
+                tree['children'].append(dict(name=name))
     return tree
 
 @application.route("/")
@@ -140,7 +140,15 @@ def retrieve_file(jsonName):
     with open(filepath, 'r') as f:
         jdata = json.load(f)
     return render_template('groupreTeam.html', jdata = jdata , name = jsonName, title = "Template")
-    
+
+@application.route('/class/<string:jsonName>',methods = ['GET','POST'])
+def retrieve_class(jsonName):
+    # returns json files to javascript
+    filepath =CLASSROOMS_DIR + jsonName
+    with open(filepath, 'r') as f:
+        jdata = json.load(f)
+    return render_template('editClass.html', jdata = jdata , name = jsonName, title = "Edit Template")
+  
 @application.route('/upload/<string:roomID>', methods=['GET', 'POST'])
 def upload_file(roomID):
     # This is options for grouping
@@ -255,14 +263,20 @@ def downloadcsv(output_name):
         mimetype="text/csv",
         headers={"Content-disposition":
                  "attachment; filename=" + output_name})
-
-@application.route("/room-creation")
-def create_room():
+# directs to a page that allows user to decide wheather to change template or make new
+@application.route("/editTemplate")
+def changeTemplate():
     roomFiles = []
     for rFile in os.listdir(CLASSROOMS_DIR):
         if '.json' in rFile:
             roomFiles.append(rFile)
-    return render_template('groupreHome.html', roomFiles = roomFiles , title = "Create class")
+
+    return render_template('chooseClass.html', roomFiles = roomFiles, title = "Create or modify")
+
+
+@application.route("/room-creation")
+def create_room():
+    return render_template('groupreHome.html', title = "Create class")
 @application.route("/team-creation")
 def create_team():
     roomFiles = []
@@ -277,7 +291,7 @@ def saveRoom():
     info = content.pop(0)
     filename = []
     for item in info:
-        filename.applicationend(str(item))
+        filename.append(str(item))
     filename = '-'.join(filename)
     filename = CHAIRS_DIR + 'room-' + filename + '.csv'
     with open(filename, 'w', newline='') as csvfile:
@@ -293,7 +307,7 @@ def saveClass():
     info = content.pop(0)
     filename = []
     for item in info:
-        filename.applicationend(str(item))
+        filename.append(str(item))
     filename = '-'.join(filename)
     filename = CLASSROOMS_DIR + 'template-' + filename + '.json'
     with open(filename, 'w') as outfile:
