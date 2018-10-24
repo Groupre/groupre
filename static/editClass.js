@@ -12,7 +12,6 @@ $(document).ready(function(){
     var teamNum = 0;    
     var currentTeams = {};
     var roomID;
-    var teamName;
     
     document.getElementById('buildClass-e').onclick = function() {
         this.hidden = true;

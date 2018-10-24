@@ -87,11 +87,29 @@ $(document).ready(function(){
         var totalSeats = rows * cols;
         for (i = 2; i <= maxGroupSize; i++) {
             if (totalSeats % i == 0){
-                var opt = document.createElement("option");
-                opt.value = i;
-                opt.innerHTML = 'Groups of ' + i;
-		console.log(i);
-                document.getElementById('dropdown').appendChild(opt);   
+                let opt1;
+                let opt2;
+
+                if (i == 4 || i == 6){
+                    opt1 = document.createElement("option");
+                    opt2 = document.createElement("option");
+                    opt1.value = i;
+                    opt2.value = i;
+                }else {
+                    opt1 = document.createElement("option");
+                    opt1.value = i;
+                }
+                if (i == 4 || i == 6){
+                    opt1.innerHTML = 'Groups of ' + i + " (1 x " + i + " )";
+                    opt2.innerHTML = 'Groups of ' + i + " (2 x " + i/2 + " )";
+                    document.getElementById('dropdown').appendChild(opt1);   
+                    document.getElementById('dropdown').appendChild(opt2);   
+                }
+                else{
+                    opt1.innerHTML = 'Groups of ' + i;
+                    document.getElementById('dropdown').appendChild(opt1);   
+
+                }
             }
         }
 
