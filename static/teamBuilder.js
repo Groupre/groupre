@@ -94,7 +94,7 @@ $(document).ready(function(){
                     opt1 = document.createElement("option");
                     opt2 = document.createElement("option");
                     opt1.value = i;
-                    opt2.value = i;
+                    opt2.value = i+10;
                 }else {
                     opt1 = document.createElement("option");
                     opt1.value = i;
@@ -237,15 +237,45 @@ $(document).ready(function(){
         var cells = table.getElementsByTagName('td')
         var currTeam = 0;
         var teamMembers = [];
-        for (var i=0; i < cells.length; i++){
-            var cell = cells[i];
-            cell.classList.toggle("team" + currTeam);
-            cell.innerHTML = currTeam;
-            teamMembers.push(cell);
-            if (((i + 1) % teamSize) == 0){
-                currentTeams[currTeam] = teamMembers;
-                teamMembers = [];
-                currTeam++;                
+        if (teamSize > maxGroupSize){
+            let groupFactor = 1;
+            teamSize = teamSize - 10;
+            if (teamSize == 6){
+                groupFactor = 2;
+            }
+            for (let x = 0; x < cells.length-cols; x++){
+                if (x != 0 && x % cols == 0){
+                    x += cols;
+                }
+                let cell;
+                let cell2;
+                cell = cells[x];
+                cell2 = cells[x+cols];
+                cell.classList.toggle("team" + currTeam);
+                cell.innerHTML = currTeam;
+                cell2.classList.toggle("team" + currTeam);
+                cell2.innerHTML = currTeam;
+                teamMembers.push(cell);
+                teamMembers.push(cell2);
+                if ((x % (teamSize/2)) == groupFactor){
+                    currentTeams[currTeam] = teamMembers;
+                    teamMembers = [];
+                    currTeam++;   
+                }
+                   
+            }
+
+        }else{
+            for (let i=0; i < cells.length; i++){
+                let cell = cells[i];
+                cell.classList.toggle("team" + currTeam);
+                cell.innerHTML = currTeam;
+                teamMembers.push(cell);
+                if (((i + 1) % teamSize) == 0){
+                    currentTeams[currTeam] = teamMembers;
+                    teamMembers = [];
+                    currTeam++;                
+                }
             }
         }
         teamNum = currTeam;        
