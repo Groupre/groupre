@@ -158,9 +158,7 @@ def upload_file(roomID):
     mAverage = False
     if request.method == 'POST':
         # check if any of the options were checked for groupre
-        if (request.form.get('fall_back') == "fallback"):
-            fallback = True
-        elif (request.form.get('teamOpt') == "gender"):
+        if (request.form.get('teamOpt') == "gender"):
             gender = True
         elif (request.form.get('teamOpt') == "highlow"):
             mHighLow = True
