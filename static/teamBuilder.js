@@ -36,14 +36,9 @@ $(document).ready(function(){
                 cell.innerHTML = cell.id;
                 // cell.innerHTML = ''
                 row.appendChild(cell);
-
-                if (r == 0) {
-                    cell.classList.toggle("front");
-                } else if (r+1 == rows) {
-                    cell.classList.toggle("back");
-                }else{
-                    var prop = template[index][2];
-                    console.log(prop);
+                var attrb= template[index].slice(2,template[index].length);
+                for (let x = 0 ; x < attrb.length ; x++){
+                    let prop = attrb[x];
                     switch (prop) {
                         case "left":
                             cell.classList.toggle("leftHand");
@@ -63,9 +58,34 @@ $(document).ready(function(){
                         case "broken":
                             cell.classList.toggle("broken");
                             break;
-    
+        
+                        // }
                     }
+
                 }
+                // var prop = template[index][2];
+                // switch (prop) {
+                //     case "left":
+                //         cell.classList.toggle("leftHand");
+                //         break;
+                //     case "front" :
+                //         cell.classList.toggle("front");
+                //         break;
+                //     case "aisleleft" :
+                //         cell.classList.toggle("aisleLeft");
+                //         break;
+                //     case "aisleright" :
+                //         cell.classList.toggle("aisleRight");
+                //         break;
+                //     case "back" :
+                //         cell.classList.toggle("back");
+                //         break;
+                //     case "broken":
+                //         cell.classList.toggle("broken");
+                //         break;
+    
+                //     // }
+                // }
                 index += 1;
                 // check saved room properties
                 // var prop;
@@ -165,7 +185,6 @@ $(document).ready(function(){
     }
 
     document.getElementById("saveTeam").onclick = function() {
-        alert('save team');
         var array = [];
         array.push([roomID, teamName, rows, cols]);
         array.push(['CID', 'TeamID', 'Attributes']);
