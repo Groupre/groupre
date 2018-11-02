@@ -10,7 +10,10 @@ class Student:
 
     def __init__(self, student_id, score, is_vip, *preferences):
         self.student_id = student_id
-        self.isVIP = is_vip
+        if is_vip == "True":
+            self.isVIP = True
+        else:
+            self.isVIP = False
         if "f" in preferences:
             self.prefersFront = True
         if "b" in preferences:
