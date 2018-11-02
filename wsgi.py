@@ -31,7 +31,7 @@ app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
-app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
+application.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 
 #helper scripts
 def allowed_file(filename):
@@ -215,8 +215,10 @@ def metrics(output_name):
             metrics = f.readlines()
         for m in metrics:
             print(m)
-        postem.postem(['--output', UPLOAD_FOLDER +
-                       'output/' + output_name + '.csv'])
+        ### bug with postem need to be fixed
+        
+        # postem.postem(['--output', UPLOAD_FOLDER +
+                    #    'output/' + output_name + '.csv'])
         return render_template("metrics.html", output_name=output_name, metrics=metrics , title = "Metrics result")
     except FileNotFoundError:
         return render_template("metrics.html", output_name=output_name, title = "Metrics result")
