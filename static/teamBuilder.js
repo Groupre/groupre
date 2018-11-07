@@ -36,6 +36,7 @@ $(document).ready(function(){
                 cell.innerHTML = cell.id;
                 // cell.innerHTML = ''
                 row.appendChild(cell);
+                //retrieve multiple attributes
                 var attrb= template[index].slice(2,template[index].length);
                 for (let x = 0 ; x < attrb.length ; x++){
                     let prop = attrb[x];
@@ -63,39 +64,9 @@ $(document).ready(function(){
                     }
 
                 }
-                // var prop = template[index][2];
-                // switch (prop) {
-                //     case "left":
-                //         cell.classList.toggle("leftHand");
-                //         break;
-                //     case "front" :
-                //         cell.classList.toggle("front");
-                //         break;
-                //     case "aisleleft" :
-                //         cell.classList.toggle("aisleLeft");
-                //         break;
-                //     case "aisleright" :
-                //         cell.classList.toggle("aisleRight");
-                //         break;
-                //     case "back" :
-                //         cell.classList.toggle("back");
-                //         break;
-                //     case "broken":
-                //         cell.classList.toggle("broken");
-                //         break;
-    
-                //     // }
-                // }
+                
                 index += 1;
-                // check saved room properties
-                // var prop;
-                // if (r == 0) {
-                //     prop = template[c][2];
-                // } else if (c == 0){
-                //     prop = template[r*10][2];
-                // }else{
-                //     prop = template[r*c][2];
-                // }  
+              
             }
             table.appendChild(row)
             prevrow = row;
