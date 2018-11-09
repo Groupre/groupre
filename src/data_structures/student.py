@@ -3,10 +3,10 @@ class Student:
 
     student_id: int = None
     isVIP: bool = False
-    prefersFront = False
-    prefersBack = False
-    prefersLeft = False
-    prefersAisle = False
+    prefersFront: bool = False
+    prefersBack: bool = False
+    prefersLeft: bool = False
+    prefersAisle: bool = False
 
     def __init__(self, student_id, score, is_vip, *preferences):
         self.student_id = student_id
