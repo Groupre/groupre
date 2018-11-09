@@ -84,65 +84,22 @@ $(document).ready(function(){
         colStr = colStr[colStr.length-1];
         // get the aisle index
         var aIndex = parseInt(colStr);
-        for(var x = 0; x < cells.length; x++){
-            // if (x != 0 && x % cols == 0){
-            //     x += cols;
-            // }
-            let cell = cells[x+aIndex];
-            let cell1 = cells[x+aIndex+1];
-            cell.classList.toggle("aisleLeft");
-            cell1.classList.toggle("aisleRight");
-            x += cols-1;
-            
-
+        console.log(cols,aIndex);
+        if (aIndex != cols-1){
+            for(var x = 0; x < cells.length; x++){
+                // if (x != 0 && x % cols == 0){
+                //     x += cols;
+                // }
+                let cell = cells[x+aIndex];
+                let cell1 = cells[x+aIndex+1];
+                cell.classList.toggle("aisleLeft");
+                cell1.classList.toggle("aisleRight");
+                x += cols-1;
+    
+            }
         }
-        
 
-
-        // for(var i=0; i<cells.length; i++) {
-        //     var cell = cells[i];
-        //     var colStr = cell.getAttribute("id");
-        //     colStr = colStr[colStr.length-1];
-        //     // the col number 
-        //     var col = parseInt(colStr);
-
-        //     if(i<cells.length-1) {
-        //         var nextColStr = cells[i+1].getAttribute("id");
-        //         nextColStr = nextColStr[nextColStr.length-1];
-        //         var nextCol = parseInt(nextColStr);
-        //     }
-
-        //     if(col == 0) {
-        //         cell.classList.toggle("aisleLeft");
-        //         console.log("col == 0,left");
-
-        //     } else if(col1 == 0 && col2 == 0) {
-        //         col1 = col;
-        //         if(col > nextCol) {
-        //             col2 = col;
-        //             col1 = nextCol;
-        //             cell.classList.toggle("aisleRight");
-        //             console.log("col > nextCol,right");
-        //         } else {
-        //             cell.classList.toggle("aisleLeft");
-        //             console.log("col <=,left");
-
-        //         }
-        //     } else {
-        //         if(col == col1) {
-        //             cell.classList.toggle("aisleLeft");
-        //             console.log("col == col1,left");
-
-
-        //         } else if(col == col2) {
-        //             cell.classList.toggle("aisleRight");
-        //             console.log("col== col2, right");
-
-        //         }
-        //     }
-        // }
-
-        // cells = table.getElementsByTagName("td");
+    
         for(var i=0; i<cells.length; i++) {
             var cell = cells[i];
             cell.classList.remove("highlight");

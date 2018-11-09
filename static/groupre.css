@@ -78,7 +78,9 @@ td.highlight, tr.highlight {
 }
 
 .leftHand {
-  background-color: red;
+  /* background-color: red; */
+  color:red;
+
 }
 
 .front {
