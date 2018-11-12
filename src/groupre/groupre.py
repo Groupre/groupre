@@ -173,12 +173,14 @@ def main(argv):
         writer = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for team in teams:
+            print("this " + team)
             writer.writerow(team)
 
     priority_rating = ''
-
+    print("lalalalalalal")
     print('----------')
     if groupre_globals.STUDENT_PRIORITY_TOTAL != 0:
+        print("not zero")
         priority_rating = ('Student Priority Rating: ' + str(
             round(groupre_globals.STUDENT_PRIORITY_VALUE /
                   groupre_globals.STUDENT_PRIORITY_TOTAL * 100, 2)) + '%')
