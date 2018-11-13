@@ -2,27 +2,33 @@ class Student:
     '''A class dedicated to storing the preferences and specificness level of a given Student.'''
 
     student_id: int = None
-    isVIP: bool = False
-    prefersFront: bool = False
-    prefersBack: bool = False
-    prefersLeft: bool = False
-    prefersAisle: bool = False
+    is_VIP: bool = False
+    has_pref: bool = False
+
+    pref_front: bool = False
+    pref_back: bool = False
+    pref_left: bool = False
+    pref_aisle: bool = False
 
     def __init__(self, student_id, score, is_vip, *preferences):
         self.student_id = student_id
         if is_vip == "True":
-            self.isVIP = True
+            self.is_VIP = True
         else:
-            self.isVIP = False
+            self.is_VIP = False
         if "f" in preferences:
-            self.prefersFront = True
+            self.pref_front = True
+            self.has_pref = True
         if "b" in preferences:
-            self.prefersBack = True
+            self.pref_back = True
+            self.has_pref = True
         if "l" in preferences:
-            self.prefersLeft= True
+            self.pref_left = True
+            self.has_pref = True
         if "a" in preferences:
-            self.prefersAisle = True
+            self.pref_aisle = True
+            self.has_pref = True
 
     def __str__(self):
-        return ("Student ID: " + self.student_id + " VIP: " + str(self.isVIP) +" Front: " + str(self.prefersFront) +
-        " Back: " + str(self.prefersBack) + " Left: " + str(self.prefersLeft) + " Aisle: " + str(self.prefersAisle) )
+        return ("Student ID: " + self.student_id + " VIP: " + str(self.is_VIP) +" Front: " + str(self.pref_front) +
+        " Back: " + str(self.pref_back) + " Left: " + str(self.pref_left) + " Aisle: " + str(self.pref_aisle) )

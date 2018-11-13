@@ -3,50 +3,26 @@ from data_structures.student import Student
 from data_structures.chair import Chair
 
 def sortStudentFunc(student_list):
-    vipList3 = []
-    vipList2 = []
-    vipList1 = []
-    prefList3 = []
-    prefList2 = []
-    prefList1 = []
-    genList = []
+    student_pool = [[],[],[],[],[],[],[]]
 
     for student in student_list:
-        if student.isVIP:
-            num_of_prefs = 0
-            if (student.prefersFront or student.prefersBack):
-                num_of_prefs = num_of_prefs+1
-            if student.prefersAisle:
-                num_of_prefs = num_of_prefs+1
-            if student.prefersLeft:
-                num_of_prefs = num_of_prefs+1
-            if (num_of_prefs == 0):
-                vipList1.append(student)
-            if (num_of_prefs == 1):
-                vipList2.append(student)
-            if (num_of_prefs == 2):
-                vipList3.append(student)
-        elif student.prefersFront or student.prefersBack or student.prefersAisle or student.prefersLeft:
-            num_of_prefs = 0
-            if (student.prefersFront or student.prefersBack):
-                num_of_prefs = num_of_prefs+1
-            if student.prefersAisle:
-                num_of_prefs = num_of_prefs+1
-            if student.prefersLeft:
-                num_of_prefs = num_of_prefs+1
-            if (num_of_prefs == 0):
-                prefList1.append(student)
-            if (num_of_prefs == 1):
-                prefList2.append(student)
-            if (num_of_prefs == 2):
-                prefList3.append(student)
+        if student.has_pref:
+            pref_count = -1
+            if not student.is_VIP:
+                pref_count += 3
+            if student.pref_front:
+                pref_count+=1
+            if student.pref_back:
+                pref_count +=1
+            if student.pref_aisle:
+                pref_count+=1
+            if student.pref_left:
+                pref_count +=1
+            student_pool[pref_count].append(student)
         else:
-            genList.append(student)
-    return vipList3, vipList2, vipList1, prefList3, prefList2, prefList1, genList
+            student_pool[6].append(student)
 
-def sort_group(group_list):
-    #Sort the groups on number of preferences (most to least) and
-    return group_list
+    return student_pool[0] + student_pool[1] + student_pool[2] + student_pool[3] + student_pool[4] + student_pool[5] + student_pool[6]
 
 def insertionSort(arr):
     for i in range(1, len(arr)):
@@ -57,22 +33,35 @@ def insertionSort(arr):
                 j -= 1
         arr[j+1] = key
 
+def sort_group(group_list):
+    #Sort the groups on number of preferences (most to least)
+    return group_list
+
 def placeStudents(student_list, chair_list):
-    for student in student_list:
-        if student.isVIP:
-            if student.prefersFront:
-                chair_list[5].student = student
-            elif student.prefersBack:
-                chair_list[95].student = student
-            if student.prefersAisle:
-                chair_list[59]
-            if student.prefersLeft:
-                chair_list[50]
+    for chair in chair_list:
+        if chair.is_broken: continue
+        top = 0
+        top_student = student_list[0]
+        for student in student_list:
+            this = 0
+            if chair.front and student.pref_front:
+                this += 10
+            elif chair.back and student.pref_back:
+                this += 10
+            if chair.aisle and student.pref_aisle:
+                this += 10
+            if chair.left and student.pref_left:
+                this += 1
+            if this > top:
+                top = this
+                top_student = student
+        chair.student_id = top_student.student_id
+        del student_list[student_list.index(top_student)]
     return student_list
 
 if __name__ == '__main__':
     student_file = '../test/randomizedTests/students/test_students_1.csv'
-    chair_file = '../test/newTests/room-g101--10-10.csv'
+    chair_file = '../test/newTests/room.csv'
     student_count = sum(1 for line in open(student_file))-1
     chair_count = sum(1 for line in open(chair_file))-1
     student_list = []
@@ -93,40 +82,11 @@ if __name__ == '__main__':
     insertionSort(chair_list)
 
     for chair in chair_list:
-        if chair.is_broken:
-            chair.student_id = None
-        else:
-            for student in sorted_student_list[0]:
-                if True:
-                    chair.student_id = student.student_id
-                    sorted_student_list[0].remove(student)
-                else:
-                    sorted_student_list[1].append
-            for student in sorted_student_list[1]:
-                if (student.prefersFront and chair.front) or (student.prefersBack and chair.back) and (student.prefersAisle and chair.aisle):
-                    chair.student_id = student.student_id
-                    sorted_student_list[1].remove(student)
-                elif (student.prefersFront and chair.front) or (student.prefersBack and chair.back) and (student.prefersLeft and chair.left):
-                    chair.student_id = student.student_id
-                    sorted_student_list[1].remove(student)
-                elif (student.prefersLeft and chair.left) and (student.prefersAisle and chair.aisle):
-                    chair.student_id = student.student_id
-                    sorted_student_list[1].remove(student)
-            for student in sorted_student_list[2]:
-                    chair.student_id = student.student_id
-                    sorted_student_list[2].remove(student)
-            for student in sorted_student_list[3]:
-                    chair.student_id = student.student_id
-                    sorted_student_list[3].remove(student)
-            for student in sorted_student_list[4]:
-                    chair.student_id = student.student_id
-                    sorted_student_list[4].remove(student)
-            for student in sorted_student_list[5]:
-                    chair.student_id = student.student_id
-                    sorted_student_list[5].remove(student)
-            for student in sorted_student_list[6]:
-                    chair.student_id = student.student_id
-                    sorted_student_list[6].remove(student)
+        print(chair)
+    for student in sorted_student_list:
+            print(student)
+
+    placeStudents(sorted_student_list, chair_list)
 
     for chair in chair_list:
         print(chair)
