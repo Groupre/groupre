@@ -133,7 +133,7 @@ $(document).ready(function(){
         team.innerHTML = "Team " + teamNum;
         team.id = "team" + teamNum;
         teamNum += 1;
-        document.getElementById("teamList").appendChild(team);
+        // document.getElementById("teamList").appendChild(team);
 
         cells = table.getElementsByTagName("td");
         for(var i=0; i<cells.length; i++) {
@@ -142,18 +142,18 @@ $(document).ready(function(){
         }
     }
 
-    document.getElementById("teamList").onmouseover = function() {
-        var table = document.getElementById("dataTable");
-        var teamList = document.getElementsByClassName("team");
+    // document.getElementById("teamList").onmouseover = function() {
+    //     var table = document.getElementById("dataTable");
+    //     var teamList = document.getElementsByClassName("team");
 
-        $("#teamList p").mouseover(function() {
-            var team = this;
-            var teamId = team.id;
-            var cells = table.getElementsByClassName(teamId);
-            var temp = team.innerHTML;
-            team.innerHTML = cells[0].id;
-        });
-    }
+    //     $("#teamList p").mouseover(function() {
+    //         var team = this;
+    //         var teamId = team.id;
+    //         var cells = table.getElementsByClassName(teamId);
+    //         var temp = team.innerHTML;
+    //         team.innerHTML = cells[0].id;
+    //     });
+    // }
 
     document.getElementById("saveTeam").onclick = function() {
         var array = [];
@@ -199,8 +199,64 @@ $(document).ready(function(){
             document.getElementById('notice').innerHTML = ''
         }, 2000);
     }
-    document.getElementById("resetTeam").onclick = function(){
+    document.getElementById("removeTeam").onclick = function(){
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByClassName("highlight");
+        if(cells.length < 1) {
+            return;
+        }
 
+        var teamMembers = []
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];            
+            for (j=0; j<teamNum; j++){
+                if (cell.classList.contains("team" + j)){
+                    cell.classList.toggle("team" + j);
+                }
+            }
+            cell.innerHTML = [];
+        }
+        // currentTeams[teamNum] = teamMembers
+
+        // team.innerHTML = "Team " + teamNum;
+        // team.id = "team" + teamNum;
+        // teamNum += 1;
+        // document.getElementById("teamList").appendChild(team);
+
+        cells = table.getElementsByTagName("td");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.remove("highlight");
+        }
+    }
+    document.getElementById("resetTeam").onclick = function(){
+        // alert("lmao");
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByTagName("td");
+
+        // for(var i=0; i<cells.length; i++) {
+        //     var cell = cells[i];
+        //     for(var key in categories) {
+        //         var cat = categories[key];
+        //         if (cell.classList.contains(key)){
+        //             cell.classList.toggle(key);
+        //         }
+        //     }
+        // }
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            for (var key in currentTeams){
+                if (cell.classList.contains('team' + key)){
+                    cell.classList.toggle('team' + key);
+                    if(i != 0){
+                        cell.innerHTML = Math.floor(i/ rows) + "," + (i % cols);
+                    } else{
+                        cell.innerHTML = "0,0";
+
+                    }
+                }
+            }
+        }
     }
 
 
