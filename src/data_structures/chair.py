@@ -9,7 +9,7 @@ class Chair:
     is_broken: bool = False
     student_id: int = None
 
-    def __init__(self, chair_id, *preferences):
+    def __init__(self, chair_id, preferences):
         self.chair_id = chair_id
         if "front" in preferences:
             self.front = True

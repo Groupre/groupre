@@ -2,8 +2,9 @@ import csv
 from data_structures.student import Student
 from data_structures.chair import Chair
 
+
 def sortStudentFunc(student_list):
-    student_pool = [[],[],[],[],[],[],[]]
+    student_pool = [[], [], [], [], [], [], []]
 
     for student in student_list:
         if student.has_pref:
@@ -11,18 +12,19 @@ def sortStudentFunc(student_list):
             if not student.is_VIP:
                 pref_count += 3
             if student.pref_front:
-                pref_count+=1
+                pref_count += 1
             if student.pref_back:
-                pref_count +=1
+                pref_count += 1
             if student.pref_aisle:
-                pref_count+=1
+                pref_count += 1
             if student.pref_left:
-                pref_count +=1
+                pref_count += 1
             student_pool[pref_count].append(student)
         else:
             student_pool[6].append(student)
 
     return student_pool[0] + student_pool[1] + student_pool[2] + student_pool[3] + student_pool[4] + student_pool[5] + student_pool[6]
+
 
 def insertionSort(arr):
     for i in range(1, len(arr)):
@@ -33,13 +35,16 @@ def insertionSort(arr):
                 j -= 1
         arr[j+1] = key
 
+
 def sort_group(group_list):
     #Sort the groups on number of preferences (most to least)
     return group_list
 
+
 def placeStudents(student_list, chair_list):
     for chair in chair_list:
-        if chair.is_broken: continue
+        if chair.is_broken:
+            continue
         top = 0
         top_student = student_list[0]
         for student in student_list:
@@ -58,6 +63,7 @@ def placeStudents(student_list, chair_list):
         chair.student_id = top_student.student_id
         del student_list[student_list.index(top_student)]
     return student_list
+
 
 if __name__ == '__main__':
     student_file = '../test/randomizedTests/students/test_students_1.csv'

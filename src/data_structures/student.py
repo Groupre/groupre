@@ -30,5 +30,5 @@ class Student:
             self.has_pref = True
 
     def __str__(self):
-        return ("Student ID: " + self.student_id + " VIP: " + str(self.is_VIP) +" Front: " + str(self.pref_front) +
-        " Back: " + str(self.pref_back) + " Left: " + str(self.pref_left) + " Aisle: " + str(self.pref_aisle) )
+        return ("Student ID: " + self.student_id + " VIP: " + str(self.is_VIP) + " Front: " + str(self.pref_front) +
+                " Back: " + str(self.pref_back) + " Left: " + str(self.pref_left) + " Aisle: " + str(self.pref_aisle))
