@@ -9,8 +9,8 @@ from flask import (Flask, Response, flash, redirect, render_template, request,
 from werkzeug.utils import secure_filename
 
 # relies on groupre having been installed to the machine running this script
-import groupre
-from helpers import postem
+import src.groupre.groupre as groupre
+import src.groupre.helpers.postem as postem
 
 UPLOAD_FOLDER = os.getcwd() + '/uploads/'
 ALLOWED_EXTENSIONS = set(['csv'])
@@ -266,10 +266,11 @@ def downloadcsv(output_name):
 # directs to a page that allows user to decide wheather to change template or make new
 @application.route("/editTemplate")
 def changeTemplate():
-    roomFiles = []
+    roomFiles = {}
     for rFile in os.listdir(CLASSROOMS_DIR):
         if '.json' in rFile:
-            roomFiles.append(rFile)
+            rKey = rFile.split('-')[1] 
+            roomFiles[rKey]= rFile
 
     return render_template('chooseClass.html', roomFiles = roomFiles, title = "Create or modify")
 
@@ -279,10 +280,11 @@ def create_room():
     return render_template('groupreHome.html', title = "Create class")
 @application.route("/team-creation")
 def create_team():
-    roomFiles = []
+    roomFiles = {}
     for rFile in os.listdir(CLASSROOMS_DIR):
         if '.json' in rFile:
-            roomFiles.append(rFile)
+            rKey = rFile.split('-')[1] 
+            roomFiles[rKey]= rFile
     return render_template('chooseTeam.html', roomFiles = roomFiles , title = "Create teams")
 
 @application.route("/room-saver", methods=['POST'])
