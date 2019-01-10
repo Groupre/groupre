@@ -7,6 +7,7 @@ def sortStudentFunc(student_list):
     student_pool = [[], [], [], [], [], [], []]
 
     for student in student_list:
+        print(student.is_VIP)
         if student.has_pref:
             pref_count = -1
             if not student.is_VIP:
@@ -78,9 +79,13 @@ if __name__ == '__main__':
         csv_reader = csv.reader(csv_file, delimiter=',')
         first_line = True
         for row in csv_reader:
+            print(row)
             if first_line: first_line = False
             else:
-                student_list.append(Student(row[0], row[2]))
+                if len(row) <= 4:
+                    student_list.append(Student(row[0],row[2]))
+                else:
+                    student_list.append(Student(row[0], row[2], row[4:]))
 
     with open(chair_file) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
@@ -89,7 +94,10 @@ if __name__ == '__main__':
             if first_line:
                 first_line = False
             else:
-                chair_list.append(Chair(row[0], row[2]))
+                if len(row) <= 2:
+                    chair_list.append(Chair(row[0],""))
+                else:
+                    chair_list.append(Chair(row[0], row[2]))
     sorted_student_list = sortStudentFunc(student_list)
 
     #
