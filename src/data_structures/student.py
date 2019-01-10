@@ -4,13 +4,12 @@ class Student:
     student_id: int = None
     is_VIP: bool = False
     has_pref: bool = False
-
     pref_front: bool = False
     pref_back: bool = False
     pref_left: bool = False
     pref_aisle: bool = False
 
-    def __init__(self, student_id, score, is_vip, *preferences):
+    def __init__(self, student_id, is_vip, *preferences):
         self.student_id = student_id
         if is_vip == "True":
             self.is_VIP = True

@@ -23,7 +23,7 @@ def sortStudentFunc(student_list):
         else:
             student_pool[6].append(student)
 
-    return student_pool[0] + student_pool[1] + student_pool[2] + student_pool[3] + student_pool[4] + student_pool[5] + student_pool[6]
+    return student_pool
 
 
 def insertionSort(arr):
@@ -66,23 +66,29 @@ def placeStudents(student_list, chair_list):
 
 
 if __name__ == '__main__':
-    student_file = '../test/randomizedTests/students/test_students_1.csv'
+    student_file = '../test/randomizedTests/students/test_students_demo_100.csv'
     chair_file = '../test/newTests/room.csv'
     student_count = sum(1 for line in open(student_file))-1
     chair_count = sum(1 for line in open(chair_file))-1
     student_list = []
     chair_list = []
 
-    with open(student_file, 'r') as f:
-        reader = csv.reader(f)
-        next(reader, None)
-        for row in reader:
-            student_list.append(Student(*row))
-    with open(chair_file, 'r') as f:
-        reader = csv.reader(f)
-        next(reader, None)
-        for row in reader:
-            chair_list.append(Chair(*row))
+    with open(student_file) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        first_line = True
+        for row in csv_reader:
+            if first_line: first_line = False
+            else:
+                student_list.append(Student(row[0], row[2]))
+
+    with open(chair_file) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        first_line = True
+        for row in csv_reader:
+            if first_line:
+                first_line = False
+            else:
+                chair_list.append(Chair(row[0], row[2])
 
     sorted_student_list = sortStudentFunc(student_list)
     insertionSort(chair_list)
