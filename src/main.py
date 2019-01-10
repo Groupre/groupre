@@ -62,6 +62,7 @@ def placeStudents(student_list, chair_list):
                 top_student = student
         chair.student_id = top_student.student_id
         del student_list[student_list.index(top_student)]
+    print("it works")
     return student_list
 
 
@@ -88,9 +89,10 @@ if __name__ == '__main__':
             if first_line:
                 first_line = False
             else:
-                chair_list.append(Chair(row[0], row[2])
-
+                chair_list.append(Chair(row[0], row[2]))
     sorted_student_list = sortStudentFunc(student_list)
+
+    #
     insertionSort(chair_list)
 
     for chair in chair_list:
