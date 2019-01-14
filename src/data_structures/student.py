@@ -9,7 +9,7 @@ class Student:
     pref_left: bool = False
     pref_aisle: bool = False
 
-    def __init__(self, student_id, is_vip, *preferences):
+    def __init__(self, student_id, is_vip, preferences):
         self.student_id = student_id
         if is_vip == "True":
             self.is_VIP = True

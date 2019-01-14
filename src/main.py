@@ -49,6 +49,7 @@ def placeStudents(student_list, chair_list):
         top = 0
         top_student = student_list[0]
         for student in student_list:
+            print(student)
             this = 0
             if chair.front and student.pref_front:
                 this += 10
@@ -83,7 +84,7 @@ if __name__ == '__main__':
             if first_line: first_line = False
             else:
                 if len(row) <= 4:
-                    student_list.append(Student(row[0],row[2]))
+                    student_list.append(Student(row[0],row[2],[]))
                 else:
                     student_list.append(Student(row[0], row[2], row[4:]))
 
@@ -97,7 +98,7 @@ if __name__ == '__main__':
                 if len(row) <= 2:
                     chair_list.append(Chair(row[0],""))
                 else:
-                    chair_list.append(Chair(row[0], row[2]))
+                    chair_list.append(Chair(row[0], row[2:]))
     sorted_student_list = sortStudentFunc(student_list)
 
     #
@@ -105,10 +106,14 @@ if __name__ == '__main__':
 
     for chair in chair_list:
         print(chair)
+    print("printing students")
+    newStudents = []
     for student in sorted_student_list:
-            print(student)
-
-    placeStudents(sorted_student_list, chair_list)
+        for n in student:
+            newStudents.append(n)
+            print(n)
+    print("end printing")       
+    placeStudents(newStudents, chair_list)
 
     for chair in chair_list:
         print(chair)
