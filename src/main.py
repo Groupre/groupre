@@ -69,7 +69,7 @@ def placeStudents(student_list, chair_list):
 
 
 if __name__ == '__main__':
-    student_file = '../test/randomizedTests/students/test_students_demo_100.csv'
+    student_file = '../test/randomizedTests/students/test_students_1.csv'
     chair_file = '../test/newTests/room.csv'
     student_count = sum(1 for line in open(student_file))-1
     chair_count = sum(1 for line in open(chair_file))-1
