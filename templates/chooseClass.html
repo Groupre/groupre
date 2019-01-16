@@ -7,7 +7,7 @@
     <form-group>
         <label>Choose an existing template</label>
             <select id = "classList">
-                    {%- for item in roomFiles %}
+                    {%- for item in roomFiles.keys() %}
                     <option value="{{ roomFiles[item] }}">{{ item }}</option>
                     {%- endfor %}
                 </select>
@@ -24,7 +24,7 @@
         document.getElementById('goToClass').onclick = function(){
         var select = document.getElementById('classList');
         var idx = select.selectedIndex;
-        var selectedOption = select.options[idx].text;
+        var selectedOption = select.options[idx].value;
         
         window.location='/class/' + selectedOption;
     }
