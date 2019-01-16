@@ -9,3 +9,13 @@ PID,StudentName,VIP,Score,Preferences
 185218,7,False,4,b
 600789,8,False,3
 182304,9,False,2,f
+750,0,True,4,l
+933,1,True,1,f,a
+977,2,True,4,b,a
+591,3,True,1,l,f
+709,4,False,1,b
+923,5,True,3
+271,6,False,4,a
+185,7,False,4,b
+600,8,False,3
+182,9,False,2,f
