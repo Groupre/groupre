@@ -4,29 +4,93 @@ from data_structures.chair import Chair
  
 def placeStudents(student_list, chair_list):
     pairs = []
-    for chair in chair_list:  
-        for student in student_list:
-            if not chair.is_broken and not chair.taken:
-                if not student.taken and student.num_points > 99:
-                    student.num_points -= 100
-                    if chair.num_points == student.num_points:
-                        pairs.append([chair.chair_id,student.student_id])
-                        chair.taken = True
-                        student.taken = True
-     
-    for chair in chair_list:
-        for student in student_list:
+    VIP_list = []
+    pref_list = []
+    other_list = []
+    valPool = [30,40]
+    maxVal = 0
+    for student in student_list:
+        if student.num_points == 0:
+            other_list.append(student)
+        elif student.num_points > 998:
+            student.num_points -= 999
+            VIP_list.append(student)
+        else:
+            pref_list.append(student)
+    for student in VIP_list:
+        while (not student.taken):
+            print("student points")
+            print(student.num_points)
+            for chair in chair_list:  
+                if not chair.is_broken and not chair.taken:
+                    if not student.taken:
+                        if chair.num_points == student.num_points:
+                            pairs.append([chair,student])
+                            chair.taken = True
+                            student.taken = True
+            if (not student.taken):
+                # if no match subtract one value
+                for val in range(len(valPool)):
+                    if student.num_points >= valPool[val]:
+                        maxVal = val
+                if (student.num_points == 0):
+                    # if student has no pref then add to other list and skip to next student
+                    other_list.append(student)
+                    student.taken = True
+                else:
+                    # if no frontish or backish seats
+                    if (student.num_points == 5):
+                        student.num_points = 0
+                    elif (student.num_points == 7):
+                        student.num_points = 0
+                # if students has only one attribute
+                    elif (student.num_points < 20) and ((student.num_points % 10) == 1):
+                        student.num_points = 5
+                    elif (student.num_points < 20) and ((student.num_points % 10) == 3):
+                        student.num_points = 7
+                    elif (student.num_points % 10) == 0:
+                        student.num_points -= valPool[maxVal]
+                    else:
+                        student.num_points = 0
+    for student in pref_list:
+        while (not student.taken):
+            for chair in chair_list:
+                if not chair.is_broken and not chair.taken:
+                    if not student.taken:
+                        if chair.num_points == student.num_points:
+                            pairs.append([chair,student])
+                            chair.taken = True
+                            student.taken = True
+                        # if no match subtract one value
+            if (not student.taken):
+                # if no match subtract one value
+                for val in range(len(valPool)):
+                    if student.num_points > valPool[val]:
+                        maxVal = val
+                if (student.num_points == 0):
+                    # if student has no pref then add to other list and skip to next student
+                    other_list.append(student)
+                    student.taken = True
+                else:
+                    # if no frontish or backish seats
+                    if (student.num_points == 5):
+                        student.num_points = 0
+                    elif (student.num_points == 7):
+                        student.num_points = 0
+                # if students has only one attribute
+                    elif (student.num_points < 20) and ((student.num_points % 10) == 1):
+                        student.num_points = 5
+                    elif (student.num_points < 20) and ((student.num_points % 10) == 3):
+                        student.num_points = 7
+                    elif (student.num_points % 10) == 0:
+                        student.num_points -= valPool[maxVal]
+                    else:
+                        student.num_points = 0
+    for student in other_list:
+        for chair in chair_list:
             if not chair.is_broken and not chair.taken:
                 if not student.taken:
-                    if chair.num_points == student.num_points:
-                        pairs.append([chair.chair_id,student.student_id])
-                        chair.taken = True
-                        student.taken = True
-    for chair in chair_list:
-        for student in student_list:
-            if not chair.is_broken and not chair.taken:
-                if not student.taken:
-                    pairs.append([chair.chair_id,student.student_id])
+                    pairs.append([chair,student])
                     chair.taken = True
                     student.taken = True
     return pairs
@@ -65,12 +129,9 @@ if __name__ == '__main__':
                 else:
                     chair_list.append(Chair(row[0], row[2:]))
 
-    for i in student_list:
-        print(i.num_points)
-    print("printing chair")
-    for n in chair_list:
-        print(n.num_points)
     newPairs = placeStudents(student_list, chair_list)
     print("print pairs")
     for x in newPairs:
-        print(x)
+        # print(x[0].chair_id,x[1].student_id)
+        print(x[0])
+        print(x[1],"\n")
