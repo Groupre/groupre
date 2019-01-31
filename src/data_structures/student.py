@@ -16,7 +16,7 @@ class Student:
 
     def __init__(self, student_id, is_vip, preferences):
         self.student_id = student_id
-        if is_vip == "True":
+        if is_vip == "TRUE":
             self.is_VIP = True
             self.num_points += 999
         else:

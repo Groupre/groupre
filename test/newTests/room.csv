@@ -12,10 +12,10 @@ a9,3,fronti
 a10,0,froti
 a11,0,fronti,aisle
 a12,1,left,aisle
-a13,1,
-a14,2,
-a15,2,
-a16,3,
+a13,1,left
+a14,2,left
+a15,2,left
+a16,3,left
 a17,3,aisle
 a18,4,backi,left
 a19,3,backi
