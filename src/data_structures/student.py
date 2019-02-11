@@ -10,41 +10,50 @@ class Student:
     pref_backi: bool = False
     pref_left: bool = False
     pref_aisle: bool = False
-    num_points: int = 0
+
+    left_section: bool = False
+    middle_section: bool = False
+    right_section: bool = False
+
+    prefs = []
     taken :bool = False
 
 
     def __init__(self, student_id, is_vip, preferences):
+        self.prefs = [0,0,0]
         self.student_id = student_id
         if is_vip == "TRUE":
             self.is_VIP = True
-            self.num_points += 999
         else:
             self.is_VIP = False
         if "f" in preferences:
-            self.pref_front = True
-            self.has_pref = True
-            self.num_points += 1
+            self.front = True
+            self.prefs[1] = 1.1
         if "b" in preferences:
-            self.pref_back = True
-            self.has_pref = True
-            self.num_points += 3
+            self.back = True
+            self.prefs[1] = 8.1
         if "fi" in preferences:
-            self.pref_fronti = True
-            self.has_pref = True
-            self.num_points += 5
+            self.fronti = True
+            self.prefs[1] = 1.0
         if "bi" in preferences:
-            self.pref_backi = True
-            self.has_pref = True
-            self.num_points += 7
-        if "l" in preferences:
-            self.pref_left = True
-            self.has_pref = True
-            self.num_points += 40
+            self.backi = True
+            self.prefs[1] = 8.0
+        if "la" in preferences:
+            self.left = True
+            self.prefs[2] = 1.1
         if "a" in preferences:
-            self.pref_aisle = True
-            self.has_pref = True
-            self.num_points += 30
+            self.aisle = True
+            self.prefs[2] = 1.0
+        if "left" in preferences:
+            self.left_section = True
+            self.prefs[0] = .9
+        if "middle" in preferences:
+            self.middle_section = True
+            self.prefs[0] = 1.0
+        if "right" in preferences:
+            self.right_section = True
+            self.prefs[0] = 1.1
+    
     def __str__(self):
         return ("Student ID: " + self.student_id + " VIP: " + str(self.is_VIP) + " Front: " + str(self.pref_front) +
                 " Back: " + str(self.pref_back) + " Left: " + str(self.pref_left) + " Aisle: " + str(self.pref_aisle))

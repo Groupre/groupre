@@ -94,10 +94,13 @@ def placeStudents(student_list, chair_list):
                 tempVal = valPool.copy()
                 tempRanked = rankPool.copy()
                 indexSort(tempVal,tempRanked)
-                print(valPool, tempRanked)
                 if (student.num_points == 0):
                     # if student has no pref then add to other list and skip to next student
                     other_list.append(student)
+                    student.taken = True
+                #if it just left seats
+                elif (student.num_points == 40):
+                    pref_list.insert(0,student)
                     student.taken = True
                 else:
                     # if no frontish or backish seats
@@ -110,7 +113,7 @@ def placeStudents(student_list, chair_list):
                         student.num_points = 5
                     elif (student.num_points < 20) and ((student.num_points % 10) == 3):
                         student.num_points = 7
-                    elif (student.num_points % 10) == 0:
+                    elif ((student.num_points % 10) == 0):
                         # see what preferences student have
                         studentList = studentPref(student)
                         prefList = []
@@ -124,7 +127,7 @@ def placeStudents(student_list, chair_list):
                                 if x == tempRanked[y]:
                                     if y < minY:
                                         minY = y                                 
-                        print(student.num_points, pointPool[tempRanked[minY]]) 
+                        print(student.num_points, pointPool[tempRanked[minY]])
                         student.num_points -= pointPool[tempRanked[minY]]
                     else:
                         student.num_points = 0
@@ -155,11 +158,32 @@ def placeStudents(student_list, chair_list):
                 tempVal = valPool.copy()
                 tempRanked = rankPool.copy()
                 indexSort(tempVal,tempRanked)
-                print(valPool, tempRanked)
                 if (student.num_points == 0):
                     # if student has no pref then add to other list and skip to next student
                     other_list.append(student)
                     student.taken = True
+                if (student.num_points == 40):
+                    for chair in chair_list:
+                        if not chair.is_broken and not chair.taken:
+                            if chair.num_points > 40:
+                                if chair.front:
+                                    valPool[0] -= 1
+                                elif chair.back:
+                                    valPool[1] -= 1
+                                elif chair.fronti:
+                                    valPool[2] -= 1
+                                elif chair.backi:
+                                    valPool[3] -= 1
+                                elif chair.aisle:
+                                    valPool[4] -= 1
+                                elif chair.left:
+                                    valPool[5] -= 1
+                                pairs.append([chair,student])
+                                chair.taken = True
+                                student.taken = True
+                    if not student.taken:
+                        other_list.insert(0,student)
+                        student.taken = True
                 else:
                     # if no frontish or backish seats
                     if (student.num_points == 5):
@@ -190,6 +214,25 @@ def placeStudents(student_list, chair_list):
                     else:
                         student.num_points = 0
     for student in other_list:
+        if (student.num_points == 40):
+            for chair in chair_list:
+                if not chair.is_broken and not chair.taken:
+                    if chair.num_points > 40:
+                        if chair.front:
+                            valPool[0] -= 1
+                        elif chair.back:
+                            valPool[1] -= 1
+                        elif chair.fronti:
+                            valPool[2] -= 1
+                        elif chair.backi:
+                            valPool[3] -= 1
+                        elif chair.aisle:
+                            valPool[4] -= 1
+                        elif chair.left:
+                            valPool[5] -= 1
+                        pairs.append([chair,student])
+                        chair.taken = True
+                        student.taken = True
         for chair in chair_list:
             if not chair.is_broken and not chair.taken:
                 if not student.taken:
@@ -200,20 +243,19 @@ def placeStudents(student_list, chair_list):
  
  
 if __name__ == '__main__':
-    student_file = '../test/BIOL201_007Student.csv'
-    chair_file = '../test/BIOL201_007Room.csv'
-    output_file = '../test/BIO201_007newOutput.csv'
+    student_file = '../test/BIOL101_002Students.csv'
+    chair_file = '../test/BIOL101_002Room.csv'
+    output_file = '../test/BIO101_002newOutput.csv'
     student_count = sum(1 for line in open(student_file))-1
     chair_count = sum(1 for line in open(chair_file))-1
     student_list = []
     chair_list = []
- 
+
     with open(student_file) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         first_line = True
         for row in csv_reader:
-            print(row)
-            if first_line: first_line = False
+            if first_line: first_line = False   
             else:
                 if len(row) <= 4:
                     student_list.append(Student(row[0],row[2],[]))
@@ -224,7 +266,6 @@ if __name__ == '__main__':
         csv_reader = csv.reader(csv_file, delimiter=',')
         first_line = True
         for row in csv_reader:
-            print(row)
             if first_line:
                 first_line = False
             else:

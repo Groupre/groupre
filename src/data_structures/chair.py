@@ -9,32 +9,46 @@ class Chair:
     left: bool = False
     aisle: bool = False
     is_broken: bool = False
-    num_points : int = 0
+    
+    left_section: bool = False
+    middle_section: bool = False
+    right_section: bool = False
+
+    prefs = []
     taken :bool = False
 
     def __init__(self, chair_id, preferences):
+        self.prefs = [0,0,0]
         self.chair_id = chair_id
-        if "front" in preferences:
+        if "f" in preferences:
             self.front = True
-            self.num_points += 1
-        if "back" in preferences:
+            self.prefs[1] = 1.1
+        if "b" in preferences:
             self.back = True
-            self.num_points += 3
-        if "fronti" in preferences:
+            self.prefs[1] = 8.1
+        if "fi" in preferences:
             self.fronti = True
-            self.num_points += 5
-        if "backi" in preferences:
+            self.prefs[1] = 1.0
+        if "bi" in preferences:
             self.backi = True
-            self.num_points += 7
-        if "left" in preferences:
+            self.prefs[1] = 8.0
+        if "la" in preferences:
             self.left = True
-            self.num_points += 40
-        if "aisle" in preferences:
+            self.prefs[2] = 1.1
+        if "a" in preferences:
             self.aisle = True
-            self.num_points += 30
-        if "broken" in preferences:
+            self.prefs[2] = 1.0
+        if "br" in preferences:
             self.is_broken = True
-
+        if "left" in preferences:
+            self.left_section = True
+            self.prefs[0] = .9
+        if "middle" in preferences:
+            self.middle_section = True
+            self.prefs[0] = 1.0
+        if "right" in preferences:
+            self.right_section = True
+            self.prefs[0] = 1.1
     def __str__(self):
             return ("Chair ID: " + self.chair_id + " Front: " + str(self.front) + " Back: " + str(self.back) +
             " Left: " + str(self.left) + " Aisle: " + str(self.aisle) + " Broken: " + str(self.is_broken))
