@@ -66,6 +66,40 @@ def placeStudents(student_list, chair_list):
                 minC.taken = True
                 s.taken = True
             print('loop ends')
+    for s in nonVIPs:
+        while not s.taken:
+            print('looping')
+            for c in chair_list:
+                print(s.student_id, s.prefs,c.prefs)
+                if not c.taken and not c.is_broken:
+                    if s.prefs == c.prefs:
+                        pairs.append([c,s])
+                        c.taken = True
+                        s.taken = True
+                        break
+            if not s.taken:
+                min = 999
+                minC = None
+                for c in chair_list:
+                    if not c.taken and not c.is_broken:
+                        if findApprox(s,c) < min:
+                            min = findApprox(c,s)
+                            minC = c
+                pairs.append([minC,s])
+                minC.taken = True
+                s.taken = True
+            print('loop ends')
+    for s in noPrefs:
+        print('looping')
+        for c in chair_list:
+            print(s.student_id, s.prefs,c.prefs)
+            if not c.taken and not c.is_broken:
+                # if s.prefs == c.prefs:
+                pairs.append([c,s])
+                c.taken = True
+                s.taken = True
+                break
+        print('loop ends')
     return pairs
  
  
@@ -108,8 +142,10 @@ if __name__ == '__main__':
         writer = csv.writer(csv_file, delimiter=',')
         writer.writerow(["ids","isVIP","front","back","frontish","backish","aisle","left"])
         for x in newPairs:
-            writer.writerow([x[0].chair_id,"",x[0].front,x[0].back,x[0].fronti,x[0].backi,x[0].aisle,x[0].left,x[1].student_id,x[1].is_VIP,x[1].pref_front,x[1].pref_back,x[1].pref_fronti,x[1].pref_backi,x[1].pref_aisle,x[1].pref_left])
-            writer.writerow([x[1].student_id,x[1].is_VIP,x[1].pref_front,x[1].pref_back,x[1].pref_fronti,x[1].pref_backi,x[1].pref_aisle,x[1].pref_left])
+            # writer.writerow([x[0].chair_id,"",x[0].front,x[0].back,x[0].fronti,x[0].backi,x[0].aisle,x[0].left,x[1].student_id,x[1].is_VIP,x[1].pref_front,x[1].pref_back,x[1].pref_fronti,x[1].pref_backi,x[1].pref_aisle,x[1].pref_left])
+            # writer.writerow([x[1].student_id,x[1].is_VIP,x[1].pref_front,x[1].pref_back,x[1].pref_fronti,x[1].pref_backi,x[1].pref_aisle,x[1].pref_left])
+            writer.writerow([x[0].chair_id,"",x[0].prefs])
+            writer.writerow([x[1].student_id,x[1].is_VIP,x[1].prefs])
             writer.writerow([""])
     for x in newPairs:
         # print(x[0].chair_id,x[1].student_id)
