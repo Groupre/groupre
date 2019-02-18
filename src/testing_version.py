@@ -2,12 +2,15 @@ import csv
 from data_structures.student import Student
 from data_structures.chair import Chair
 import math
+import time
 
+#find the seat difference
 def findApprox(cList, sList):
     diff = 0
     for x in range(len(sList.prefs)):
         diff += abs(sList.prefs[x] - cList.prefs[x])
     return diff
+#place students into matching/prefered seats
 def placeStudents(student_list, chair_list):
     pairs = []
     VIPs = []
@@ -25,7 +28,7 @@ def placeStudents(student_list, chair_list):
                 noPrefs.append(student)
             else:
                 nonVIPs.append(student)
-    print(len(student_list),len(VIPs),len(nonVIPs),len(noPrefs))
+    # find perfect match in VIP list as first priority
     for s in VIPs:
         for c in chair_list:
             if not c.taken and not c.is_broken:
@@ -34,30 +37,8 @@ def placeStudents(student_list, chair_list):
                     c.taken = True
                     s.taken = True
                     break
+    # find close approx. seat for VIP
     for s in VIPs:
-        while not s.taken:
-            print('looping')
-            if not s.taken:
-                min = 999
-                minC = None
-                for c in chair_list:
-                    if not c.taken and not c.is_broken:
-                        if findApprox(s,c) < min:
-                            min = findApprox(c,s)
-                            minC = c
-                pairs.append([minC,s])
-                minC.taken = True
-                s.taken = True
-            print('loop ends')
-    for s in nonVIPs:
-        for c in chair_list:
-            if not c.taken and not c.is_broken:
-                if s.prefs == c.prefs:
-                    pairs.append([c,s])
-                    c.taken = True
-                    s.taken = True
-                    break
-    for s in nonVIPs:
         while not s.taken:
             if not s.taken:
                 min = 999
@@ -70,11 +51,34 @@ def placeStudents(student_list, chair_list):
                 pairs.append([minC,s])
                 minC.taken = True
                 s.taken = True
+    # find perfect match in preference list
+    for s in nonVIPs:
+        for c in chair_list:
+            if not c.taken and not c.is_broken:
+                if s.prefs == c.prefs:
+                    pairs.append([c,s])
+                    c.taken = True
+                    s.taken = True
+                    break
+    # find approximate match
+    for s in nonVIPs:
+        while not s.taken:
+            if not s.taken:
+                min = 999
+                minC = None
+                for c in chair_list:
+                    if not c.taken and not c.is_broken:
+                        if findApprox(s,c) < min:
+                            min = findApprox(c,s)
+                            minC = c
+                pairs.append([minC,s])
+                minC.taken = True
+                s.taken = True
+    # fill the rest of unmatched seats
     for s in noPrefs:
         for c in chair_list:
             print(s.student_id, s.prefs,c.prefs)
             if not c.taken and not c.is_broken:
-                # if s.prefs == c.prefs:
                 pairs.append([c,s])
                 c.taken = True
                 s.taken = True
@@ -92,7 +96,7 @@ if __name__ == '__main__':
 
     chair_list = []
     student_list = []
-
+    # reading data
     with open(student_file) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         first_line = True
@@ -115,9 +119,10 @@ if __name__ == '__main__':
                     chair_list.append(Chair(row[0],[]))
                 else:
                     chair_list.append(Chair(row[0], row[2:]))
-
+    # placing students
     newPairs = placeStudents(student_list, chair_list)
     
+    # writing outputs
     with open(output_file,"w",newline='') as csv_file:
         writer = csv.writer(csv_file, delimiter=',')
         writer.writerow(["ids","isVIP","front","back","frontish","backish","aisle","left"])
