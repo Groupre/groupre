@@ -77,7 +77,6 @@ def placeStudents(student_list, chair_list):
     # fill the rest of unmatched seats
     for s in noPrefs:
         for c in chair_list:
-            print(s.student_id, s.prefs,c.prefs)
             if not c.taken and not c.is_broken:
                 pairs.append([c,s])
                 c.taken = True
@@ -87,7 +86,7 @@ def placeStudents(student_list, chair_list):
  
  
 if __name__ == '__main__':
-    
+    start = time.time()
     student_file = '../test/BIOL101_001Students.csv'
     chair_file = '../test/BIOL101_001Room.csv'
     output_file = '../test/BIO101_001Output2.csv'
@@ -130,4 +129,5 @@ if __name__ == '__main__':
             writer.writerow([x[0].chair_id,"",x[0].prefs])
             writer.writerow([x[1].student_id,x[1].is_VIP,x[1].prefs])
             writer.writerow([""])
-
+    end = time.time()
+    print(start - end)
