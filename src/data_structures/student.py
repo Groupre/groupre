@@ -46,10 +46,10 @@ class Student:
             self.prefs[2] = 1.0
         if "left" in preferences:
             self.left_section = True
-            self.prefs[0] = .9
+            self.prefs[0] = 1.0
         if "middle" in preferences:
             self.middle_section = True
-            self.prefs[0] = 1.0
+            self.prefs[0] = .9
         if "right" in preferences:
             self.right_section = True
             self.prefs[0] = 1.1
