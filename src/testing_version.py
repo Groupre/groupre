@@ -86,10 +86,12 @@ def placeStudents(student_list, chair_list):
  
  
 if __name__ == '__main__':
+    #check clock
     start = time.time()
-    student_file = '../test/BIOL101_001Students.csv'
-    chair_file = '../test/BIOL101_001Room.csv'
-    output_file = '../test/BIO101_001Output2.csv'
+    # file input
+    student_file = '../test/BIOL101_002Students.csv'
+    chair_file = '../test/BIOL101_002Room.csv'
+    output_file = '../test/BIO101_002Output2.csv'
     student_count = sum(1 for line in open(student_file))-1
     chair_count = sum(1 for line in open(chair_file))-1
 
