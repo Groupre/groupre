@@ -15,40 +15,59 @@ class Chair:
     right_section: bool = False
 
     prefs = []
+    numPref = 0
     taken :bool = False
 
     def __init__(self, chair_id, preferences):
         self.prefs = [0,0,0]
+        self.numPref = 0
         self.chair_id = chair_id
         if "f" in preferences:
             self.front = True
             self.prefs[1] = 1.1
+            self.numPref += 1
         if "b" in preferences:
             self.back = True
             self.prefs[1] = 5.1
+            self.numPref += 1
+
         if "fi" in preferences:
             self.fronti = True
             self.prefs[1] = 1.0
+            self.numPref += 1
+
         if "bi" in preferences:
             self.backi = True
             self.prefs[1] = 5.0
+            self.numPref += 1
+
         if "la" in preferences:
             self.left = True
             self.prefs[2] = 2.1
+            self.numPref += 1
+
         if "a" in preferences:
             self.aisle = True
             self.prefs[2] = 2.0
+            self.numPref += 1
+
         if "br" in preferences:
             self.is_broken = True
         if "left" in preferences:
             self.left_section = True
             self.prefs[0] = 9
+            self.numPref += 1
+
         if "middle" in preferences:
             self.middle_section = True
             self.prefs[0] = 8
+            self.numPref += 1
+
         if "right" in preferences:
             self.right_section = True
             self.prefs[0] = 10
+            self.numPref += 1
+
     def __str__(self):
             return ("Chair ID: " + self.chair_id + " Front: " + str(self.front) + " Back: " + str(self.back) +
             " Left: " + str(self.left) + " Aisle: " + str(self.aisle) + " Broken: " + str(self.is_broken))
