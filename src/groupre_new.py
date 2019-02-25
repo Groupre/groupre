@@ -23,7 +23,7 @@ def sortByPrefs(arr):
         # greater than key, to one position ahead 
         # of their current position 
         j = i-1
-        while j >=0 and key < arr[j].numPref : 
+        while j >=0 and key > arr[j].numPref : 
                 arr[j+1] = arr[j] 
                 j -= 1
         arr[j+1] = keyInd
@@ -33,7 +33,6 @@ def placeStudents(student_list, chair_list):
     VIPs = []
     nonVIPs = []
     noPrefs = []
-    print(VIPs)
     for student in student_list:
         if student.is_VIP:
             VIPs.append(student)
@@ -47,7 +46,10 @@ def placeStudents(student_list, chair_list):
             else:
                 nonVIPs.append(student)
     sortByPrefs(VIPs)
-    print(VIPs)
+    sortByPrefs(nonVIPs)
+
+    sortByPrefs(chair_list)
+
     # find perfect match in VIP list as first priority
     for s in VIPs:
         for c in chair_list:
@@ -109,9 +111,9 @@ if __name__ == '__main__':
     #check clock
     start = time.time()
     # file input
-    student_file = '../test/BIOL101_002Students.csv'
-    chair_file = '../test/BIOL101_002Room.csv'
-    output_file = '../test/BIO101_002Output2.csv'
+    student_file = '../test/BIOL101_001Students.csv'
+    chair_file = '../test/BIOL101_001Room.csv'
+    output_file = '../test/BIO101_001Output2.csv'
     student_count = sum(1 for line in open(student_file))-1
     chair_count = sum(1 for line in open(chair_file))-1
 
