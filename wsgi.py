@@ -9,8 +9,8 @@ from flask import (Flask, Response, flash, redirect, render_template, request,
 from werkzeug.utils import secure_filename
 
 # relies on groupre having been installed to the machine running this script
-import groupre
-from helpers import postem
+import src.groupre.groupre as groupre
+import src.groupre.helpers.postem as postem
 
 UPLOAD_FOLDER = os.getcwd() + '/uploads/'
 ALLOWED_EXTENSIONS = set(['csv'])
@@ -28,8 +28,10 @@ else:
 application = Flask(__name__)
 
 app = Flask(__name__)
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
+application.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 
 #helper scripts
 def allowed_file(filename):
@@ -116,7 +118,7 @@ def runTests():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            newlocation = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            newlocation = os.path.join(application.config['UPLOAD_FOLDER'], filename)
             file.save(newlocation)
             with open(newlocation, newline='') as csvfile:
                 reader = csv.reader(csvfile, delimiter=',')
@@ -137,11 +139,31 @@ def retrieve_file(jsonName):
     filepath =CLASSROOMS_DIR + jsonName
     with open(filepath, 'r') as f:
         jdata = json.load(f)
-    return render_template('groupreTeam.html', jdata = jdata , name = jsonName)
-    
+    return render_template('groupreTeam.html', jdata = jdata , name = jsonName, title = "Template")
+
+@application.route('/class/<string:jsonName>',methods = ['GET','POST'])
+def retrieve_class(jsonName):
+    # returns json files to javascript
+    filepath =CLASSROOMS_DIR + jsonName
+    with open(filepath, 'r') as f:
+        jdata = json.load(f)
+    return render_template('editClass.html', jdata = jdata , name = jsonName, title = "Edit Template")
+  
 @application.route('/upload/<string:roomID>', methods=['GET', 'POST'])
 def upload_file(roomID):
+    # This is options for grouping
+    fallback = False
+    gender = False
+    mHighLow = False
+    mAverage = False
     if request.method == 'POST':
+        # check if any of the options were checked for groupre
+        if (request.form.get('teamOpt') == "gender"):
+            gender = True
+        elif (request.form.get('teamOpt') == "highlow"):
+            mHighLow = True
+        elif (request.form.get('teamOpt') == "average"):
+            mAverage = True
         if 'file' not in request.files:
           #  flash('No file part')
             flash('Your file doesnt exist')
@@ -153,6 +175,7 @@ def upload_file(roomID):
             flash('No selected file')
             return redirect(url_for('selectRoom'))
         if file and allowed_file(file.filename):
+        
             filename = secure_filename(file.filename)
             newlocation = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(newlocation)
@@ -163,15 +186,12 @@ def upload_file(roomID):
             if row_count > capacity:
                 flash('Students more than num of seats')
                 return redirect(url_for('selectRoom'))
-            fallback = False
-            if 'fallback' in roomID:
-                roomID = roomID.split('-fallback', 1)[0]
-                fallback = True
+            
             roomID = CHAIRS_DIR + roomID + '.csv'
-            output_name = run_groupre(newlocation, roomID, fallback, False)
+            output_name = run_groupre(newlocation, roomID, fallback, gender)
             output_name = output_name.split('/')[-1].split('.', 1)[0]
             return redirect('/metrics/' + output_name)
-    return render_template('upload.html', title = "Upload page")
+    return render_template('upload.html', title = "Loaded " + str(roomID))
 
 @application.route("/room-select")
 def selectRoom():
@@ -195,8 +215,10 @@ def metrics(output_name):
             metrics = f.readlines()
         for m in metrics:
             print(m)
-        postem.postem(['--output', UPLOAD_FOLDER +
-                       'output/' + output_name + '.csv'])
+        ### bug with postem need to be fixed
+        
+        # postem.postem(['--output', UPLOAD_FOLDER +
+        #                'output/' + output_name + '.csv'])
         return render_template("metrics.html", output_name=output_name, metrics=metrics , title = "Metrics result")
     except FileNotFoundError:
         return render_template("metrics.html", output_name=output_name, title = "Metrics result")
@@ -241,24 +263,30 @@ def downloadcsv(output_name):
         mimetype="text/csv",
         headers={"Content-disposition":
                  "attachment; filename=" + output_name})
+# directs to a page that allows user to decide wheather to change template or make new
+@application.route("/editTemplate")
+def changeTemplate():
+    roomFiles = {}
+    for rFile in os.listdir(CLASSROOMS_DIR):
+        if '.json' in rFile:
+            rKey = rFile.split('-')[1] 
+            roomFiles[rKey]= rFile
+
+    return render_template('chooseClass.html', roomFiles = roomFiles, title = "Create or modify")
+
 
 @application.route("/room-creation")
 def create_room():
-    return render_template('groupreHome.html', roomFiles = "" , title = "Create class")
+    return render_template('groupreHome.html', title = "Create class")
 @application.route("/team-creation")
 def create_team():
-    roomFiles = []
+    roomFiles = {}
     for rFile in os.listdir(CLASSROOMS_DIR):
         if '.json' in rFile:
-            roomFiles.append(rFile)
+            rKey = rFile.split('-')[1] 
+            roomFiles[rKey]= rFile
     return render_template('chooseTeam.html', roomFiles = roomFiles , title = "Create teams")
-# #TODO Remove this route before 12/11/17
-# @application.route("/guiTest/<string:html_file>")
-# def testGUI(html_file):
-#     if html_file.split('.')[-1] == '.html':
-#         return render_template(html_file)
-#     return html_file
-    
+
 @application.route("/room-saver", methods=['POST'])
 def saveRoom():
     content = request.get_json()
@@ -289,4 +317,5 @@ def saveClass():
     return "saved template"    
 
 if __name__ == "__main__":
+    application.secret_key = '5791628bb0b13ce0c676dfde280ba245'
     application.run(debug=True)

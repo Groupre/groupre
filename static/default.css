@@ -1,63 +1,50 @@
-body {
-    display: block;
-    text-align: center;
-    /* font-family: sans-serif; */
-	max-width: 100%;
-	padding-left: 10em;
-	padding-right: 10em;
-  	font-family: Verdana, Geneva, sans-serif;
-  	color: black;
-
+body{
+	background:#eafaff;
+	text-align: center;
+	font-size:18px;
+}
+h1 {
+	text-align:center;
 }
 
-h2{
-	margin: auto;
-    width: 30%;
-	padding: 10px;	
+.text-block{
+	width:100%;
+	height:100%;
+	background:#80d4ff;
+	color:white;
+	margin:0;
+	padding:0;
 }
 
-a{
+a:hover {
 	text-decoration: none;
 }
 
-.header{
-    margin: auto;
-    width: 40%;
-    padding: 10px;
+.hvr-grow-rotate {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.hvr-grow-rotate:hover, .hvr-grow-rotate:focus, .hvr-grow-rotate:active {
+  -webkit-transform: scale(1.1) rotate(4deg);
+  transform: scale(1.1) rotate(4deg);
 }
 
-.header img {
-	float: right;
-	width: 125px;
-	height: 125px;
-}
-  
-.header h1 {
-	position: fixed;
-	top: 18px;
-	left: 20px;
-	color: black;	
-}
-.pageTitle{
-	position: relative;
-	left: 35%;
-	color: black;
-}
-.btn {
-	font-family: Arial;
-	color: #ffffff;
-	font-size: 15px;
-	background: #000000;
-	padding: 10px 20px 10px 20px;
-	text-decoration: none;
+form{
+	display: inline-block;
 }
 
-.btn:hover {
-	background: #595959;
-	text-decoration: none;
+#prompt{
+	font-size:28px;
+	color:red;
+}
+.notworking{
+	background: grey;	
 }
 
-#Mark{
-	max-height: 60px;
-	max-width: 60px;
-}

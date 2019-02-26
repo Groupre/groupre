@@ -15,8 +15,8 @@
 			margin: 0;
 			padding: 0;
 			overflow: hidden;
-			background-color: #333;
-			position:absolute;
+			background-color:  #80d4ff;
+			position: relative;
 			top:0px;
 			left:0px;
 			width:100%;
@@ -24,6 +24,7 @@
 		
 		li {
 			float: left;
+			font-size:18px;
 		}
 		
 		li a {
@@ -35,49 +36,43 @@
 		}
 		
 		li a:hover {
-			background-color: #111;
+			background-color:  #0099e6;
 		}
 		</style>
 	<!--CSS-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="../static/default.css">
 	<link rel="stylesheet" href="../static/groupre.css" style type="text/css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css" /> -->
-	<!-- <link rel="stylesheet" href="static/css/style.css" /> -->
-	<link rel="stylesheet" href="../static/test.css" type="text/css">
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<!-- <link rel="stylesheet" href="../static/test.css" type="text/css"> -->
+	<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
 
-  	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 	  <script type="text/javascript" src="../static/jquery.min.js"></script>
-	  <script type="text/javascript" src="../static/groupreGUI.js"></script>
+	  <script type="text/javascript" src="../static/classBuilder.js"></script>
 	  <script type="text/javascript" src="../static/teamBuilder.js"></script>
-	  <script type="text/javascript" src="../static/send.js"></script>
 </head>
 
 <body>
 	<ul>
 		<li><a class="active" href="/">Home</a></li>
 		<li><a href="/room-select">Run Groupre</a></li>
-		<li><a href="/room-creation">Build Class</a></li>
+		<li><a href="/editTemplate">Build Class</a></li>
 		<li><a href="/team-creation">Build Team</a></li>
 		<li><a href="/test">Run Test</a></li>
-		<li><a href="https://github.com/Groupre/groupre">Github</a></li>
+		<li><a href="https://github.com/Groupre/groupre" target="_blank"><img class = "mx-auto img-fluid" src = "../static/GitHub-Mark/PNG/GitHub-Mark-120px-plus.png" width = "25%" height = "25%"></a></li>
 	 </ul>
-	 <a href="/"><div class="header">
-		<img alt="groupythegroupregrouper" src="../static/groupy.png">
-
-		<h1>Groupre - Alpha</h1>            
-	  </div></a>
-	<!-- wsgi flashing -->
-	{% with messages = get_flashed_messages() %}
-	{% if messages %}
-		<ul class=flashes>
-		{% for message in messages %}
-		  <li>{{ message }}</li>
-		{% endfor %}
-		</ul>
-	  {% endif %}
-	{% endwith %}
+	 <div id = "prompt">
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+				   {% for message in messages %}
+					  {{ message }}
+				   {% endfor %}
+				{% endif %}
+			 {% endwith %}
+	</div>
+	<img class = "mx-auto d-block img-fluid" alt="groupythegroupregrouper" src="../static/groupy.png" width = "5%" height = "5%">
     {% block content %}{% endblock %}
 </body>
 </html> 

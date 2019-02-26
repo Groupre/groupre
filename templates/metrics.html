@@ -1,22 +1,25 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Metrics</h1>
-    <h2>{{ output_name }}</h2>
-    <div class="output"></div>
+    <h2>metric id = {{ output_name }}</h2>
+
+    <div class="output">
+        <p>
+            {%- for m in metrics %}
+                {{ m }}
+            {%- endfor %}
+        </p>    
+    </div>
     
-    <ul>
-        {%- for m in metrics %}
-        <li>{{ m }}</li>
-        {%- endfor %}
-    </ul>
     <div id="download">
+       
     <form action="" method="POST">
         <button formaction="/download/{{ output_name ~ '.csv' }}">Download Seating Chart</button>
     </form>
-    </div>
     <br>
-    <form action"" method="POST">
+    <form action = "" method="POST">
         <button formaction="/download/{{ output_name ~ '-postEm.csv' }}">Download Sakai Postem</button>
     </form>
+    </div>
+   
 
     {% endblock content %}

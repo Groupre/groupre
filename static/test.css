@@ -4,3 +4,151 @@
     max-width: 250px;
     max-height: 250px;
 }
+body {
+    display: block;
+    text-align: center;
+    /* font-family: sans-serif; */
+	max-width: 100%;
+	padding-left: 10em;
+	padding-right: 10em;
+  	font-family: Verdana, Geneva, sans-serif;
+	color: black;
+	background:#80d4ff ;
+}
+a{
+	text-decoration: none;
+}
+
+.header{
+  margin: auto;
+  width: 40%;
+  padding: 10px;
+}
+
+.header img {
+float: right;
+width: 125px;
+height: 125px;
+}
+
+.header h1 {
+position: relative;
+top: 18px;
+left: 0px;
+color: black;	
+}
+
+p.one {
+	border-style: solid;
+    border-color: blue;
+    border-width: 5px;
+    text-align: center;
+}
+
+
+h2{
+	width:100%;
+	text-align:center;		
+}
+.options > *{
+	margin: 20px 0;
+}
+a{
+	text-decoration: none;
+}
+
+.header{
+    margin: auto;
+    width: 40%;
+    padding: 10px;
+}
+
+.header img {
+	padding:0;
+	margin:0;
+	width: 125px;
+	height: 125px;
+}
+  
+.header h1 {
+	position: fixed;
+	top: 18px;
+	left: 20px;
+	color: black;	
+}
+.pageTitle{
+	width: 30%;
+	margin-right:auto;
+	margin-left: auto;
+	text-align: center;
+	color: black;
+}
+.btn {
+	border-radius: 15px;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 18px;
+	background: #80d4ff;
+	padding: 20px 20px 40px 20px;
+	text-decoration: none;
+}
+
+.btn:hover {
+	background: #595959;
+	text-decoration: none;
+}
+
+#Mark{
+	max-height: 60px;
+	max-width: 60px;
+}
+
+#prompt{
+	color:red;
+	text-align: center;
+	font-size:40px;
+	width:100%;
+	margin:auto;
+}
+
+#interface{
+	width:100%;
+  }
+  #controls{
+	float: right;
+	width :100%;
+	height:100%;
+	border: 1px black dashed;
+  }
+  #controls > * {
+	position: relative;
+	float:left;
+	margin: 20px 40px;
+	text-align: center;
+  }
+  
+  #output {
+	float: left;
+	height: 100%;
+	width: 75%;
+	overflow: auto;
+	border: 1px black dashed;
+  }
+  
+  #interface input {
+	display: block;
+	font-weight: bold;
+	height: 40px;
+  }
+  
+  #teamList {
+	border-width: 1px;
+	border-style: solid;
+	border-color: black;
+	background-color: white;
+  }
+  
+  #interface p:hover {
+	background-color: yellow;
+  }
+  
