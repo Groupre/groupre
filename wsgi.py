@@ -9,8 +9,8 @@ from flask import (Flask, Response, flash, redirect, render_template, request,
 from werkzeug.utils import secure_filename
 
 # relies on groupre having been installed to the machine running this script
-import src.groupre.groupre as groupre
-import src.groupre.helpers.postem as postem
+import src.groupre as groupre
+#import src.groupre.helpers.postem as postem
 
 UPLOAD_FOLDER = os.getcwd() + '/uploads/'
 ALLOWED_EXTENSIONS = set(['csv'])
