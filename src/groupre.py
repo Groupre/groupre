@@ -8,10 +8,112 @@ import sys
 import time
 from typing import List
 
-import groupre_globals
-from data_structures import Chair, Student, TeamStructure
-from helpers import build_team_structures, create_teams
+from data_structures.student import Student
+from data_structures.chair import Chair
+import math
 
+#find the seat difference
+def findApprox(cList, sList):
+    diff = 0
+    for x in range(len(sList.prefs)):
+        diff += abs(sList.prefs[x] - cList.prefs[x])
+    return diff
+#place students into matching/prefered seats
+def sortByPrefs(arr):
+    # modified insertion sort code from geeks to geeks
+    # Traverse through 1 to len(arr) 
+    for i in range(1, len(arr)): 
+
+        keyInd = arr[i]
+        key = arr[i].numPref
+  
+        # Move elements of arr[0..i-1], that are 
+        # greater than key, to one position ahead 
+        # of their current position 
+        j = i-1
+        while j >=0 and key > arr[j].numPref : 
+                arr[j+1] = arr[j] 
+                j -= 1
+        arr[j+1] = keyInd
+
+def placeStudents(student_list, chair_list):
+    pairs = []
+    VIPs = []
+    nonVIPs = []
+    noPrefs = []
+    for student in student_list:
+        if student.is_VIP:
+            VIPs.append(student)
+        else:
+            noPref = True
+            for x in student.prefs:
+                if x != 0:
+                    noPref = False
+            if noPref:
+                noPrefs.append(student)
+            else:
+                nonVIPs.append(student)
+    sortByPrefs(VIPs)
+    sortByPrefs(nonVIPs)
+
+    sortByPrefs(chair_list)
+
+    # find perfect match in VIP list as first priority
+    for s in VIPs:
+        for c in chair_list:
+            if not c.taken and not c.is_broken:
+                if s.prefs == c.prefs:
+                    pairs.append([c,s])
+                    c.taken = True
+                    s.taken = True
+                    break
+    # find close approx. seat for VIP
+    for s in VIPs:
+        while not s.taken:
+            if not s.taken:
+                min = 999
+                minC = None
+                for c in chair_list:
+                    if not c.taken and not c.is_broken:
+                        if findApprox(s,c) < min:
+                            min = findApprox(c,s)
+                            minC = c
+                pairs.append([minC,s])
+                minC.taken = True
+                s.taken = True
+    # find perfect match in preference list
+    for s in nonVIPs:
+        for c in chair_list:
+            if not c.taken and not c.is_broken:
+                if s.prefs == c.prefs:
+                    pairs.append([c,s])
+                    c.taken = True
+                    s.taken = True
+                    break
+    # find approximate match
+    for s in nonVIPs:
+        while not s.taken:
+            if not s.taken:
+                min = 999
+                minC = None
+                for c in chair_list:
+                    if not c.taken and not c.is_broken:
+                        if findApprox(s,c) < min:
+                            min = findApprox(c,s)
+                            minC = c
+                pairs.append([minC,s])
+                minC.taken = True
+                s.taken = True
+    # fill the rest of unmatched seats
+    for s in noPrefs:
+        for c in chair_list:
+            if not c.taken and not c.is_broken:
+                pairs.append([c,s])
+                c.taken = True
+                s.taken = True
+                break
+    return pairs
+ 
 
 def main(argv):
     '''Takes the input arguments and executes the groupre matching algorithm.'''
@@ -40,9 +142,9 @@ def main(argv):
     students_csv: str = parsed_args.students
     output_csv: str = parsed_args.output
 
-    print('Arguments: Chairs {}, Students {}, Output {}'.format(
-        parsed_args.chairs, parsed_args.students, parsed_args.fallback,
-        parsed_args.gender, parsed_args.output))
+#    print('Arguments: Chairs {}, Students {}, Output {}'.format(
+#        parsed_args.chairs, parsed_args.students, parsed_args.fallback,
+#        parsed_args.gender, parsed_args.output))
 
     if chairs_csv is None:
         print('Missing chairs input file.')
@@ -62,95 +164,49 @@ def main(argv):
         print('''Output file not specified, and the default was somehow
                 replaced. Please try specifying a proper output file.''')
         return
-
-    priority_fields = []
-
-    chairs = []
-    with open(chairs_csv, 'r') as csvfile:
-        reader = csv.reader(csvfile, delimiter=',')
-        fields = next(reader)
-
-        # Error checking on chair input for minimum required fields.
-        for required_field in groupre_globals.CHAIR_REQUIRED_FIELDS:
-            if required_field not in fields:
-                raise ValueError(
-                    'chairs csv file is lacking a', required_field, 'field!')
-
-        # Pull our priority_fields by process of elimination.
-        for field in fields:
-            if field not in groupre_globals.CHAIR_REQUIRED_FIELDS:
-                priority_fields.append(field)
-
-        for row in reader:
-            chairs.append(Chair(
-                row[:len(groupre_globals.CHAIR_REQUIRED_FIELDS)],
-                row[len(groupre_globals.CHAIR_REQUIRED_FIELDS):]))
-
-    students = []
-    with open(students_csv, 'r') as csvfile:
-        reader = csv.reader(csvfile, delimiter=',')
-        fields = next(reader)
-
-        # Error checking on student input for minimum required fields.
-        for required_field in groupre_globals.STUDENT_REQUIRED_FIELDS:
-            if required_field not in fields:
-                raise ValueError(
-                    'students csv file is lacking a', required_field, 'field!')
-
-        for row in reader:
-            students.append(Student(
-                row[:len(groupre_globals.STUDENT_REQUIRED_FIELDS)],
-                row[len(groupre_globals.STUDENT_REQUIRED_FIELDS):]))
-
-    # Benchmarking statement.
-    total_students = len(students)
-    total_chairs = len(chairs)
-    print('Processing', total_students,
-          'students to be seated in', total_chairs, 'chairs...')
-
-    if groupre_globals.METRICS_ENABLED:
-        groupre_globals.METRICS = []
-        groupre_globals.METRICS.append('Students: ' + str(total_students))
-        groupre_globals.METRICS.append('Seats: ' + str(total_chairs))
-
+    student_count = sum(1 for line in open(students_csv))-1
+    chair_count = sum(1 for line in open(chairs_csv))-1
+    chair_list = []
+    student_list = []
     
+    with open(chairs_csv, 'r') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        first_line = True
+        for row in csv_reader:
+            if first_line:
+                first_line = False
+            else:
+                if len(row) <= 2:
+                    chair_list.append(Chair(row[0],[]))
+                else:
+                    chair_list.append(Chair(row[0], row[2:]))
 
-    # Run our algorithm to match students to chairs within teams, keeping in mind their
-    # scores and preferences.
-    team_structures: List[TeamStructure] = build_team_structures(chairs)
+    with open(students_csv, 'r') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        first_line = True
+        for row in csv_reader:
+            if first_line: first_line = False   
+            else:
+                if len(row) <= 4:
+                    student_list.append(Student(row[0],row[2],[]))
+                else:
+                    student_list.append(Student(row[0], row[2], row[4:]))
 
-    teams = create_teams(students, chairs, team_structures)
+    # placing students
+    newPairs = placeStudents(student_list, chair_list)
 
     # Write our output to a csv.
     # NOTE 'newline=''' required when writing on an OS that ends lines in CRLF rather than just LF.
     print('----------')
     print('Seats assigned. Writing to csv.')
-    with open(output_csv, 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile, delimiter=',',
-                            quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        for team in teams:
-            writer.writerow(team)
-
-    priority_rating = ''
-
-    print('----------')
-    if groupre_globals.STUDENT_PRIORITY_TOTAL != 0:
-        priority_rating = ('Student Priority Rating: ' + str(
-            round(groupre_globals.STUDENT_PRIORITY_VALUE /
-                  groupre_globals.STUDENT_PRIORITY_TOTAL * 100, 2)) + '%')
-        print(priority_rating)
-    print('----------')
-
-    if groupre_globals.METRICS_ENABLED:
-        groupre_globals.METRICS.append(priority_rating)
-        metrics_file = output_csv.split('.', 1)[0] + '-metrics.txt'
-        print(metrics_file)
-        groupre_globals.METRICS.append(
-            'Time Elapsed: ' + str(time.time() - timing) + ' seconds')
-        with open(metrics_file, 'w') as file:
-            for metric in groupre_globals.METRICS:
-                file.write(metric + '\n')
-
+    # writing outputs
+    with open(output_csv,"w",newline='') as csv_file:
+        writer = csv.writer(csv_file, delimiter=',')
+        writer.writerow(["ids","isVIP","front","back","frontish","backish","aisle","left"])
+        for x in newPairs:
+            writer.writerow([x[0].chair_id,"",x[0].prefs])
+            writer.writerow([x[1].student_id,x[1].is_VIP,x[1].prefs])
+            writer.writerow([""])
 
 if __name__ == '__main__':
     # Benchmark timer start.
