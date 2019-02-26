@@ -19,6 +19,23 @@ def findApprox(cList, sList):
         diff += abs(sList.prefs[x] - cList.prefs[x])
     return diff
 #place students into matching/prefered seats
+def sortByPrefs(arr):
+    # modified insertion sort code from geeks to geeks
+    # Traverse through 1 to len(arr) 
+    for i in range(1, len(arr)): 
+
+        keyInd = arr[i]
+        key = arr[i].numPref
+  
+        # Move elements of arr[0..i-1], that are 
+        # greater than key, to one position ahead 
+        # of their current position 
+        j = i-1
+        while j >=0 and key > arr[j].numPref : 
+                arr[j+1] = arr[j] 
+                j -= 1
+        arr[j+1] = keyInd
+
 def placeStudents(student_list, chair_list):
     pairs = []
     VIPs = []
@@ -36,6 +53,11 @@ def placeStudents(student_list, chair_list):
                 noPrefs.append(student)
             else:
                 nonVIPs.append(student)
+    sortByPrefs(VIPs)
+    sortByPrefs(nonVIPs)
+
+    sortByPrefs(chair_list)
+
     # find perfect match in VIP list as first priority
     for s in VIPs:
         for c in chair_list:
@@ -91,6 +113,7 @@ def placeStudents(student_list, chair_list):
                 s.taken = True
                 break
     return pairs
+ 
 
 def main(argv):
     '''Takes the input arguments and executes the groupre matching algorithm.'''
