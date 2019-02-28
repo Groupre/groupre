@@ -2,6 +2,7 @@ class Student:
     '''A class dedicated to storing the preferences and specificness level of a given Student.'''
 
     student_id: int = None
+    onyen: str = None
     is_VIP: bool = False
     has_pref: bool = False
     pref_front: bool = False
@@ -20,7 +21,8 @@ class Student:
     taken :bool = False
 
 
-    def __init__(self, student_id, is_vip, preferences):
+    def __init__(self, student_id, onyen, is_vip, preferences):
+        self.onyen = onyen
         self.prefs = [0,0,0]
         self.student_id = student_id
         self.numPref = 0

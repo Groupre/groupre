@@ -127,9 +127,9 @@ if __name__ == '__main__':
             if first_line: first_line = False   
             else:
                 if len(row) <= 4:
-                    student_list.append(Student(row[0],row[2],[]))
+                    student_list.append(Student(row[0], row[1],row[2],[]))
                 else:
-                    student_list.append(Student(row[0], row[2], row[4:]))
+                    student_list.append(Student(row[0], row[1], row[2], row[4:]))
  
     with open(chair_file) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
@@ -150,8 +150,8 @@ if __name__ == '__main__':
         writer = csv.writer(csv_file, delimiter=',')
         writer.writerow(["ids","isVIP","front","back","frontish","backish","aisle","left"])
         for x in newPairs:
-            writer.writerow([x[0].chair_id,"",x[0].prefs])
-            writer.writerow([x[1].student_id,x[1].is_VIP,x[1].prefs])
+            writer.writerow([x[0].chair_id,"","",x[0].prefs])
+            writer.writerow([x[1].student_id,x[1].onyen,x[1].is_VIP,x[1].prefs])
             writer.writerow([""])
     end = time.time()
     print(start - end)
