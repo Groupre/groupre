@@ -49,14 +49,6 @@ $(document).ready(function(){
         drag();
     }
 
-    function addToTeam(cell, team){
-        //TODO use this function for whenever we add to teams
-    }
-
-    function matchRuleShort(str, rule) {
-        return new RegExp("^" + rule.split("*").join(".*") + "$").test(str);
-      }
-
     document.getElementById("leftHandedButton").onclick = function() {
         var table = document.getElementById("dataTable");
         var cells = table.getElementsByClassName("highlight");
