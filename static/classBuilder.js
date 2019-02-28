@@ -1,11 +1,13 @@
 $(document).ready(function(){
     var categories = {
-        leftHand:'left',
-        aisleLeft:'aisleleft',
-        aisleRight:'aisleright',
-        front:'front',
-        back:'back',
-        broken:'broken'
+        leftHand: 'la',
+        aisleLeft: 'a',
+        aisleRight: 'a',
+        front: 'f',
+        back: 'b',
+        broken: 'br',
+        frontish: 'fi',
+        backish: 'bi'
     }
     var rows;
     var cols;
