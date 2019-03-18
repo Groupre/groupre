@@ -7,7 +7,10 @@ $(document).ready(function(){
         back: 'b',
         broken: 'br',
         frontish: 'fi',
-        backish: 'bi'
+        backish: 'bi',
+        left: 'left',
+        middle: 'middle',
+        right: 'right'
     }
     var rows;
     var cols;

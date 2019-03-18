@@ -7,7 +7,10 @@ $(document).ready(function () {
         back: 'b',
         broken: 'br',
         frontish: 'fi',
-        backish: 'bi'
+        backish: 'bi',
+        left: 'left',
+        middle: 'middle',
+        right: 'right'
     }
     var rows;
     var cols;
@@ -45,25 +48,30 @@ $(document).ready(function () {
                 for (let x = 0; x < attrb.length; x++) {
                     let prop = attrb[x];
                     switch (prop) {
-                        case "left":
+                        case "la":
                             cell.classList.toggle("leftHand");
                             break;
-                        case "front":
+                        case "f":
                             cell.classList.toggle("front");
                             break;
-                        case "aisleleft":
+                        case "fi":
+                            cell.classList.toggle("frontish");
+                            break;
+                        case "al":
                             cell.classList.toggle("aisleLeft");
                             break;
-                        case "aisleright":
+                        case "ar":
                             cell.classList.toggle("aisleRight");
                             break;
-                        case "back":
+                        case "b":
                             cell.classList.toggle("back");
                             break;
-                        case "broken":
+                        case "bi":
+                            cell.classList.toggle("backish");
+                            break;
+                        case "br":
                             cell.classList.toggle("broken");
                             break;
-
                         // }
                     }
 

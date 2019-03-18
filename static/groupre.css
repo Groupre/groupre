@@ -88,6 +88,7 @@ td.highlight, tr.highlight {
 .leftHand {
   /* background-color: red; */
   color:red;
+  z-index: 2;
 
 }
 
@@ -101,4 +102,16 @@ td.highlight, tr.highlight {
 
 .broken {
   visibility: hidden;
+}
+
+.left {
+  color: greenyellow;
+}
+
+.middle {
+  color: lightsalmon;
+}
+
+.right {
+  color: lightslategray;
 }
