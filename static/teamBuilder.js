@@ -162,6 +162,7 @@ $(document).ready(function () {
             var cell = cells[i];
             var row = [];
             var cid = cell.id.split(',');
+            var isLeft = false;
             row.push(cid[0] + cid[1]);
 
             for (var j = 0; j < teamNum; j++) {
@@ -173,11 +174,23 @@ $(document).ready(function () {
             if (row.length == 1) {
                 row.push(' ')
             }
-
+            
             for (var key in categories) {
                 var cat = categories[key];
                 if (cell.classList.contains(key)) {
-                    row.push(cat);
+                    if (cat == 'la'){
+                        isLeft = true;
+                    }
+                    if (cat == 'ar' || cat == 'al'){
+                        if (isLeft){
+
+                        }else{
+                            row.push('a');
+                        }
+                        
+                    }else{
+                        row.push(cat);
+                    }
                 }
             }
             array.push(row)
