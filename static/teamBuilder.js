@@ -70,7 +70,15 @@ $(document).ready(function () {
                         case "br":
                             cell.classList.toggle("broken");
                             break;
-
+                        case "left":
+                            cell.classList.toggle("left");
+                            break;
+                        case "middle":
+                            cell.classList.toggle("middle");
+                            break;
+                        case "right":
+                            cell.classList.toggle("right");
+                            break;
                         // }
                     }
 

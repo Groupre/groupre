@@ -68,6 +68,51 @@ $(document).ready(function(){
         }
 
     }
+    document.getElementById("leftButton").onclick = function() {
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByClassName("highlight");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.toggle("left");
+        }
+
+        cells = table.getElementsByTagName("td");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.remove("highlight");
+        }
+
+    }
+    document.getElementById("middleButton").onclick = function() {
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByClassName("highlight");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.toggle("middle");
+        }
+
+        cells = table.getElementsByTagName("td");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.remove("highlight");
+        }
+
+    }
+    document.getElementById("rightButton").onclick = function() {
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByClassName("highlight");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.toggle("right");
+        }
+
+        cells = table.getElementsByTagName("td");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.remove("highlight");
+        }
+
+    }
 
     document.getElementById("aisleButton").onclick = function() {
         var table = document.getElementById("dataTable");

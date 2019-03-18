@@ -72,6 +72,15 @@ $(document).ready(function () {
                         case "br":
                             cell.classList.toggle("broken");
                             break;
+                        case "left":
+                            cell.classList.toggle("left");
+                            break;
+                        case "middle":
+                            cell.classList.toggle("middle");
+                            break;
+                        case "right":
+                            cell.classList.toggle("right");
+                            break;
                         // }
                     }
 
@@ -103,7 +112,51 @@ $(document).ready(function () {
         }
 
     }
+    document.getElementById("leftButton-e").onclick = function() {
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByClassName("highlight");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.toggle("left");
+        }
 
+        cells = table.getElementsByTagName("td");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.remove("highlight");
+        }
+
+    }
+    document.getElementById("middleButton-e").onclick = function() {
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByClassName("highlight");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.toggle("middle");
+        }
+
+        cells = table.getElementsByTagName("td");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.remove("highlight");
+        }
+
+    }
+    document.getElementById("rightButton-e").onclick = function() {
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByClassName("highlight");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.toggle("right");
+        }
+
+        cells = table.getElementsByTagName("td");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.remove("highlight");
+        }
+
+    }
     document.getElementById("aisleButton-e").onclick = function () {
         var table = document.getElementById("dataTable");
         var cells = table.getElementsByTagName("td");
