@@ -150,19 +150,6 @@ $(document).ready(function () {
         }
     }
 
-    // document.getElementById("teamList").onmouseover = function() {
-    //     var table = document.getElementById("dataTable");
-    //     var teamList = document.getElementsByClassName("team");
-
-    //     $("#teamList p").mouseover(function() {
-    //         var team = this;
-    //         var teamId = team.id;
-    //         var cells = table.getElementsByClassName(teamId);
-    //         var temp = team.innerHTML;
-    //         team.innerHTML = cells[0].id;
-    //     });
-    // }
-
     document.getElementById("saveTeam").onclick = function () {
         var array = [];
         array.push([roomID, teamName, rows, cols]);
@@ -224,12 +211,6 @@ $(document).ready(function () {
             }
             cell.innerHTML = [];
         }
-        // currentTeams[teamNum] = teamMembers
-
-        // team.innerHTML = "Team " + teamNum;
-        // team.id = "team" + teamNum;
-        // teamNum += 1;
-        // document.getElementById("teamList").appendChild(team);
 
         cells = table.getElementsByTagName("td");
         for (var i = 0; i < cells.length; i++) {
@@ -242,15 +223,6 @@ $(document).ready(function () {
         var table = document.getElementById("dataTable");
         var cells = table.getElementsByTagName("td");
 
-        // for(var i=0; i<cells.length; i++) {
-        //     var cell = cells[i];
-        //     for(var key in categories) {
-        //         var cat = categories[key];
-        //         if (cell.classList.contains(key)){
-        //             cell.classList.toggle(key);
-        //         }
-        //     }
-        // }
         for (var i = 0; i < cells.length; i++) {
             var cell = cells[i];
             for (var key in currentTeams) {
@@ -266,19 +238,6 @@ $(document).ready(function () {
             }
         }
     }
-
-
-    // function readTextFile(filepath, callback) {
-    //     var rawFile = new XMLHttpRequest();
-    //     rawFile.overrideMimeType("application/json");
-    //     rawFile.open("GET", filepath, true);
-    //     rawFile.onreadystatechange = function() {
-    //         if (rawFile.readyState === 4 && rawFile.status == "200") {
-    //             callback(rawFile.responseText);
-    //         }
-    //     }
-    //     rawFile.send(null);
-    // }
 
     // Automatically add teams based on user selection
     document.getElementById('autoAdd').onclick = function () {
