@@ -1,8 +1,8 @@
 $(document).ready(function () {
     var categories = {
         leftHand: 'la',
-        aisleLeft: 'a',
-        aisleRight: 'a',
+        aisleLeft: 'al',
+        aisleRight: 'ar',
         front: 'f',
         back: 'b',
         broken: 'br',
@@ -158,6 +158,36 @@ $(document).ready(function () {
 
         cells = table.getElementsByTagName("td");
         for (var i = 0; i < cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.remove("highlight");
+        }
+    }
+    document.getElementById("backishButton-e").onclick = function() {
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByClassName("highlight");
+
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.toggle("backish");
+        }
+
+        cells = table.getElementsByTagName("td");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.remove("highlight");
+        }
+    }
+    document.getElementById("frontishButton-e").onclick = function() {
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByClassName("highlight");
+
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.toggle("frontish");
+        }
+
+        cells = table.getElementsByTagName("td");
+        for(var i=0; i<cells.length; i++) {
             var cell = cells[i];
             cell.classList.remove("highlight");
         }

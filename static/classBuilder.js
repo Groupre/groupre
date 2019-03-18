@@ -1,8 +1,8 @@
 $(document).ready(function(){
     var categories = {
         leftHand: 'la',
-        aisleLeft: 'a',
-        aisleRight: 'a',
+        aisleLeft: 'al',
+        aisleRight: 'ar',
         front: 'f',
         back: 'b',
         broken: 'br',
@@ -116,7 +116,21 @@ $(document).ready(function(){
             cell.classList.remove("highlight");
         }
     }
+    document.getElementById("frontishButton").onclick = function() {
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByClassName("highlight");
 
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.toggle("frontish");
+        }
+
+        cells = table.getElementsByTagName("td");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.remove("highlight");
+        }
+    }
     document.getElementById("backRowButton").onclick = function() {
         var table = document.getElementById("dataTable");
         var cells = table.getElementsByClassName("highlight");
@@ -124,6 +138,21 @@ $(document).ready(function(){
         for(var i=0; i<cells.length; i++) {
             var cell = cells[i];
             cell.classList.toggle("back");
+        }
+
+        cells = table.getElementsByTagName("td");
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.remove("highlight");
+        }
+    }
+    document.getElementById("backishButton").onclick = function() {
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByClassName("highlight");
+
+        for(var i=0; i<cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.toggle("backish");
         }
 
         cells = table.getElementsByTagName("td");
