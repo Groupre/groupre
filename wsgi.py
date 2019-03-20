@@ -41,9 +41,11 @@ def run_groupre(students, chairs):
     output_name = UPLOAD_FOLDER + 'output/' + \
     str(randint(1000000, 9999999)) + '' + \
     str(randint(1000000, 9999999)) + '.csv'
-    arguments = ['--chairs', chairs, '--students',
-                 students, '--output', output_name]
-    groupre.main(arguments)
+    # arguments = ['--chairs', chairs, '--students',
+    #              students, '--output', output_name]
+    # groupre.main(arguments)
+    arguments = 'python3.7 ./src/groupre.py -c {} -s {} -o {}'.format(chairs,students,output_name)
+    os.system(arguments)
     return output_name
 
 def run_test(students, row_count):
