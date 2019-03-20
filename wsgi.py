@@ -37,16 +37,12 @@ application.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 def allowed_file(filename):
     return '.' in filename and filename.split('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def run_groupre(students, chairs, fallback, gender):
+def run_groupre(students, chairs):
     output_name = UPLOAD_FOLDER + 'output/' + \
     str(randint(1000000, 9999999)) + '' + \
     str(randint(1000000, 9999999)) + '.csv'
-    arguments = ['--metrics', '--chairs', chairs, '--students',
-                 students, '--output', output_name]     
-    if fallback:
-        arguments.insert(0, '--fallback')
-    if gender:
-        arguments.append(0, '--gender')
+    arguments = ['--chairs', chairs, '--students',
+                 students, '--output', output_name]
     groupre.main(arguments)
     return output_name
 
@@ -58,7 +54,7 @@ def run_test(students, row_count):
     if 'fallback' in students:
         chairs = os.path.join(
             main_dir, 'static/test/testFiles/fallback/chairs_fallback.csv')
-        return run_groupre(students, chairs, True, False)
+        return run_groupre(students, chairs)
     if row_count <= 101:
         chairs = os.path.join(chairs, 'test_chairs_demo_100.csv')
     elif row_count <= 401:
@@ -70,7 +66,7 @@ def run_test(students, row_count):
         chairs = os.path.join(chairs, 'test_chairs_1.csv')
         students = os.path.join(test_location, 'test_students_1.csv')
         output_name = os.path.join(UPLOAD_FOLDER, 'test_output_1.csv')
-    return run_groupre(students, chairs, False, False)
+    return run_groupre(students, chairs)
 
 def _json_object_hook(d):
     return namedtuple('X', d.keys())(*d.values())
@@ -188,7 +184,7 @@ def upload_file(roomID):
                 return redirect(url_for('selectRoom'))
             
             roomID = CHAIRS_DIR + roomID + '.csv'
-            output_name = run_groupre(newlocation, roomID, fallback, gender)
+            output_name = run_groupre(newlocation, roomID)
             output_name = output_name.split('/')[-1].split('.', 1)[0]
             return redirect('/metrics/' + output_name)
     return render_template('upload.html', title = "Loaded " + str(roomID))
