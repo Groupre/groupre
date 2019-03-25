@@ -166,9 +166,8 @@ $(document).ready(function () {
 
         var hcell = hcells[0];
         var colStr = hcell.getAttribute("id");
-        colStr = colStr[colStr.length - 1];
-        // get the aisle index
-        var aIndex = parseInt(colStr);
+        var aIndex = parseInt(colStr.split(',')[1]);
+
         console.log(cols, aIndex);
         if (aIndex != cols - 1) {
             for (var x = 0; x < cells.length; x++) {
