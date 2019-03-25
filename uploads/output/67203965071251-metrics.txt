@@ -1,4 +1,0 @@
-Students: 80
-Seats: 100
-Student Priority Rating: 0.0%
-Time Elapsed: 0.01922607421875 seconds
