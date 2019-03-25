@@ -202,11 +202,8 @@ def main(argv):
     # writing outputs
     with open(output_csv,"w",newline='') as csv_file:
         writer = csv.writer(csv_file, delimiter=',')
-        writer.writerow(["ids","isVIP","front","back","frontish","backish","aisle","left"])
         for x in newPairs:
-            writer.writerow([x[0].chair_id,"","",x[0].prefs])
-            writer.writerow([x[1].student_id, x[1].onyen, x[1].is_VIP,x[1].prefs])
-            writer.writerow([""])
+            writer.writerow([x[0].chair_id,x[1].student_id,x[1].onyen])
 
 if __name__ == '__main__':
     # Benchmark timer start.
