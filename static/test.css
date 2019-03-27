@@ -4,20 +4,6 @@
     max-width: 250px;
     max-height: 250px;
 }
-body {
-    display: block;
-    text-align: center;
-    /* font-family: sans-serif; */
-	max-width: 100%;
-	padding-left: 10em;
-	padding-right: 10em;
-  	font-family: Verdana, Geneva, sans-serif;
-	color: black;
-	background:#80d4ff ;
-}
-a{
-	text-decoration: none;
-}
 
 .header{
   margin: auto;
