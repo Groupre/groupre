@@ -133,7 +133,7 @@ def main(argv):
         '-o', '--output', help='Output file')
     argparser.set_defaults(fallback=False, output_csv='output.csv')
 
-    if 'groupre.py' in argv[0]:
+    if 'test.py' in argv[0]:
         parsed_args = argparser.parse_args()
     else:
         parsed_args = argparser.parse_args(argv)
