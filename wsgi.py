@@ -162,17 +162,20 @@ def retrieve_class(jsonName):
 def upload_file(roomID):
     # This is options for grouping
     fallback = False
-    gender = False
-    mHighLow = False
-    mAverage = False
+    # gender = False
+    # mHighLow = False
+    # mAverage = False
+    test = False
     if request.method == 'POST':
         # check if any of the options were checked for groupre
-        if (request.form.get('teamOpt') == "gender"):
-            gender = True
-        elif (request.form.get('teamOpt') == "highlow"):
-            mHighLow = True
-        elif (request.form.get('teamOpt') == "average"):
-            mAverage = True
+        # if (request.form.get('teamOpt') == "gender"):
+        #     gender = True
+        # elif (request.form.get('teamOpt') == "highlow"):
+        #     mHighLow = True
+        # elif (request.form.get('teamOpt') == "average"):
+        #     mAverage = True
+        if (request.form.get('teamOpt')) == 'test':
+            test = True
         if 'file' not in request.files:
           #  flash('No file part')
             flash('Your file doesnt exist')
@@ -197,7 +200,12 @@ def upload_file(roomID):
                 return redirect(url_for('selectRoom'))
             
             roomID = CHAIRS_DIR + roomID + '.csv'
-            output_name = run_groupre(newlocation, roomID)
+            if test:
+                output_name = run_groupre_test(newlocation, roomID)
+            else:
+                output_name = run_groupre(newlocation, roomID)
+
+            
             output_name = output_name.split('/')[-1].split('.', 1)[0]
             return redirect('/metrics/' + output_name)
     return render_template('upload.html', title = "Loaded " + str(roomID))
