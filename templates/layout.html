@@ -10,34 +10,45 @@
 	<title>groupre {{ title }} </title>
 
 	<style>
-		ul {
-			list-style-type: none;
-			margin: 0;
-			padding: 0;
-			overflow: hidden;
-			background-color:  #80d4ff;
-			position: relative;
-			top:0px;
-			left:0px;
-			width:100%;
-		}
-		
-		li {
-			float: left;
-			font-size:18px;
-		}
-		
-		li a {
-			display: block;
-			color: white;
-			text-align: center;
-			padding: 14px 16px;
-			text-decoration: none;
-		}
-		
-		li a:hover {
-			background-color:  #0099e6;
-		}
+	#mySidenav a {
+  position: absolute;
+  left: -80px;
+  transition: 0.3s;
+  padding: 20px;
+  width: 100px;
+  text-decoration: none;
+  font-size: 20px;
+  color: white;
+  border-radius: 0 5px 5px 0;
+	}
+
+	#mySidenav a:hover {
+		left: 0;
+	}
+
+	#homePage {
+		top:0px;
+		background-color: #4CAF50;
+	}
+
+	#grouprePage {
+		top: 100px;
+		background-color: #2196F3;
+	}
+
+	#classPage {
+		top: 200px;
+		background-color: #f44336;
+	}
+
+	#teamPage {
+		top: 300px;
+		background-color: #555
+	}
+	#gitPage {
+		top: 400px;
+		background-color: rgb(240, 240, 240)
+	}
 		</style>
 	<!--CSS-->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
@@ -56,14 +67,13 @@
 </head>
 
 <body>
-	<ul>
-		<li><a class="active" href="/">Home</a></li>
-		<li><a href="/room-select">Run Groupre</a></li>
-		<li><a href="/editTemplate">Build Class</a></li>
-		<li><a href="/team-creation">Build Team</a></li>
+	<div id="mySidenav" class="sidenav">
+		<a class="active" id ='homePage' href="/">Home Page</a>
+		<a id = 'grouprePage' href="/room-select">Run Groupre</a>
+		<a id = 'classPage' href="/editTemplate">Build Class</a>
+		<a id = 'teamPage' href="/team-creation">Build Team</a>
 		<!-- <li><a href="/test">Run Test</a></li> -->
-		<li><a href="https://github.com/Groupre/groupre" target="_blank"><img class = "mx-auto img-fluid" src = "../static/GitHub-Mark/PNG/GitHub-Mark-120px-plus.png" width = "25%" height = "25%"></a></li>
-	 </ul>
+		<a id = 'gitPage' href="https://github.com/Groupre/groupre" target="_blank"><img class = "mx-auto img-fluid" src = "../static/GitHub-Mark/PNG/GitHub-Mark-120px-plus.png" width = "25%" height = "25%"></a>
 	 <div id = "prompt">
 			{% with messages = get_flashed_messages() %}
 				{% if messages %}
