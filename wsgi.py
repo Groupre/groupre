@@ -9,7 +9,8 @@ from flask import (Flask, Response, flash, redirect, render_template, request,
 from werkzeug.utils import secure_filename
 
 # relies on groupre having been installed to the machine running this script
-import src.groupre as groupre
+# import src.groupre as groupre
+# import src.main as groupre_test
 #import src.groupre.helpers.postem as postem
 
 UPLOAD_FOLDER = os.getcwd() + '/uploads/'
@@ -47,27 +48,37 @@ def run_groupre(students, chairs):
     arguments = 'python3.7 ./src/groupre.py -c {} -s {} -o {}'.format(chairs,students,output_name)
     os.system(arguments)
     return output_name
+def run_groupre_test (students, chairs):
+    output_name = UPLOAD_FOLDER + 'output/' + \
+    str(randint(1000000, 9999999)) + '' + \
+    str(randint(1000000, 9999999)) + '.csv'
+    # arguments = ['--chairs', chairs, '--students',
+    #              students, '--output', output_name]
+    # groupre.main(arguments)
+    arguments = 'python3.7 ./src/test.py -c {} -s {} -o {}'.format(chairs,students,output_name)
+    os.system(arguments)
+    return output_name
 
 def run_test(students, row_count):
     main_dir = os.path.dirname(os.path.realpath(__file__))
     test_location = os.path.join(main_dir, 'uploads/')
     chairs = os.path.join(main_dir, 'src/python/chairs/')
     # currently, this function will find a seat based on the amount of rows
-    if 'fallback' in students:
-        chairs = os.path.join(
-            main_dir, 'static/test/testFiles/fallback/chairs_fallback.csv')
-        return run_groupre(students, chairs)
-    if row_count <= 101:
-        chairs = os.path.join(chairs, 'test_chairs_demo_100.csv')
-    elif row_count <= 401:
-        chairs = os.path.join(chairs, 'test_chairs_demo_400.csv')
-    elif row_count <= 1001:
-        chairs = os.path.join(chairs, 'test_chairs_demo_1000.csv')
-    else:
-        # only for testing responses
-        chairs = os.path.join(chairs, 'test_chairs_1.csv')
-        students = os.path.join(test_location, 'test_students_1.csv')
-        output_name = os.path.join(UPLOAD_FOLDER, 'test_output_1.csv')
+    # if 'fallback' in students:
+    #     chairs = os.path.join(
+    #         main_dir, 'static/test/testFiles/fallback/chairs_fallback.csv')
+    #     return run_groupre(students, chairs)
+    # if row_count <= 101:
+    #     chairs = os.path.join(chairs, 'test_chairs_demo_100.csv')
+    # elif row_count <= 401:
+    #     chairs = os.path.join(chairs, 'test_chairs_demo_400.csv')
+    # elif row_count <= 1001:
+    #     chairs = os.path.join(chairs, 'test_chairs_demo_1000.csv')
+    # else:
+    #     # only for testing responses
+    #     chairs = os.path.join(chairs, 'test_chairs_1.csv')
+    #     students = os.path.join(test_location, 'test_students_1.csv')
+    #     output_name = os.path.join(UPLOAD_FOLDER, 'test_output_1.csv')
     return run_groupre(students, chairs)
 
 def _json_object_hook(d):
@@ -101,36 +112,36 @@ def docs():
     return render_template('dirtree.html', tree=make_tree(path))
 
 
-@application.route('/test', methods=['GET', 'POST'])
-def runTests():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            newlocation = os.path.join(application.config['UPLOAD_FOLDER'], filename)
-            file.save(newlocation)
-            with open(newlocation, newline='') as csvfile:
-                reader = csv.reader(csvfile, delimiter=',')
-                row_count = sum(1 for row in reader)
-            output_name = run_test(newlocation, row_count)
-            output_name = output_name.split('/')[-1].split('.', 1)[0]
-            return redirect('/metrics/' + output_name)
-    testCasesDir = os.path.join(UPLOAD_FOLDER,"testCases")
-    test_files = {}
-    for testCase in os.listdir(testCasesDir):
-        testCasePath = os.path.join(testCasesDir, testCase)
-        testCaseName = os.path.basename(testCasePath).replace('_', ' ').split('.csv')[0].title()
-        test_files.update({testCaseName:testCase})
-    return render_template('test.html', test_files=test_files, title = "Test Upload")
+# @application.route('/test', methods=['GET', 'POST'])
+# def runTests():
+#     if request.method == 'POST':
+#         # check if the post request has the file part
+#         if 'file' not in request.files:
+#             flash('No file part')
+#             return redirect(request.url)
+#         file = request.files['file']
+#         # if user does not select file, browser also
+#         # submit a empty part without filename
+#         if file.filename == '':
+#             flash('No selected file')
+#             return redirect(request.url)
+#         if file and allowed_file(file.filename):
+#             filename = secure_filename(file.filename)
+#             newlocation = os.path.join(application.config['UPLOAD_FOLDER'], filename)
+#             file.save(newlocation)
+#             with open(newlocation, newline='') as csvfile:
+#                 reader = csv.reader(csvfile, delimiter=',')
+#                 row_count = sum(1 for row in reader)
+#             output_name = run_test(newlocation, row_count)
+#             output_name = output_name.split('/')[-1].split('.', 1)[0]
+#             return redirect('/metrics/' + output_name)
+#     testCasesDir = os.path.join(UPLOAD_FOLDER,"testCases")
+#     test_files = {}
+#     for testCase in os.listdir(testCasesDir):
+#         testCasePath = os.path.join(testCasesDir, testCase)
+#         testCaseName = os.path.basename(testCasePath).replace('_', ' ').split('.csv')[0].title()
+#         test_files.update({testCaseName:testCase})
+#     return render_template('test.html', test_files=test_files, title = "Test Upload")
 @application.route('/template/<string:jsonName>',methods = ['GET','POST'])
 def retrieve_file(jsonName):
     # returns json files to javascript
