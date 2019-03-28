@@ -11,8 +11,6 @@ body {
   	font-family: Verdana, Geneva, sans-serif;
 	color: #477099;
 	background:#DDFFFE ;
-}
-a{
 	text-decoration: none;
 }
 h1 {
@@ -34,4 +32,48 @@ form{
 .notworking{
 	background: grey;	
 }
+.homeBtn {
+	-moz-box-shadow: 10px 10px 5px 0px #bee2f9;
+	-webkit-box-shadow: 10px 10px 5px 0px #bee2f9;
+	box-shadow: 10px 10px 5px 0px #bee2f9;
+	background-color:#477099;
+	-webkit-border-top-left-radius:42px;
+	-moz-border-radius-topleft:42px;
+	border-top-left-radius:42px;
+	-webkit-border-top-right-radius:42px;
+	-moz-border-radius-topright:42px;
+	border-top-right-radius:42px;
+	-webkit-border-bottom-right-radius:42px;
+	-moz-border-radius-bottomright:42px;
+	border-bottom-right-radius:42px;
+	-webkit-border-bottom-left-radius:42px;
+	-moz-border-radius-bottomleft:42px;
+	border-bottom-left-radius:42px;
+	text-indent:0;
+	border:1px solid #FFFFFF;
+	/* display:inline-block; */
+	color:#FFFFFF;
+	font-family:Arial;
+	font-size:12px;
+	font-weight:bold;
+	font-style:normal;
+	height:90px;
+	line-height:50px;
+	width:161px;
+	text-decoration:none;
+	text-align:center;
+}.homeBtn:hover {
+	background-color:#468ccf;
+}.homeBtn:active {
+	position:relative;
+	top:1px;
+}
+.groupreBtn{
+	border-radius: 50%;
+	width: 100px;
+	height: 100px;
+	border:solid 1px white;
+	/* background:#477099; */
 
+}
+/* This button was generated using CSSButtonGenerator.com */
