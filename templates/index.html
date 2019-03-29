@@ -1,44 +1,45 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>Groupre</h1>
+<h1 class = "pageTitle">Groupre</h1>
 
 <h1 class="pageTitle">{{title}}</h1>
 <br>
 <br>
 
+<div id = "homeTable">
+        <a href="/room-select">
+            <div class = 'groupreBtn'>
+                <img class = "mx-auto img-fluid" alt="groupythegroupregrouper" src="../static/groupy.png">
+            </div>
+        </a>
+        <a href="/editTemplate">
+            <div class = 'homeBtn'>
+                Create Class
+            </div>
+        
+        </a>
+        
+        <a href="/editTemplate">
+            <div class = 'homeBtn'>
+                Edit Class
+            </div>
+        
+        </a>
+        
+        <a href="/team-creation">
+            <div class = 'homeBtn'>
+                Create Teams
+            </div>
+        
+        </a>
+        
+        <a href="/team-creation">
+            <div class = 'homeBtn'>
+                Edit Teams
+            </div>
+        </a>
+</div>
 
-<a href="/room-select">
-    <div class = 'groupreBtn'>
-        <img class = "mx-auto img-fluid" alt="groupythegroupregrouper" src="../static/groupy.png">
-    </div>
-</a>
-<a href="/editTemplate">
-    <div class = 'homeBtn'>
-        <h1>Create Class</h1>
-    </div>
-
-</a>
-
-<a href="/editTemplate">
-    <div class = 'homeBtn'>
-        <h1>Edit Class</h1>
-    </div>
-
-</a>
-
-<a href="/team-creation">
-    <div class = 'homeBtn'>
-        <h1>Create Teams</h1>
-    </div>
-
-</a>
-
-<a href="/team-creation">
-    <div class = 'homeBtn'>
-        <h1>Edit Teams</h1>
-    </div>
-
-</a>
 
 
 

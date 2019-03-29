@@ -54,20 +54,25 @@ form{
 	/* display:inline-block; */
 	color:#FFFFFF;
 	font-family:Arial;
-	font-size:12px;
-	font-weight:bold;
-	font-style:normal;
+	font-size: 30px;
 	height:90px;
-	line-height:50px;
-	width:161px;
+	line-height:80px;
+	width:260px;
+	height: 80px;
 	text-decoration:none;
 	text-align:center;
+	padding: none;
+	margin-left: 20%;
+	margin-bottom: 10%;
+	float: left;
+	/* display: table-cell; */
 }.homeBtn:hover {
 	background-color:#468ccf;
 }.homeBtn:active {
 	position:relative;
 	top:1px;
 }
+
 .groupreBtn{
 	border-radius: 50%;
 	width: 100px;
