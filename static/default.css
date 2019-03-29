@@ -19,6 +19,8 @@ body {
 	margin-right:auto;
 	margin-left: auto;
 	text-align: center;
+	text-decoration: none;
+	font-size: 38px;
 }
 h1 {
 	text-align:center;
@@ -57,7 +59,7 @@ form{
 	-moz-border-radius-bottomleft:42px;
 	border-bottom-left-radius:42px;
 	text-indent:0;
-	border:1px solid #FFFFFF;
+	border:2px solid #FFFFFF;
 	/* display:inline-block; */
 	color:#FFFFFF;
 	font-family:Arial;
@@ -85,12 +87,13 @@ form{
 }
 .groupreBtn{
 	border-radius: 50%;
-	width: 100px;
-	height: 100px;
-	border:solid 1px white;
+	width: 175px;
+	height: 175px;
+	/* border:solid 1px white; */
+	/* background-color: rgb(43, 100, 223); */
 	position: absolute;
-	top:54%;
-	left:47%;
+	top:48%;
+	left:44%;
 	z-index: 2;
 	/* background:#477099; */
 
