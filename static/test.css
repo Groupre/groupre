@@ -60,11 +60,11 @@ h2{
 	color: black;	
 }
 .pageTitle{
+	margin-top:10%;
 	width: 30%;
 	margin-right:auto;
 	margin-left: auto;
 	text-align: center;
-	color: black;
 }
 .btn {
 	border-radius: 15px;

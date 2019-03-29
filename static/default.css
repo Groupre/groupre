@@ -13,6 +13,13 @@ body {
 	background:#DDFFFE ;
 	text-decoration: none;
 }
+.pageTitle{
+	margin-top:5%;
+	width: 30%;
+	margin-right:auto;
+	margin-left: auto;
+	text-align: center;
+}
 h1 {
 	text-align:center;
 }
@@ -62,9 +69,9 @@ form{
 	text-decoration:none;
 	text-align:center;
 	padding: none;
-	margin-left: 20%;
+	margin-left: 22%;
 	margin-bottom: 10%;
-	margin-top: 10%;
+	margin-top: 7%;
 	float: left;
 	/* display: table-cell; */
 }.homeBtn:hover {
@@ -82,8 +89,8 @@ form{
 	height: 100px;
 	border:solid 1px white;
 	position: absolute;
-	top:30%;
-	left:45%;
+	top:54%;
+	left:47%;
 	z-index: 2;
 	/* background:#477099; */
 
