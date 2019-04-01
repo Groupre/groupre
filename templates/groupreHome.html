@@ -1,27 +1,21 @@
 
 {% extends "layout.html" %}
   {% block content %}
-    <h1 class = "pageTitle">{{title}}</h1>
     <!-- <script type="text/javascript" src="../static/jquery.min.js"></script> -->
-    <br>
-    
-      <div class = "container">
-        <div class = "row">
-            <div class = "col-md-6">
+      <div class = "leftTab">
+          <h1 class = "pageTitle">{{title}}</h1>
+
                 <form>
-                    <div class = "form-group">Room Name: <input id="roomID"/>
+                    <div class = "form-group">Room name:<input id="roomID"/>
                     </div>
-                    <div class = "form-group">Enter rows here => <input id="Enter rows here:" value="10"/>
+                    <div class = "form-group">Row size:  <input id="Enter rows here:" value="10"/>
                     </div>
-                    <div class = "form-group">Enter columns here => <input id="Enter columns here:" value="10"/>
+                    <div class = "form-group">Col size:  <input id="Enter columns here:" value="10"/>
                     </div>
                     <div class = "form-group"><input class = "btn btn-success" type="button" id="build" value="Build the room!"/></div>
                     
                 </form>
     
-            </div>
-    
-            <div class = "col-md-4">
                 <div class = "btn-group-vertical" id="controls">
                   <input class = "btn btn-info" type="button" id="leftHandedButton" value="Set Selected Seats as Left-Handed"/>
                   <input class = "btn btn-info" type="button" id="aisleButton" value="Place an Aisle Between Two Columns of Seats"/>
@@ -33,22 +27,15 @@
                   <input class = "btn btn-info" type="button" id="leftButton" value="Set Selected Seats as left section"/>
                   <input class = "btn btn-info" type="button" id="middleButton" value="Set Selected Seats as middle section"/>
                   <input class = "btn btn-info" type="button" id="rightButton" value="Set Selected Seats as right section"/>
-                </div> 
-                
-              </div>
-              <div class = "col-md-2">
                   <input class = "btn btn-warning" type="button" id="reset" value="Reset Board"/>
                   <input class = "btn btn-success" type="button" id="saveChanges" value="Save ClassRoom"/>
-                  <p id = "message">
-            
-                    </p>      
-              </div>
-          </div>   
+                  <p id = "message"></p>      
+              <p>Note: Blue is front row, Red Text is left handed seats, Green is back row</p>       
+              <p>The professor is closest to the first row, this is a student's POV</p>   
         </div>
-      
-    <div id="output"> 
-        <p>Note: Blue is front row, Red Text is left handed seats, Green is back row</p>       
-        <p>The professor is closest to the first row, this is a student's POV</p>   
-        <script src="../static/classBuilder.js"></script>
       </div>
+      
+    <div id="output">
+        <script src="../static/classBuilder.js"></script>
+    </div>
 {% endblock content %}

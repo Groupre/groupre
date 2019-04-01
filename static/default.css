@@ -12,6 +12,7 @@ body {
 	color: #477099;
 	background:#DDFFFE ;
 	text-decoration: none;
+	overflow: hidden;
 }
 .pageTitle{
 	margin-top:5%;
@@ -21,6 +22,7 @@ body {
 	text-align: center;
 	text-decoration: none;
 	font-size: 38px;
+	text-shadow: 10px 10px 15px
 }
 h1 {
 	text-align:center;
@@ -89,8 +91,6 @@ form{
 	border-radius: 50%;
 	width: 175px;
 	height: 175px;
-	/* border:solid 1px white; */
-	/* background-color: rgb(43, 100, 223); */
 	position: absolute;
 	top:48%;
 	left:44%;
@@ -98,4 +98,26 @@ form{
 	/* background:#477099; */
 
 }
-/* This button was generated using CSSButtonGenerator.com */
+#output {
+	position: absolute;
+	right: 0px;
+	float: right;
+	height: 100%;
+	width: 65%;
+	overflow: auto;
+	margin:0px;
+	background-color: white;
+  }
+.leftTab {
+	float: left;
+	height: 100%;
+	width: 25%;
+	overflow: auto;
+	margin: 0px;
+	padding:5px;
+}
+.btn-info {
+	background: #477099;
+	border:1px white solid;
+	border-radius: 12px;
+}

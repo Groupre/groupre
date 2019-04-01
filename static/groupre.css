@@ -39,7 +39,6 @@ table td {
   text-align:center;
   vertical-align:middle;
   background-color:#ffffff;
-  border:3px solid #000000;
   display:inline-block;
 }
 
@@ -53,8 +52,10 @@ table {
     text-align:center;
     vertical-align:middle;
     background-color:white;
-    border:5px solid #0099e6 ;
-    margin-top: 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .table-layout {

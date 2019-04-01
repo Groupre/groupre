@@ -112,36 +112,6 @@ def docs():
     return render_template('dirtree.html', tree=make_tree(path))
 
 
-# @application.route('/test', methods=['GET', 'POST'])
-# def runTests():
-#     if request.method == 'POST':
-#         # check if the post request has the file part
-#         if 'file' not in request.files:
-#             flash('No file part')
-#             return redirect(request.url)
-#         file = request.files['file']
-#         # if user does not select file, browser also
-#         # submit a empty part without filename
-#         if file.filename == '':
-#             flash('No selected file')
-#             return redirect(request.url)
-#         if file and allowed_file(file.filename):
-#             filename = secure_filename(file.filename)
-#             newlocation = os.path.join(application.config['UPLOAD_FOLDER'], filename)
-#             file.save(newlocation)
-#             with open(newlocation, newline='') as csvfile:
-#                 reader = csv.reader(csvfile, delimiter=',')
-#                 row_count = sum(1 for row in reader)
-#             output_name = run_test(newlocation, row_count)
-#             output_name = output_name.split('/')[-1].split('.', 1)[0]
-#             return redirect('/metrics/' + output_name)
-#     testCasesDir = os.path.join(UPLOAD_FOLDER,"testCases")
-#     test_files = {}
-#     for testCase in os.listdir(testCasesDir):
-#         testCasePath = os.path.join(testCasesDir, testCase)
-#         testCaseName = os.path.basename(testCasePath).replace('_', ' ').split('.csv')[0].title()
-#         test_files.update({testCaseName:testCase})
-#     return render_template('test.html', test_files=test_files, title = "Test Upload")
 @application.route('/template/<string:jsonName>',methods = ['GET','POST'])
 def retrieve_file(jsonName):
     # returns json files to javascript

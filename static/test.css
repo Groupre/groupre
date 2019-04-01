@@ -59,13 +59,7 @@ h2{
 	left: 20px;
 	color: black;	
 }
-.pageTitle{
-	margin-top:10%;
-	width: 30%;
-	margin-right:auto;
-	margin-left: auto;
-	text-align: center;
-}
+
 .btn {
 	border-radius: 15px;
 	font-family: Arial;
@@ -108,14 +102,6 @@ h2{
 	float:left;
 	margin: 20px 40px;
 	text-align: center;
-  }
-  
-  #output {
-	float: left;
-	height: 100%;
-	width: 75%;
-	overflow: auto;
-	border: 1px black dashed;
   }
   
   #interface input {
