@@ -1,12 +1,13 @@
 
 {% extends "layout.html" %}
 {% block content %}
-<h2>{{title}}</h2>
-<p>Select a classroom template</p>
+<div class = 'pageTitle'>
+        {{title}}
+</div>
 <form>
-    <form-group>
-        <label>Choose an existing template</label>
-            <select id = "classList">
+    <label class = 'labelText' for="chooseClassForm">Select existing classroom</label>
+    <form-group id = "chooseClassForm">
+            <select class = 'btn btn-info' id = "classList">
                     {%- for item in roomFiles.keys() %}
                     <option value="{{ roomFiles[item] }}">{{ item }}</option>
                     {%- endfor %}
@@ -15,7 +16,7 @@
     </form-group>
     
     <div class = "form-group">
-        <label>Make new template</label >
+        <label class = 'labelText' for = 'newClass'>Make new template</label >
         <button class = "btn btn-info" type = "button" id="newClass">Go</button>
     </div>
 </form>

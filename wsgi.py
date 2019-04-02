@@ -259,7 +259,7 @@ def changeTemplate():
             rKey = rFile.split('-')[1] 
             roomFiles[rKey]= rFile
 
-    return render_template('chooseClass.html', roomFiles = roomFiles, title = "Create or modify")
+    return render_template('chooseClass.html', roomFiles = roomFiles, title = "Edit Class")
 
 
 @application.route("/room-creation")

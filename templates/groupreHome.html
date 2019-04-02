@@ -38,12 +38,13 @@
                   <input class = "btn btn-warning" type="button" id="reset" value="Reset Board"/>
                   <input class = "btn btn-success" type="button" id="saveChanges" value="Save ClassRoom"/>
                   <p id = "message"></p>      
-              <p>Note: Blue is front row, Red Text is left handed seats, Green is back row</p>       
-              <p>The professor is closest to the first row, this is a student's POV</p>   
+            
         </div>
       </div>
       
     <div id="output">
         <script src="../static/classBuilder.js"></script>
+        <p>Legend: Blue = front row, Red text = left handed seats, Green = back row</p>       
+        <img class = "mx-auto img-fluid" id ='podium' alt="podiumImg" src="../static/podium.png">
     </div>
 {% endblock content %}

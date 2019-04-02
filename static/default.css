@@ -24,6 +24,11 @@ body {
 	font-size: 38px;
 	text-shadow: 10px 10px 15px
 }
+.labelText{
+	font-size: 30px;
+	text-decoration: none;
+	margin-top: 10%;
+}
 h1 {
 	text-align:center;
 }
@@ -98,6 +103,11 @@ form{
 	/* background:#477099; */
 
 }
+#podium{
+	width: 7%;
+	height: 10%;
+	margin: auto;
+}
 #output {
 	position: absolute;
 	right: 0px;
@@ -108,11 +118,22 @@ form{
 	margin:0px;
 	background-color: white;
   }
+#template-e{
+	position: absolute;
+	right: 0px;
+	float: right;
+	height: 100%;
+	width: 65%;
+	overflow: auto;
+	margin:0px;
+	background-color: white;	
+}
 .leftTab {
 	float: left;
 	height: 100%;
+	
 	width: 25%;
-	overflow: auto;
+	overflow:auto;
 	margin: 0px;
 	padding:5px;
 }

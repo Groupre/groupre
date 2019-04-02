@@ -1,10 +1,12 @@
 
 {% extends "layout.html" %}
 {% block content %}
-<h2>{{title}}</h2>
-<p>Select a classroom template</p>
+<div class = 'pageTitle'>
+    {{title}}
+</div>
 <form>
-    <select id = "classList">
+    <label class = 'labelText' for = 'classList'>Select a classroom template</label>
+    <select class = 'btn btn-info' id = "classList">
         {%- for item in roomFiles.keys() %}
         <option value="{{ roomFiles[item] }}">{{ item }}</option>
         {%- endfor %}
@@ -19,11 +21,7 @@
         var selectedOption = select.options[idx].value;
         
         window.location='/template/' + selectedOption;
-
     }
 </script>
-
-    
-
 
 {% endblock content %}

@@ -1,11 +1,11 @@
 
 .aisleLeft {
-  margin-right: 20px;
+  margin-right: 10px;
   
 }
 
 .aisleRight {
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .frontish {
@@ -34,8 +34,8 @@
 }
 
 table td {
-  width:60px;
-  height:60px;
+  width:50px;
+  height:50px;
   text-align:center;
   vertical-align:middle;
   background-color:#ffffff;
@@ -56,26 +56,29 @@ table {
     margin-bottom: auto;
     margin-left: auto;
     margin-right: auto;
+    border:none;
+    overflow-x:scroll;
+    color:black;
 }
 
 .table-layout {
     text-align: center;
-    width:60px;
-    height:60px;
+    width:50px;
+    height:50px;
     vertical-align:middle;
     background-color:#00ffff;
     border:3px solid #ff00ff;
 }
 .table-layout td, .table-layout th {
     border:3px solid #ff00ff;
-    width:60px;
-    height:60px;
+    width:50px;
+    height:50px;
 
 }
 .table-layout td {
     text-align: center;
-    width:60px;
-    height:60px;
+    width:50px;
+    height:50px;
 }
 .selected {
     color: #000000;
