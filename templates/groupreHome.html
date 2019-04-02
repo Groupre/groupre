@@ -1,50 +1,49 @@
-
 {% extends "layout.html" %}
-  {% block content %}
-    <!-- <script type="text/javascript" src="../static/jquery.min.js"></script> -->
-      <div class = "leftTab">
-          <h1 class = "pageTitle">{{title}}</h1>
+{% block content %}
+<!-- <script type="text/javascript" src="../static/jquery.min.js"></script> -->
+<div class="leftTab">
+  <h1 class="pageTitle">{{title}}</h1>
 
-                <form>
-                    <div class = "form-group">
-                      <label for = "roomID">Room name:</label>
-                      <input class="form-control" id="roomID"/>
-                    </div>
-                    <div class = "form-group">
-                      <label for = 'Enter rows here'>Row size:</label> 
-                      <input class="form-control" id="Enter rows here:" value="10"/>
-                    </div>
-                    <div class = "form-group">
-                      <label for = 'Enter columns here'>Col size:</label>
-                      <input class="form-control" id="Enter columns here:" value="10"/>
-                    </div>
-                    <div class = "form-group">
-                      <input class = "btn btn-success" type="button" id="build" value="Build the room!"/>
-                    </div>
-                    
-                </form>
-    
-                <div class = "btn-group-vertical" id="controls">
-                  <input class = "btn btn-info" type="button" id="leftHandedButton" value="Set Selected Seats as Left-Handed"/>
-                  <input class = "btn btn-info" type="button" id="aisleButton" value="Place an Aisle Between Two Columns of Seats"/>
-                  <input class = "btn btn-info" type="button" id="frontRowButton" value="Set Selected Seats as the Front Row"/>
-                  <input class = "btn btn-info" type="button" id="backRowButton" value="Set Selected Seats as the Back Row"/>
-                  <input class = "btn btn-info" type="button" id="frontishButton" value="Set Selected Seats as the Frontish Row"/>
-                  <input class = "btn btn-info" type="button" id="backishButton" value="Set Selected Seats as the Backish Row"/>
-                  <input class = "btn btn-info" type="button" id="brokenButton" value="Set Selected Seats as Un-Usable"/>
-                  <input class = "btn btn-info" type="button" id="leftButton" value="Set Selected Seats as left section"/>
-                  <input class = "btn btn-info" type="button" id="middleButton" value="Set Selected Seats as middle section"/>
-                  <input class = "btn btn-info" type="button" id="rightButton" value="Set Selected Seats as right section"/>
-                  <input class = "btn btn-warning" type="button" id="reset" value="Reset Board"/>
-                  <input class = "btn btn-success" type="button" id="saveChanges" value="Save ClassRoom"/>
-                  <p id = "message"></p>      
-            
-        </div>
-      </div>
-      
-    <div id="output">
-        <script src="../static/classBuilder.js"></script>
-        <p>Legend: Blue = front row, Red text = left handed seats, Green = back row</p>       
-        <img class = "mx-auto img-fluid" id ='podium' alt="podiumImg" src="../static/podium.png">
+  <form>
+    <div class="form-group">
+      <label for="roomID">Room name:</label>
+      <input class="form-control" id="roomID" />
     </div>
+    <div class="form-group">
+      <label for='Enter rows here'>Row size:</label>
+      <input class="form-control" id="Enter rows here:" value="10" />
+    </div>
+    <div class="form-group">
+      <label for='Enter columns here'>Col size:</label>
+      <input class="form-control" id="Enter columns here:" value="10" />
+    </div>
+    <div class="form-group">
+      <input class="btn btn-success" type="button" id="build" value="Build the room!" />
+    </div>
+
+  </form>
+
+  <div class="btn-group-vertical" id="controls">
+    <input class="btn btn-info" type="button" id="leftHandedButton" value="Set Selected Seats as Left-Handed" />
+    <input class="btn btn-info" type="button" id="aisleButton" value="Place an Aisle Between Two Columns of Seats" />
+    <input class="btn btn-info" type="button" id="frontRowButton" value="Set Selected Seats as the Front Row" />
+    <input class="btn btn-info" type="button" id="backRowButton" value="Set Selected Seats as the Back Row" />
+    <input class="btn btn-info" type="button" id="frontishButton" value="Set Selected Seats as the Frontish Row" />
+    <input class="btn btn-info" type="button" id="backishButton" value="Set Selected Seats as the Backish Row" />
+    <input class="btn btn-info" type="button" id="brokenButton" value="Set Selected Seats as Un-Usable" />
+    <input class="btn btn-info" type="button" id="leftButton" value="Set Selected Seats as left section" />
+    <input class="btn btn-info" type="button" id="middleButton" value="Set Selected Seats as middle section" />
+    <input class="btn btn-info" type="button" id="rightButton" value="Set Selected Seats as right section" />
+    <input class="btn btn-warning" type="button" id="reset" value="Reset Board" />
+    <input class="btn btn-success" type="button" id="saveChanges" value="Save ClassRoom" />
+    <p id="message"></p>
+
+  </div>
+</div>
+
+<div id="output">
+  <script src="../static/classBuilder.js"></script>
+  <p>Legend: Blue = front row, Red text = left handed seats, Green = back row</p>
+  <img class="mx-auto img-fluid" id='podium' alt="podiumImg" src="../static/podium.png">
+</div>
 {% endblock content %}

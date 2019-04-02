@@ -1,4 +1,3 @@
-
 {% extends "layout.html" %}
 {% block content %}
 <script>
@@ -6,13 +5,13 @@
   var template = JSON.parse('{{jdata | tojson | safe}}');
   var tempName = '{{name}}';
 </script>
-<div class = 'leftTab'>
+<div class='leftTab'>
 
-<h1 class = "pageTitle">{{title}}</h1>
+  <h1 class="pageTitle">{{title}}</h1>
 
   <form>
     <h4>Room selected = {{name}}</h4>
-    <input class = "btn btn-success ml-sm-4" type = "button" id = "buildClass-e" value = "Build Class"/>
+    <input class="btn btn-success ml-sm-4" type="button" id="buildClass-e" value="Build Class" />
 
     <!-- <div class = "form-inline">
         <h4>section name: </h4> 
@@ -21,33 +20,33 @@
     </div> -->
   </form>
 
-<!-- All id has -e following because this indicates its editing template-->
-                <div class = "btn-group-vertical" id="controls">
-                    <input class = "btn btn-info" type="button" id="leftHandedButton-e" value="Set Selected Seats as Left-Handed"/>
-                    <input class = "btn btn-info" type="button" id="aisleButton-e" value="Place an Aisle Between Two Columns of Seats"/>
-                    <input class = "btn btn-info" type="button" id="frontRowButton-e" value="Set Selected Seats as the Front Row"/>
-                    <input class = "btn btn-info" type="button" id="frontishButton-e" value="Set Selected Seats as the Frontish Row"/>
-                    <input class = "btn btn-info" type="button" id="leftButton-e" value="Set Selected Seats as left section"/>
-                    <input class = "btn btn-info" type="button" id="middleButton-e" value="Set Selected Seats as middle section"/>
-                    <input class = "btn btn-info" type="button" id="rightButton-e" value="Set Selected Seats as right section"/>            
-                  <input class = "btn btn-info" type="button" id="backRowButton-e" value="Set Selected Seats as the Back Row"/>
-                  <input class = "btn btn-info" type="button" id="backishButton-e" value="Set Selected Seats as the Backish Row"/>
-                  <input class = "btn btn-info" type="button" id="brokenButton-e" value="Set Selected Seats as Un-Usable"/>
-                  <input class = "btn btn-warning" type="button" id="reset-e" value="Reset Board"/>
+  <!-- All id has -e following because this indicates its editing template-->
+  <div class="btn-group-vertical" id="controls">
+    <input class="btn btn-info" type="button" id="leftHandedButton-e" value="Set Selected Seats as Left-Handed" />
+    <input class="btn btn-info" type="button" id="aisleButton-e" value="Place an Aisle Between Two Columns of Seats" />
+    <input class="btn btn-info" type="button" id="frontRowButton-e" value="Set Selected Seats as the Front Row" />
+    <input class="btn btn-info" type="button" id="frontishButton-e" value="Set Selected Seats as the Frontish Row" />
+    <input class="btn btn-info" type="button" id="leftButton-e" value="Set Selected Seats as left section" />
+    <input class="btn btn-info" type="button" id="middleButton-e" value="Set Selected Seats as middle section" />
+    <input class="btn btn-info" type="button" id="rightButton-e" value="Set Selected Seats as right section" />
+    <input class="btn btn-info" type="button" id="backRowButton-e" value="Set Selected Seats as the Back Row" />
+    <input class="btn btn-info" type="button" id="backishButton-e" value="Set Selected Seats as the Backish Row" />
+    <input class="btn btn-info" type="button" id="brokenButton-e" value="Set Selected Seats as Un-Usable" />
+    <input class="btn btn-warning" type="button" id="reset-e" value="Reset Board" />
 
-                
-              </div>
-              
-                  <form-group>
-                    <input class = "btn btn-success" type="button" id="saveChanges-e" value="Save ClassRoom"/>
-                  </form-group>
-                  <p id = "message"></p> 
-                  
-      </div>
-    <div id="template-e"> 
-        
-        <script src="../static/editClass.js"></script>
-        <p>Legend: Blue = front row, Red text = left handed seats, Green = back row</p>       
-        <img class = "mx-auto img-fluid" id ='podium' alt="podiumImg" src="../static/podium.png">
-      </div>
+
+  </div>
+
+  <form-group>
+    <input class="btn btn-success" type="button" id="saveChanges-e" value="Save ClassRoom" />
+  </form-group>
+  <p id="message"></p>
+
+</div>
+<div id="template-e">
+
+  <script src="../static/editClass.js"></script>
+  <p>Legend: Blue = front row, Red text = left handed seats, Green = back row</p>
+  <img class="mx-auto img-fluid" id='podium' alt="podiumImg" src="../static/podium.png">
+</div>
 {% endblock content %}

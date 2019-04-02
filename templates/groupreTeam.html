@@ -1,4 +1,3 @@
-
 {% extends "layout.html" %}
 {% block content %}
 <script>
@@ -6,47 +5,47 @@
   var template = JSON.parse('{{jdata | tojson | safe}}');
   var tempName = '{{name}}';
 </script>
-<h1 class = "pageTitle">{{title}}</h1>
-<div>
+<div class='leftTab'>
+  <h1 class="pageTitle">{{title}}</h1>
   <form>
     <h4>Room selected = {{name}}</h4>
-    <div class = "form-inline">
-        <h4>section name: <input id="teamName"/></h4> 
-        <input class = "btn btn-success ml-sm-4" type = "button" id = "buildClass" value = "Build Class"/>
+
+    <label for='teamName'>section name:</label>
+    <input id="teamName" />
+    <input class="btn btn-success ml-sm-4" type="button" id="buildClass" value="Build Class" />
+
+  </form>
+
+  <form>
+    <div class="form-group">
+      <input class="btn btn-info" type="button" id="teamButton" value="Create Team from Selected Seats" />
+      <input class="btn btn-info" type="button" id="removeTeam" value="Delete Team from Selected Seats" />
+    </div>
+
+    <div class="form-group">
+      <select class ='btn btn-info' id="dropdown">
+      </select>
+      <button class="btn btn-info" type="button" id="autoAdd">Form Group</button>
+    </div>
+
+    <div class="form-group">
+      <input class="btn btn-warning" type="button" id="resetTeam" value="Reset Team" />
+      <input class="btn btn-success" type="button" id="saveTeam" value="Save Team" />
+      <p id="notice"></p>
     </div>
   </form>
-</div>
-<div id="interface">
-    <div id="controls">
-      <form action="">
-        <div class = "form-group">
-          <input class="btn btn-info" type="button" id="teamButton" value="Create Team from Selected Seats"/>
-          <input class="btn btn-info" type="button" id="removeTeam" value="Delete Team from Selected Seats"/>    
-        </div>
 
-        <div class = "form-group">
-            <select id="dropdown">
-              </select> 
-              <button class = "btn btn-info" type="button" id="autoAdd">Form Group</button>
-        </div>
-       
-      <div class = "form-group">
-          <input class = "btn btn-warning" type="button" id="resetTeam" value="Reset Team"/>
-          <input class = "btn btn-success" type="button" id="saveTeam" value="Save Team"/>
-          <p id="notice"></p>    
-      </div>
-    </form>
-      
-    <!-- <div id="teamList">
+  <!-- <div id="teamList">
         <script src="../static/teamBuilder.js"></script>
     </div> -->
-  </div> 
-</div>
-<div id="template">
-    <p>Legend: Blue = front row, Red text = left handed seats, Green = back row</p>       
-    <img class = "mx-auto img-fluid" id ='podium' alt="podiumImg" src="../static/podium.png">
 
-    <script src="../static/teamBuilder.js"></script>
+</div>
+
+<div id="template">
+  <p>Legend: Blue = front row, Red text = left handed seats, Green = back row</p>
+  <img class="mx-auto img-fluid" id='podium' alt="podiumImg" src="../static/podium.png">
+
+  <script src="../static/teamBuilder.js"></script>
 </div>
 
 {% endblock content %}
