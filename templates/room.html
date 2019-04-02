@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1 >{{title}}</h1>
-    <br>
+<div class = "pageTitle">
+    {{title}}
+</div>
     <form method="POST" action="selectRoom(select)">
-        <h3>Select a Room: </h3>
-
-            <select id="fileList">
+        <label class = 'labelText' for = 'fileList'>Select a Room:</label>
+            <select class='btn btn-info' id="fileList">
                 {%- for item in chairFiles.keys() %}
                     <option class = "dropdown-item" value="{{ chairFiles[item] }}">{{ item }}</option>
                 {%- endfor %}

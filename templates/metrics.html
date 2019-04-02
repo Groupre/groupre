@@ -1,25 +1,30 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>metric id = {{ output_name }}</h2>
+<div class='pageTitle'>
+    output name = {{ output_name }}
+</div>
 
-    <div class="output">
+<!-- <div class="output">
         <p>
             {%- for m in metrics %}
                 {{ m }}
             {%- endfor %}
         </p>    
-    </div>
-    
-    <div id="download">
-       
+    </div> -->
+<br>
+<br>
+<div id="download">
+
     <form action="" method="POST">
-        <button formaction="/download/{{ output_name ~ '.csv' }}">Download Seating Chart</button>
+        <button class="btn btn-info" formaction="/download/{{ output_name ~ '.csv' }}">Download Seating Chart</button>
     </form>
     <br>
-    <form action = "" method="POST">
-        <button formaction="/download/{{ output_name ~ '-postEm.csv' }}">Download Sakai Postem</button>
+    <br>
+    <form action="" method="POST">
+        <button class="btn btn-info" formaction="/download/{{ output_name ~ '-postEm.csv' }}">Download Sakai
+            Postem</button>
     </form>
-    </div>
-   
+</div>
 
-    {% endblock content %}
+
+{% endblock content %}
