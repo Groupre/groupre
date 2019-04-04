@@ -118,7 +118,15 @@ def retrieve_file(jsonName):
     filepath =CLASSROOMS_DIR + jsonName
     with open(filepath, 'r') as f:
         jdata = json.load(f)
-    return render_template('groupreTeam.html', jdata = jdata , name = jsonName, title = "Template")
+    return render_template('groupreTeam.html', jdata = jdata , name = jsonName, title = "Create Team")
+
+@application.route('/chair/<string:jsonName>',methods = ['GET','POST'])
+def retrieve_team(jsonName):
+    # returns json files to javascript
+    filepath =CHAIRS_DIR + jsonName
+    with open(filepath, 'r') as f:
+        jdata = json.load(f)
+    return render_template('editTeam.html', jdata = jdata , name = jsonName, title = "Edit Team")
 
 @application.route('/class/<string:jsonName>',methods = ['GET','POST'])
 def retrieve_class(jsonName):
@@ -127,6 +135,7 @@ def retrieve_class(jsonName):
     with open(filepath, 'r') as f:
         jdata = json.load(f)
     return render_template('editClass.html', jdata = jdata , name = jsonName, title = "Edit Template")
+
   
 @application.route('/upload/<string:roomID>', methods=['GET', 'POST'])
 def upload_file(roomID):
@@ -273,6 +282,14 @@ def create_team():
             rKey = rFile.split('-')[1] 
             roomFiles[rKey]= rFile
     return render_template('chooseTeam.html', roomFiles = roomFiles , title = "Create teams")
+@application.route("/team-edition")
+def edit_team():
+    roomFiles = {}
+    for rFile in os.listdir(CHAIRS_DIR):
+        if '.json' in rFile:
+            rKey = rFile.split('-')[1] 
+            roomFiles[rKey]= rFile
+    return render_template('chooseEditTeams.html', roomFiles = roomFiles , title = "Edit teams")
 
 @application.route("/room-saver", methods=['POST'])
 def saveRoom():

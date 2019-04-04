@@ -1,0 +1,25 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<div class = 'pageTitle'>
+    {{title}}
+</div>
+<form>
+        <label class = 'labelText' for = 'classEditList'>Select a classroom template</label>
+        <select class = 'btn btn-info' id = "classEditList">
+            {%- for item in roomFiles.keys() %}
+            <option value="{{ roomFiles[item] }}">{{ item }}</option>
+            {%- endfor %}
+        </select>
+        <button class = "btn btn-info" type = "button" id="goEditClass"> Go</button>
+</form>
+<script>
+
+document.getElementById('goEditClass').onclick = function(){
+    var select = document.getElementById('classEditList');
+    var idx = select.selectedIndex;
+    var selectedOption = select.options[idx].value;
+    
+    window.location='/chair/' + selectedOption;
+}</script>
+{% endblock content %}
