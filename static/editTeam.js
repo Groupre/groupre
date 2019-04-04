@@ -40,12 +40,20 @@ $(document).ready(function () {
             for (var c = 0; c < (cols); c++) {
                 var cell = document.createElement('td');
                 //need to put int to string in here to change to seat letter
-                cell.id = r + ',' + c;
+                var teamNum = template[index][1];
+
+                if (teamNum != " "){
+                    cell.id = teamNum
+                }else{
+                    cell.id = r + ',' + c;
+                }
+
                 cell.innerHTML = cell.id;
                 // cell.innerHTML = ''
                 row.appendChild(cell);
                 //retrieve multiple attributes
                 var attrb = template[index].slice(2, template[index].length);
+                
                 for (let x = 0; x < attrb.length; x++) {
                     let prop = attrb[x];
                     switch (prop) {

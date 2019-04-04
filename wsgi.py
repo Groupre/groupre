@@ -284,7 +284,7 @@ def create_team():
     roomFiles = {}
     for rFile in os.listdir(CLASSROOMS_DIR):
         if '.json' in rFile:
-            rKey = rFile.split('-')[1] 
+            rKey = rFile.split('-')[2] 
             roomFiles[rKey]= rFile
     return render_template('chooseTeam.html', roomFiles = roomFiles , title = "Create teams")
 @application.route("/team-edition")
@@ -302,7 +302,7 @@ def edit_team():
     roomFiles = {}
     for rFile in os.listdir(CHAIRS_DIR):
         if '.csv' in rFile:
-            rKey = rFile.split('-')[1] 
+            rKey = rFile.split('-')[2] 
             roomFiles[rKey]= rFile
     return render_template('chooseEditTeams.html', roomFiles = roomFiles , title = "Edit teams")
 
