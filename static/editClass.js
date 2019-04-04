@@ -18,7 +18,7 @@ $(document).ready(function () {
     var currentTeams = {};
     var roomID;
 
-    document.getElementById('buildClass-e').onclick = function () {
+    document.getElementById('build-e').onclick = function () {
         this.hidden = true;
         rows = parseInt(tempName.split("-")[3]);
         cols = parseInt(tempName.split("-")[4].split(".")[0]);

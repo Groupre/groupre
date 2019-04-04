@@ -123,9 +123,14 @@ def retrieve_file(jsonName):
 @application.route('/chair/<string:jsonName>',methods = ['GET','POST'])
 def retrieve_team(jsonName):
     # returns json files to javascript
+    jdata = []
     filepath =CHAIRS_DIR + jsonName
+    print(filepath)
     with open(filepath, 'r') as f:
-        jdata = json.load(f)
+        csvReader = csv.reader(f)
+        for row in csvReader:
+            jdata.append(row)
+        # jdata = json.load(jdata)
     return render_template('editTeam.html', jdata = jdata , name = jsonName, title = "Edit Team")
 
 @application.route('/class/<string:jsonName>',methods = ['GET','POST'])
@@ -268,12 +273,12 @@ def changeTemplate():
             rKey = rFile.split('-')[1] 
             roomFiles[rKey]= rFile
 
-    return render_template('chooseClass.html', roomFiles = roomFiles, title = "Edit Class")
+    return render_template('chooseClass.html', roomFiles = roomFiles, title = "Edit Room")
 
 
 @application.route("/room-creation")
 def create_room():
-    return render_template('groupreHome.html', title = "Create class")
+    return render_template('groupreHome.html', title = "Create room")
 @application.route("/team-creation")
 def create_team():
     roomFiles = {}
@@ -284,9 +289,19 @@ def create_team():
     return render_template('chooseTeam.html', roomFiles = roomFiles , title = "Create teams")
 @application.route("/team-edition")
 def edit_team():
+    # chairFiles = {}
+    # for cFile in os.listdir(CHAIRS_DIR):
+    #     if '.csv' in cFile:
+    #         cValue = cFile.split('.csv')[0]
+    #         cKey = cValue.split('-')[2:]
+    #         roomID = cKey[0].title()
+    #         capacity = ' ' + str(int(cKey[1]) * int(cKey[2])) + ' Students'
+    #         cKey = roomID + capacity
+    #         # cKey = '-'.join(cValue.split('-')[2:]).title()
+    #         chairFiles.update({cKey:cValue})
     roomFiles = {}
     for rFile in os.listdir(CHAIRS_DIR):
-        if '.json' in rFile:
+        if '.csv' in rFile:
             rKey = rFile.split('-')[1] 
             roomFiles[rKey]= rFile
     return render_template('chooseEditTeams.html', roomFiles = roomFiles , title = "Edit teams")

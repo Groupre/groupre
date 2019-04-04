@@ -20,20 +20,23 @@ $(document).ready(function () {
     var roomID;
     var teamName;
 
-    document.getElementById('buildClass').onclick = function () {
+    document.getElementById('buildClass-e').onclick = function () {
         this.hidden = true;
         rows = parseInt(tempName.split("-")[3]);
         cols = parseInt(tempName.split("-")[4].split(".")[0]);
-        teamName = document.getElementById('teamName').value;
+        console.log(rows,cols);
+        teamName = tempName;
 
         roomID = tempName.split("-")[1];
         var table = document.createElement('table');
         table.id = 'dataTable';
         table.border = "1";
         var prevrow;
-        var index = 0;
+        var index = 1;
         for (var r = 0; r < (rows); r++) {
             var row = document.createElement('tr');
+            let cellRight = false;
+            
             for (var c = 0; c < (cols); c++) {
                 var cell = document.createElement('td');
                 //need to put int to string in here to change to seat letter
@@ -48,6 +51,8 @@ $(document).ready(function () {
                     switch (prop) {
                         case "la":
                             cell.classList.toggle("leftHand");
+                            cell.classList.toggle('aisleRight');
+                            cellRight = false;
                             break;
                         case "f":
                             cell.classList.toggle("front");
@@ -55,12 +60,15 @@ $(document).ready(function () {
                         case "fi":
                             cell.classList.toggle("frontish");
                             break;
-                        case "al":
-                            cell.classList.toggle("aisleLeft");
-                            break;
-                        case "ar":
-                            cell.classList.toggle("aisleRight");
-                            break;
+                        case "a":
+                            if (cellRight){
+                                cell.classList.toggle("aisleRight");
+                                cellRight = false;
+                            }else{
+                                cell.classList.toggle("aisleLeft");
+                                cellRight = true;
+                                break;
+                            }
                         case "b":
                             cell.classList.toggle("back");
                             break;
@@ -90,7 +98,7 @@ $(document).ready(function () {
             table.appendChild(row)
             prevrow = row;
         }
-        document.getElementById('template').appendChild(table);
+        document.getElementById('teamTemp-e').appendChild(table);
         drag();
 
         // Auto-add suggestions and selection
@@ -126,7 +134,7 @@ $(document).ready(function () {
 
     }
 
-    document.getElementById("teamButton").onclick = function () {
+    document.getElementById("teamButton-e").onclick = function () {
         var table = document.getElementById("dataTable");
         var cells = table.getElementsByClassName("highlight");
         var team = document.createElement('p');
@@ -161,7 +169,7 @@ $(document).ready(function () {
         }
     }
 
-    document.getElementById("saveTeam").onclick = function () {
+    document.getElementById("saveTeam-e").onclick = function () {
         var array = [];
         array.push([roomID, teamName, rows, cols]);
         array.push(['CID', 'TeamID', 'Attributes']);
@@ -218,7 +226,7 @@ $(document).ready(function () {
             document.getElementById('notice').innerHTML = ''
         }, 2000);
     }
-    document.getElementById("removeTeam").onclick = function () {
+    document.getElementById("removeTeam-e").onclick = function () {
         var table = document.getElementById("dataTable");
         var cells = table.getElementsByClassName("highlight");
         if (cells.length < 1) {
@@ -242,7 +250,7 @@ $(document).ready(function () {
             cell.classList.remove("highlight");
         }
     }
-    document.getElementById("resetTeam").onclick = function () {
+    document.getElementById("resetTeam-e").onclick = function () {
         // alert("lmao");
         var table = document.getElementById("dataTable");
         var cells = table.getElementsByTagName("td");
@@ -264,7 +272,7 @@ $(document).ready(function () {
     }
 
     // Automatically add teams based on user selection
-    document.getElementById('autoAdd').onclick = function () {
+    document.getElementById('autoAdd-e').onclick = function () {
 
         var select = document.getElementById('dropdown');
         var idx = select.selectedIndex;

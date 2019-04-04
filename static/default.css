@@ -117,7 +117,17 @@ form{
 	overflow: auto;
 	margin:0px;
 	background-color: white;
-  }
+	}
+#teamTemp-e{
+	position: absolute;
+	right: 0px;
+	float: right;
+	height: 100%;
+	width: 65%;
+	overflow: auto;
+	margin:0px;
+	background-color: white;
+}
 #template-e{
 	position: absolute;
 	right: 0px;

@@ -4,14 +4,15 @@
   // loads json from flask
   var template = JSON.parse('{{jdata | tojson | safe}}');
   var tempName = '{{name}}';
+  console.log(template)
 </script>
 <div class='leftTab'>
   <h1 class="pageTitle">{{title}}</h1>
   <form>
     <h4>Room selected = {{name}}</h4>
 
-    <label for='teamName'>section name:</label>
-    <input id="teamName" />
+    <label for='teamName-e'>section name:</label>
+    <input id="teamName-e" />
     <input class="btn btn-success ml-sm-4" type="button" id="buildClass-e" value="Build Class" />
 
   </form>
