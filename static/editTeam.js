@@ -25,7 +25,7 @@ $(document).ready(function () {
         rows = parseInt(tempName.split("-")[3]);
         cols = parseInt(tempName.split("-")[4].split(".")[0]);
         console.log(rows,cols);
-        teamName = tempName;
+        teamName = tempName.split("-")[2];
 
         roomID = tempName.split("-")[1];
         var table = document.createElement('table');
@@ -72,6 +72,7 @@ $(document).ready(function () {
                             if (cellRight){
                                 cell.classList.toggle("aisleRight");
                                 cellRight = false;
+                                break
                             }else{
                                 cell.classList.toggle("aisleLeft");
                                 cellRight = true;
@@ -128,12 +129,12 @@ $(document).ready(function () {
                 if (i == 4 || i == 6) {
                     opt1.innerHTML = 'Groups of ' + i + " (1 x " + i + " )";
                     opt2.innerHTML = 'Groups of ' + i + " (2 x " + i / 2 + " )";
-                    document.getElementById('dropdown').appendChild(opt1);
-                    document.getElementById('dropdown').appendChild(opt2);
+                    document.getElementById('dropdown-e').appendChild(opt1);
+                    document.getElementById('dropdown-e').appendChild(opt2);
                 }
                 else {
                     opt1.innerHTML = 'Groups of ' + i;
-                    document.getElementById('dropdown').appendChild(opt1);
+                    document.getElementById('dropdown-e').appendChild(opt1);
 
                 }
             }
@@ -231,7 +232,7 @@ $(document).ready(function () {
         }, 1000);
         document.getElementById('notice').innerHTML = 'Team changes saved.'
         setTimeout(function () {
-            document.getElementById('notice').innerHTML = ''
+            document.getElementById('notice').innerHTML = 'team save failed'
         }, 2000);
     }
     document.getElementById("removeTeam-e").onclick = function () {
@@ -282,7 +283,7 @@ $(document).ready(function () {
     // Automatically add teams based on user selection
     document.getElementById('autoAdd-e').onclick = function () {
 
-        var select = document.getElementById('dropdown');
+        var select = document.getElementById('dropdown-e');
         var idx = select.selectedIndex;
         var selectedOption = select.options[idx];
         var teamSize = selectedOption.value;

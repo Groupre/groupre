@@ -334,7 +334,7 @@ $(document).ready(function(){
         }, 1000);
         document.getElementById('message').innerHTML = 'Class template saved.'
         setTimeout(function(){
-            document.getElementById('message').innerHTML = ''
+            document.getElementById('message').innerHTML = 'save failed'
         }, 2000);
     }
 

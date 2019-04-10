@@ -284,7 +284,7 @@ def create_team():
     roomFiles = {}
     for rFile in os.listdir(CLASSROOMS_DIR):
         if '.json' in rFile:
-            rKey = rFile.split('-')[2] 
+            rKey = rFile.split('-')[1] 
             roomFiles[rKey]= rFile
     return render_template('chooseTeam.html', roomFiles = roomFiles , title = "Create teams")
 @application.route("/team-edition")

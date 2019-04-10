@@ -215,7 +215,7 @@ $(document).ready(function () {
         }, 1000);
         document.getElementById('notice').innerHTML = 'Team changes saved.'
         setTimeout(function () {
-            document.getElementById('notice').innerHTML = ''
+            document.getElementById('notice').innerHTML = 'Set changes failed'
         }, 2000);
     }
     document.getElementById("removeTeam").onclick = function () {
