@@ -49,8 +49,6 @@ $(document).ready(function () {
                 }
                 cell.id = r + ',' + c;
 
-                cell.innerHTML = cell.id;
-                // cell.innerHTML = ''
                 row.appendChild(cell);
                 //retrieve multiple attributes
                 var attrb = template[index].slice(2, template[index].length);
@@ -171,6 +169,21 @@ $(document).ready(function () {
         team.id = "team" + teamNum;
         teamNum += 1;
         // document.getElementById("teamList").appendChild(team);
+
+        cells = table.getElementsByTagName("td");
+        for (var i = 0; i < cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.remove("highlight");
+        }
+    }
+    document.getElementById("brokenButton-e").onclick = function () {
+        var table = document.getElementById("dataTable");
+        var cells = table.getElementsByClassName("highlight");
+
+        for (var i = 0; i < cells.length; i++) {
+            var cell = cells[i];
+            cell.classList.toggle("broken");
+        }
 
         cells = table.getElementsByTagName("td");
         for (var i = 0; i < cells.length; i++) {
