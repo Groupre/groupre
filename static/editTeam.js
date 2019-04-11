@@ -43,10 +43,11 @@ $(document).ready(function () {
                 var teamNum = template[index][1];
 
                 if (teamNum != " "){
-                    cell.id = teamNum
+                    cell.innerHTML = teamNum;
                 }else{
-                    cell.id = r + ',' + c;
+                    cell.innerHTML = r + ',' + c;
                 }
+                cell.id = r + ',' + c;
 
                 cell.innerHTML = cell.id;
                 // cell.innerHTML = ''
