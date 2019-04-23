@@ -200,7 +200,9 @@ def selectRoom():
     for cFile in os.listdir(CHAIRS_DIR):
         if '.csv' in cFile:
             cValue = cFile.split('.csv')[0]
-            cKey = cValue.split('-')[2:]
+            cKey = cValue.split('-')
+            # print(cKey)
+            cKey = cKey[2:]
             roomID = cKey[0].title()
             capacity = ' ' + str(int(cKey[1]) * int(cKey[2])) + ' Students'
             cKey = roomID + capacity
