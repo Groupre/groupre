@@ -13,6 +13,7 @@ from werkzeug.utils import secure_filename
 # import src.main as groupre_test
 #import src.groupre.helpers.postem as postem
 
+## Define directory
 UPLOAD_FOLDER = os.getcwd() + '/uploads/'
 ALLOWED_EXTENSIONS = set(['csv'])
 
@@ -39,12 +40,11 @@ def allowed_file(filename):
     return '.' in filename and filename.split('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def run_groupre(students, chairs):
+    #generate output name
     output_name = UPLOAD_FOLDER + 'output/' + \
     str(randint(1000000, 9999999)) + '' + \
     str(randint(1000000, 9999999)) + '.csv'
-    # arguments = ['--chairs', chairs, '--students',
-    #              students, '--output', output_name]
-    # groupre.main(arguments)
+    #runs groupre cli and get the output
     arguments = 'python3.7 ./src/groupre.py -c {} -s {} -o {}'.format(chairs,students,output_name)
     os.system(arguments)
     return output_name
@@ -52,9 +52,6 @@ def run_groupre_test (students, chairs):
     output_name = UPLOAD_FOLDER + 'output/' + \
     str(randint(1000000, 9999999)) + '' + \
     str(randint(1000000, 9999999)) + '.csv'
-    # arguments = ['--chairs', chairs, '--students',
-    #              students, '--output', output_name]
-    # groupre.main(arguments)
     arguments = 'python3.7 ./src/test.py -c {} -s {} -o {}'.format(chairs,students,output_name)
     os.system(arguments)
     return output_name
@@ -63,22 +60,6 @@ def run_test(students, row_count):
     main_dir = os.path.dirname(os.path.realpath(__file__))
     test_location = os.path.join(main_dir, 'uploads/')
     chairs = os.path.join(main_dir, 'src/python/chairs/')
-    # currently, this function will find a seat based on the amount of rows
-    # if 'fallback' in students:
-    #     chairs = os.path.join(
-    #         main_dir, 'static/test/testFiles/fallback/chairs_fallback.csv')
-    #     return run_groupre(students, chairs)
-    # if row_count <= 101:
-    #     chairs = os.path.join(chairs, 'test_chairs_demo_100.csv')
-    # elif row_count <= 401:
-    #     chairs = os.path.join(chairs, 'test_chairs_demo_400.csv')
-    # elif row_count <= 1001:
-    #     chairs = os.path.join(chairs, 'test_chairs_demo_1000.csv')
-    # else:
-    #     # only for testing responses
-    #     chairs = os.path.join(chairs, 'test_chairs_1.csv')
-    #     students = os.path.join(test_location, 'test_students_1.csv')
-    #     output_name = os.path.join(UPLOAD_FOLDER, 'test_output_1.csv')
     return run_groupre(students, chairs)
 
 def _json_object_hook(d):
@@ -101,6 +82,10 @@ def make_tree(path):
                 tree['children'].append(dict(name=name))
     return tree
 
+'''
+Home dir
+    displays all the buttons for navigation
+'''
 @application.route("/")
 def hello():
     return render_template('index.html', title = "Home")
@@ -111,53 +96,12 @@ def docs():
     path = os.path.dirname(os.path.realpath(__file__)) + '/static/docs/archive'
     return render_template('dirtree.html', tree=make_tree(path))
 
-
-@application.route('/template/<string:jsonName>',methods = ['GET','POST'])
-def retrieve_file(jsonName):
-    # returns json files to javascript
-    filepath =CLASSROOMS_DIR + jsonName
-    with open(filepath, 'r') as f:
-        jdata = json.load(f)
-    return render_template('groupreTeam.html', jdata = jdata , name = jsonName, title = "Create Team")
-
-@application.route('/chair/<string:jsonName>',methods = ['GET','POST'])
-def retrieve_team(jsonName):
-    # returns json files to javascript
-    jdata = []
-    filepath =CHAIRS_DIR + jsonName
-    print(filepath)
-    with open(filepath, 'r') as f:
-        csvReader = csv.reader(f)
-        for row in csvReader:
-            jdata.append(row)
-        # jdata = json.load(jdata)
-    return render_template('editTeam.html', jdata = jdata , name = jsonName, title = "Edit Team")
-
-@application.route('/class/<string:jsonName>',methods = ['GET','POST'])
-def retrieve_class(jsonName):
-    # returns json files to javascript
-    filepath =CLASSROOMS_DIR + jsonName
-    with open(filepath, 'r') as f:
-        jdata = json.load(f)
-    return render_template('editClass.html', jdata = jdata , name = jsonName, title = "Edit Template")
-
-  
 @application.route('/upload/<string:roomID>', methods=['GET', 'POST'])
 def upload_file(roomID):
     # This is options for grouping
     fallback = False
-    # gender = False
-    # mHighLow = False
-    # mAverage = False
     test = False
     if request.method == 'POST':
-        # check if any of the options were checked for groupre
-        # if (request.form.get('teamOpt') == "gender"):
-        #     gender = True
-        # elif (request.form.get('teamOpt') == "highlow"):
-        #     mHighLow = True
-        # elif (request.form.get('teamOpt') == "average"):
-        #     mAverage = True
         if (request.form.get('teamOpt')) == 'test':
             test = True
         if 'file' not in request.files:
@@ -193,7 +137,9 @@ def upload_file(roomID):
             output_name = output_name.split('/')[-1].split('.', 1)[0]
             return redirect('/metrics/' + output_name)
     return render_template('upload.html', title = "Loaded " + str(roomID))
-
+'''
+Room selection page for running the groupre program with a student.csv
+'''
 @application.route("/room-select")
 def selectRoom():
     chairFiles = {}
@@ -201,15 +147,15 @@ def selectRoom():
         if '.csv' in cFile:
             cValue = cFile.split('.csv')[0]
             cKey = cValue.split('-')
-            # print(cKey)
             cKey = cKey[2:]
             roomID = cKey[0].title()
             capacity = ' ' + str(int(cKey[1]) * int(cKey[2])) + ' Students'
             cKey = roomID + capacity
-            # cKey = '-'.join(cValue.split('-')[2:]).title()
             chairFiles.update({cKey:cValue})
     return render_template("room.html", chairFiles=chairFiles, title = "Run Groupre")
-
+'''
+Compute some metrics about the matching
+'''
 @application.route("/metrics/<string:output_name>")
 def metrics(output_name):
     metrics = UPLOAD_FOLDER + 'output/' + output_name + '-metrics.txt'
@@ -225,7 +171,9 @@ def metrics(output_name):
         return render_template("metrics.html", output_name=output_name, metrics=metrics , title = "Metrics result")
     except FileNotFoundError:
         return render_template("metrics.html", output_name=output_name, title = "Metrics result")
-
+'''
+Allows webapp to locate the output file and download it to user's computer
+'''
 @application.route("/download/<string:output_name>", methods=['POST'])
 def downloadcsv(output_name):
     if "room-" in output_name:
@@ -266,6 +214,56 @@ def downloadcsv(output_name):
         mimetype="text/csv",
         headers={"Content-disposition":
                  "attachment; filename=" + output_name})
+                 
+'''
+Retrieves room template back to team-creation for creating teams
+'''
+@application.route('/template/<string:jsonName>',methods = ['GET','POST'])
+def retrieve_file(jsonName):
+    # returns json files to javascript
+    filepath =CLASSROOMS_DIR + jsonName
+    with open(filepath, 'r') as f:
+        jdata = json.load(f)
+    return render_template('groupreTeam.html', jdata = jdata , name = jsonName, title = "Create Team")
+'''
+Retrieves final room template back to team-edition for editing teams
+'''
+@application.route('/chair/<string:jsonName>',methods = ['GET','POST'])
+def retrieve_team(jsonName):
+    # returns json files to javascript
+    jdata = []
+    filepath =CHAIRS_DIR + jsonName
+    print(filepath)
+    with open(filepath, 'r') as f:
+        csvReader = csv.reader(f)
+        for row in csvReader:
+            jdata.append(row)
+        # jdata = json.load(jdata)
+    return render_template('editTeam.html', jdata = jdata , name = jsonName, title = "Edit Team")
+'''
+Retrieves classroom template back to room-creation for editing rooms
+'''
+@application.route('/class/<string:jsonName>',methods = ['GET','POST'])
+def retrieve_class(jsonName):
+    # returns json files to javascript
+    filepath =CLASSROOMS_DIR + jsonName
+    with open(filepath, 'r') as f:
+        jdata = json.load(f)
+    return render_template('editClass.html', jdata = jdata , name = jsonName, title = "Edit Template")
+
+
+'''
+room creation dir
+    An interface for create a customized classroom. 
+    It allows the user to create template of classes
+'''
+@application.route("/room-creation")
+def create_room():
+    return render_template('groupreHome.html', title = "Create room")
+
+'''
+chooses the existing classroom template for edit
+'''
 # directs to a page that allows user to decide wheather to change template or make new
 @application.route("/editTemplate")
 def changeTemplate():
@@ -277,10 +275,11 @@ def changeTemplate():
 
     return render_template('chooseClass.html', roomFiles = roomFiles, title = "Edit Room")
 
-
-@application.route("/room-creation")
-def create_room():
-    return render_template('groupreHome.html', title = "Create room")
+'''
+Team creation dir
+    An interface for create group of seat in a classroom. 
+    It allows the user to create template of teams in a classroom.json
+'''
 @application.route("/team-creation")
 def create_team():
     roomFiles = {}
@@ -289,25 +288,21 @@ def create_team():
             rKey = rFile.split('-')[1] 
             roomFiles[rKey]= rFile
     return render_template('chooseTeam.html', roomFiles = roomFiles , title = "Create teams")
+'''
+Edit team dir
+    An interface same as the team creation but it allows user to edit chairs.csv
+'''
 @application.route("/team-edition")
 def edit_team():
-    # chairFiles = {}
-    # for cFile in os.listdir(CHAIRS_DIR):
-    #     if '.csv' in cFile:
-    #         cValue = cFile.split('.csv')[0]
-    #         cKey = cValue.split('-')[2:]
-    #         roomID = cKey[0].title()
-    #         capacity = ' ' + str(int(cKey[1]) * int(cKey[2])) + ' Students'
-    #         cKey = roomID + capacity
-    #         # cKey = '-'.join(cValue.split('-')[2:]).title()
-    #         chairFiles.update({cKey:cValue})
     roomFiles = {}
     for rFile in os.listdir(CHAIRS_DIR):
         if '.csv' in rFile:
             rKey = rFile.split('-')[2] 
             roomFiles[rKey]= rFile
     return render_template('chooseEditTeams.html', roomFiles = roomFiles , title = "Edit teams")
-
+'''
+Saves final room with group information in /uploads/chairs
+'''
 @application.route("/room-saver", methods=['POST'])
 def saveRoom():
     content = request.get_json()
@@ -323,7 +318,9 @@ def saveRoom():
         for row in content:
             writer.writerow(row)
     return "saved room"
-#saves json file from class builder to upload
+'''
+Saves class templates in /uploads/classrooms
+'''
 @application.route("/class-saver", methods=['POST'])
 def saveClass():
     content = request.get_json()
