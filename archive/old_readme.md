@@ -6,7 +6,7 @@ Welcome to the groupre GitHub repository!
 
 Groupre is a program written in python meant to allow fast, automated matching of students to chairs based on student preferences, professor settings, and chair attributes.
 
-As a result of being created within the [Software Engineering Lab][COMP 523] course at the [University of North Carolina at Chapel Hill][UNC-CH], this repository contains the groupre python source code as well as the web implementation for professor use of it at UNC-CH. The current web-app locations can be found at our website [groupre.cs.unc.edu][website].
+As a result of being created within the [Software Engineering Lab][COMP 523] course at the [University of North Carolina at Chapel Hill][UNC-CH], this repository contains the groupre python source code as well as the web implementation for professor use of it at UNC-CH. The current web-app locations can be found at our [master][CloudApps-master] and [develop][CloudApps-develop] sites hosted on [Carolina CloudApps][Carolina CloudApps].
 
 ## Documentation
 
@@ -18,8 +18,9 @@ In the event that the master documentation is not up to date, you can view the d
 
 ### Prerequisites
 
-* [Python 3.7][Python3]
+* [Python 3.6][Python3]
 
+<br>
 
 ### General Information
 
@@ -106,6 +107,44 @@ You can uninstall the module by calling the following in your terminal emulator 
 python setup.py develop --user -u
 ```
 
+<br>
+
+### Carolina CloudApps
+
+When deploying to [Carolina CloudApps][Carolina CloudApps] (the deployment target for this repository) installing and using groupre is relatively straight-forward. All that is required is including a *requirements.txt* file in the root directory of the repository that is cloned for a particular CloudApps application.
+
+Here is what our repository's *requirements.txt* looks like:
+
+```pip requirements
+gunicorn
+Flask
+src/groupre/
+```
+
+With this, you can easily tell that our [Carolina CloudApps][Carolina CloudApps] deployment utilizes *[gunicorn][gunicorn]* and *[Flask][Flask]* as our web-wrapper around the groupre module.
+
+Here is an example of a basic [Carolina CloudApps][Carolina CloudApps] setup:
+
+1. Go to your [Carolina CloudApps' Console][CloudApps_console].
+2. Create a **Python 3** application by using the *"Add to Project"* menu in the top nav-bar and going to *"Browse Catalog"*, then selecting *"Python"* and ensuring that you are using the **latest available Python 3 version** before clicking *"Select"*.
+3. Give the application a descriptive name, and then point it to the particular repository you want to use for the application. In our case, we use the master and develop branches of the groupre repository for our stable and developer deployments.
+
+The server available on our repository will attempt to upload room information for a classroom to a folder in the root directory called *"/chairs"*. This path is used by persistent storage to ensure that room-information is not lost upon rebuild.
+
+To add persistent storage to your [Carolina CloudApps][Carolina CloudApps] deployment, follow the following steps:
+
+1. Navigate to your deployment in the [Carolina CloudApps' Console][CloudApps_console].
+2. Select *“Create Storage”* from the *“Storage”* menu on the left. Set the size of your storage to something that could store a number of small files (e.g 2-5 GiB).
+3. Select *“Deployment”* from the *“Applications”* menu on the left. Select your deployment of groupre.
+4. Select *“Add Storage”* in the menu on the top right. And specify the following path under Mount Path: *"/chairs"*.
+5. Click *“Add”* to confirm.
+
+For additional information on dealing with persistent storage, read up on increaing your storage volume in the [CloudApps Documentation][CloudAppsStorage_help].
+
+Since [Carolina CloudApps][Carolina CloudApps] is based on [OpenShift][OpenShift], the process for deploying to an [OpenShift][OpenShift] target platform should be relatively similar.
+
+If you have pushed a change and wish to view the updated site on [Carolina CloudApps][Carolina CloudApps], simply rebuild the application that uses the branch you updated by using the menu button on the right of the element that corresponds to that application in the *"Overview"* section of the console.
+
 ### Developing with Flask
 
 Developers looking to modify html files need to look in the *templates* directory. All other relevant files can be found (and should be stored) in the *static* directory.
@@ -146,5 +185,4 @@ View our chosen [LICENSE][license_file] file for details.
 [license_file]: https://github.com/jeyerena/ClassTeamBuilder/blob/master/LICENSE
 [Python3]: https://www.python.org/downloads/
 [gunicorn]: http://gunicorn.org/
-[website]: http://groupre.cs.unc.edu
 <!-- End References -->
