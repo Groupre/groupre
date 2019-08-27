@@ -41,6 +41,7 @@ def placeStudents(student_list, chair_list):
     VIPs = []
     nonVIPs = []
     noPrefs = []
+    #split students up into 3 categories
     for student in student_list:
         if student.is_VIP:
             VIPs.append(student)
@@ -53,9 +54,9 @@ def placeStudents(student_list, chair_list):
                 noPrefs.append(student)
             else:
                 nonVIPs.append(student)
+    #sort each categories
     sortByPrefs(VIPs)
     sortByPrefs(nonVIPs)
-
     sortByPrefs(chair_list)
 
     # find perfect match in VIP list as first priority
@@ -142,10 +143,7 @@ def main(argv):
     students_csv: str = parsed_args.students
     output_csv: str = parsed_args.output
 
-#    print('Arguments: Chairs {}, Students {}, Output {}'.format(
-#        parsed_args.chairs, parsed_args.students, parsed_args.fallback,
-#        parsed_args.gender, parsed_args.output))
-
+    #file error checking
     if chairs_csv is None:
         print('Missing chairs input file.')
         return
@@ -169,6 +167,7 @@ def main(argv):
     chair_list = []
     student_list = []
     
+    #read chair file
     with open(chairs_csv, 'r') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         first_line = True
@@ -180,7 +179,7 @@ def main(argv):
                     chair_list.append(Chair(row[0],[]))
                 else:
                     chair_list.append(Chair(row[0], row[2:]))
-
+    #read student file
     with open(students_csv, 'r') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         first_line = True
@@ -209,10 +208,7 @@ if __name__ == '__main__':
     # Benchmark timer start.
     time.process_time
     print('----------')
-
-    # When importing groupre, you can provide arguments by calling it as such:
-    #   groupre.main('groupre.py', ARGS)
-
+    
     main(sys.argv)
 
     # Benchmark timer end.
