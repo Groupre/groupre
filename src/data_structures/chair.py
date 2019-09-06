@@ -1,7 +1,8 @@
 class Chair:
     """A class dedicated to storing the attributes of a given Chair."""
 
-    chair_id: int = None
+    chair_id: str = None
+    group_id: int = None
     front: bool = False
     back: bool = False
     fronti: bool = False
@@ -18,9 +19,10 @@ class Chair:
     numPref = 0
     taken :bool = False
 
-    def __init__(self, chair_id, preferences):
+    def __init__(self, chair_id,group_id, preferences):
         self.prefs = [0,0,0]
         self.numPref = 0
+        self.group_id = group_id
         self.chair_id = chair_id
         if "f" in preferences:
             self.front = True
