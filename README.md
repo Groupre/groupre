@@ -1,3 +1,4 @@
+# Groupre's development has been moved from Github to Gitlab: https://gitlab.com/unc-cs-toolsmiths/groupre
 # groupre
 
 Welcome to the groupre GitHub repository!
